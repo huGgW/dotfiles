@@ -54,3 +54,6 @@ user_pref("toolkit.scrollbox.verticalScrollDistance",                      3);//
 // AveYo: uncomment for something more sharper, then fiddle with these going lower for smoothness:
 //user_pref("general.smoothScroll.msdPhysics.motionBeginSpringConstant",  1250);
 //user_pref("general.smoothScroll.msdPhysics.regularSpringConstant",      1000);
+
+// For using userChrome.css
+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets",                      true);//NSS      [false]
