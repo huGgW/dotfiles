@@ -13,6 +13,9 @@
 #main-window[titlepreface*="[S] "][tabsintitlebar="true"] #nav-bar {
   margin-right: 137px;
 }
+#main-window[titlepreface*="[S] "][tabsintitlebar="true"] #nav-bar {
+  margin-left: 20px;
+}
 #main-window[titlepreface*="[S] "] #titlebar-spacer {
   background-color: var(--chrome-secondary-background-color);
 }
