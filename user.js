@@ -41,6 +41,7 @@ user_pref("mousewheel.system_scroll_override.vertical.factor",           200);//
 user_pref("mousewheel.transaction.timeout",                             1500);//NSS   [1500]
 user_pref("toolkit.scrollbox.horizontalScrollDistance",                    4);//NSS      [5]
 user_pref("toolkit.scrollbox.verticalScrollDistance",                      3);//NSS      [3]
+user_pref("gfx.font_rendering.cleartype_params.rendering_mode",            5);//NSS      [3]
 ///  this preset will reset couple extra variables for consistency
 ///  copy into your firefox profile as user.js, add to existing one or edit via about:config
 
