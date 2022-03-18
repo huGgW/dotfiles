@@ -2,6 +2,13 @@
 set number
 syntax on
 
+
+" Allow crosshair cursor highlighting.
+hi CursorLine   cterm=NONE ctermbg=0
+hi CursorColumn cterm=NONE ctermbg=0
+nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+
+
 " For Tab autocompletion (requires asyncomplete plugin)
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -9,6 +16,7 @@ inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 " If you prefer the enter key to always insert a new line even if a popup menu
 " is visible, enable below line
 " inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() . '\<cr>" : '\<cr>"
+
 
 " Plugins (Install the vim-plug)
 call plug#begin()
@@ -58,6 +66,27 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'mattn/vim-lsp-settings'
+
+
+" NERD Commenter
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Set a language to use its alternate delimiters by default
+" let g:NERDAltDelims_java = 1
+" Add your own custom formats or override the defaults
+" let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+" customize keymapping
+" map <Leader>cc <plug>NERDComToggleComment
+" map <Leader>c<space> <plug>NERDComComment
+
 
 " For Specific Languages
 " Bluespec
