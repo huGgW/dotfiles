@@ -2,12 +2,22 @@
 set number
 syntax on
 
-
 " Allow crosshair cursor highlighting.
 hi CursorLine   cterm=NONE ctermbg=0
 hi CursorColumn cterm=NONE ctermbg=0
-nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+set cursorline
+set cursorcolumn
+" If you prefer to toggle cursorline use below
+" nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 
+" For Indentation set to 4 spaces
+set tabstop=4 "Sets indent size of tabs"
+set softtabstop=4 "Soft tabs"
+set expandtab "Turns tabs into spaces"
+set shiftwidth=4 "Sets auto-indent size"
+set autoindent "Turns on auto-indenting"
+set copyindent "Copy the previous indentation on autoindenting"
+set smartindent "Remembers previous indent when creating new lines"
 
 " For Tab autocompletion (requires asyncomplete plugin)
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -89,6 +99,7 @@ let g:NERDTrimTrailingWhitespace = 1
 
 
 " For Specific Languages
+
 " Bluespec
 Plug 'mtikekar/vim-bsv'
 
