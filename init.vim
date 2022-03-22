@@ -38,8 +38,8 @@ call plug#begin()
 "   - e.g. `call plug#begin('~/.vim/plugged')`
 "   - Avoid using standard Vim directory names like 'plugin'
 
-" Supertab
-Plug 'ervandew/supertab'
+" VimCompletesMe
+Plug 'ackyshake/VimCompletesMe'
 
 " Rainbow Parenthesis
 Plug 'nvie/vim-flake8'
@@ -105,6 +105,10 @@ let g:NERDTrimTrailingWhitespace = 1
 " map <Leader>c<space> <plug>NERDComComment
 
 
+" VimCompletesMe
+" Ocaml
+autocmd FileType ocaml let b:vcm_tab_complete = "omni"
+
 " Syntastic
 " For merlin support
 let g:syntastic_ocaml_checkers = ['merlin']
@@ -121,5 +125,3 @@ call plug#end()
 " merlin
 let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
 execute "set rtp+=" . g:opamshare . "/merlin/vim"
-" supertab merlin support
-au FileType ocaml call SuperTabSetDefaultCompletionType("<c-x><c-o>")
