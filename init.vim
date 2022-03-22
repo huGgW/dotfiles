@@ -75,8 +75,8 @@ Plug 'majutsushi/tagbar'
 " Syntastic
 Plug 'vim-syntastic/syntastic'
 
-" neoscroll.vim for smooth scroll
-Plug 'karb94/neoscroll.nvim'
+" vim-smoothie for smooth scroll
+Plug 'psliwka/vim-smoothie'
 
 " For lsp server
 " for help, go to https://medium.com/@pttlens/vim%EC%9D%84-%EC%97%90%EB%94%94%ED%84%B0%EB%A1%9C-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0-2-ide%EB%A1%9C-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0-e04564fedb9e
@@ -114,7 +114,6 @@ autocmd FileType ocaml let b:vcm_tab_complete = "omni"
 " Syntastic
 " For merlin support
 let g:syntastic_ocaml_checkers = ['merlin']
-
 
 " For Specific Languages
 
