@@ -114,6 +114,8 @@ autocmd FileType ocaml let b:vcm_tab_complete = "omni"
 " Syntastic
 " For merlin support
 let g:syntastic_ocaml_checkers = ['merlin']
+" syntastic mode for types
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ocaml']}
 
 " For Specific Languages
 
