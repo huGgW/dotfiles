@@ -32,7 +32,7 @@ call plug#begin()
 
 
 " Rainbow Parenthesis
-Plug 'nvie/vim-flake8'
+Plug 'frazrepo/vim-rainbow'
 
 " Line for indentation
 Plug 'nathanaelkane/vim-indent-guides'
@@ -76,10 +76,10 @@ Plug 'mtikekar/vim-bsv'
 
 " Ocaml
 " Syntastic
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
 
 " VimCompletesMe
-Plug 'ackyshake/VimCompletesMe'
+" Plug 'ackyshake/VimCompletesMe'
 
 call plug#end()
 
@@ -106,20 +106,20 @@ let g:NERDTrimTrailingWhitespace = 1
 
 " VimCompletesMe
 " Ocaml
-autocmd FileType ocaml let b:vcm_tab_complete = "omni"
+" autocmd FileType ocaml let b:vcm_tab_complete = "omni
 
 " Syntastic
 " For merlin support
-let g:syntastic_ocaml_checkers = ['merlin']
+" let g:syntastic_ocaml_checkers = ['merlin']
 " syntastic mode for types
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ocaml']}
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ocaml']}
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
 
 " For Specific Languages
