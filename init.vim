@@ -84,6 +84,9 @@ Plug 'mtikekar/vim-bsv'
 call plug#end()
 
 
+" Rainbow Parenthesis
+let g:rainbow_active = 1
+
 " NERD Commenter
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
