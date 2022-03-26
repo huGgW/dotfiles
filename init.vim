@@ -19,6 +19,14 @@ set autoindent "Turns on auto-indenting"
 set copyindent "Copy the previous indentation on autoindenting"
 set smartindent "Remembers previous indent when creating new lines"
 
+" For Tab autocompletion (requires asyncomplete plugin)
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+" If you prefer the enter key to always insert a new line even if a popup menu
+" is visible, enable below line
+" inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() . '\<cr>" : '\<cr>"
+
 
 " Plugins (Install the vim-plug)
 call plug#begin()
@@ -30,6 +38,8 @@ call plug#begin()
 "   - e.g. `call plug#begin('~/.vim/plugged')`
 "   - Avoid using standard Vim directory names like 'plugin'
 
+" VimCompletesMe
+Plug 'ackyshake/VimCompletesMe'
 
 " Rainbow Parenthesis
 Plug 'frazrepo/vim-rainbow'
@@ -65,23 +75,25 @@ Plug 'majutsushi/tagbar'
 " vim-smoothie for smooth scroll
 Plug 'psliwka/vim-smoothie'
 
-" coc.nvim (for using lsp server)
-" required to install nodejs >= 12.12
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" For lsp server
+" for help, go to https://medium.com/@pttlens/vim%EC%9D%84-%EC%97%90%EB%94%94%ED%84%B0%EB%A1%9C-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0-2-ide%EB%A1%9C-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0-e04564fedb9e
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'mattn/vim-lsp-settings'
 
+" For Specific Languages
 
 " Bluespec
 Plug 'mtikekar/vim-bsv'
 
-
 " Ocaml
 " Syntastic
-" Plug 'vim-syntastic/syntastic'
-
-" VimCompletesMe
-" Plug 'ackyshake/VimCompletesMe'
+Plug 'vim-syntastic/syntastic'
 
 call plug#end()
+
 
 
 " Rainbow Parenthesis
@@ -106,26 +118,15 @@ let g:NERDTrimTrailingWhitespace = 1
 " map <Leader>cc <plug>NERDComToggleComment
 " map <Leader>c<space> <plug>NERDComComment
 
-
 " VimCompletesMe
 " Ocaml
-" autocmd FileType ocaml let b:vcm_tab_complete = "omni
+autocmd FileType ocaml let b:vcm_tab_complete = "omni"
 
 " Syntastic
 " For merlin support
-" let g:syntastic_ocaml_checkers = ['merlin']
+let g:syntastic_ocaml_checkers = ['merlin']
 " syntastic mode for types
-" let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ocaml']}
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-
-
-" For Specific Languages
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ocaml']}
 
 
 " For Ocaml Merlin
