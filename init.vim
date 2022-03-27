@@ -10,6 +10,9 @@ set cursorcolumn
 " If you prefer to toggle cursorline use below
 " nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 
+" Enable mouse support
+set mouse=a
+
 " For Indentation set to 4 spaces
 set tabstop=4 "Sets indent size of tabs"
 set softtabstop=4 "Soft tabs"
@@ -98,6 +101,10 @@ call plug#end()
 
 " Rainbow Parenthesis
 let g:rainbow_active = 1
+let g:rainbow_load_separately = [
+            \ [ '*' , [['(', ')'], ['\[', '\]'], ['{', '}'], ['begin', 'end']]],
+            \ [ '*.bsv' , [['(', ')'], ['\[', '\]'], ['{', '}'], ['begin', 'end'], ['case', 'endcase'], ['method', 'endmethod'], ['rule', 'endrule']]]
+            \ ]
 
 " NERD Commenter
 " Add spaces after comment delimiters by default
