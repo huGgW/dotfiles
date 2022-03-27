@@ -41,8 +41,6 @@ call plug#begin()
 "   - e.g. `call plug#begin('~/.vim/plugged')`
 "   - Avoid using standard Vim directory names like 'plugin'
 
-" VimCompletesMe
-Plug 'ackyshake/VimCompletesMe'
 
 " Rainbow Parenthesis
 Plug 'frazrepo/vim-rainbow'
@@ -97,6 +95,8 @@ Plug 'mtikekar/vim-bsv'
 " Ocaml
 " Syntastic
 Plug 'vim-syntastic/syntastic'
+" VimCompletesMe
+Plug 'ackyshake/VimCompletesMe'
 
 call plug#end()
 
@@ -136,14 +136,32 @@ let g:NERDTrimTrailingWhitespace = 1
 
 " VimCompletesMe
 " Ocaml
-autocmd FileType ocaml let b:vcm_tab_complete = "omni"
+" autocmd FileType ocaml let b:vcm_tab_complete = "omni"
 
 " Syntastic
 " For merlin support
-let g:syntastic_ocaml_checkers = ['merlin']
+" let g:syntastic_ocaml_checkers = ['merlin']
 " syntastic mode for types
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ocaml']}
+" let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ocaml']}
 
+" Lsp Settings
+if executable('bash-language-server')
+  augroup LspBash
+    autocmd!
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'bash-language-server',
+          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'bash-language-server start']},
+          \ 'allowlist': ['sh'],
+          \ })
+  augroup END
+endif
+if executable('ocaml-language-server')
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'ocaml-language-server',
+          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'opam config exec -- ocaml-language-server --stdio']},
+          \ 'whitelist': ['reason', 'ocaml'],
+          \ })
+endif
 
 " For Ocaml Merlin
 " merlin
