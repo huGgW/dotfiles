@@ -78,6 +78,9 @@ Plug 'majutsushi/tagbar'
 " vim-smoothie for smooth scroll
 Plug 'psliwka/vim-smoothie'
 
+" tmux airline
+Plug 'edkolev/tmuxline.vim'
+
 " For lsp server
 " for help, go to https://medium.com/@pttlens/vim%EC%9D%84-%EC%97%90%EB%94%94%ED%84%B0%EB%A1%9C-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0-2-ide%EB%A1%9C-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0-e04564fedb9e
 Plug 'prabirshrestha/async.vim'
@@ -97,7 +100,13 @@ Plug 'vim-syntastic/syntastic'
 
 call plug#end()
 
+" Airline Theme
+let g:airline_powerline_fonts=1
+let g:airline_theme='onedark'
 
+" Set tmuxline at start of tmux
+let g:airline#extensions#tmuxline#enabled = 1
+let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
 
 " Rainbow Parenthesis
 let g:rainbow_active = 1
