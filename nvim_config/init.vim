@@ -41,7 +41,6 @@ call plug#begin()
 "   - e.g. `call plug#begin('~/.vim/plugged')`
 "   - Avoid using standard Vim directory names like 'plugin'
 
-
 " Rainbow Parenthesis
 Plug 'frazrepo/vim-rainbow'
 
@@ -100,6 +99,7 @@ Plug 'ackyshake/VimCompletesMe'
 
 call plug#end()
 
+
 " Airline Theme
 let g:airline_powerline_fonts=1
 let g:airline_theme='onedark'
@@ -134,25 +134,18 @@ let g:NERDTrimTrailingWhitespace = 1
 " map <Leader>cc <plug>NERDComToggleComment
 " map <Leader>c<space> <plug>NERDComComment
 
-" VimCompletesMe
-" Ocaml
-" autocmd FileType ocaml let b:vcm_tab_complete = "omni"
-
-" Syntastic
-" For merlin support
-" let g:syntastic_ocaml_checkers = ['merlin']
-" syntastic mode for types
-" let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ocaml']}
+" GitGutter
+let g:gitgutter_enabled = 0
 
 " Lsp Settings
 " Error message on status
-let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_echo_cursor = 0
 
 " Error message on floating window
 let g:lsp_diagnostics_float_cursor = 1
 
 " Error message next to the code
-let g:lsp_diagnostics_virtual_text_enabled = 0
+let g:lsp_diagnostics_virtual_text_enabled = 1
 " Languages
 if executable('bash-language-server')
   augroup LspBash
