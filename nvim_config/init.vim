@@ -145,6 +145,15 @@ let g:NERDTrimTrailingWhitespace = 1
 " let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ocaml']}
 
 " Lsp Settings
+" Error message on status
+let g:lsp_diagnostics_echo_cursor = 1
+
+" Error message on floating window
+let g:lsp_diagnostics_float_cursor = 1
+
+" Error message next to the code
+let g:lsp_diagnostics_virtual_text_enabled = 0
+" Languages
 if executable('bash-language-server')
   augroup LspBash
     autocmd!
@@ -155,6 +164,7 @@ if executable('bash-language-server')
           \ })
   augroup END
 endif
+
 if executable('ocaml-language-server')
     au User lsp_setup call lsp#register_server({
           \ 'name': 'ocaml-language-server',
