@@ -146,7 +146,25 @@ let g:lsp_diagnostics_float_cursor = 1
 
 " Error message next to the code
 let g:lsp_diagnostics_virtual_text_enabled = 1
-" Languages
+
+" Lsp language that is supported by vim-lsp-settings
+let g:lsp_settings = {
+\   'pyls-all': {
+\       'pyls': {
+\           'settings': {
+\                   'pyls': {
+\                       'plugins': {
+\                           'pycodestyle': {
+\                               'enabled': false
+\                       }
+\                   }
+\               }
+\           }
+\       }
+\   }
+\}
+
+" Lsp language that is unsupported by vim-lsp-settings
 if executable('bash-language-server')
   augroup LspBash
     autocmd!
