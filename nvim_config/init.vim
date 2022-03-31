@@ -150,13 +150,14 @@ let g:lsp_diagnostics_virtual_text_enabled = 1
 " Lsp language that is supported by vim-lsp-settings
 let g:lsp_settings = {
 \   'pyls-all': {
-\       'pyls': {
-\           'settings': {
-\                   'pyls': {
-\                       'plugins': {
-\                           'pycodestyle': {
-\                               'enabled': false
-\                       }
+\       'workspace_config': {
+\           'pyls': {
+\               'plugins': {
+\                   'pycodestyle': {
+\                       'enabled': v:false
+\                   },
+\                   'pydocstyle': {
+\                       'enabled': v:false
 \                   }
 \               }
 \           }
