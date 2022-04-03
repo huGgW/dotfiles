@@ -1,7 +1,7 @@
 # Tmux startup
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-    tmux attach -t default || tmux new -s default
-fi
+# if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+#     tmux attach -t default || tmux new -s default
+# fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -132,3 +132,6 @@ LS_COLORS="ow=01;36;40" && export LS_COLORS
 
 # opam configuration
 test -r /home/whjoon0225/.opam/opam-init/init.zsh && . /home/whjoon0225/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
