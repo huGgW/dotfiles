@@ -44,6 +44,9 @@ call plug#begin()
 " Rainbow Parenthesis
 Plug 'frazrepo/vim-rainbow'
 
+" AutoComplete Parenthesis
+Plug 'Raimondi/delimitMate'
+
 " Line for indentation
 Plug 'nathanaelkane/vim-indent-guides'
 
@@ -107,6 +110,9 @@ let g:airline_theme='onedark'
 " Set tmuxline at start of tmux
 let g:airline#extensions#tmuxline#enabled = 1
 let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
+
+" delimitMate (AutoComplete Parenthesis)
+let delimitMate_expand_cr=1
 
 " Rainbow Parenthesis
 let g:rainbow_active = 1
