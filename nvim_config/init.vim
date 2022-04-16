@@ -145,13 +145,17 @@ let g:gitgutter_enabled = 0
 
 " Lsp Settings
 " Error message on status
-let g:lsp_diagnostics_echo_cursor = 0
+let g:lsp_diagnostics_echo_cursor = 1
 
 " Error message on floating window
 let g:lsp_diagnostics_float_cursor = 1
 
 " Error message next to the code
 let g:lsp_diagnostics_virtual_text_enabled = 1
+
+" Error highlighting
+let g:lsp_diagnostics_highlights_enabled = 1
+highlight link LspErrorHighlight Error
 
 " Lsp language that is supported by vim-lsp-settings
 let g:lsp_settings = {
