@@ -143,6 +143,7 @@ let g:NERDTrimTrailingWhitespace = 1
 " GitGutter
 let g:gitgutter_enabled = 0
 
+
 " Lsp Settings
 " Error message on status
 let g:lsp_diagnostics_echo_cursor = 0
@@ -158,6 +159,16 @@ let g:lsp_settings = {
 \   'pyls-all': {
 \       'workspace_config': {
 \           'pyls': {
+\               'plugins': {
+\                   'pycodestyle': {
+\                       'enabled': v:false
+\                   },
+\                   'pydocstyle': {
+\                       'enabled': v:false
+\                   }
+\               }
+\           },
+\           'pyls-ms': {
 \               'plugins': {
 \                   'pycodestyle': {
 \                       'enabled': v:false
