@@ -47,8 +47,8 @@ Plug 'frazrepo/vim-rainbow'
 " AutoComplete Parenthesis
 Plug 'Raimondi/delimitMate'
 
-" Line for indentation
-Plug 'nathanaelkane/vim-indent-guides'
+" multiple-cursors (like vscode)
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 " Highlight the copied (yanked) parts
 Plug 'machakann/vim-highlightedyank'
