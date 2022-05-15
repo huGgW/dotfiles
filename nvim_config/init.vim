@@ -81,6 +81,9 @@ Plug 'psliwka/vim-smoothie'
 " tmux airline
 Plug 'edkolev/tmuxline.vim'
 
+" detect indent
+Plug 'ciaranm/detectindent'
+
 " For lsp server
 " for help, go to https://medium.com/@pttlens/vim%EC%9D%84-%EC%97%90%EB%94%94%ED%84%B0%EB%A1%9C-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0-2-ide%EB%A1%9C-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0-e04564fedb9e
 Plug 'prabirshrestha/async.vim'
