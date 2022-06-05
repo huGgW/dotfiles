@@ -133,7 +133,10 @@ alias gfs="git fetch && git status"
 LS_COLORS="ow=01;36;40" && export LS_COLORS
 
 # opam configuration
-test -r /home/whjoon0225/.opam/opam-init/init.zsh && . /home/whjoon0225/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+test -r ~/.opam/opam-init/init.zsh && . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
+# iterm2 configuration for mac
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+# logo on start
+neofetch
