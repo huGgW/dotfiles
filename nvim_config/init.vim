@@ -91,6 +91,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Tagbar: class outline viewer
 Plug 'preservim/tagbar'
 
+" Tokyonight theme
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unused plugins (used in past configuration)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -139,6 +141,9 @@ let g:rainbow_load_separately = [
 " GitGutter
 let g:gitgutter_enabled = 0
 
+" colorscheme
+let g:tokyonight_style = 'storm'
+colorscheme tokyonight
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Coc.nvim Settings
 
