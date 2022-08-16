@@ -39,7 +39,7 @@ Plug 'frazrepo/vim-rainbow'
 
 " AutoComplete Parenthesis
 " Plug 'Raimondi/delimitMate'
-Plug 'cohama/lexima.vim'
+" Plug 'cohama/lexima.vim'
 
 " multiple-cursors (like vscode)
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
@@ -93,6 +93,10 @@ Plug 'preservim/tagbar'
 
 " Tokyonight theme
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+
+" css color
+Plug 'ap/vim-css-color'
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unused plugins (used in past configuration)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
