@@ -31,6 +31,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# PATH
+export PATH="$HOME/.local/bin:$PATH"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -45,6 +47,9 @@ alias gfs="git fetch && git status"
 
 # alias for docker rocm
 alias drun='sudo docker run -it --network=host --device=/dev/kfd --device=/dev/dri --group-add=video --ipc=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -v $HOME/dockerx:/dockerx -e HSA_OVERRIDE_GFX_VERSION=10.3.0'
+
+# fuck initialization
+eval $(thefuck --alias)
 
 # Set ls color (fix the odd color in wsl)
 LS_COLORS="ow=01;36;40" && export LS_COLORS
@@ -69,3 +74,4 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 # ROCm override
 export HSA_OVERRIDE_GFX_VERSION=10.3.0
+export AMDGPU_TARGETS="gfx1030"
