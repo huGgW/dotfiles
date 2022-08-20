@@ -123,6 +123,24 @@ call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" coc extensions
+let g:coc_global_extensions = [
+        \ 'coc-java',
+        \ 'coc-pyright',
+        \ 'coc-rust-analyzer',
+        \ 'coc-html',
+        \ 'coc-emmet',
+        \ 'coc-css',
+        \ 'coc-markdownlint',
+        \ 'coc-markdown-preview-enhanced',
+        \ 'coc-tsserver',
+        \ 'coc-webview',
+        \ 'coc-pairs',
+        \ 'coc-marketplace',
+      \ ]
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Airline Theme
 let g:airline_powerline_fonts=1
 let g:airline_theme='onedark'
