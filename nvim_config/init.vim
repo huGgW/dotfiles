@@ -4,9 +4,9 @@ syntax on
 
 " Allow crosshair cursor highlighting.
 hi CursorLine   cterm=NONE ctermbg=0
-hi CursorColumn cterm=NONE ctermbg=0
+" hi CursorColumn cterm=NONE ctermbg=0
 set cursorline
-set cursorcolumn
+" set cursorcolumn
 " If you prefer to toggle cursorline use below
 " nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 
@@ -97,6 +97,11 @@ Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 " css color
 Plug 'ap/vim-css-color'
 
+" indent line
+Plug 'yggdroot/indentline'
+
+" kotlin syntax highlighting
+Plug 'udalov/kotlin-vim'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unused plugins (used in past configuration)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -136,6 +141,7 @@ let g:coc_global_extensions = [
         \ 'coc-markdownlint',
         \ 'coc-markdown-preview-enhanced',
         \ 'coc-tsserver',
+        \ 'coc-kotlin',
         \ 'coc-webview',
         \ 'coc-pairs',
         \ 'coc-marketplace',
