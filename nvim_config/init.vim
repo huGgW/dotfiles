@@ -142,6 +142,7 @@ let g:coc_global_extensions = [
         \ 'coc-markdown-preview-enhanced',
         \ 'coc-tsserver',
         \ 'coc-kotlin',
+        \ 'coc-docker',
         \ 'coc-webview',
         \ 'coc-pairs',
         \ 'coc-marketplace',
