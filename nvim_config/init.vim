@@ -146,11 +146,12 @@ let g:coc_global_extensions = [
         \ 'coc-webview',
         \ 'coc-pairs',
         \ 'coc-marketplace',
+        \ 'coc-actions',
       \ ]
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Airline Theme
 let g:airline_powerline_fonts=1
-let g:airline_theme='onedark'
+let g:airline_theme='tomorrow'
 
 " Set tmuxline at start of tmux
 let g:airline#extensions#tmuxline#enabled = 1
@@ -171,8 +172,8 @@ let g:rainbow_load_separately = [
 let g:gitgutter_enabled = 0
 
 " colorscheme
-let g:tokyonight_style = 'storm'
-colorscheme tokyonight
+" let g:tokyonight_style = 'storm'
+colorscheme tokyonight-day
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Coc.nvim Settings
 

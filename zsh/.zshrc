@@ -4,13 +4,13 @@ neofetch
 # Initialize zplug
 source /usr/share/zsh/scripts/zplug/init.zsh
 
-zplug romkatv/powerlevel10k, as:theme, depth:1
+zplug "romkatv/powerlevel10k, as:theme, depth:1"
 
-zplug zsh-users/zsh-autosuggestions
+zplug "zsh-users/zsh-autosuggestions"
 
-zplug agkozak/zsh-z
+zplug "agkozak/zsh-z"
 
-zplug zsh-users/zsh-syntax-highlighting
+zplug "zdharma/fast-syntax-highlighting"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -33,6 +33,8 @@ fi
 
 # PATH
 export PATH="$HOME/.local/bin:$PATH"
+# Jetbrains Path
+export PATH="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -64,7 +66,7 @@ LS_COLORS="ow=01;36;40" && export LS_COLORS
 export MKL_DEBUG_CPU_TYPE=5
 
 # for flatpak appclication environment
-export XDG_DATA_DIRS=/var/lib/flatpak/exports/share:/home/whjoon0225/.local/share/flatpak/exports/share
+export XDG_DATA_DIRS="${XDG_DATA_DIRS}:/var/lib/flatpak/exports/share:~/.local/share/flatpak/exports/share"
 
 # opam configuration
 test -r ~/.opam/opam-init/init.zsh && . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
@@ -75,3 +77,6 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # ROCm override
 export HSA_OVERRIDE_GFX_VERSION=10.3.0
 export AMDGPU_TARGETS="gfx1030"
+
+# Ryzen Controller
+test -e "/opt/Ryzen Controller/ryzen-controller" && export PATH="/opt/Ryzen Controller:$PATH"
