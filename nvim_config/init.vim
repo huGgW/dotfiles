@@ -22,6 +22,17 @@ set autoindent "Turns on auto-indenting"
 set copyindent "Copy the previous indentation on autoindenting"
 set smartindent "Remembers previous indent when creating new lines"
 
+" set leader key as spacebar
+let mapleader = " "
+
+" set copy & paste with system clipboard using leader key
+vmap <leader>y "+y
+vmap <leader>d "+d
+nmap <leader>y "+yy
+nmap <leader>p "+p
+nmap <leader>P "+P
+vmap <leader>p "+p
+vmap <leader>P "+P
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins (Install the vim-plug)
@@ -143,6 +154,10 @@ EOF
 let g:airline_powerline_fonts=1
 let g:airline_theme='tomorrow'
 
+" colorscheme
+" let g:tokyonight_style = 'storm'
+colorscheme tokyonight-day
+
 " Set tmuxline at start of tmux
 let g:airline#extensions#tmuxline#enabled = 1
 let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
@@ -157,13 +172,14 @@ let g:rainbow_load_separately = [
             \ [ '*.bsv' , [['(', ')'], ['\[', '\]'], ['{', '}'], ['begin', 'end'], ['case', 'endcase'], ['method', 'endmethod'], ['rule', 'endrule']]]
             \ ]
 
+" NERDTree shortcut
+nmap <leader>t :NERDTreeToggle<CR>
+" fzf shortcut
+nmap <C-p> :Files<CR>
 
 " GitGutter
 let g:gitgutter_enabled = 0
 
-" colorscheme
-" let g:tokyonight_style = 'storm'
-colorscheme tokyonight-day
 
 " LSP Settings
 lua <<EOF
