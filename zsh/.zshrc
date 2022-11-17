@@ -26,6 +26,8 @@ zplug load
 export PATH="$HOME/.local/bin:$PATH"
 # Jetbrains Path
 export PATH="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
+# ruby gem PATH
+export PATH="/home/whjoon0225/.local/share/gem/ruby/3.0.0/bin:$PATH"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -65,6 +67,9 @@ export AMDGPU_TARGETS="gfx1030"
 
 # Ryzen Controller
 test -e "/opt/Ryzen Controller/ryzen-controller" && export PATH="/opt/Ryzen Controller:$PATH"
+
+# added by travis gem
+[ ! -s /home/whjoon0225/.travis/travis.sh ] || source /home/whjoon0225/.travis/travis.sh
 
 # Start starship
 eval "$(starship init zsh)"
