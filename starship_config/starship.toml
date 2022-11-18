@@ -188,6 +188,7 @@ format = '\[[$symbol$workspace]($style)\]'
 format = '\[[$time]($style)\]'
 
 [username]
+show_always = true
 format = '\[[$user]($style)\]'
 
 [vagrant]
