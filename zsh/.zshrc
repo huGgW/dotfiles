@@ -10,6 +10,8 @@ zplug "agkozak/zsh-z"
 
 zplug "zdharma/fast-syntax-highlighting"
 
+zplug "conda-incubator/conda-zsh-completion"
+
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
@@ -21,6 +23,11 @@ fi
 # Then, source plugins and add commands to $PATH
 zplug load
 
+# Save zsh history to ~/.zsh_history
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
 
 # PATH
 export PATH="$HOME/.local/bin:$PATH"
