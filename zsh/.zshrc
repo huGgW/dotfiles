@@ -43,7 +43,7 @@ alias sudo="sudo "
 alias vim="nvim"
 alias where="pwd"
 alias cat="bat"
-alias ls="lsd"
+alias ls="exa --icons"
 # alias python="python3"
 alias gfs="git fetch && git status"
 
