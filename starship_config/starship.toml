@@ -78,7 +78,6 @@ modified = "📝 ×${count}"
 staged = "🗃️  ×${count}"
 renamed = "📛 ×${count}"
 deleted = "🗑️  ×${count}"
-style = "bright-white"
 
 [golang]
 symbol = " "
@@ -185,11 +184,10 @@ format = '\[[$symbol($version)]($style)\]'
 symbol = "🅢 "
 format = '\[[$symbol$environment]($style)\]'
 
-[sudo]
-style = "bold red"
-symbol = "# "
-disabled = false
-# format = '\[[as $symbol]\]'
+# [sudo]
+# symbol = "#"
+# disabled = false
+# format = '\[[$symbol](bold red)\]'
 
 [swift]
 format = '\[[$symbol($version)]($style)\]'
