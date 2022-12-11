@@ -1,6 +1,11 @@
-" For line number and syntax
-set number
+" For syntax
 syntax on
+
+" For hybrid line numbers
+set number relativenumber
+
+" Set vertical rulers
+set colorcolumn=80,120
 
 " Allow crosshair cursor highlighting.
 hi CursorLine   cterm=NONE ctermbg=0
@@ -83,8 +88,8 @@ Plug 'majutsushi/tagbar'
 " vim-smoothie for smooth scroll
 Plug 'psliwka/vim-smoothie'
 
-" tmux airline
-Plug 'edkolev/tmuxline.vim'
+" " tmux airline
+" Plug 'edkolev/tmuxline.vim'
 
 " detect indent
 Plug 'ciaranm/detectindent'
@@ -99,8 +104,11 @@ Plug 'junegunn/fzf.vim'
 " Tagbar: class outline viewer
 Plug 'preservim/tagbar'
 
+" THEMES
 " Tokyonight theme
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+" One Half
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
 " css color
 Plug 'ap/vim-css-color'
@@ -156,11 +164,11 @@ let g:airline_theme='tomorrow'
 
 " colorscheme
 " let g:tokyonight_style = 'storm'
-colorscheme tokyonight-day
+colorscheme tokyonight
 
-" Set tmuxline at start of tmux
-let g:airline#extensions#tmuxline#enabled = 1
-let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
+" " Set tmuxline at start of tmux
+" let g:airline#extensions#tmuxline#enabled = 1
+" let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
 
 " " delimitMate (AutoComplete Parenthesis)
 " let delimitMate_expand_cr=1
