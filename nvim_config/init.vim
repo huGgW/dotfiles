@@ -53,10 +53,6 @@ call plug#begin()
 " Rainbow Parenthesis
 Plug 'frazrepo/vim-rainbow'
 
-" AutoComplete Parenthesis
-" Plug 'Raimondi/delimitMate'
-" Plug 'cohama/lexima.vim'
-
 " multiple-cursors (like vscode)
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
@@ -88,9 +84,6 @@ Plug 'majutsushi/tagbar'
 " vim-smoothie for smooth scroll
 Plug 'psliwka/vim-smoothie'
 
-" " tmux airline
-" Plug 'edkolev/tmuxline.vim'
-
 " detect indent
 Plug 'ciaranm/detectindent'
 
@@ -103,6 +96,9 @@ Plug 'junegunn/fzf.vim'
 
 " Tagbar: class outline viewer
 Plug 'preservim/tagbar'
+
+" Toggle Terminal
+Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 
 " THEMES
 " Tokyonight theme
@@ -188,6 +184,19 @@ nmap <C-p> :Files<CR>
 " GitGutter
 let g:gitgutter_enabled = 0
 
+" ToggleTerm Settings
+lua << EOF
+require('toggleterm').setup{
+    size = 30,
+    open_mapping = [[<c-\>]],
+    shade_filetypes = {},
+    shade_terminals = true,
+    shading_factor = '1',
+    start_in_insert = true,
+    persist_size = true,
+    direction = 'horizontal'
+}
+EOF
 
 " LSP Settings
 lua <<EOF
