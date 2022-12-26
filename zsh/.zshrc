@@ -2,7 +2,12 @@
 neofetch
 
 # Initialize zplug
-source /usr/share/zsh/scripts/zplug/init.zsh
+if [[ `uname` == "Darwin" ]]; then
+	export ZPLUG_HOME=/usr/local/opt/zplug
+	source $ZPLUG_HOME/init.zsh
+else
+	source /usr/share/zsh/scripts/zplug/init.zsh
+fi
 
 zplug "zsh-users/zsh-autosuggestions"
 
