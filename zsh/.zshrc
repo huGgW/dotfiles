@@ -52,8 +52,13 @@ alias ls="exa --icons"
 # alias python="python3"
 alias gfs="git fetch && git status"
 
+# alias for enable & disable sleep
+alias sleep_status="systemctl status sleep.target suspend.target hibernate.target hybrid-sleep.target"
+alias sleep_disable="systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target"
+alias sleep_enable="systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target"
+
 # alias for docker rocm
-alias drun='sudo docker run -it --network=host --device=/dev/kfd --device=/dev/dri --group-add=video --ipc=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -v $HOME/dockerx:/dockerx -e HSA_OVERRIDE_GFX_VERSION=10.3.0'
+alias drun='sudo docker run -it --network=host --device=/dev/kfd --device=/dev/dri --group-add=video --ipc=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -e HSA_OVERRIDE_GFX_VERSION=10.3.0'
 
 # fuck initialization
 eval $(thefuck --alias)
