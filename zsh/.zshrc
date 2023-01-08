@@ -75,9 +75,6 @@ export MKL_DEBUG_CPU_TYPE=5
 # opam configuration
 test -r ~/.opam/opam-init/init.zsh && . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
-# iterm2 configuration for mac
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
 # ROCm override
 export HSA_OVERRIDE_GFX_VERSION=10.3.0
 export AMDGPU_TARGETS="gfx1030"
@@ -90,3 +87,12 @@ test -e "/opt/Ryzen Controller/ryzen-controller" && export PATH="/opt/Ryzen Cont
 
 # Start starship
 eval "$(starship init zsh)"
+
+# Mac specific
+# iterm2 configuration for mac
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# openjdk env
+if [[ `uname` == "Darwin" ]]; then
+    export PATH="/usr/local/opt/openjdk/bin:$PATH"
+fi
