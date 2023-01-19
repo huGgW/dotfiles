@@ -68,16 +68,23 @@ format = '\[[$symbol$branch]($style)\]'
 
 [git_status]
 format = '([\[$all_status$ahead_behind\]]($style))'
-conflicted = "⚔️ "
-ahead = "🏎️ 💨 ×${count}"
-behind = "🐢 ×${count}"
-diverged = "🔱 🏎️ 💨 ×${ahead_count} 🐢 ×${behind_count}"
-untracked = "🛤️  ×${count}"
-stashed = "📦 "
-modified = "📝 ×${count}"
-staged = "🗃️  ×${count}"
-renamed = "📛 ×${count}"
-deleted = "🗑️  ×${count}"
+conflicted = " x${count}"
+deleted = "﫧x${count}"
+modified = " x${count}"
+stashed = " x${count}"
+staged = " x${count}"
+renamed = " x${count}"
+untracked = " x${count}"
+prefix = "|"
+suffix = " | "
+show_sync_count = true
+conflicted_count.enabled = true
+deleted_count.enabled = true
+modified_count.enabled = true
+stashed_count.enabled = true
+staged_count.enabled = true
+renamed_count.enabled = true
+untracked_count.enabled = true
 
 [golang]
 symbol = " "
@@ -103,7 +110,7 @@ symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 
 [kotlin]
-symbol = " "
+symbol = "Kotlin"
 format = '\[[$symbol($version)]($style)\]'
 
 [kubernetes]
