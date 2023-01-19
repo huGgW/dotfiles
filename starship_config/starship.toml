@@ -75,16 +75,18 @@ stashed = " x${count}"
 staged = " x${count}"
 renamed = " x${count}"
 untracked = " x${count}"
-prefix = "|"
-suffix = " | "
-show_sync_count = true
-conflicted_count.enabled = true
-deleted_count.enabled = true
-modified_count.enabled = true
-stashed_count.enabled = true
-staged_count.enabled = true
-renamed_count.enabled = true
-untracked_count.enabled = true
+ahead='⇡x${count}'
+behind='⇣x${count}'
+# show_sync_count = true
+# conflicted_count.enabled = true
+# deleted_count.enabled = true
+# modified_count.enabled = true
+# stashed_count.enabled = true
+# staged_count.enabled = true
+# renamed_count.enabled = true
+# untracked_count.enabled = true
+# ahead_count.enabled=true
+# behind_count.enabled=true
 
 [golang]
 symbol = " "
@@ -110,7 +112,7 @@ symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 
 [kotlin]
-symbol = "Kotlin"
+symbol = "K "
 format = '\[[$symbol($version)]($style)\]'
 
 [kubernetes]
