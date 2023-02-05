@@ -17,6 +17,10 @@ zplug "zdharma/fast-syntax-highlighting"
 
 zplug "conda-incubator/conda-zsh-completion"
 
+zplug 'wfxr/forgit'
+
+zplug "caarlos0/zsh-git-sync"
+
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
