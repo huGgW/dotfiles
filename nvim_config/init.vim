@@ -39,6 +39,8 @@ nmap <leader>P "+P
 vmap <leader>p "+p
 vmap <leader>P "+P
 
+" Set popup instant
+set timeoutlen=10
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins (Install the vim-plug)
 call plug#begin()
@@ -99,6 +101,9 @@ Plug 'preservim/tagbar'
 
 " Toggle Terminal
 Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
+
+" shortcut popup
+Plug 'folke/which-key.nvim'
 
 " THEMES
 " Tokyonight theme
@@ -177,9 +182,9 @@ let g:rainbow_load_separately = [
             \ ]
 
 " NERDTree shortcut
-nmap <leader>t :NERDTreeToggle<CR>
+nmap <leader>e :NERDTreeToggle<CR>
 " fzf shortcut
-nmap <C-p> :Files<CR>
+nmap <leader>f :Files<CR>
 
 " GitGutter
 let g:gitgutter_enabled = 0
@@ -196,6 +201,12 @@ require('toggleterm').setup{
     persist_size = true,
     direction = 'horizontal'
 }
+EOF
+
+" which-key Settings
+lua << EOF
+local wk = require("which-key")
+wk.register(mappings, opts)
 EOF
 
 " LSP Settings
