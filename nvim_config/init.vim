@@ -40,7 +40,7 @@ vmap <leader>p "+p
 vmap <leader>P "+P
 
 " Set popup instant
-set timeoutlen=10
+set timeoutlen=500
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins (Install the vim-plug)
 call plug#begin()
