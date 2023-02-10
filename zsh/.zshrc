@@ -13,7 +13,7 @@ zplug "zsh-users/zsh-autosuggestions"
 
 zplug "agkozak/zsh-z"
 
-zplug "zdharma/fast-syntax-highlighting"
+zplug "zdharma-continuum/fast-syntax-highlighting"
 
 zplug "conda-incubator/conda-zsh-completion"
 
