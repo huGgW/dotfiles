@@ -102,11 +102,16 @@ Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 " shortcut popup
 Plug 'folke/which-key.nvim'
 
-" THEMES
+" THEMES =========================================
 " Tokyonight theme
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-" One Half
+" One Half theme
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
+" Bluloco theme
+Plug 'uloco/bluloco.nvim'
+
+" nvim theme creation with real-time feedback
+Plug 'rktjmp/lush.nvim'
 
 " icons
 Plug 'nvim-tree/nvim-web-devicons'
@@ -117,6 +122,14 @@ Plug 'stevearc/dressing.nvim'
 
 " css color
 Plug 'ap/vim-css-color'
+
+" fill lsp colors
+Plug 'folke/lsp-colors.nvim'
+
+
+" pretty list for showing infos
+Plug 'folke/trouble.nvim'
+" ================================================
 
 " indent line
 Plug 'yggdroot/indentline'
@@ -130,6 +143,7 @@ Plug 'windwp/nvim-autopairs'
 " Improve Performance
 Plug 'lewis6991/impatient.nvim'
 
+" LSP =====================================
 " LSP Support
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/mason.nvim'
@@ -137,10 +151,10 @@ Plug 'williamboman/mason-lspconfig.nvim'
 
 " Autocompletion
 Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-nvim-lua'
 
 "  Snippets
@@ -149,6 +163,7 @@ Plug 'rafamadriz/friendly-snippets'
 
 " LSP settings
 Plug 'VonHeikemen/lsp-zero.nvim'
+" ================================================
 
 call plug#end()
 
@@ -283,11 +298,27 @@ require('lspkind').init({
 EOF
 
 " Lsp Settings
-lua <<EOF
-local lsp = require('lsp-zero')
+lua << EOF
+    local lsp = require('lsp-zero').preset({
+      name = 'minimal',
+      set_lsp_keymaps = true,
+      manage_nvim_cmp = true,
+      suggest_lsp_servers = false,
+    })
 
-lsp.preset('recommended')
-lsp.setup()
+    lsp.setup()
 EOF
 
-let g:LanguageClient_useVirtualText = 1
+" Inline diagnostics
+lua << EOF
+    vim.diagnostic.config({
+        virtual_text = true
+    })
+EOF
+
+" trouble Settings
+lua << EOF
+    require("trouble").setup {}
+EOF
+
+" let g:LanguageClient_useVirtualText = 1
