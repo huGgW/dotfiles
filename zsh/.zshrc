@@ -1,9 +1,12 @@
+# Initialize brew on mac
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # logo
 neofetch
 
 # Initialize zplug
 if [[ `uname` == "Darwin" ]]; then
-	export ZPLUG_HOME=/usr/local/opt/zplug
+	export ZPLUG_HOME=/opt/homebrew/opt/zplug
 	source $ZPLUG_HOME/init.zsh
 else
 	source /usr/share/zsh/scripts/zplug/init.zsh
@@ -70,8 +73,24 @@ eval $(thefuck --alias)
 # Set ls color (fix the odd color in wsl)
 LS_COLORS="ow=01;36;40" && export LS_COLORS
 
-# miniconda3 activate
-[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+if [[ `uname` == "Darwin" ]]; then
+	__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+	if [ $? -eq 0 ]; then
+		eval "$__conda_setup"
+	else
+		if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+			. "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+		else
+			export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
+		fi
+	fi
+	unset __conda_setup
+else
+	[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+fi
+# <<< conda initialize <<<
 
 # for amd MKL performance hack
 export MKL_DEBUG_CPU_TYPE=5
@@ -98,5 +117,5 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 # openjdk env
 if [[ `uname` == "Darwin" ]]; then
-    export PATH="/usr/local/opt/openjdk/bin:$PATH"
+	export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 fi
