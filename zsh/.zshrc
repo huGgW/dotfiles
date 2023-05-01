@@ -1,5 +1,7 @@
 # Initialize brew on mac
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [[ `uname` == "Darwin" ]] then
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
 # logo
 neofetch
@@ -59,10 +61,12 @@ alias ls="exa --icons"
 # alias python="python3"
 alias gfs="git fetch && git status"
 
-# alias for enable & disable sleep
-alias sleep_status="systemctl status sleep.target suspend.target hibernate.target hybrid-sleep.target"
-alias sleep_disable="systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target"
-alias sleep_enable="systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target"
+# alias for enable & disable sleep in systemctl linux
+if [[ `uname` != "Darwin" ]]; then
+	alias sleep_status="systemctl status sleep.target suspend.target hibernate.target hybrid-sleep.target"
+	alias sleep_disable="systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target"
+	alias sleep_enable="systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target"
+fi
 
 # alias for docker rocm
 alias drun='sudo docker run -it --network=host --device=/dev/kfd --device=/dev/dri --group-add=video --ipc=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -e HSA_OVERRIDE_GFX_VERSION=10.3.0'
@@ -73,9 +77,12 @@ eval $(thefuck --alias)
 # Set ls color (fix the odd color in wsl)
 LS_COLORS="ow=01;36;40" && export LS_COLORS
 
+# Bat theme
+export BAT_THEME="gruvbox-dark"
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-if [[ `uname` == "Darwin" ]]; then
+if [[ `uname` == "Darwin" ]]; then # When execute on macos
 	__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 	if [ $? -eq 0 ]; then
 		eval "$__conda_setup"
