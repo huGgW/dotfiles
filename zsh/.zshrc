@@ -1,6 +1,7 @@
 # Initialize brew on mac
 if [[ `uname` == "Darwin" ]] then
 	eval "$(/opt/homebrew/bin/brew shellenv)"
+	export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
 fi
 
 # logo
@@ -60,6 +61,7 @@ alias cat="bat"
 alias ls="exa --icons"
 # alias python="python3"
 alias gfs="git fetch && git status"
+alias grep="rg"
 
 # alias for enable & disable sleep in systemctl linux
 if [[ `uname` != "Darwin" ]]; then
