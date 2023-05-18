@@ -1,14 +1,14 @@
 -- Initialize lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -33,8 +33,8 @@ require("lazy").setup({
 	{
 		'williamboman/mason-lspconfig.nvim',
 		config = function()
-		    require("plugins.mason-lspconfig")
-        end
+			require("plugins.mason-lspconfig")
+		end
 	},
 
 	-- Lsp Config
@@ -47,14 +47,26 @@ require("lazy").setup({
 
 	-- DAP (Debug)
 	{
+		'mfussenegger/nvim-dap',
+	},
+	{
+		'jay-babu/mason-nvim-dap.nvim',
+		config = function()
+			require("plugins.mason-nvim-dap")
+		end,
+	},
+	{
 		'rcarriga/nvim-dap-ui',
 		dependencies = {'mfussenegger/nvim-dap'},
+		config = function ()
+			require("plugins.dapui")
+		end
 	},
 
 	-- Lint && Format
 	{
 		'jose-elias-alvarez/null-ls.nvim',
-		dependencies = {'nvim-lua/plenary.nvim'},
+		dependencies = { 'nvim-lua/plenary.nvim' },
 	},
 
 	-- Error infos
@@ -65,6 +77,11 @@ require("lazy").setup({
 			require("trouble").setup {
 			}
 		end
+	},
+
+	-- Github Copilot
+	{
+		"github/copilot.vim",
 	},
 
 	-- Auto Complete
@@ -89,7 +106,7 @@ require("lazy").setup({
 		event = "VeryLazy",
 		config = function()
 			require("nvim-surround").setup({
-			-- Configuration here, or leave empty to use defaults
+				-- Configuration here, or leave empty to use defaults
 			})
 		end
 	},
@@ -113,10 +130,7 @@ require("lazy").setup({
 
 	-- Smooooth
 	{
-		'karb94/neoscroll.nvim',
-		config = function()
-			require('neoscroll').setup()
-		end,
+		'psliwka/vim-smoothie',
 	},
 
 	-- Extra Beauty
@@ -127,10 +141,10 @@ require("lazy").setup({
 
 	-- Comment
 	{
-	    'numToStr/Comment.nvim',
-	    config = function()
-		require('Comment').setup()
-	    end
+		'numToStr/Comment.nvim',
+		config = function()
+			require('Comment').setup()
+		end
 	},
 
 	-- Indent
@@ -151,7 +165,7 @@ require("lazy").setup({
 	{
 		'nvim-telescope/telescope.nvim',
 		tag = '0.1.1',
-		dependencies = {'nvim-lua/plenary.nvim'},
+		dependencies = { 'nvim-lua/plenary.nvim' },
 	},
 
 	-- File Tree
@@ -186,5 +200,5 @@ require("lazy").setup({
 
 	-------- colorschemes -----------
 	'rebelot/kanagawa.nvim',
-	{'folke/tokyonight.nvim', branch='main'},
+	{ 'folke/tokyonight.nvim', branch = 'main' },
 })
