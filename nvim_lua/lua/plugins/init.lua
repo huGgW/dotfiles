@@ -18,7 +18,7 @@ require("lazy").setup({
 		'nvim-treesitter/nvim-treesitter',
 		build = ":TSUpdate",
 		config = function()
-			require("nvim-treesitter.configs").setup({})
+			require("plugins.nvim-treesitter")
 		end
 	},
 
@@ -99,7 +99,7 @@ require("lazy").setup({
 		end
 	},
 
-	-- Auto Surround
+	-- Surround
 	{
 		"kylechui/nvim-surround",
 		version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -108,6 +108,14 @@ require("lazy").setup({
 			require("nvim-surround").setup({
 				-- Configuration here, or leave empty to use defaults
 			})
+		end
+	},
+
+	-- Auto Pair
+	{
+		"windwp/nvim-autopairs",
+		config = function()
+			require("plugins.nvim-autopairs")
 		end
 	},
 
@@ -137,6 +145,11 @@ require("lazy").setup({
 	{
 		'stevearc/dressing.nvim',
 		opts = {},
+	},
+
+	-- Rainbow Parenthesis
+	{
+		'mrjones2014/nvim-ts-rainbow',
 	},
 
 	-- Comment
@@ -205,7 +218,21 @@ require("lazy").setup({
 		end,
 	},
 
-
+	-- Remote neovim
+	{
+		'chipsenkbeil/distant.nvim',
+		branch = 'v0.2',
+		config = function()
+			require('distant').setup {
+			-- Applies Chip's personal settings to every machine you connect to
+			--
+			-- 1. Ensures that distant servers terminate with no connections
+			-- 2. Provides navigation bindings for remote directories
+			-- 3. Provides keybinding to jump into a remote file's parent directory
+			['*'] = require('distant.settings').chip_default()
+			}
+		end
+	},
 
 	-------- colorschemes -----------
 	'rebelot/kanagawa.nvim',
