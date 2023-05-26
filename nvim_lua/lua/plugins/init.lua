@@ -99,6 +99,20 @@ require("lazy").setup({
 		end
 	},
 
+	-- Improve LSP
+	{
+		"glepnir/lspsaga.nvim",
+		event = "LspAttach",
+		config = function()
+			require("lspsaga").setup({})
+		end,
+		dependencies = {
+		  {"nvim-tree/nvim-web-devicons"},
+		  --Please make sure you install markdown and markdown_inline parser
+		  {"nvim-treesitter/nvim-treesitter"}
+		}
+	},
+
 	-- Surround
 	{
 		"kylechui/nvim-surround",
@@ -119,6 +133,17 @@ require("lazy").setup({
 		end
 	},
 
+	-- Leap!
+	{
+		'ggandor/leap.nvim',
+		dependencies = { 'tpope/vim-repeat' },
+		config = function()
+			require('leap').setup({
+				require('leap').add_default_mappings()
+			})
+		end
+	},
+
 	-- Bottom Status Line
 	{
 		'nvim-lualine/lualine.nvim',
@@ -133,6 +158,14 @@ require("lazy").setup({
 		'nanozuki/tabby.nvim',
 		config = function()
 			require('tabby').setup()
+		end
+	},
+
+	-- Gitsigns
+	{
+		'lewis6991/gitsigns.nvim',
+		config = function()
+			require('gitsigns').setup()
 		end
 	},
 
@@ -216,22 +249,6 @@ require("lazy").setup({
 			-- refer to the configuration section below
 		  })
 		end,
-	},
-
-	-- Remote neovim
-	{
-		'chipsenkbeil/distant.nvim',
-		branch = 'v0.2',
-		config = function()
-			require('distant').setup {
-			-- Applies Chip's personal settings to every machine you connect to
-			--
-			-- 1. Ensures that distant servers terminate with no connections
-			-- 2. Provides navigation bindings for remote directories
-			-- 3. Provides keybinding to jump into a remote file's parent directory
-			['*'] = require('distant.settings').chip_default()
-			}
-		end
 	},
 
 	-------- colorschemes -----------
