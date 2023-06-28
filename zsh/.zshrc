@@ -1,6 +1,10 @@
 # Initialize brew on mac
 if [[ `uname` == "Darwin" ]] then
-	eval "$(/opt/homebrew/bin/brew shellenv)"
+	if [[ "$(arch)" = "arm64" ]]; then
+		eval "$(/opt/homebrew/bin/brew shellenv)"
+	else
+		eval "$(/usr/local/bin/brew shellenv)"
+	fi
 	export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
 fi
 
