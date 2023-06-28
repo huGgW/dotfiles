@@ -13,7 +13,7 @@ map('v', '<Leader>p', '"+p', {})
 map('v', '<Leader>P', '"+P', {})
 
 -- Nvim Tree
-map('n', '<Leader>tr', ':NvimTreeToggle<CR>', {})
+map('n', '<Leader>te', ':NvimTreeToggle<CR>', {})
 
 -- Telescope
 local builtin = require('telescope.builtin')

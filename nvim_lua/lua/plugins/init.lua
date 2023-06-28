@@ -113,6 +113,14 @@ require("lazy").setup({
 		}
 	},
 
+	-- C lsp improve
+	{
+		"p00f/clangd_extensions.nvim",
+		config = function()
+			require("clangd_extensions").prepare()
+		end,
+	},
+
 	-- Surround
 	{
 		"kylechui/nvim-surround",
@@ -251,7 +259,32 @@ require("lazy").setup({
 		end,
 	},
 
+	-- Markdown Preview
+	{
+		'iamcco/markdown-preview.nvim',
+		run = function()
+			vim.fn['mkdp#util#install']()
+		end,
+	},
+
 	-------- colorschemes -----------
 	'rebelot/kanagawa.nvim',
 	{ 'folke/tokyonight.nvim', branch = 'main' },
+
+	{
+		'xiyaowong/transparent.nvim',
+		lazy = false,
+		config = function()
+			require('transparent').setup({
+				enable = true,
+				extra_groups = {
+					-- Invert the `Normal` highlight group.
+					-- This is useful when `background=dark`.
+					-- highlight = "Normal",
+					-- invert = true,
+				},
+				exclude = {},
+			})
+		end
+	},
 })
