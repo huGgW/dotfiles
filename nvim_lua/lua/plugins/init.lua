@@ -141,17 +141,6 @@ require("lazy").setup({
 		end
 	},
 
-	-- Leap!
-	{
-		'ggandor/leap.nvim',
-		dependencies = { 'tpope/vim-repeat' },
-		config = function()
-			require('leap').setup({
-				require('leap').add_default_mappings()
-			})
-		end
-	},
-
 	-- Bottom Status Line
 	{
 		'nvim-lualine/lualine.nvim',
@@ -271,20 +260,20 @@ require("lazy").setup({
 	'rebelot/kanagawa.nvim',
 	{ 'folke/tokyonight.nvim', branch = 'main' },
 
-	{
-		'xiyaowong/transparent.nvim',
-		lazy = false,
-		config = function()
-			require('transparent').setup({
-				enable = true,
-				extra_groups = {
-					-- Invert the `Normal` highlight group.
-					-- This is useful when `background=dark`.
-					-- highlight = "Normal",
-					-- invert = true,
-				},
-				exclude = {},
-			})
-		end
-	},
+	-- {
+	-- 	'xiyaowong/transparent.nvim',
+	-- 	lazy = false,
+	-- 	config = function()
+	-- 		require('transparent').setup({
+	-- 			enable = true,
+	-- 			extra_groups = {
+	-- 				-- Invert the `Normal` highlight group.
+	-- 				-- This is useful when `background=dark`.
+	-- 				-- highlight = "Normal",
+	-- 				-- invert = true,
+	-- 			},
+	-- 			exclude = {},
+	-- 		})
+	-- 	end
+	-- },
 })
