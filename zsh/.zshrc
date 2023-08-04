@@ -9,7 +9,9 @@ if [[ `uname` == "Darwin" ]] then
 fi
 
 # logo
-neofetch
+if [[ fastfetch ]] then
+	fastfetch
+fi
 
 # Initialize zplug
 if [[ `uname` == "Darwin" ]]; then
