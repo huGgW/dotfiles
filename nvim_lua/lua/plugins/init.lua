@@ -113,14 +113,6 @@ require("lazy").setup({
 		}
 	},
 
-	-- C lsp improve
-	{
-		"p00f/clangd_extensions.nvim",
-		config = function()
-			require("clangd_extensions").prepare()
-		end,
-	},
-
 	-- Surround
 	{
 		"kylechui/nvim-surround",
@@ -139,6 +131,11 @@ require("lazy").setup({
 		config = function()
 			require("plugins.nvim-autopairs")
 		end
+	},
+
+	-- Easy Motion
+	{
+		"easymotion/vim-easymotion"
 	},
 
 	-- Bottom Status Line
@@ -219,6 +216,18 @@ require("lazy").setup({
 		end
 	},
 
+	-- Oil (Easy file modification)
+	{
+		'stevearc/oil.nvim',
+		opts = {},
+		-- Optional dependencies
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require('oil').setup()
+		end
+	},
+
+
 	-- Toggle Term
 	{
 		'akinsho/toggleterm.nvim',
@@ -259,6 +268,7 @@ require("lazy").setup({
 	-------- colorschemes -----------
 	'rebelot/kanagawa.nvim',
 	{ 'folke/tokyonight.nvim', branch = 'main' },
+	{ 'sainnhe/everforest' }
 
 	-- {
 	-- 	'xiyaowong/transparent.nvim',
