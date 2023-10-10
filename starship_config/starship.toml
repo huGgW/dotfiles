@@ -112,7 +112,7 @@ symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 
 [kotlin]
-symbol = "K "
+symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 
 [kubernetes]
