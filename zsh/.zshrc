@@ -2,7 +2,7 @@
 if [[ `uname` == "Darwin" ]] then
 	if [[ "$(arch)" = "arm64" ]]; then
 		eval "$(/opt/homebrew/bin/brew shellenv)"
-	else
+	else # x86_64
 		eval "$(/usr/local/bin/brew shellenv)"
 	fi
 	export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
@@ -44,6 +44,9 @@ fi
 # Then, source plugins and add commands to $PATH
 zplug load
 
+# Start starship
+eval "$(starship init zsh)"
+
 # Save zsh history to ~/.zsh_history
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
@@ -55,7 +58,7 @@ export PATH="$HOME/.local/bin:$PATH"
 # Jetbrains Path
 export PATH="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
 # ruby gem PATH
-export PATH="/home/whjoon0225/.local/share/gem/ruby/3.0.0/bin:$PATH"
+export PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -63,11 +66,14 @@ export PATH="/home/whjoon0225/.local/share/gem/ruby/3.0.0/bin:$PATH"
 alias sudo="sudo "
 alias vim="nvim"
 alias where="pwd"
-alias cat="bat"
 alias ls="exa --icons"
-# alias python="python3"
 alias gfs="git fetch && git status"
 alias grep="rg"
+if [[ `uname` == "Darwin" ]]; then
+	alias cat="bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo OneHalfDark || echo OneHalfLight)"
+else
+	alias cat="bat"
+fi
 
 # alias for enable & disable sleep in systemctl linux
 if [[ `uname` != "Darwin" ]]; then
@@ -75,9 +81,6 @@ if [[ `uname` != "Darwin" ]]; then
 	alias sleep_disable="systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target"
 	alias sleep_enable="systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target"
 fi
-
-# alias for docker rocm
-alias drun='sudo docker run -it --network=host --device=/dev/kfd --device=/dev/dri --group-add=video --ipc=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -e HSA_OVERRIDE_GFX_VERSION=10.3.0'
 
 # fuck initialization
 eval $(thefuck --alias)
@@ -108,23 +111,17 @@ fi
 # <<< conda initialize <<<
 
 # for amd MKL performance hack
-export MKL_DEBUG_CPU_TYPE=5
-
-# opam configuration
-test -r ~/.opam/opam-init/init.zsh && . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+if [[ `uname` != "Darwin" ]] then
+	export MKL_DEBUG_CPU_TYPE=5
+fi
 
 # ROCm override
-export HSA_OVERRIDE_GFX_VERSION=10.3.0
-export AMDGPU_TARGETS="gfx1030"
-
-# Ryzen Controller
-test -e "/opt/Ryzen Controller/ryzen-controller" && export PATH="/opt/Ryzen Controller:$PATH"
-
-# added by travis gem
-[ ! -s /home/whjoon0225/.travis/travis.sh ] || source /home/whjoon0225/.travis/travis.sh
-
-# Start starship
-eval "$(starship init zsh)"
+# alias for docker rocm
+if [[ `uname` != "Darwin" ]] then
+	alias drun='sudo docker run -it --network=host --device=/dev/kfd --device=/dev/dri --group-add=video --ipc=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -e HSA_OVERRIDE_GFX_VERSION=10.3.0'
+	export HSA_OVERRIDE_GFX_VERSION=10.3.0
+	export AMDGPU_TARGETS="gfx1030"
+fi
 
 # Mac specific
 # iterm2 configuration for mac
