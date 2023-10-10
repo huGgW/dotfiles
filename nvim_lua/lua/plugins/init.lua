@@ -57,22 +57,31 @@ require("lazy").setup({
 	},
 	{
 		'rcarriga/nvim-dap-ui',
-		dependencies = {'mfussenegger/nvim-dap'},
-		config = function ()
+		dependencies = { 'mfussenegger/nvim-dap' },
+		config = function()
 			require("plugins.dapui")
 		end
 	},
 
 	-- Lint && Format
+	-- {
+	-- 	'dense-analysis/ale',
+	-- 	config = function()
+	-- 		require("plugins.ale")
+	-- 	end
+	-- },
 	{
-		'jose-elias-alvarez/null-ls.nvim',
+		'nvimtools/none-ls.nvim',
 		dependencies = { 'nvim-lua/plenary.nvim' },
+		config = function()
+			require("plugins.none-ls")
+		end
 	},
 
 	-- Error infos
 	{
 		"folke/trouble.nvim",
-		requires = "nvim-tree/nvim-web-devicons",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("trouble").setup {
 			}
@@ -101,15 +110,15 @@ require("lazy").setup({
 
 	-- Improve LSP
 	{
-		"glepnir/lspsaga.nvim",
+		"nvimdev/lspsaga.nvim",
 		event = "LspAttach",
 		config = function()
 			require("lspsaga").setup({})
 		end,
 		dependencies = {
-		  {"nvim-tree/nvim-web-devicons"},
-		  --Please make sure you install markdown and markdown_inline parser
-		  {"nvim-treesitter/nvim-treesitter"}
+			{ "nvim-tree/nvim-web-devicons" },
+			--Please make sure you install markdown and markdown_inline parser
+			{ "nvim-treesitter/nvim-treesitter" }
 		}
 	},
 
@@ -163,15 +172,58 @@ require("lazy").setup({
 		end
 	},
 
+	-- git util
+	-- git graph
+	{
+		'rbong/vim-flog',
+		dependencies = { 'tpope/vim-fugitive' }
+	},
+	-- git ui
+	{
+		'sindrets/diffview.nvim',
+		dependencies = { 'nvim-tree/nvim-web-devicons' },
+		config = function()
+			require("diffview").setup()
+		end
+	},
+	-- {
+	--   "NeogitOrg/neogit",
+	--   dependencies = {
+	-- 	"nvim-lua/plenary.nvim",         -- required
+	-- 	"nvim-telescope/telescope.nvim", -- optional
+	-- 	"sindrets/diffview.nvim",        -- optional
+	-- 	"ibhagwan/fzf-lua",              -- optional
+	--   },
+	--   config = true
+	-- },
+
 	-- Smooooth
 	{
 		'psliwka/vim-smoothie',
 	},
 
 	-- Extra Beauty
+	-- {
+	-- 	'stevearc/dressing.nvim',
+	-- 	opts = {},
+	-- },
 	{
-		'stevearc/dressing.nvim',
-		opts = {},
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- add any options here
+		},
+		dependencies = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			-- OPTIONAL:
+			--   `nvim-notify` is only needed, if you want to use the notification view.
+			--   If not available, we use `mini` as the fallback
+			"rcarriga/nvim-notify",
+		},
+		config = function()
+			require("plugins.noice")
+		end
 	},
 
 	-- Rainbow Parenthesis
@@ -196,8 +248,10 @@ require("lazy").setup({
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		opts = {},
 		config = function()
-			require('indent_blankline').setup()
+			require('ibl').setup()
 		end
 	},
 
@@ -215,18 +269,6 @@ require("lazy").setup({
 			require('nvim-tree').setup()
 		end
 	},
-
-	-- Oil (Easy file modification)
-	{
-		'stevearc/oil.nvim',
-		opts = {},
-		-- Optional dependencies
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = function()
-			require('oil').setup()
-		end
-	},
-
 
 	-- Toggle Term
 	{
@@ -247,43 +289,45 @@ require("lazy").setup({
 	{
 		"folke/which-key.nvim",
 		config = function()
-		  vim.o.timeout = true
-		  vim.o.timeoutlen = 300
-		  require("which-key").setup({
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		  })
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+			require("which-key").setup({
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+			})
 		end,
 	},
 
 	-- Markdown Preview
 	{
 		'iamcco/markdown-preview.nvim',
-		run = function()
+		config = function()
 			vim.fn['mkdp#util#install']()
 		end,
+	},
+
+	-- Css color
+	{
+		'ap/vim-css-color',
 	},
 
 	-------- colorschemes -----------
 	'rebelot/kanagawa.nvim',
 	{ 'folke/tokyonight.nvim', branch = 'main' },
-	{ 'sainnhe/everforest' }
+	{ 'sainnhe/everforest' },
+	{ 'dracula/vim' },
+	{
+		'uloco/bluloco.nvim',
+		lazy = false,
+		priority = 1000,
+		dependencies = { 'rktjmp/lush.nvim' },
+		config = function()
+			require('plugins.bluloco')
+		end,
+	},
 
-	-- {
-	-- 	'xiyaowong/transparent.nvim',
-	-- 	lazy = false,
-	-- 	config = function()
-	-- 		require('transparent').setup({
-	-- 			enable = true,
-	-- 			extra_groups = {
-	-- 				-- Invert the `Normal` highlight group.
-	-- 				-- This is useful when `background=dark`.
-	-- 				-- highlight = "Normal",
-	-- 				-- invert = true,
-	-- 			},
-	-- 			exclude = {},
-	-- 		})
-	-- 	end
-	-- },
+
+	-------- temporary -----------
+	{ 'lark-parser/vim-lark-syntax' }
 })

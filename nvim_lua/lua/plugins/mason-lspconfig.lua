@@ -19,10 +19,28 @@ require("mason-lspconfig").setup_handlers {
     ["clangd"] = function ()
         local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
         capabilities.textDocument.semanticHighlighting = true
-        capabilities.offsetEncoding = { "utf-8" }
+        capabilities.offsetEncoding = { "utf-16" }
 
         require("lspconfig").clangd.setup({
             capabilities = capabilities,
         })
-    end
+    end,
+
+    ["cssls"] = function ()
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+        require("lspconfig").cssls.setup({
+            capabilities = capabilities,
+        })
+    end,
+
+    ["html"] = function ()
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+        require("lspconfig").html.setup({
+            capabilities = capabilities,
+        })
+    end,
 }
