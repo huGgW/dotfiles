@@ -7,8 +7,8 @@
 # see this wiki page for information:
 #  - https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition
 #
-# yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-# sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
 #
 
 # global settings
@@ -37,15 +37,28 @@ yabai -m config                                 \
     split_ratio                  0.50           \
     split_type                   auto           \
     auto_balance                 off            \
-    top_padding                  06             \
-    bottom_padding               06             \
-    left_padding                 06             \
-    right_padding                06             \
-    window_gap                   06             \
+    top_padding                  00             \
+    bottom_padding               05             \
+    left_padding                 05             \
+    right_padding                05             \
+    window_gap                   05             \
     layout                       bsp            \
     mouse_modifier               fn             \
     mouse_action1                move           \
     mouse_action2                resize         \
     mouse_drop_action            swap
+
+# Refresh yabai if a tab in finder or terminal is created or moved to new window
+yabai -m signal --add event=window_created app="^Terminal$|^Finder$" \
+    action="yabai -m space --focus next && sleep 0.01 && yabai -m space --focus recent"
+
+yabai -m signal --add event=window_destroyed app="^Terminal$|^Finder$" \
+    action="yabai -m space --focus next && sleep 0.01 && yabai -m space --focus recent"
+
+yabai -m signal --add event=window_moved app="^Terminal$|^Finder$" \
+    action="yabai -m space --focus next && sleep 0.01 && yabai -m space --focus recent"
+
+yabai -m signal --add event=window_resized app="^Terminal$|^Finder$" \
+    action="yabai -m space --focus next && sleep 0.01 && yabai -m space --focus recent"
 
 echo "yabai configuration loaded.."
