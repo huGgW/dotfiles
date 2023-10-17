@@ -1,5 +1,6 @@
 -- Set leader key as space bar
 vim.g.mapleader = " "
+vim.g.localmapleader = " "
 
 local map = vim.api.nvim_set_keymap
 
@@ -12,15 +13,28 @@ map('n', '<Leader>P', '"+P', {})
 map('v', '<Leader>p', '"+p', {})
 map('v', '<Leader>P', '"+P', {})
 
+-- scroll to center
+map('n', '<C-d>', '<C-d>zz', {})
+map('v', '<C-d>', '<C-d>zz', {})
+map('n', '<C-u>', '<C-u>zz', {})
+map('v', '<C-u>', '<C-u>zz', {})
+
 -- Nvim Tree
 map('n', '<Leader>te', ':NvimTreeToggle<CR>', {})
 
 -- Telescope
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<C-p>', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<C-F>', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>fc', builtin.treesitter, {})
+
+-- keymap to toggle aerial
+vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
+
+-- Guess Indent
+vim.keymap.set('n', '<Leader>i', ':GuessIndent<CR>', {})
 
 -- Lsp
 -- Global mappings.
@@ -53,7 +67,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<f2>', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<C-.>', vim.lsp.buf.code_action, opts)
+    vim.keymap.set({ 'n', 'v' }, '<C-space>', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<S-f12>', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<space>f', function()
       vim.lsp.buf.format { async = true }

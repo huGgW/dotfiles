@@ -21,6 +21,14 @@ require("lazy").setup({
 			require("plugins.nvim-treesitter")
 		end
 	},
+	{
+		'nvim-treesitter/nvim-treesitter-context',
+		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+	},
+	{
+		'windwp/nvim-ts-autotag',
+		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+	},
 
 	-- Mason (LSP installer)
 	{
@@ -64,17 +72,25 @@ require("lazy").setup({
 	},
 
 	-- Lint && Format
-	-- {
-	-- 	'dense-analysis/ale',
-	-- 	config = function()
-	-- 		require("plugins.ale")
-	-- 	end
-	-- },
 	{
 		'nvimtools/none-ls.nvim',
 		dependencies = { 'nvim-lua/plenary.nvim' },
 		config = function()
 			require("plugins.none-ls")
+		end
+	},
+
+	-- illuminate
+	{
+		'RRethy/vim-illuminate',
+		config = function()
+			require("illuminate").configure({
+				providers = {
+					'treesitter',
+					'lsp',
+					'regex'
+				}
+			})
 		end
 	},
 
@@ -85,6 +101,20 @@ require("lazy").setup({
 		config = function()
 			require("trouble").setup {
 			}
+		end
+	},
+
+	-- Outline
+	{
+		'stevearc/aerial.nvim',
+		opts = {},
+		-- Optional dependencies
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons"
+		},
+		config = function()
+			require('plugins.aerial')
 		end
 	},
 
@@ -113,7 +143,7 @@ require("lazy").setup({
 		"nvimdev/lspsaga.nvim",
 		event = "LspAttach",
 		config = function()
-			require("lspsaga").setup({})
+			require("plugins.lspsaga")
 		end,
 		dependencies = {
 			{ "nvim-tree/nvim-web-devicons" },
@@ -152,7 +182,7 @@ require("lazy").setup({
 		'nvim-lualine/lualine.nvim',
 		dependencies = { 'nvim-tree/nvim-web-devicons' },
 		config = function()
-			require("lualine").setup()
+			require("plugins.lualine")
 		end
 	},
 
@@ -172,41 +202,12 @@ require("lazy").setup({
 		end
 	},
 
-	-- git util
-	-- git graph
-	{
-		'rbong/vim-flog',
-		dependencies = { 'tpope/vim-fugitive' }
-	},
-	-- git ui
-	{
-		'sindrets/diffview.nvim',
-		dependencies = { 'nvim-tree/nvim-web-devicons' },
-		config = function()
-			require("diffview").setup()
-		end
-	},
-	-- {
-	--   "NeogitOrg/neogit",
-	--   dependencies = {
-	-- 	"nvim-lua/plenary.nvim",         -- required
-	-- 	"nvim-telescope/telescope.nvim", -- optional
-	-- 	"sindrets/diffview.nvim",        -- optional
-	-- 	"ibhagwan/fzf-lua",              -- optional
-	--   },
-	--   config = true
-	-- },
-
 	-- Smooooth
-	{
-		'psliwka/vim-smoothie',
-	},
+	-- {
+	-- 	'psliwka/vim-smoothie',
+	-- },
 
 	-- Extra Beauty
-	-- {
-	-- 	'stevearc/dressing.nvim',
-	-- 	opts = {},
-	-- },
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
@@ -225,10 +226,41 @@ require("lazy").setup({
 			require("plugins.noice")
 		end
 	},
+	{
+		"rcarriga/nvim-notify",
+		config = function()
+			require("plugins.notify")
+		end
+	},
+
+	-- Dashboard
+	{
+		'nvimdev/dashboard-nvim',
+		event = 'VimEnter',
+		config = function()
+			require('dashboard').setup {
+			}
+		end,
+		dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+	},
 
 	-- Rainbow Parenthesis
 	{
-		'mrjones2014/nvim-ts-rainbow',
+		'HiPhish/rainbow-delimiters.nvim',
+		config = function()
+			require('rainbow-delimiters.setup').setup()
+		end
+	},
+
+	-- TODO
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		}
 	},
 
 	-- Comment
@@ -258,8 +290,8 @@ require("lazy").setup({
 	-- Telescope (fuzzy finder)
 	{
 		'nvim-telescope/telescope.nvim',
-		tag = '0.1.1',
-		dependencies = { 'nvim-lua/plenary.nvim' },
+		tag = '0.1.3',
+		dependencies = { 'nvim-lua/plenary.nvim' }
 	},
 
 	-- File Tree
@@ -277,6 +309,11 @@ require("lazy").setup({
 		config = function()
 			require("plugins.toggleterm")
 		end
+	},
+
+	-- Tmux + Vim
+	{
+		'christoomey/vim-tmux-navigator',
 	},
 
 	-- Vim Multiple Cursor
@@ -307,23 +344,41 @@ require("lazy").setup({
 		end,
 	},
 
-	-- Css color
+	-- Colorrize
 	{
-		'ap/vim-css-color',
+		'NvChad/nvim-colorizer.lua',
+		config = function()
+			require('colorizer').setup()
+		end
 	},
 
-	-------- colorschemes -----------
-	'rebelot/kanagawa.nvim',
-	{ 'folke/tokyonight.nvim', branch = 'main' },
-	{ 'sainnhe/everforest' },
-	{ 'dracula/vim' },
+	-- Auto dark/light for macOS
 	{
-		'uloco/bluloco.nvim',
-		lazy = false,
-		priority = 1000,
-		dependencies = { 'rktjmp/lush.nvim' },
+		'cormacrelf/dark-notify',
 		config = function()
-			require('plugins.bluloco')
+			require('dark_notify').run()
+		end
+	},
+	-------- colorschemes -----------
+	-- 'rebelot/kanagawa.nvim',
+	-- { 'folke/tokyonight.nvim', branch = 'main' },
+	-- { 'sainnhe/everforest' },
+	-- { 'dracula/vim' },
+	-- {
+	-- 	'uloco/bluloco.nvim',
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	dependencies = { 'rktjmp/lush.nvim' },
+	-- 	config = function()
+	-- 		require('plugins.bluloco')
+	-- 	end,
+	-- },
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+		config = function()
+			require('plugins.catppuccin')
 		end,
 	},
 

@@ -7,6 +7,9 @@ vim.g.loaded_netrwPlugin = 1
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
+-- set neovide transparency
+vim.g.neovide_transparency = 0.85
+
 -- Set Syntax on
 command('syntax on')
 
