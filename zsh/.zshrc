@@ -59,6 +59,9 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
 # ruby gem PATH
 export PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"
+# mojo path
+export MODULAR_HOME="$HOME/.modular"
+export PATH="$HOME/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -66,7 +69,7 @@ export PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"
 alias sudo="sudo "
 alias vim="nvim"
 alias where="pwd"
-alias ls="exa --icons"
+alias ls="eza --icons"
 alias gfs="git fetch && git status"
 alias grep="rg"
 if [[ `uname` == "Darwin" ]]; then
@@ -138,3 +141,5 @@ export PATH="/opt/homebrew/opt/berkeley-db/bin:$PATH"
 export LDFLAGS="-L/opt/homebrew/opt/berkeley-db/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/berkeley-db/include"
 export BERKELEYDB_DIR="/opt/homebrew/opt/berkeley-db"
+
+[[ "$TERM_PROGRAM" == "CodeEditApp_Terminal" ]] && . "/Applications/CodeEdit.app/Contents/Resources/codeedit_shell_integration.zsh"
