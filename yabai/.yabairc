@@ -48,17 +48,17 @@ yabai -m config                                 \
     mouse_action2                resize         \
     mouse_drop_action            swap
 
-# Refresh yabai if a tab in finder or terminal is created or moved to new window
-# yabai -m signal --add event=window_created app="^Terminal$|^Finder$^Preview$" \
-#     action="yabai -m space --focus next && sleep 0.01 && yabai -m space --focus recent"
-#
-# yabai -m signal --add event=window_destroyed app="^Terminal$|^Finder$^Preview$" \
-#     action="yabai -m space --focus next && sleep 0.01 && yabai -m space --focus recent"
-#
-# yabai -m signal --add event=window_moved app="^Terminal$|^Finder$^Preview$" \
-#     action="yabai -m space --focus next && sleep 0.01 && yabai -m space --focus recent"
-#
-# yabai -m signal --add event=window_resized app="^Terminal$|^Finder$^Preview$" \
-#     action="yabai -m space --focus next && sleep 0.01 && yabai -m space --focus recent"
-#
+Refresh yabai if a tab in finder or terminal is created or moved to new window
+yabai -m signal --add event=window_created app="^Terminal$|^Finder$^Preview$" \
+    action="yabai -m space --focus next && sleep 0.01 && yabai -m space --focus recent"
+
+yabai -m signal --add event=window_destroyed app="^Terminal$|^Finder$^Preview$" \
+    action="yabai -m space --focus next && sleep 0.01 && yabai -m space --focus recent"
+
+yabai -m signal --add event=window_moved app="^Terminal$|^Finder$^Preview$" \
+    action="yabai -m space --focus next && sleep 0.01 && yabai -m space --focus recent"
+
+yabai -m signal --add event=window_resized app="^Terminal$|^Finder$^Preview$" \
+    action="yabai -m space --focus next && sleep 0.01 && yabai -m space --focus recent"
+
 echo "yabai configuration loaded.."
