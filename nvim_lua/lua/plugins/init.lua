@@ -203,40 +203,47 @@ require("lazy").setup({
 	},
 
 	-- Smooooth
-	-- {
-	-- 	'psliwka/vim-smoothie',
-	-- },
 	{
-		'karb94/neoscroll.nvim',
-		config = function()
-			require('plugins.neoscroll')
-		end
+		'psliwka/vim-smoothie',
 	},
-
-	-- Extra Beauty
-	{
-	  'stevearc/dressing.nvim',
-	  opts = {},
-	},	
 	-- {
-	-- 	"folke/noice.nvim",
-	-- 	event = "VeryLazy",
-	-- 	opts = {
-	-- 		-- add any options here
-	-- 	},
-	-- 	dependencies = {
-	-- 		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-	-- 		"MunifTanjim/nui.nvim",
-	-- 		-- OPTIONAL:
-	-- 		--   `nvim-notify` is only needed, if you want to use the notification view.
-	-- 		--   If not available, we use `mini` as the fallback
-	-- 		-- "rcarriga/nvim-notify",
-	-- 		'echasnovski/mini.nvim',
-	-- 	},
+	-- 	'karb94/neoscroll.nvim',
 	-- 	config = function()
-	-- 		require("plugins.noice")
+	-- 		require('plugins.neoscroll')
 	-- 	end
 	-- },
+
+	-- Extra Beauty
+	-- {
+	--   'stevearc/dressing.nvim',
+	--   opts = {},
+	-- },	
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- add any options here
+		},
+		dependencies = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			-- OPTIONAL:
+			--   `nvim-notify` is only needed, if you want to use the notification view.
+			--   If not available, we use `mini` as the fallback
+			"rcarriga/nvim-notify",
+			-- 'echasnovski/mini.nvim',
+		},
+		config = function()
+			require("plugins.noice")
+		end
+	},
+	{
+		"rcarriga/nvim-notify",
+		event = "VeryLazy",
+		config = function()
+			require("plugins.notify")
+		end
+	},
 
 	-- Dashboard
 	{
