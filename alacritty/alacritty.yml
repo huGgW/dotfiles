@@ -13,5 +13,9 @@ font:
 
 window:
   opacity: 0.95
-  decorations: full
+  decorations: buttonless
   blur: true
+  padding:
+    x: 5
+    y: 5
+  dynamic_padding: true
