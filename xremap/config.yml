@@ -1,0 +1,9 @@
+modmap:
+  - name: Capslock to ESC
+    remap:
+      CapsLock: Esc
+
+  - name: Alt, Win swap
+    remap:
+      Win_L: Alt_L
+      Alt_L: Win_L

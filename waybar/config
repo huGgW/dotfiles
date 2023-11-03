@@ -21,7 +21,7 @@
 	"network": {
 		"tooltip": false,
 		"format-wifi": "  {essid}",
-		"format-ethernet": ""
+		"format-ethernet": "\udb80\ude00"
 	},
 	"backlight": {
 		"tooltip": false,
@@ -35,7 +35,8 @@
 		"spacing": 10
 	},
     "clock": {
-        "format": "{: %I:%M %p   %d/%m/%Y}"
+        "format": "{: %H:%M   %Y/%m/%d}"
+        // "format": "{: %I:%M %p   %d/%m/%Y}"
     },
     "cpu": {
         "interval": 15,
@@ -62,12 +63,12 @@
     },
     "custom/launcher":{
         "format": " ",
-        "on-click": "wofi --show drun",
-        "on-click-right": "killall wofi"
+        "on-click": "sh ~/.config/rofi/bin/launcher",
+        "on-click-right": "killall rofi"
     },
     "custom/power":{
         "format": " ",
-        "on-click": "bash ~/.config/wofi/leave/leave.sh",
+        "on-click": "sh ~/.config/rofi/bin/powermenu",
     },
     "custom/updates":{
         "format": "{} Update(s)",
