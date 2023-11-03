@@ -205,6 +205,7 @@ require("lazy").setup({
 	-- Smooooth
 	{
 		'psliwka/vim-smoothie',
+		cond = not vim.g.neovide
 	},
 	-- {
 	-- 	'karb94/neoscroll.nvim',

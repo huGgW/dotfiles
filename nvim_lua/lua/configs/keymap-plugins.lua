@@ -5,14 +5,15 @@ map('n', '<Leader>te', ':NvimTreeToggle<CR>', {})
 
 -- Telescope
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<C-p>', builtin.find_files, {})
-vim.keymap.set('n', '<C-F>', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fo', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fs', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-vim.keymap.set('n', '<leader>fc', builtin.treesitter, {})
+vim.keymap.set('n', '<leader>fd', builtin.treesitter, {})
+vim.keymap.set('n', '<leader>fp', builtin.commands, {})
 
 -- keymap to toggle aerial
-vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
+vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>")
 
 -- Guess Indent
 vim.keymap.set('n', '<Leader>i', ':GuessIndent<CR>', {})
@@ -48,9 +49,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<f2>', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<C-space>', vim.lsp.buf.code_action, opts)
+    vim.keymap.set({ 'n', 'v' }, '<leader>a', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<S-f12>', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<space>f', function()
+    vim.keymap.set('n', '<space>fm', function()
       vim.lsp.buf.format { async = true }
     end, opts)
   end,
