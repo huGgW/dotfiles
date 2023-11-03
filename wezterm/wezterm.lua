@@ -13,9 +13,16 @@ end
 -- wezterm.gui is not available to the mux server, so take care to
 -- do something reasonable when this config is evaluated by the mux
 local function get_appearance()
+  -- Use dark mode on linux (since hyprland cannot detect dark mode on linux)
+  wezterm.log_warn("target_triple: " .. wezterm.target_triple)
+  if wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
+    return 'Dark'
+  end
+
   if wezterm.gui then
     return wezterm.gui.get_appearance()
   end
+
   return 'Dark'
 end
 
