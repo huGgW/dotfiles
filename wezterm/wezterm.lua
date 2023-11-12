@@ -30,12 +30,22 @@ end
 -- This is where you actually apply your config choices
 config.color_scheme = scheme_for_appearance(get_appearance())
 
-config.font = wezterm.font 'D2CodingLigature Nerd Font'
+config.font = wezterm.font_with_fallback {
+  {
+    family = 'JetBrainsMono Nerd Font',
+    harfbuzz_features = {'calt=1', 'liga=1', 'dlig=1'}
+  },
+  {
+    family = 'D2CodingLigature Nerd Font',
+    harfbuzz_features = {'calt=1', 'liga=1', 'dlig=1'}
+  }
+}
+
 config.font_size = 16
 
 config.hide_tab_bar_if_only_one_tab = true
-config.window_background_opacity = 0.85
-config.macos_window_background_blur = 32
+config.window_background_opacity = 0.95
+config.macos_window_background_blur = 16
 config.win32_system_backdrop = "Mica"
 
 config.max_fps = 120
