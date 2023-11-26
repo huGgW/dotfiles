@@ -55,22 +55,35 @@ vmap <leader>p "+p
 vmap <leader>P "+P
 
 " Set scroll to center
-nmap <C-d> <C-d>zz
-vmap <C-d> <C-d>zz
-nmap <C-u> <C-u>zz
-vmap <C-u> <C-u>zz
+set scrolloff=999
+" nmap <C-d> <C-d>zz
+" vmap <C-d> <C-d>zz
+" nmap <C-u> <C-u>zz
+" vmap <C-u> <C-u>zz
 
 " Search to center"
-nmap n nzz
-nmap N nzz
-nmap * *zz
-nmap # #zz
+" nmap n nzz
+" nmap N nzz
+" nmap * *zz
+" nmap # #zz
 
 " Set nerdtree shortcut
-nmap <leader>te :NERDTreeToggle<CR>
+map <leader>te <Action>(ActivateProjectToolWindow)
 
 " for macos multicursor remap
 map <C-N>  <A-N>
 map <C-P>  <A-P>
 map <C-X>  <A-X>
 map g<C-N> g<A-N>
+
+" Open file
+map <leader>fo <Action>(GotoFile)
+
+" Open command
+map <leader>fp <Action>(GotoAction)
+
+" Open search from path
+map <leader>fs <Action>(FindInPath)
+
+" Open symbols
+map <leader>fd <Action>(GotoSymbol)
