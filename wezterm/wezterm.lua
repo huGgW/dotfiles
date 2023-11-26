@@ -32,9 +32,13 @@ config.color_scheme = scheme_for_appearance(get_appearance())
 
 config.font = wezterm.font_with_fallback {
   {
-    family = 'JetBrainsMono Nerd Font',
+    family = 'Monaspace Neon',
     harfbuzz_features = {'calt=1', 'liga=1', 'dlig=1'}
   },
+  -- {
+  --   family = 'JetBrainsMono Nerd Font',
+  --   harfbuzz_features = {'calt=1', 'liga=1', 'dlig=1'}
+  -- },
   {
     family = 'D2CodingLigature Nerd Font',
     harfbuzz_features = {'calt=1', 'liga=1', 'dlig=1'}
