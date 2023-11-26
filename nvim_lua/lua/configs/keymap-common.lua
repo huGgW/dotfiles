@@ -15,7 +15,13 @@ map('v', '<Leader>p', '"+p', {})
 map('v', '<Leader>P', '"+P', {})
 
 -- scroll to center
--- map('n', '<C-d>', '<C-d>zz', {})
--- map('v', '<C-d>', '<C-d>zz', {})
--- map('n', '<C-u>', '<C-u>zz', {})
--- map('v', '<C-u>', '<C-u>zz', {})
+map('n', '<C-d>', '<C-d>zz', {})
+map('v', '<C-d>', '<C-d>zz', {})
+map('n', '<C-u>', '<C-u>zz', {})
+map('v', '<C-u>', '<C-u>zz', {})
+
+-- Search to center
+map('n', 'n', 'nzz', {})
+map('n', 'N', 'Nzz', {})
+map('n', '*', '*zz', {})
+map('n', '#', '#zz', {})

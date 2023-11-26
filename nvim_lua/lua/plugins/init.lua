@@ -187,10 +187,18 @@ require("lazy").setup({
 	},
 
 	-- Tab bar
+	-- {
+	-- 	'nanozuki/tabby.nvim',
+	-- 	config = function()
+	-- 		require('tabby').setup()
+	-- 	end
+	-- },
 	{
-		'nanozuki/tabby.nvim',
+		'akinsho/bufferline.nvim',
+		version = "*",
+		dependencies = 'nvim-tree/nvim-web-devicons',
 		config = function()
-			require('tabby').setup()
+			require("plugins.bufferline")
 		end
 	},
 
@@ -203,10 +211,10 @@ require("lazy").setup({
 	},
 
 	-- Smooooth
-	{
-		'psliwka/vim-smoothie',
-		cond = not vim.g.neovide
-	},
+	-- {
+	-- 	'psliwka/vim-smoothie',
+	-- 	cond = not vim.g.neovide
+	-- },
 	-- {
 	-- 	'karb94/neoscroll.nvim',
 	-- 	config = function()
@@ -244,6 +252,11 @@ require("lazy").setup({
 		config = function()
 			require("plugins.notify")
 		end
+	},
+
+	-- Scrollbar
+	{
+		"dstein64/nvim-scrollview",
 	},
 
 	-- Dashboard
@@ -304,7 +317,23 @@ require("lazy").setup({
 	{
 		'nvim-telescope/telescope.nvim',
 		tag = '0.1.3',
-		dependencies = { 'nvim-lua/plenary.nvim' }
+		dependencies = {
+			'nvim-lua/plenary.nvim',
+		},
+		config = function()
+			require('telescope').load_extension('lsp_handlers')
+		end
+	},
+	{
+		'nvim-telescope/telescope-fzf-native.nvim',
+		build = 'make',
+		dependencies = {
+			'nvim-telescope/telescope.nvim',
+		},
+	},
+	{
+		'gbrlsnchs/telescope-lsp-handlers.nvim',
+		dependencies = { 'nvim-telescope/telescope.nvim' },
 	},
 
 	-- File Tree

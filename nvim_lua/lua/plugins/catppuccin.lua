@@ -2,7 +2,7 @@ require("catppuccin").setup({
     flavour = "mocha", -- latte, frappe, macchiato, mocha
     background = {     -- :h background
         light = "latte",
-        dark = "macchiato",
+        dark = "mocha",
     },
     transparent_background = true, -- disables setting the background color.
     show_end_of_buffer = false,    -- shows the '~' characters after the end of buffers
@@ -38,42 +38,42 @@ require("catppuccin").setup({
         treesitter = true,
         notify = true,
         mini = false,
-        -- telescope = {
-        --     enabled = true,
-        --     -- style = "nvchad"
-        -- },
-        -- indent_blankline = {
-        --     enabled = true,
-        --     scope_color = "",
-        --     colored_indent_levels = false,
-        -- },
-        -- noice = true,
-        -- dap = {
-        --     enabled = true,
-        --     enabled_ui = true
-        -- },
-        -- native_lsp = {
-        --     enabled = true,
-        --     virtual_text = {
-        --         errors = { "italic" },
-        --         hints = { "italic" },
-        --         warnings = { "italic" },
-        --         information = { "italic" },
-        --     },
-        --     underlines = {
-        --         errors = { "underline" },
-        --         hints = { "underline" },
-        --         warnings = { "underline" },
-        --         information = { "underline" },
-        --     },
-        --     inlay_hints = {
-        --         background = true,
-        --     },
-        -- },
-        -- lsp_saga = true,
-        -- lsp_trouble = true,
-        -- rainbow_delimiters = true,
-        -- which_key = true,
+        telescope = {
+            enabled = true,
+            -- style = "nvchad"
+        },
+        indent_blankline = {
+            enabled = true,
+            scope_color = "",
+            colored_indent_levels = false,
+        },
+        noice = true,
+        dap = {
+            enabled = true,
+            enabled_ui = true
+        },
+        native_lsp = {
+            enabled = true,
+            virtual_text = {
+                errors = { "italic" },
+                hints = { "italic" },
+                warnings = { "italic" },
+                information = { "italic" },
+            },
+            underlines = {
+                errors = { "underline" },
+                hints = { "underline" },
+                warnings = { "underline" },
+                information = { "underline" },
+            },
+            inlay_hints = {
+                background = true,
+            },
+        },
+        lsp_saga = true,
+        lsp_trouble = true,
+        rainbow_delimiters = true,
+        which_key = true,
         -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
     },
 })

@@ -11,7 +11,8 @@ vim.opt.termguicolors = true
 command('syntax on')
 
 -- Set number as relative
-command('set number relativenumber')
+command('set number')
+-- command('set relativenumber')
 
 -- Set cursorline
 command('hi CursorLine   cterm=NONE ctermbg=0')
