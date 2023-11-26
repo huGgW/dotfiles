@@ -1,7 +1,7 @@
 {
 	"layer": "top",
 	"modules-left": ["custom/launcher","cpu","memory","custom/media","tray"],
-	"modules-center": ["river/tags"],
+	"modules-center": ["hyprland/workspaces"],
 	"modules-right": ["custom/updates","custom/wallpaper","backlight","pulseaudio","clock", "battery","custom/power"],
 	
 	"pulseaudio": {
@@ -14,9 +14,8 @@
 			"default": ["", "", ""]
 		}
 	},
-
-    "river/tags": {
-		"num-tags": 6
+	"hyprland/workspaces": {
+	    "active-only": true,
     },
 	"network": {
 		"tooltip": false,
@@ -79,6 +78,6 @@
     },
     "custom/wallpaper":{
         "format":" ",
-        "on-click": "nitrogen"
+        "on-click": "waypaper"
     }
 }
