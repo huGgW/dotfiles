@@ -70,6 +70,12 @@ require("lazy").setup({
 			require("plugins.dapui")
 		end
 	},
+	{
+		"theHamsta/nvim-dap-virtual-text",
+		config = function()
+			require("nvim-dap-virtual-text").setup()
+		end
+	},
 
 	-- Lint && Format
 	{
@@ -78,6 +84,17 @@ require("lazy").setup({
 		config = function()
 			require("plugins.none-ls")
 		end
+	},
+
+	-- snippets
+	{
+		"rafamadriz/friendly-snippets",
+	},
+
+	-- nvim lua lsp Improve
+	{
+		'folke/neodev.nvim',
+		opts = {}
 	},
 
 	-- illuminate
@@ -210,6 +227,18 @@ require("lazy").setup({
 		end
 	},
 
+	-- Lazygit
+	{
+		"kdheepak/lazygit.nvim",
+		-- optional for floating window border decoration
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+        config = function()
+            require("telescope").load_extension("lazygit")
+        end,
+	},
+
 	-- Smooooth
 	-- {
 	-- 	'psliwka/vim-smoothie',
@@ -252,6 +281,15 @@ require("lazy").setup({
 		config = function()
 			require("plugins.notify")
 		end
+	},
+
+	-- LSP load notify
+	{
+		"j-hui/fidget.nvim",
+		opts = {},
+		config = function()
+			require("fidget").setup()
+        end
 	},
 
 	-- Scrollbar
@@ -341,6 +379,18 @@ require("lazy").setup({
 		'nvim-tree/nvim-tree.lua',
 		config = function()
 			require('nvim-tree').setup()
+		end
+	},
+
+	-- Oil.nvim (file manage like buffer)
+	{
+		'stevearc/oil.nvim',
+		opts ={},
+		dependencies = {
+			'nvim-tree/nvim-web-devicons',
+		},
+		config = function()
+			require('oil').setup()
 		end
 	},
 
