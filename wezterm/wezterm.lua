@@ -47,7 +47,7 @@ config.font = wezterm.font_with_fallback {
   --   harfbuzz_features = {'calt=1', 'liga=1', 'dlig=1'}
   -- },
   {
-    family = 'D2CodingLigature Nerd Font',
+    family = 'D2Codingligature Nerd Font',
     harfbuzz_features = {'calt=1', 'liga=1', 'dlig=1'}
   }
 }
