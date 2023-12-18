@@ -136,10 +136,5 @@ if [[ `uname` == "Darwin" ]]; then
 fi
 
 ##########################################temp###################################################
-# berkely db envs
-export PATH="/opt/homebrew/opt/berkeley-db/bin:$PATH"
-export LDFLAGS="-L/opt/homebrew/opt/berkeley-db/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/berkeley-db/include"
-export BERKELEYDB_DIR="/opt/homebrew/opt/berkeley-db"
 
 [[ "$TERM_PROGRAM" == "CodeEditApp_Terminal" ]] && . "/Applications/CodeEdit.app/Contents/Resources/codeedit_shell_integration.zsh"
