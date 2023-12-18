@@ -136,5 +136,6 @@ if [[ `uname` == "Darwin" ]]; then
 fi
 
 ##########################################temp###################################################
-
-[[ "$TERM_PROGRAM" == "CodeEditApp_Terminal" ]] && . "/Applications/CodeEdit.app/Contents/Resources/codeedit_shell_integration.zsh"
+if [[ `uname` == "Darwin" ]] then
+	[[ "$TERM_PROGRAM" == "CodeEditApp_Terminal" ]] && . "/Applications/CodeEdit.app/Contents/Resources/codeedit_shell_integration.zsh"
+fi
