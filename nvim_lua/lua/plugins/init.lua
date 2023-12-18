@@ -91,10 +91,17 @@ require("lazy").setup({
 		"rafamadriz/friendly-snippets",
 	},
 
+	----- language specific -----
 	-- nvim lua lsp Improve
 	{
 		'folke/neodev.nvim',
 		opts = {}
+	},
+	{
+		'leoluz/nvim-dap-go',
+		config = function()
+			require("dap-go").setup()
+		end
 	},
 
 	-- illuminate
