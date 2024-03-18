@@ -55,11 +55,10 @@ vmap <leader>p "+p
 vmap <leader>P "+P
 
 " Set scroll to center
-set scrolloff=999
-" nmap <C-d> <C-d>zz
-" vmap <C-d> <C-d>zz
-" nmap <C-u> <C-u>zz
-" vmap <C-u> <C-u>zz
+nmap <C-d> <C-d>zz
+vmap <C-d> <C-d>zz
+nmap <C-u> <C-u>zz
+vmap <C-u> <C-u>zz
 
 " Search to center"
 " nmap n nzz
@@ -67,8 +66,14 @@ set scrolloff=999
 " nmap * *zz
 " nmap # #zz
 
+" Move pane
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+
 " Set nerdtree shortcut
-map <leader>te <Action>(ActivateProjectToolWindow)
+map <leader>te :NERDTreeToggle<CR>
 
 " for macos multicursor remap
 map <C-N>  <A-N>
@@ -87,3 +92,21 @@ map <leader>fs <Action>(FindInPath)
 
 " Open symbols
 map <leader>fd <Action>(GotoSymbol)
+
+" code action
+map <leader>a <Action>(ShowIntentionActions)
+
+" toggle structure view
+map <leader>o <Action>(ActivateStructureToolWindow)
+
+" format code
+map <leader>fm <Action>(ReformatCode)
+
+" unsplit
+map <C-w>q <Action>(Unsplit)
+
+" toggle errors
+map <leader>e <Action>(ActivateProblemsViewToolWindow)
+
+" toggle breakpoint
+map <leader>b <Action>(ToggleLineBreakpoint)
