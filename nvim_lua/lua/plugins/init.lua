@@ -91,18 +91,6 @@ require("lazy").setup({
 		"rafamadriz/friendly-snippets",
 	},
 
-	----- language specific -----
-	-- nvim lua lsp Improve
-	{
-		'folke/neodev.nvim',
-		opts = {}
-	},
-	{
-		'leoluz/nvim-dap-go',
-		config = function()
-			require("dap-go").setup()
-		end
-	},
 
 	-- illuminate
 	{
@@ -144,7 +132,39 @@ require("lazy").setup({
 
 	-- Github Copilot
 	{
-		"github/copilot.vim",
+		'zbirenbaum/copilot.lua',
+		event = "InsertEnter",
+		config = function()
+			require('plugins.copilot')
+		end,
+	},
+
+	-- ChatGPT Integration
+	-- {
+	-- 	"jackMort/ChatGPT.nvim",
+	-- 	event = "VeryLazy",
+	-- 	config = function()
+	-- 		require("chatgpt").setup()
+	-- 	end,
+	-- 	dependencies = {
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"folke/trouble.nvim",
+	-- 		"nvim-telescope/telescope.nvim"
+	-- 	}
+	-- },
+
+
+	-- Copilot chat
+	{
+		"CopilotC-Nvim/CopilotChat.nvim",
+		branch="canary",
+		dependencies = {
+			{ "zbirenbaum/copilot.lua" },
+			{ "nvim-lua/plenary.nvim" },
+		},
+		opts = {
+		},
 	},
 
 	-- Auto Complete
@@ -174,6 +194,58 @@ require("lazy").setup({
 			--Please make sure you install markdown and markdown_inline parser
 			{ "nvim-treesitter/nvim-treesitter" }
 		}
+	},
+
+	--- Language-specific LSP support
+	-- Typescript
+	{
+		"pmizio/typescript-tools.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		opts = {},
+	},
+	-- C / C++
+	{
+		"p00f/clangd_extensions.nvim",
+	},
+	-- -- Java
+	-- {
+	-- 	"mfussenegger/nvim-jdtls",
+	-- },
+	-- Kotlin
+	{
+		"udalov/kotlin-vim",
+	},
+	-- Rust
+	{
+		"simrat39/rust-tools.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		-- config = function()
+		-- 	require("rust-tools").setup({})
+		-- end
+	},
+	{
+		'saecki/crates.nvim',
+		tag = 'stable',
+		dependencies = { 'nvim-lua/plenary.nvim' },
+		config = function()
+			require('crates').setup()
+		end,
+	},
+	-- nvim lua lsp Improve
+	{
+		'folke/neodev.nvim',
+		opts = {}
+	},
+	-- Go DAP improvement
+	{
+		'leoluz/nvim-dap-go',
+		config = function()
+			require("dap-go").setup()
+		end
+	},
+	-- json/yaml common schemas
+	{
+		"b0o/schemastore.nvim",
 	},
 
 	-- Surround
@@ -241,28 +313,30 @@ require("lazy").setup({
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
-        config = function()
-            require("telescope").load_extension("lazygit")
-        end,
+		config = function()
+			require("telescope").load_extension("lazygit")
+		end,
+	},
+
+	-- DiffView
+	{
+		"sindrets/diffview.nvim",
 	},
 
 	-- Smooooth
-	-- {
-	-- 	'psliwka/vim-smoothie',
-	-- 	cond = not vim.g.neovide
-	-- },
+	{
+		'psliwka/vim-smoothie',
+		cond = not vim.g.neovide,
+	},
 	-- {
 	-- 	'karb94/neoscroll.nvim',
+	-- 	cond = not vim.g.neovide,
 	-- 	config = function()
 	-- 		require('plugins.neoscroll')
 	-- 	end
 	-- },
 
 	-- Extra Beauty
-	-- {
-	--   'stevearc/dressing.nvim',
-	--   opts = {},
-	-- },	
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
@@ -296,12 +370,38 @@ require("lazy").setup({
 		opts = {},
 		config = function()
 			require("fidget").setup()
-        end
+		end
 	},
 
 	-- Scrollbar
 	{
 		"dstein64/nvim-scrollview",
+		-- cond = not vim.g.neovide,
+	},
+
+	-- vscode icon on auto-complete
+	{
+		"onsails/lspkind-nvim",
+		config = function()
+			require("plugins.lspkind")
+		end
+	},
+
+	-- Center the buffer
+	{
+		"shortcuts/no-neck-pain.nvim",
+		version = "*",
+		config = function()
+			require("plugins.no-neck-pain")
+		end,
+	},
+
+	-- Dim inactive buffer parts
+	{
+		"folke/twilight.nvim",
+		opts = {
+			treesitter = true,
+		}
 	},
 
 	-- Dashboard
@@ -358,6 +458,12 @@ require("lazy").setup({
 		end
 	},
 
+	-- Fold
+	{
+		"kevinhwang91/nvim-ufo",
+		dependencies = { "kevinhwang91/promise-async" },
+	},
+
 	-- Telescope (fuzzy finder)
 	{
 		'nvim-telescope/telescope.nvim',
@@ -392,7 +498,7 @@ require("lazy").setup({
 	-- Oil.nvim (file manage like buffer)
 	{
 		'stevearc/oil.nvim',
-		opts ={},
+		opts = {},
 		dependencies = {
 			'nvim-tree/nvim-web-devicons',
 		},
@@ -435,6 +541,13 @@ require("lazy").setup({
 		end,
 	},
 
+	-- Search keymaps
+	{
+		"tris203/hawtkeys.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" },
+		config = {},
+	},
+
 	-- Markdown Preview
 	{
 		'iamcco/markdown-preview.nvim',
@@ -459,19 +572,6 @@ require("lazy").setup({
 		end
 	},
 	-------- colorschemes -----------
-	-- 'rebelot/kanagawa.nvim',
-	-- { 'folke/tokyonight.nvim', branch = 'main' },
-	-- { 'sainnhe/everforest' },
-	-- { 'dracula/vim' },
-	-- {
-	-- 	'uloco/bluloco.nvim',
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	dependencies = { 'rktjmp/lush.nvim' },
-	-- 	config = function()
-	-- 		require('plugins.bluloco')
-	-- 	end,
-	-- },
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",

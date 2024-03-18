@@ -1,30 +1,30 @@
 local map = vim.api.nvim_set_keymap
 
 -- Nvim Tree
-map('n', '<Leader>te', ':NvimTreeToggle<CR>', {})
+map('n', '<Leader>te', ':NvimTreeToggle<CR>', { desc = "Toggle Nvim Tree" })
 
 -- Telescope
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>fo', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fs', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-vim.keymap.set('n', '<leader>fd', builtin.treesitter, {})
-vim.keymap.set('n', '<leader>fp', builtin.commands, {})
+vim.keymap.set('n', '<leader>fo', builtin.find_files, { desc = "Find Files" })
+vim.keymap.set('n', '<leader>fs', builtin.live_grep, { desc = "Search from all files" })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = "Find buffers" })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = "Find help tags" })
+vim.keymap.set('n', '<leader>fd', builtin.treesitter, { desc = "Find treesitter" })
+vim.keymap.set('n', '<leader>fp', builtin.commands, { desc = "Find commands" })
 
 -- keymap to toggle aerial
-vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>")
+vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>", { desc = "Toggle outline" })
 
 -- Guess Indent
-vim.keymap.set('n', '<Leader>i', ':GuessIndent<CR>', {})
+vim.keymap.set('n', '<Leader>i', ':GuessIndent<CR>', { desc = "Guess Indent" })
 
 -- Lsp
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = "Open diagnostic float" })
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = "Set loclist" })
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -49,10 +49,22 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<f2>', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<leader>a', vim.lsp.buf.code_action, opts)
+    -- vim.keymap.set({ 'n', 'v' }, '<leader>a', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<S-f12>', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<space>fm', function()
+    vim.keymap.set('n', '<leader>fm', function()
       vim.lsp.buf.format { async = true }
     end, opts)
   end,
 })
+
+-- Lsp Saga
+vim.keymap.set('n', '<M-f12>', ':Lspsaga peek_definition<CR>', { desc = "Peek definition" })
+vim.keymap.set({ 'n', 'v' }, '<leader>a', ':Lspsaga code_action<CR>', { desc = "Code action" })
+
+-- Dap
+vim.keymap.set('n', '<f5>', ':lua require"dap".continue()<CR>', { desc = "Continue" })
+vim.keymap.set('n', '<leader>b', ':lua require"dap".toggle_breakpoint()<CR>', { desc = "Toggle breakpoint" })
+
+-- UFO (Improved Fold)
+vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)

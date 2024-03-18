@@ -29,3 +29,7 @@ command('set shiftwidth=4')
 command('set autoindent')
 command('set copyindent')
 command('set smartindent')
+
+-- Set scrolloff to always set center
+-- vim.opt.scrolloff = 9999
+vim.opt.scrolloff = 5
