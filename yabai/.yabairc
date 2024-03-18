@@ -7,20 +7,20 @@
 # see this wiki page for information:
 #  - https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition
 #
-yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-sudo yabai --load-sa
+# yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+# sudo yabai --load-sa
 #
 
 # global settings
 yabai -m config                                 \
     mouse_follows_focus          off            \
-    focus_follows_mouse          off            \
+    focus_follows_mouse          on             \
     window_origin_display        default        \
     window_placement             second_child   \
     window_zoom_persist          on             \
     window_topmost               off            \
     window_shadow                on             \
-    window_animation_duration    0.0            \
+    window_animation_duration    0.2            \
     window_animation_frame_rate  120            \
     window_opacity_duration      0.0            \
     active_window_opacity        1.0            \
@@ -48,17 +48,5 @@ yabai -m config                                 \
     mouse_action2                resize         \
     mouse_drop_action            swap
 
-Refresh yabai if a tab in finder or terminal is created or moved to new window
-yabai -m signal --add event=window_created app="^Terminal$|^Finder$^Preview$" \
-    action="yabai -m space --focus next && sleep 0.01 && yabai -m space --focus recent"
-
-yabai -m signal --add event=window_destroyed app="^Terminal$|^Finder$^Preview$" \
-    action="yabai -m space --focus next && sleep 0.01 && yabai -m space --focus recent"
-
-yabai -m signal --add event=window_moved app="^Terminal$|^Finder$^Preview$" \
-    action="yabai -m space --focus next && sleep 0.01 && yabai -m space --focus recent"
-
-yabai -m signal --add event=window_resized app="^Terminal$|^Finder$^Preview$" \
-    action="yabai -m space --focus next && sleep 0.01 && yabai -m space --focus recent"
-
+# Refresh yabai if a tab in finder or terminal is created or moved to new window
 echo "yabai configuration loaded.."
