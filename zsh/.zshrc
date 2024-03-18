@@ -13,6 +13,7 @@ if [[ fastfetch ]] then
 	fastfetch
 fi
 
+# >>> ZPLUG >>>
 # Initialize zplug
 if [[ `uname` == "Darwin" ]]; then
 	export ZPLUG_HOME=/opt/homebrew/opt/zplug
@@ -22,15 +23,8 @@ else
 fi
 
 zplug "zsh-users/zsh-autosuggestions"
-
-zplug "agkozak/zsh-z"
-
 zplug "zdharma-continuum/fast-syntax-highlighting"
-
 zplug "conda-incubator/conda-zsh-completion"
-
-zplug 'wfxr/forgit'
-
 zplug "caarlos0/zsh-git-sync"
 
 # Install plugins if there are plugins that have not been installed
@@ -43,6 +37,7 @@ fi
 
 # Then, source plugins and add commands to $PATH
 zplug load
+# <<< ZPLUG <<<
 
 # Start starship
 eval "$(starship init zsh)"
@@ -53,7 +48,7 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
 
-# PATH
+# >>> PATH >>>
 export PATH="$HOME/.local/bin:$PATH"
 # Jetbrains Path
 export PATH="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
@@ -62,10 +57,9 @@ export PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"
 # mojo path
 export MODULAR_HOME="$HOME/.modular"
 export PATH="$HOME/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
+# <<< PATH <<<
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# >>> Alias >>>
 alias sudo="sudo "
 alias vim="nvim"
 alias where="pwd"
@@ -78,21 +72,16 @@ else
 	alias cat="bat"
 fi
 
-# alias for enable & disable sleep in systemctl linux
-if [[ `uname` != "Darwin" ]]; then
-	alias sleep_status="systemctl status sleep.target suspend.target hibernate.target hybrid-sleep.target"
-	alias sleep_disable="systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target"
-	alias sleep_enable="systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target"
-fi
+# <<< Alias <<<
 
 # fuck initialization
 eval $(thefuck --alias)
 
+# fzf initialization
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # Set ls color (fix the odd color in wsl)
 LS_COLORS="ow=01;36;40" && export LS_COLORS
-
-# Bat theme
-export BAT_THEME="gruvbox-dark"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -113,6 +102,110 @@ else
 fi
 # <<< conda initialize <<<
 
+# >>> zoxide (z) configs >>>
+# =============================================================================
+#
+# Utility functions for zoxide.
+#
+
+# pwd based on the value of _ZO_RESOLVE_SYMLINKS.
+function __zoxide_pwd() {
+    \builtin pwd -L
+}
+
+# cd + custom logic based on the value of _ZO_ECHO.
+function __zoxide_cd() {
+    # shellcheck disable=SC2164
+    \builtin cd -- "$@"
+}
+
+# =============================================================================
+#
+# Hook configuration for zoxide.
+#
+
+# Hook to add new entries to the database.
+function __zoxide_hook() {
+    # shellcheck disable=SC2312
+    \command zoxide add -- "$(__zoxide_pwd)"
+}
+
+# Initialize hook.
+# shellcheck disable=SC2154
+if [[ ${precmd_functions[(Ie)__zoxide_hook]:-} -eq 0 ]] && [[ ${chpwd_functions[(Ie)__zoxide_hook]:-} -eq 0 ]]; then
+    chpwd_functions+=(__zoxide_hook)
+fi
+
+# =============================================================================
+#
+# When using zoxide with --no-cmd, alias these internal functions as desired.
+#
+
+__zoxide_z_prefix='z#'
+
+# Jump to a directory using only keywords.
+function __zoxide_z() {
+    # shellcheck disable=SC2199
+    if [[ "$#" -eq 0 ]]; then
+        __zoxide_cd ~
+    elif [[ "$#" -eq 1 ]] && { [[ -d "$1" ]] || [[ "$1" = '-' ]] || [[ "$1" =~ ^[-+][0-9]$ ]]; }; then
+        __zoxide_cd "$1"
+    elif [[ "$@[-1]" == "${__zoxide_z_prefix}"?* ]]; then
+        # shellcheck disable=SC2124
+        \builtin local result="${@[-1]}"
+        __zoxide_cd "${result:${#__zoxide_z_prefix}}"
+    else
+        \builtin local result
+        # shellcheck disable=SC2312
+        result="$(\command zoxide query --exclude "$(__zoxide_pwd)" -- "$@")" &&
+            __zoxide_cd "${result}"
+    fi
+}
+
+# Jump to a directory using interactive search.
+function __zoxide_zi() {
+    \builtin local result
+    result="$(\command zoxide query --interactive -- "$@")" && __zoxide_cd "${result}"
+}
+
+# Completions.
+if [[ -o zle ]]; then
+    function __zoxide_z_complete() {
+        # Only show completions when the cursor is at the end of the line.
+        # shellcheck disable=SC2154
+        [[ "${#words[@]}" -eq "${CURRENT}" ]] || return 0
+
+        if [[ "${#words[@]}" -eq 2 ]]; then
+            _files -/
+        elif [[ "${words[-1]}" == '' ]] && [[ "${words[-2]}" != "${__zoxide_z_prefix}"?* ]]; then
+            \builtin local result
+            # shellcheck disable=SC2086,SC2312
+            if result="$(\command zoxide query --exclude "$(__zoxide_pwd)" --interactive -- ${words[2,-1]})"; then
+                result="${__zoxide_z_prefix}${result}"
+                # shellcheck disable=SC2296
+                compadd -Q "${(q-)result}"
+            fi
+            \builtin printf '\e[5n'
+        fi
+        return 0
+    }
+
+    \builtin bindkey '\e[0n' 'reset-prompt'
+    [[ "${+functions[compdef]}" -ne 0 ]] && \compdef __zoxide_z_complete __zoxide_z
+fi
+
+# =============================================================================
+#
+# Commands for zoxide. Disable these using --no-cmd.
+#
+
+\builtin alias z=__zoxide_z
+\builtin alias zi=__zoxide_zi
+
+
+
+# >>> Linux Specific >>>
+
 # for amd MKL performance hack
 if [[ `uname` != "Darwin" ]] then
 	export MKL_DEBUG_CPU_TYPE=5
@@ -126,7 +219,15 @@ if [[ `uname` != "Darwin" ]] then
 	export AMDGPU_TARGETS="gfx1030"
 fi
 
-# Mac specific
+# alias for enable & disable sleep in systemctl linux
+if [[ `uname` != "Darwin" ]]; then
+	alias sleep_status="systemctl status sleep.target suspend.target hibernate.target hybrid-sleep.target"
+	alias sleep_disable="systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target"
+	alias sleep_enable="systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target"
+fi
+# <<< Linux Specific <<<
+
+# >>> Mac specific >>>
 # iterm2 configuration for mac
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -134,8 +235,10 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 if [[ `uname` == "Darwin" ]]; then
 	export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 fi
+# <<< Mac specific <<<
 
 ##########################################temp###################################################
+
 if [[ `uname` == "Darwin" ]] then
 	[[ "$TERM_PROGRAM" == "CodeEditApp_Terminal" ]] && . "/Applications/CodeEdit.app/Contents/Resources/codeedit_shell_integration.zsh"
 fi
