@@ -45,7 +45,7 @@ config.color_scheme = scheme_for_appearance(get_appearance())
 ---- Font settings
 config.font = wezterm.font_with_fallback {
   {
-    family = 'Monaspace Neon',
+    family = 'MonaspiceNe Nerd Font',
     harfbuzz_features = {'calt=1', 'liga=1', 'dlig=1'}
   },
   {
