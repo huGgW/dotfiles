@@ -387,14 +387,14 @@ require("lazy").setup({
 		end
 	},
 
-	-- Center the buffer
-	{
-		"shortcuts/no-neck-pain.nvim",
-		version = "*",
-		config = function()
-			require("plugins.no-neck-pain")
-		end,
-	},
+	-- -- Center the buffer
+	-- {
+	-- 	"shortcuts/no-neck-pain.nvim",
+	-- 	version = "*",
+	-- 	config = function()
+	-- 		require("plugins.no-neck-pain")
+	-- 	end,
+	-- },
 
 	-- Dim inactive buffer parts
 	{
