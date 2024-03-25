@@ -4,4 +4,7 @@ require('lspsaga').setup({
         sign = false,
         virtual_text = true,
     },
+    breadcrumb = {
+        enabled = false,
+    },
 })

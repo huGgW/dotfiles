@@ -56,6 +56,7 @@ require("lazy").setup({
 	-- DAP (Debug)
 	{
 		'mfussenegger/nvim-dap',
+		dependencies = { 'nvim-neotest/nvim-nio' },
 	},
 	{
 		'jay-babu/mason-nvim-dap.nvim',
@@ -73,7 +74,8 @@ require("lazy").setup({
 	{
 		"theHamsta/nvim-dap-virtual-text",
 		config = function()
-			require("nvim-dap-virtual-text").setup()
+			require("nvim-dap-virtual-text").setup({
+			})
 		end
 	},
 
