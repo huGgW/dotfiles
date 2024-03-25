@@ -1,0 +1,7 @@
+zsh
+zplug
+starship
+bat
+eza
+zoxide
+thefuck
