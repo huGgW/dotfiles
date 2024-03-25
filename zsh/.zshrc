@@ -97,8 +97,9 @@ if [[ `uname` == "Darwin" ]]; then # When execute on macos
 		fi
 	fi
 	unset __conda_setup
-else
-	[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+else # when execute on linux
+    [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+    export TERMINFO=/usr/share/terminfo
 fi
 # <<< conda initialize <<<
 
