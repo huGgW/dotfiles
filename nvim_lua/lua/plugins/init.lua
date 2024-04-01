@@ -21,10 +21,10 @@ require("lazy").setup({
 			require("plugins.nvim-treesitter")
 		end
 	},
-	-- {
-	-- 	'nvim-treesitter/nvim-treesitter-context',
-	-- 	dependencies = { 'nvim-treesitter/nvim-treesitter' },
-	-- },
+	{
+		'nvim-treesitter/nvim-treesitter-context',
+		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+	},
 	{
 		'windwp/nvim-ts-autotag',
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
@@ -583,6 +583,24 @@ require("lazy").setup({
 		end,
 	},
 
+	-------- extra ---------------
+	{
+		"kawre/leetcode.nvim",
+		build = ":TSUpdate html",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+			"nvim-lua/plenary.nvim", -- required by telescope
+			"MunifTanjim/nui.nvim",
+
+			-- optional
+			"nvim-treesitter/nvim-treesitter",
+			"rcarriga/nvim-notify",
+			"nvim-tree/nvim-web-devicons",
+		},
+		opts = {
+			-- configuration goes here
+		},
+	},
 
 	-------- temporary -----------
 	{ 'lark-parser/vim-lark-syntax' }
