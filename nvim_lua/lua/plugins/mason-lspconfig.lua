@@ -77,5 +77,4 @@ mason_lspconfig.setup_handlers {
         lspconfig.ruff_lsp.setup({
         })
     end,
-
 }
