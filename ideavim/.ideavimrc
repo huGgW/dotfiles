@@ -41,6 +41,9 @@ set ideajoin
 " Add easymotion for ideavim plugin
 set easymotion
 
+" which key plugin
+set which-key
+
 " Keymap"""""""""""""""""""""""""""""""""
 " Leader key map to spacebar
 let mapleader = " "
