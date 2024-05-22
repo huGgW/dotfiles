@@ -3,13 +3,17 @@ local map = vim.api.nvim_set_keymap
 -- Nvim Tree
 map('n', '<Leader>te', ':NvimTreeToggle<CR>', { desc = "Toggle Nvim Tree" })
 
+-- Oil.nvim
+map('n', '<Leader>to', ':Oil<CR>', { desc = "Toggle Oil.nvim" })
+
+
 -- Telescope
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>fo', builtin.find_files, { desc = "Find Files" })
 vim.keymap.set('n', '<leader>fs', builtin.live_grep, { desc = "Search from all files" })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = "Find buffers" })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = "Find help tags" })
-vim.keymap.set('n', '<leader>fd', builtin.treesitter, { desc = "Find treesitter" })
+vim.keymap.set('n', '<leader>fd', builtin.lsp_dynamic_workspace_symbols, { desc = "Find symbols" })
 vim.keymap.set('n', '<leader>fp', builtin.commands, { desc = "Find commands" })
 
 -- keymap to toggle aerial
@@ -39,7 +43,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local opts = { buffer = ev.buf }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', '<f12>', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', '<C-f12>', vim.lsp.buf.implementation, opts)
     vim.keymap.set('n', '<leader>k', vim.lsp.buf.signature_help, opts)
     vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
