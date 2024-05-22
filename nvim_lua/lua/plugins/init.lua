@@ -566,6 +566,7 @@ require("lazy").setup({
 		end
 	},
 
+	-------- colorschemes -----------
 	-- Auto dark/light for macOS
 	{
 		'cormacrelf/dark-notify',
@@ -573,7 +574,6 @@ require("lazy").setup({
 			require('dark_notify').run()
 		end
 	},
-	-------- colorschemes -----------
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
@@ -582,6 +582,22 @@ require("lazy").setup({
 			require('plugins.catppuccin')
 		end,
 	},
+	{
+		"folke/tokyonight.nvim",
+		config = function()
+			require('plugins.tokyonight')
+		end,
+	},
+	{
+		"EdenEast/nightfox.nvim",
+		config = function()
+			require('plugins.nightfox')
+		end,
+	},
+	{
+		"sainnhe/everforest",
+	},
+
 
 	-------- extra ---------------
 	{
@@ -601,7 +617,4 @@ require("lazy").setup({
 			-- configuration goes here
 		},
 	},
-
-	-------- temporary -----------
-	{ 'lark-parser/vim-lark-syntax' }
 })
