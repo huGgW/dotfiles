@@ -1,4 +1,4 @@
-# Initialize brew on mac
+# >>> homebrew (mac) >>>
 if [[ `uname` == "Darwin" ]] then
 	if [[ "$(arch)" = "arm64" ]]; then
 		eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -7,11 +7,13 @@ if [[ `uname` == "Darwin" ]] then
 	fi
 	export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
 fi
+# <<< homebrew (mac) <<<
 
-# logo
+# >>> logo >>>
 if [[ fastfetch ]] then
 	fastfetch
 fi
+# <<< logo <<<
 
 # >>> ZPLUG >>>
 # Initialize zplug
@@ -39,14 +41,16 @@ fi
 zplug load
 # <<< ZPLUG <<<
 
-# Start starship
+# >>> starship >>>
 eval "$(starship init zsh)"
+# <<< starship <<<
 
-# Save zsh history to ~/.zsh_history
+# >>> enable zsh history >>>
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
+# <<< enable zsh history <<<
 
 # >>> PATH >>>
 export PATH="$HOME/.local/bin:$PATH"
@@ -74,11 +78,13 @@ fi
 
 # <<< Alias <<<
 
-# fuck initialization
+# >>> thefuck >>>
 eval $(thefuck --alias)
+# <<< thefuck <<<
 
-# fzf initialization
+# >>> fzf >>>
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# <<< fzf <<<
 
 # Set ls color (fix the odd color in wsl)
 LS_COLORS="ow=01;36;40" && export LS_COLORS
@@ -203,6 +209,7 @@ fi
 \builtin alias z=__zoxide_z
 \builtin alias zi=__zoxide_zi
 
+# <<< zoxide (z) configs <<<
 
 
 # >>> Linux Specific >>>
@@ -212,13 +219,14 @@ if [[ `uname` != "Darwin" ]] then
 	export MKL_DEBUG_CPU_TYPE=5
 fi
 
-# ROCm override
+# >>> ROCM docker >>>
 # alias for docker rocm
 if [[ `uname` != "Darwin" ]] then
 	alias drun='sudo docker run -it --network=host --device=/dev/kfd --device=/dev/dri --group-add=video --ipc=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -e HSA_OVERRIDE_GFX_VERSION=10.3.0'
 	export HSA_OVERRIDE_GFX_VERSION=10.3.0
 	export AMDGPU_TARGETS="gfx1030"
 fi
+# <<< ROCM docker <<<
 
 # alias for enable & disable sleep in systemctl linux
 if [[ `uname` != "Darwin" ]]; then
@@ -232,14 +240,4 @@ fi
 # iterm2 configuration for mac
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-# openjdk env
-if [[ `uname` == "Darwin" ]]; then
-	export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-fi
 # <<< Mac specific <<<
-
-##########################################temp###################################################
-
-if [[ `uname` == "Darwin" ]] then
-	[[ "$TERM_PROGRAM" == "CodeEditApp_Terminal" ]] && . "/Applications/CodeEdit.app/Contents/Resources/codeedit_shell_integration.zsh"
-fi
