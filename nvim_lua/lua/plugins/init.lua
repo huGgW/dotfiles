@@ -57,6 +57,9 @@ require("lazy").setup({
 	{
 		'mfussenegger/nvim-dap',
 		dependencies = { 'nvim-neotest/nvim-nio' },
+		config = function()
+			require('plugins.nvim-dap')
+		end,
 	},
 	{
 		'jay-babu/mason-nvim-dap.nvim',
@@ -79,6 +82,16 @@ require("lazy").setup({
 		end
 	},
 
+	-- Inlay Hints
+	{
+		"MysticalDevil/inlay-hints.nvim",
+		event = "LspAttach",
+		dependencies = { "neovim/nvim-lspconfig" },
+		config = function()
+			require("inlay-hints").setup()
+		end
+	},
+
 	-- Lint && Format
 	{
 		'nvimtools/none-ls.nvim',
@@ -89,10 +102,26 @@ require("lazy").setup({
 	},
 
 	-- snippets
-	{
-		"rafamadriz/friendly-snippets",
-	},
+	-- {
+	-- 	"rafamadriz/friendly-snippets",
+	-- },
 
+	-- tests
+	{
+		"nvim-neotest/neotest",
+		dependencies = {
+			"nvim-neotest/nvim-nio",
+			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-treesitter/nvim-treesitter",
+
+			"nvim-neotest/neotest-python",
+			"nvim-neotest/neotest-go"
+		},
+		config = function()
+			require("plugins.neotest")
+		end,
+	},
 
 	-- illuminate
 	{
@@ -141,26 +170,10 @@ require("lazy").setup({
 		end,
 	},
 
-	-- ChatGPT Integration
-	-- {
-	-- 	"jackMort/ChatGPT.nvim",
-	-- 	event = "VeryLazy",
-	-- 	config = function()
-	-- 		require("chatgpt").setup()
-	-- 	end,
-	-- 	dependencies = {
-	-- 		"MunifTanjim/nui.nvim",
-	-- 		"nvim-lua/plenary.nvim",
-	-- 		"folke/trouble.nvim",
-	-- 		"nvim-telescope/telescope.nvim"
-	-- 	}
-	-- },
-
-
 	-- Copilot chat
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
-		branch="canary",
+		branch = "canary",
 		dependencies = {
 			{ "zbirenbaum/copilot.lua" },
 			{ "nvim-lua/plenary.nvim" },
@@ -199,6 +212,39 @@ require("lazy").setup({
 	},
 
 	--- Language-specific LSP support
+	-- Go DAP improvement
+	{
+		'leoluz/nvim-dap-go',
+		config = function()
+			require("dap-go").setup()
+		end
+	},
+	-- Python venv selector
+	{
+		'linux-cultist/venv-selector.nvim',
+		dependencies = {
+			'neovim/nvim-lspconfig',
+			'nvim-telescope/telescope.nvim',
+			'mfussenegger/nvim-dap-python'
+		},
+		opts = {
+			name = 'venv',
+		},
+		event = 'VeryLazy',
+	},
+	-- Java lsp
+	{
+		'mfussenegger/nvim-jdtls',
+		dependencies = {
+			'mfussenegger/nvim-dap',
+		},
+		ft = 'java',
+		config = require('plugins/nvim-jdtls').config,
+	},
+	-- Kotlin
+	{
+		"udalov/kotlin-vim",
+	},
 	-- Typescript
 	{
 		"pmizio/typescript-tools.nvim",
@@ -208,22 +254,6 @@ require("lazy").setup({
 	-- C / C++
 	{
 		"p00f/clangd_extensions.nvim",
-	},
-	-- -- Java
-	-- {
-	-- 	"mfussenegger/nvim-jdtls",
-	-- },
-	-- Kotlin
-	{
-		"udalov/kotlin-vim",
-	},
-	-- Rust
-	{
-		"simrat39/rust-tools.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		-- config = function()
-		-- 	require("rust-tools").setup({})
-		-- end
 	},
 	{
 		'saecki/crates.nvim',
@@ -237,13 +267,6 @@ require("lazy").setup({
 	{
 		'folke/neodev.nvim',
 		opts = {}
-	},
-	-- Go DAP improvement
-	{
-		'leoluz/nvim-dap-go',
-		config = function()
-			require("dap-go").setup()
-		end
 	},
 	-- json/yaml common schemas
 	{
@@ -293,7 +316,7 @@ require("lazy").setup({
 	-- },
 	{
 		'akinsho/bufferline.nvim',
-		version = "*",
+		-- version = "*",
 		dependencies = 'nvim-tree/nvim-web-devicons',
 		config = function()
 			require("plugins.bufferline")
@@ -437,12 +460,12 @@ require("lazy").setup({
 	},
 
 	-- Comment
-	{
-		'numToStr/Comment.nvim',
-		config = function()
-			require('Comment').setup()
-		end
-	},
+	-- {
+	-- 	'numToStr/Comment.nvim',
+	-- 	config = function()
+	-- 		require('Comment').setup()
+	-- 	end
+	-- },
 
 	-- Indent
 	{
@@ -555,6 +578,16 @@ require("lazy").setup({
 		'iamcco/markdown-preview.nvim',
 		config = function()
 			vim.fn['mkdp#util#install']()
+		end,
+	},
+
+	-- Markdown render
+	{
+		'MeanderingProgrammer/markdown.nvim',
+		name = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
+		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+		config = function()
+			require('render-markdown').setup({})
 		end,
 	},
 
