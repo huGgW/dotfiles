@@ -19,10 +19,16 @@ fi
 # Initialize zplug
 if [[ `uname` == "Darwin" ]]; then
 	export ZPLUG_HOME=/opt/homebrew/opt/zplug
+	source $ZPLUG_HOME/init.zsh
 else # Linux using script
-    export ZPLUG_HOME=~/.zplug
+	if [ -d /usr/share/zsh/scripts/zplug ]; then
+		source /usr/share/zsh/scripts/zplug/init.zsh
+		export ZPLUG_HOME=~/.zplug
+	elif [ -d ~/.zplug ]; then
+		export ZPLUG_HOME=~/.zplug
+		source $ZPLUG_HOME/init.zsh
+	fi
 fi
-source $ZPLUG_HOME/init.zsh
 
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zdharma-continuum/fast-syntax-highlighting"
