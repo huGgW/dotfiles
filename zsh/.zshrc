@@ -1,14 +1,3 @@
-# >>> homebrew (mac) >>>
-if [[ `uname` == "Darwin" ]] then
-	if [[ "$(arch)" = "arm64" ]]; then
-		eval "$(/opt/homebrew/bin/brew shellenv)"
-	else # x86_64
-		eval "$(/usr/local/bin/brew shellenv)"
-	fi
-	export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
-fi
-# <<< homebrew (mac) <<<
-
 # >>> logo >>>
 if [[ fastfetch ]] then
 	fastfetch
@@ -62,11 +51,6 @@ setopt appendhistory
 export PATH="$HOME/.local/bin:$PATH"
 # Jetbrains Path
 export PATH="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
-# ruby gem PATH
-export PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"
-# mojo path
-export MODULAR_HOME="$HOME/.modular"
-export PATH="$HOME/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
 # <<< PATH <<<
 
 # >>> Alias >>>
@@ -76,6 +60,7 @@ alias where="pwd"
 alias ls="eza --icons"
 alias gfs="git fetch && git status"
 alias grep="rg"
+# bat
 if [[ `uname` == "Darwin" ]]; then
 	alias cat="bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo OneHalfDark || echo OneHalfLight)"
 else
@@ -94,26 +79,6 @@ eval $(thefuck --alias)
 
 # Set ls color (fix the odd color in wsl)
 LS_COLORS="ow=01;36;40" && export LS_COLORS
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-if [[ `uname` == "Darwin" ]]; then # When execute on macos
-	__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-	if [ $? -eq 0 ]; then
-		eval "$__conda_setup"
-	else
-		if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-			. "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-		else
-			export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
-		fi
-	fi
-	unset __conda_setup
-else # when execute on linux
-    [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
-    export TERMINFO=/usr/share/terminfo
-fi
-# <<< conda initialize <<<
 
 # >>> zoxide (z) configs >>>
 # =============================================================================
@@ -217,33 +182,18 @@ fi
 
 # <<< zoxide (z) configs <<<
 
+# >>> Operating System Specific Configs >>>
 
-# >>> Linux Specific >>>
-
-# for amd MKL performance hack
-if [[ `uname` != "Darwin" ]] then
-	export MKL_DEBUG_CPU_TYPE=5
+if [[ `uname` == "Darwin" ]]; then
+    source ~/zshrc/macos.sh
+else
+    source ~/zshrc/linux.sh
 fi
 
-# >>> ROCM docker >>>
-# alias for docker rocm
-if [[ `uname` != "Darwin" ]] then
-	alias drun='sudo docker run -it --network=host --device=/dev/kfd --device=/dev/dri --group-add=video --ipc=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -e HSA_OVERRIDE_GFX_VERSION=10.3.0'
-	export HSA_OVERRIDE_GFX_VERSION=10.3.0
-	export AMDGPU_TARGETS="gfx1030"
+# <<< Operating System Specific Configs <<<
+
+# >>> Device Specific Configs >>>
+if [[ -f ~/zshrc/device.sh ]]; then
+    source ~/zshrc/device.sh
 fi
-# <<< ROCM docker <<<
-
-# alias for enable & disable sleep in systemctl linux
-if [[ `uname` != "Darwin" ]]; then
-	alias sleep_status="systemctl status sleep.target suspend.target hibernate.target hybrid-sleep.target"
-	alias sleep_disable="systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target"
-	alias sleep_enable="systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target"
-fi
-# <<< Linux Specific <<<
-
-# >>> Mac specific >>>
-# iterm2 configuration for mac
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# <<< Mac specific <<<
+# <<< Device Specific Configs <<<
