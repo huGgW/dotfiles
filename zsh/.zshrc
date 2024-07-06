@@ -6,6 +6,12 @@ else
 fi
 # <<< Operating System Specific Configs <<<
 
+# >>> Device Specific Configs >>>
+if [[ -f ~/zshrc/device.sh ]]; then
+    source ~/zshrc/device.sh
+fi
+# <<< Device Specific Configs <<<
+
 # >>> ZPLUG >>>
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zdharma-continuum/fast-syntax-highlighting"

@@ -21,10 +21,8 @@ export AMDGPU_TARGETS="gfx1030"
 # <<< ROCM docker <<<
 
 # alias for enable & disable sleep in systemctl linux
-if [[ `uname` != "Darwin" ]]; then
-	alias sleep_status="systemctl status sleep.target suspend.target hibernate.target hybrid-sleep.target"
-	alias sleep_disable="systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target"
-	alias sleep_enable="systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target"
-fi
+alias sleep_status="systemctl status sleep.target suspend.target hibernate.target hybrid-sleep.target"
+alias sleep_disable="systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target"
+alias sleep_enable="systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target"
 
 # <<< Linux Specific <<<
