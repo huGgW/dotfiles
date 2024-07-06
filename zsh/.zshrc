@@ -1,24 +1,12 @@
-# >>> logo >>>
-if [[ fastfetch ]] then
-	fastfetch
+# >>> Operating System Specific Configs >>>
+if [[ `uname` == "Darwin" ]]; then
+    source ~/zshrc/macos.sh
+else
+    source ~/zshrc/linux.sh
 fi
-# <<< logo <<<
+# <<< Operating System Specific Configs <<<
 
 # >>> ZPLUG >>>
-# Initialize zplug
-if [[ `uname` == "Darwin" ]]; then
-	export ZPLUG_HOME=/opt/homebrew/opt/zplug
-	source $ZPLUG_HOME/init.zsh
-else # Linux using script
-	if [ -d /usr/share/zsh/scripts/zplug ]; then
-		source /usr/share/zsh/scripts/zplug/init.zsh
-		export ZPLUG_HOME=~/.zplug
-	elif [ -d ~/.zplug ]; then
-		export ZPLUG_HOME=~/.zplug
-		source $ZPLUG_HOME/init.zsh
-	fi
-fi
-
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zdharma-continuum/fast-syntax-highlighting"
 zplug "conda-incubator/conda-zsh-completion"
@@ -182,18 +170,25 @@ fi
 
 # <<< zoxide (z) configs <<<
 
-# >>> Operating System Specific Configs >>>
-
-if [[ `uname` == "Darwin" ]]; then
-    source ~/zshrc/macos.sh
-else
-    source ~/zshrc/linux.sh
+# >>> Docker autocomplete >>>
+if [[ docker ]]; then
+    source <(docker completion zsh)
 fi
-
-# <<< Operating System Specific Configs <<<
+# <<< Docker autocomplete <<<
 
 # >>> Device Specific Configs >>>
 if [[ -f ~/zshrc/device.sh ]]; then
     source ~/zshrc/device.sh
 fi
 # <<< Device Specific Configs <<<
+
+# >>> logo >>>
+if [[ fastfetch ]]; then
+	fastfetch
+fi
+# <<< logo <<<
+
+# >>> auto complete load >>>
+autoload -Uz compinit
+compinit
+# <<< auto complete load <<<
