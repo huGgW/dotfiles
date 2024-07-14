@@ -41,20 +41,30 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Buffer local mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', '<f12>', vim.lsp.buf.definition, opts)
-    -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', '<C-f12>', vim.lsp.buf.implementation, opts)
+    local function addDesc(desc)
+      local newOpts = {}
+      for k, v in pairs(opts) do
+        newOpts[k] = v
+      end
+      newOpts["desc"] = desc
+      return newOpts
+    end
+    -- definitions, implementations
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, addDesc("Go to definition"))
+    vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, addDesc( "Go to implementation"))
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, addDesc("Go to references"))
+    vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, addDesc("Go to type definition"))
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, addDesc("Go to declaration"))
+
+    -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts )
     vim.keymap.set('n', '<leader>k', vim.lsp.buf.signature_help, opts)
     vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
     vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
     vim.keymap.set('n', '<space>wl', function()
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, opts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<f2>', vim.lsp.buf.rename, opts)
     -- vim.keymap.set({ 'n', 'v' }, '<leader>a', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', '<S-f12>', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<leader>fm', function()
       vim.lsp.buf.format { async = true }
     end, opts)
@@ -62,7 +72,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- Lsp Saga
-vim.keymap.set('n', '<M-f12>', ':Lspsaga peek_definition<CR>', { desc = "Peek definition" })
+vim.keymap.set('n', 'gpd', ':Lspsaga peek_definition<CR>', { desc = "Peek definition" })
 vim.keymap.set({ 'n', 'v' }, '<leader>a', ':Lspsaga code_action<CR>', { desc = "Code action" })
 
 -- Dap

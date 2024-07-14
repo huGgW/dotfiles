@@ -96,6 +96,18 @@ map <leader>fs <Action>(FindInPath)
 " Open symbols
 map <leader>fd <Action>(GotoSymbol)
 
+" goto declaration
+nmap gd <Action>(GotoDeclaration)
+
+" peak declaration
+nmap gpd <Action>(QuickImplementations)
+
+" goto implementation
+nmap gI <Action>(GotoImplementation)
+
+" goto reference
+nmap gr <Action>(ShowUsages)
+
 " code action
 map <leader>a <Action>(ShowIntentionActions)
 
