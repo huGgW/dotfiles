@@ -182,6 +182,16 @@ if [[ docker ]]; then
 fi
 # <<< Docker autocomplete <<<
 
+# >>> SDKMAN >>>
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh" && export SDKMAN_DIR="$HOME/.sdkman"
+# <<< SDKMAN <<<
+
+# >>> NVM >>>
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh" && export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/etc/bash_completion.d/nvm"
+# <<< NVM <<<
+
+
 # >>> Device Specific Configs >>>
 if [[ -f ~/zshrc/device.sh ]]; then
     source ~/zshrc/device.sh
