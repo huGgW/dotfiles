@@ -1,0 +1,6 @@
+no-multigrid = false
+vsync = true
+
+[font]
+normal = ["MonaspiceNe Nerd Font", "D2CodingLigature Nerd Font"]
+size = 16
