@@ -19,7 +19,7 @@ command('hi CursorLine   cterm=NONE ctermbg=0')
 command('set cursorline')
 
 -- Set vertical rulers
-command('set colorcolumn=80,120')
+command('set colorcolumn=100')
 
 -- Set indentation as 4 in default...
 command('set tabstop=4')
