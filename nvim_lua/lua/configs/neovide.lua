@@ -1,5 +1,5 @@
 -- set neovide transparency
-vim.g.neovide_transparency = 0.9
+vim.g.neovide_transparency = 0.75
 
 -- set neovide blur
 vim.g.neovide_window_blurred = true

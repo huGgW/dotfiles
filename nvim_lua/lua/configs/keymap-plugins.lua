@@ -1,10 +1,16 @@
-local map = vim.api.nvim_set_keymap
+local function command(cmd)
+  return function()
+    vim.api.nvim_command(cmd)
+  end
+end
 
--- Nvim Tree
-map('n', '<Leader>te', ':NvimTreeToggle<CR>', { desc = "Toggle Nvim Tree" })
+-- File Tree
+-- map('n', '<Leader>te', ':NvimTreeToggle<CR>', { desc = "Toggle Nvim Tree" })
+vim.keymap.set('n', '<Leader>te', command('Neotree toggle'), { desc = "Toggle File Tree" })
 
 -- Oil.nvim
-map('n', '<Leader>to', ':Oil<CR>', { desc = "Toggle Oil.nvim" })
+-- map('n', '<Leader>to', ':Oil<CR>', { desc = "Toggle Oil.nvim" })
+vim.keymap.set('n', '<Leader>to', command('Oil'), { desc = "Toggle Oil.nvim" })
 
 
 -- Telescope
@@ -51,7 +57,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
     -- definitions, implementations
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, addDesc("Go to definition"))
-    vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, addDesc( "Go to implementation"))
+    vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, addDesc("Go to implementation"))
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, addDesc("Go to references"))
     vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, addDesc("Go to type definition"))
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, addDesc("Go to declaration"))
@@ -72,13 +78,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- Lsp Saga
-vim.keymap.set('n', 'gpd', ':Lspsaga peek_definition<CR>', { desc = "Peek definition" })
-vim.keymap.set({ 'n', 'v' }, '<leader>a', ':Lspsaga code_action<CR>', { desc = "Code action" })
+vim.keymap.set('n', 'gpd', command('Lspsaga peek_definition'), { desc = "Peek definition" })
+vim.keymap.set({ 'n', 'v' }, '<leader>a', command('Lspsaga code_action'), { desc = "Code action" })
 
 -- Dap
-vim.keymap.set('n', '<f5>', ':lua require"dap".continue()<CR>', { desc = "Continue" })
-vim.keymap.set('n', '<leader>b', ':lua require"dap".toggle_breakpoint()<CR>', { desc = "Toggle breakpoint" })
+vim.keymap.set('n', '<f5>', require("dap").continue, { desc = "Continue" })
+vim.keymap.set('n', '<leader>b', require("dap").toggle_breakpoint, { desc = "Toggle breakpoint" })
 
 -- UFO (Improved Fold)
 vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
 vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+
+-- LazyGit
+vim.keymap.set('n', '<leader>lg', command('LazyGit'), { desc = "LazyGit" })

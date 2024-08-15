@@ -23,6 +23,7 @@ require("lazy").setup({
 	},
 	{
 		'nvim-treesitter/nvim-treesitter-context',
+		cond = not vim.g.neovide,
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 	},
 	{
@@ -102,9 +103,9 @@ require("lazy").setup({
 	},
 
 	-- snippets
-	-- {
-	-- 	"rafamadriz/friendly-snippets",
-	-- },
+	{
+		"rafamadriz/friendly-snippets",
+	},
 
 	-- tests
 	{
@@ -308,12 +309,6 @@ require("lazy").setup({
 	},
 
 	-- Tab bar
-	-- {
-	-- 	'nanozuki/tabby.nvim',
-	-- 	config = function()
-	-- 		require('tabby').setup()
-	-- 	end
-	-- },
 	{
 		'akinsho/bufferline.nvim',
 		-- version = "*",
@@ -366,13 +361,6 @@ require("lazy").setup({
 		'psliwka/vim-smoothie',
 		cond = not vim.g.neovide,
 	},
-	-- {
-	-- 	'karb94/neoscroll.nvim',
-	-- 	cond = not vim.g.neovide,
-	-- 	config = function()
-	-- 		require('plugins.neoscroll')
-	-- 	end
-	-- },
 
 	-- Extra Beauty
 	{
@@ -425,15 +413,6 @@ require("lazy").setup({
 		end
 	},
 
-	-- -- Center the buffer
-	-- {
-	-- 	"shortcuts/no-neck-pain.nvim",
-	-- 	version = "*",
-	-- 	config = function()
-	-- 		require("plugins.no-neck-pain")
-	-- 	end,
-	-- },
-
 	-- Dim inactive buffer parts
 	{
 		"folke/twilight.nvim",
@@ -471,14 +450,6 @@ require("lazy").setup({
 			-- refer to the configuration section below
 		}
 	},
-
-	-- Comment
-	-- {
-	-- 	'numToStr/Comment.nvim',
-	-- 	config = function()
-	-- 		require('Comment').setup()
-	-- 	end
-	-- },
 
 	-- Indent
 	{
@@ -527,10 +498,14 @@ require("lazy").setup({
 
 	-- File Tree
 	{
-		'nvim-tree/nvim-tree.lua',
-		config = function()
-			require('nvim-tree').setup()
-		end
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v3.x",
+		dependencies = {
+		  "nvim-lua/plenary.nvim",
+		  "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+		  "MunifTanjim/nui.nvim",
+		  -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+		},
 	},
 
 	-- Oil.nvim (file manage like buffer)
