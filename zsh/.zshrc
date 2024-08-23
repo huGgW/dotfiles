@@ -177,19 +177,44 @@ fi
 # <<< zoxide (z) configs <<<
 
 # >>> Docker autocomplete >>>
-if [[ docker ]]; then
+if command -v docker > /dev/null 2>&1; then
     source <(docker completion zsh)
 fi
 # <<< Docker autocomplete <<<
 
 # >>> SDKMAN >>>
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh" && export SDKMAN_DIR="$HOME/.sdkman"
+if [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] then
+    source "$HOME/.sdkman/bin/sdkman-init.sh"
+    export SDKMAN_DIR="$HOME/.sdkman"
+fi
 # <<< SDKMAN <<<
 
-# >>> NVM >>>
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh" && export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/etc/bash_completion.d/nvm"
+# >>> NVM (mac only yet) >>>
+if [[ -s "/opt/homebrew/opt/nvm/nvm.sh" ]] then 
+    . "/opt/homebrew/opt/nvm/nvm.sh"
+    export NVM_DIR="$HOME/.nvm"
+fi
+
+if [[ -s "/opt/homebrew/opt/etc/bash_completion.d/nvm" ]] then
+   . "/opt/homebrew/opt/etc/bash_completion.d/nvm"
+fi
 # <<< NVM <<<
+
+# >>> goenv >>>
+# Enable goenv
+if [[ -d "$HOME/.goenv" ]]; then
+    export GOENV_ROOT="$HOME/.goenv"
+    export PATH="$GOENV_ROOT/bin:$PATH"
+    eval "$(goenv init -)"
+    export PATH="$GOROOT/bin:$PATH"
+    export PATH="$PATH:$GOPATH/bin"
+fi
+# <<< goenv <<<
+
+# >>> tmux >>>
+# tmux-session-wizard
+export PATH=$HOME/.tmux/plugins/tmux-session-wizard/bin:$PATH
+# <<< tmux <<<
 
 
 # >>> Device Specific Configs >>>
@@ -199,7 +224,7 @@ fi
 # <<< Device Specific Configs <<<
 
 # >>> logo >>>
-if [[ fastfetch ]]; then
+if command -v fastfetch > /dev/null 2>&1; then
 	fastfetch
 fi
 # <<< logo <<<
