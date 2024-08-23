@@ -234,13 +234,19 @@ require("lazy").setup({
 		event = 'VeryLazy',
 	},
 	-- Java lsp
+	-- {
+	-- 	'mfussenegger/nvim-jdtls',
+	-- 	dependencies = {
+	-- 		'mfussenegger/nvim-dap',
+	-- 	},
+	-- 	ft = 'java',
+	-- 	config = require('plugins/nvim-jdtls').config,
+	-- },
 	{
-		'mfussenegger/nvim-jdtls',
-		dependencies = {
-			'mfussenegger/nvim-dap',
-		},
-		ft = 'java',
-		config = require('plugins/nvim-jdtls').config,
+		'nvim-java/nvim-java',
+		config = function()
+			require('java').setup()
+		end,
 	},
 	-- Kotlin
 	{
@@ -501,11 +507,12 @@ require("lazy").setup({
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
 		dependencies = {
-		  "nvim-lua/plenary.nvim",
-		  "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-		  "MunifTanjim/nui.nvim",
-		  -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"MunifTanjim/nui.nvim",
+			-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
 		},
+		config = require('plugins.neotree').config,
 	},
 
 	-- Oil.nvim (file manage like buffer)
@@ -617,6 +624,9 @@ require("lazy").setup({
 	},
 	{
 		"sainnhe/everforest",
+	},
+	{
+		'Mofiqul/dracula.nvim'
 	},
 
 

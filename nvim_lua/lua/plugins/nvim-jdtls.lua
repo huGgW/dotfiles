@@ -1,4 +1,4 @@
-function config(opts)
+local function config(opts)
     require("jdtls").start_or_attach({
         on_attach = function(client, bufnr)
             vim.lsp.inlay_hint.enable(true, { bufnr=bufnr })
