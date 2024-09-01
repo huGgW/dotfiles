@@ -31,6 +31,14 @@ require("lazy").setup({
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 	},
 
+	-- Java LSP specific (should be come before mason, lspconfig)
+	{
+		'nvim-java/nvim-java',
+		config = function()
+			require('plugins.java').setup()
+		end,
+	},
+
 	-- Mason (LSP installer)
 	{
 		'williamboman/mason.nvim',
@@ -232,21 +240,6 @@ require("lazy").setup({
 			name = 'venv',
 		},
 		event = 'VeryLazy',
-	},
-	-- Java lsp
-	-- {
-	-- 	'mfussenegger/nvim-jdtls',
-	-- 	dependencies = {
-	-- 		'mfussenegger/nvim-dap',
-	-- 	},
-	-- 	ft = 'java',
-	-- 	config = require('plugins/nvim-jdtls').config,
-	-- },
-	{
-		'nvim-java/nvim-java',
-		config = function()
-			require('java').setup()
-		end,
 	},
 	-- Kotlin
 	{
