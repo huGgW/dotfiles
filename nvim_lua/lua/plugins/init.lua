@@ -16,6 +16,7 @@ require("lazy").setup({
 	-- TreeSitter (Syntax Highlighter)
 	{
 		'nvim-treesitter/nvim-treesitter',
+		event = "BufRead",
 		build = ":TSUpdate",
 		config = function()
 			require("plugins.nvim-treesitter")
@@ -23,17 +24,21 @@ require("lazy").setup({
 	},
 	{
 		'nvim-treesitter/nvim-treesitter-context',
+		event = "BufRead",
 		cond = not vim.g.neovide,
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 	},
 	{
 		'windwp/nvim-ts-autotag',
+		event = "BufRead",
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 	},
 
 	-- Java LSP specific (should be come before mason, lspconfig)
 	{
 		'nvim-java/nvim-java',
+		ft = "java",
+		event = "BufEnter",
 		config = function()
 			require('plugins.java').setup()
 		end,
@@ -42,6 +47,7 @@ require("lazy").setup({
 	-- Mason (LSP installer)
 	{
 		'williamboman/mason.nvim',
+		event = "BufEnter",
 		build = ":MasonUpdate", -- updates registry contents
 		config = function()
 			require("mason").setup()
@@ -49,6 +55,7 @@ require("lazy").setup({
 	},
 	{
 		'williamboman/mason-lspconfig.nvim',
+		event = "BufEnter",
 		config = function()
 			require("plugins.mason-lspconfig")
 		end
@@ -57,6 +64,7 @@ require("lazy").setup({
 	-- Lsp Config
 	{
 		'neovim/nvim-lspconfig',
+		event = "BufRead",
 		config = function()
 			require("plugins.lspconfig")
 		end,
@@ -65,6 +73,7 @@ require("lazy").setup({
 	-- DAP (Debug)
 	{
 		'mfussenegger/nvim-dap',
+		cmd = { "DapToggleBreakPoint", "DapContinue" },
 		dependencies = { 'nvim-neotest/nvim-nio' },
 		config = function()
 			require('plugins.nvim-dap')
@@ -72,12 +81,14 @@ require("lazy").setup({
 	},
 	{
 		'jay-babu/mason-nvim-dap.nvim',
+		cmd = { "DapToggleBreakPoint", "DapContinue" },
 		config = function()
 			require("plugins.mason-nvim-dap")
 		end,
 	},
 	{
 		'rcarriga/nvim-dap-ui',
+		cmd = { "DapToggleBreakPoint", "DapContinue" },
 		dependencies = { 'mfussenegger/nvim-dap' },
 		config = function()
 			require("plugins.dapui")
@@ -85,6 +96,7 @@ require("lazy").setup({
 	},
 	{
 		"theHamsta/nvim-dap-virtual-text",
+		cmd = { "DapToggleBreakPoint", "DapContinue" },
 		config = function()
 			require("nvim-dap-virtual-text").setup({
 			})
@@ -104,6 +116,7 @@ require("lazy").setup({
 	-- Lint && Format
 	{
 		'nvimtools/none-ls.nvim',
+		event = "BufRead",
 		dependencies = { 'nvim-lua/plenary.nvim' },
 		config = function()
 			require("plugins.none-ls")
@@ -113,11 +126,13 @@ require("lazy").setup({
 	-- snippets
 	{
 		"rafamadriz/friendly-snippets",
+		event = "BufRead",
 	},
 
 	-- tests
 	{
 		"nvim-neotest/neotest",
+		cmd = "Neotest",
 		dependencies = {
 			"nvim-neotest/nvim-nio",
 			"nvim-lua/plenary.nvim",
@@ -135,6 +150,7 @@ require("lazy").setup({
 	-- illuminate
 	{
 		'RRethy/vim-illuminate',
+		event = "BufRead",
 		config = function()
 			require("illuminate").configure({
 				providers = {
@@ -149,6 +165,7 @@ require("lazy").setup({
 	-- Error infos
 	{
 		"folke/trouble.nvim",
+		cmd = "Trouble",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("trouble").setup {
@@ -159,6 +176,9 @@ require("lazy").setup({
 	-- Outline
 	{
 		'stevearc/aerial.nvim',
+		cmd = {
+			"AerialToggle",
+		},
 		opts = {},
 		-- Optional dependencies
 		dependencies = {
@@ -183,6 +203,13 @@ require("lazy").setup({
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
 		branch = "canary",
+		cmd = {
+			"CopilotChat",
+			"CopilotChatToggle",
+			"CopilotChatFix",
+			"CopilotChatExplain",
+			"CopilotChatCommit",
+		},
 		dependencies = {
 			{ "zbirenbaum/copilot.lua" },
 			{ "nvim-lua/plenary.nvim" },
@@ -201,6 +228,7 @@ require("lazy").setup({
 	'hrsh7th/cmp-cmdline',
 	{
 		'hrsh7th/nvim-cmp',
+		event = "InsertEnter",
 		config = function()
 			require("plugins.nvim-cmp")
 		end
@@ -224,6 +252,7 @@ require("lazy").setup({
 	-- Go DAP improvement
 	{
 		'leoluz/nvim-dap-go',
+		ft = "go",
 		config = function()
 			require("dap-go").setup()
 		end
@@ -244,20 +273,27 @@ require("lazy").setup({
 	-- Kotlin
 	{
 		"udalov/kotlin-vim",
+		ft = "kotlin"
 	},
 	-- Typescript
 	{
 		"pmizio/typescript-tools.nvim",
+		ft = { "javascript", "typescript" },
+		event = "LspAttach",
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 		opts = {},
 	},
 	-- C / C++
 	{
 		"p00f/clangd_extensions.nvim",
+		ft = { "c", "cpp" },
+		event = "LspAttach",
 	},
 	{
 		'saecki/crates.nvim',
 		tag = 'stable',
+		ft = "rust",
+		event = "LspAttach",
 		dependencies = { 'nvim-lua/plenary.nvim' },
 		config = function()
 			require('crates').setup()
@@ -266,11 +302,14 @@ require("lazy").setup({
 	-- nvim lua lsp Improve
 	{
 		'folke/neodev.nvim',
+		ft = "lua",
+		event = "LspAttach",
 		opts = {}
 	},
 	-- json/yaml common schemas
 	{
 		"b0o/schemastore.nvim",
+		event = "BufRead",
 	},
 
 	-- Surround
@@ -288,6 +327,7 @@ require("lazy").setup({
 	-- Auto Pair
 	{
 		"windwp/nvim-autopairs",
+		event = "InsertEnter",
 		config = function()
 			require("plugins.nvim-autopairs")
 		end
@@ -295,7 +335,8 @@ require("lazy").setup({
 
 	-- Easy Motion
 	{
-		"easymotion/vim-easymotion"
+		"easymotion/vim-easymotion",
+		event = "BufRead",
 	},
 
 	-- Bottom Status Line
@@ -320,6 +361,7 @@ require("lazy").setup({
 	-- Gitsigns
 	{
 		'lewis6991/gitsigns.nvim',
+		event = "BufRead",
 		config = function()
 			require('gitsigns').setup()
 		end
@@ -340,11 +382,15 @@ require("lazy").setup({
 	-- DiffView
 	{
 		"sindrets/diffview.nvim",
+		cmd = {
+			"DiffviewOpen",
+		},
 	},
 
 	-- github issue & pull requests
 	{
 		'pwntester/octo.nvim',
+		cmd = "Octo",
 		dependencies = {
 			'nvim-lua/plenary.nvim',
 			'nvim-telescope/telescope.nvim',
@@ -407,33 +453,27 @@ require("lazy").setup({
 	-- vscode icon on auto-complete
 	{
 		"onsails/lspkind-nvim",
+		event = "LspAttach",
 		config = function()
 			require("plugins.lspkind")
 		end
 	},
 
-	-- Dim inactive buffer parts
-	{
-		"folke/twilight.nvim",
-		opts = {
-			treesitter = true,
-		}
-	},
-
 	-- Dashboard
-	{
-		'nvimdev/dashboard-nvim',
-		event = 'VimEnter',
-		config = function()
-			require('dashboard').setup {
-			}
-		end,
-		dependencies = { { 'nvim-tree/nvim-web-devicons' } }
-	},
+	-- {
+	-- 	'nvimdev/dashboard-nvim',
+	-- 	event = 'VimEnter',
+	-- 	config = function()
+	-- 		require('dashboard').setup {
+	-- 		}
+	-- 	end,
+	-- 	dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+	-- },
 
 	-- Rainbow Parenthesis
 	{
 		'HiPhish/rainbow-delimiters.nvim',
+		event = "BufRead",
 		config = function()
 			require('rainbow-delimiters.setup').setup()
 		end
@@ -442,6 +482,7 @@ require("lazy").setup({
 	-- TODO
 	{
 		"folke/todo-comments.nvim",
+		event = "BufRead",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {
 			-- your configuration comes here
@@ -453,12 +494,14 @@ require("lazy").setup({
 	-- Indent
 	{
 		'nmac427/guess-indent.nvim',
+		cmd = "GuessIndent",
 		config = function()
 			require('guess-indent').setup()
 		end,
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
+		event = "BufRead",
 		main = "ibl",
 		opts = {},
 		config = function()
@@ -469,6 +512,7 @@ require("lazy").setup({
 	-- Fold
 	{
 		"kevinhwang91/nvim-ufo",
+		event = "BufRead",
 		dependencies = { "kevinhwang91/promise-async" },
 	},
 
@@ -499,6 +543,7 @@ require("lazy").setup({
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
+		cmd = "Neotree",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
@@ -511,6 +556,7 @@ require("lazy").setup({
 	-- Oil.nvim (file manage like buffer)
 	{
 		'stevearc/oil.nvim',
+		cmd = "Oil",
 		opts = {},
 		dependencies = {
 			'nvim-tree/nvim-web-devicons',
@@ -523,6 +569,7 @@ require("lazy").setup({
 	-- Toggle Term
 	{
 		'akinsho/toggleterm.nvim',
+		key = "<C-`>",
 		version = "*",
 		config = function()
 			require("plugins.toggleterm")
@@ -537,6 +584,7 @@ require("lazy").setup({
 	-- Vim Multiple Cursor
 	{
 		'mg979/vim-visual-multi',
+		event = "BufRead",
 		branch = 'master',
 	},
 
@@ -573,6 +621,7 @@ require("lazy").setup({
 	{
 		'MeanderingProgrammer/markdown.nvim',
 		name = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
+		ft = "markdown",
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 		config = function()
 			require('render-markdown').setup({})
@@ -591,6 +640,7 @@ require("lazy").setup({
 	-- Auto dark/light for macOS
 	{
 		'cormacrelf/dark-notify',
+		priority = 1000,
 		config = function()
 			require('dark_notify').run()
 		end
@@ -598,28 +648,32 @@ require("lazy").setup({
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
-		priority = 1000,
+		priority = 999,
 		config = function()
 			require('plugins.catppuccin')
 		end,
 	},
 	{
 		"folke/tokyonight.nvim",
+		priority = 999,
 		config = function()
 			require('plugins.tokyonight')
 		end,
 	},
 	{
 		"EdenEast/nightfox.nvim",
+		priority = 999,
 		config = function()
 			require('plugins.nightfox')
 		end,
 	},
 	{
 		"sainnhe/everforest",
+		priority = 999,
 	},
 	{
-		'Mofiqul/dracula.nvim'
+		'Mofiqul/dracula.nvim',
+		priority = 999,
 	},
 
 
@@ -627,6 +681,7 @@ require("lazy").setup({
 	{
 		"kawre/leetcode.nvim",
 		build = ":TSUpdate html",
+		cmd = "Leet",
 		dependencies = {
 			"nvim-telescope/telescope.nvim",
 			"nvim-lua/plenary.nvim", -- required by telescope

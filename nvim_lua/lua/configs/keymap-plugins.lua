@@ -1,3 +1,5 @@
+-- Use command as possible, to trigger lazy with command
+
 local function command(cmd)
   return function()
     vim.api.nvim_command(cmd)
@@ -23,10 +25,10 @@ vim.keymap.set('n', '<leader>fd', builtin.lsp_dynamic_workspace_symbols, { desc 
 vim.keymap.set('n', '<leader>fp', builtin.commands, { desc = "Find commands" })
 
 -- keymap to toggle aerial
-vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>", { desc = "Toggle outline" })
+vim.keymap.set("n", "<leader>o", command( "AerialToggle"), { desc = "Toggle outline" })
 
 -- Guess Indent
-vim.keymap.set('n', '<Leader>i', ':GuessIndent<CR>', { desc = "Guess Indent" })
+vim.keymap.set('n', '<Leader>i', command('GuessIndent'), { desc = "Guess Indent" })
 
 -- Lsp
 -- Global mappings.
@@ -82,8 +84,8 @@ vim.keymap.set('n', 'gpd', command('Lspsaga peek_definition'), { desc = "Peek de
 vim.keymap.set({ 'n', 'v' }, '<leader>a', command('Lspsaga code_action'), { desc = "Code action" })
 
 -- Dap
-vim.keymap.set('n', '<f5>', require("dap").continue, { desc = "Continue" })
-vim.keymap.set('n', '<leader>b', require("dap").toggle_breakpoint, { desc = "Toggle breakpoint" })
+vim.keymap.set('n', '<f5>', command('DapContinue'), { desc = "Continue" })
+vim.keymap.set('n', '<leader>b', command('DapToggleBreakpoint'), { desc = "Toggle breakpoint" })
 
 -- UFO (Improved Fold)
 vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
