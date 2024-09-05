@@ -201,13 +201,16 @@ fi
 # <<< NVM <<<
 
 # >>> goenv >>>
-# Enable goenv
+# Enable goenv (set gopath if not exists)
 if [[ -d "$HOME/.goenv" ]]; then
     export GOENV_ROOT="$HOME/.goenv"
     export PATH="$GOENV_ROOT/bin:$PATH"
     eval "$(goenv init -)"
     export PATH="$GOROOT/bin:$PATH"
     export PATH="$PATH:$GOPATH/bin"
+else
+    export GOPATH="$HOME/go"
+    export PATH="$GOPATH/bin:$PATH"
 fi
 # <<< goenv <<<
 
