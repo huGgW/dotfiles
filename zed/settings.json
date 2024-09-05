@@ -1,0 +1,98 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+  /// Visual ///
+
+  // Theme
+  "assistant": {
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-5-sonnet-20240620"
+    },
+    "version": "2"
+  },
+  "theme": {
+    "mode": "system",
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Macchiato"
+  },
+
+  // Font
+  "buffer_font_family": "MonaspiceNe Nerd Font",
+  "buffer_font_fallbacks": ["D2CodingLigature Nerd Font"],
+  "buffer_font_size": 13,
+
+  // Wrapping
+  "show_wrap_guides": true,
+  "wrap_guides": [100],
+  "soft_wrap": "editor_width",
+
+  // Whitespace
+  "show_whitespaces": "selection",
+
+  // Indent guide
+  "indent_guides": {
+    "coloring": "indent_aware"
+  },
+
+  // Panel
+  "project_panel": {
+    "auto_fold_dirs": false
+  },
+
+  /// Functionality ///
+
+  // Auto Save
+  "autosave": { "after_delay": { "milliseconds": 60000 } },
+
+  // Restore
+  "restore_on_startup": "none",
+
+  // Hint
+  "auto_signature_help": true,
+  "inlay_hints": {
+    // Global switch to toggle hints on and off, switched off by default.
+    "enabled": true,
+    // Toggle certain types of hints on and off, all switched on by default.
+    "show_type_hints": true,
+    "show_parameter_hints": true,
+    // Corresponds to null/None LSP hint type value.
+    "show_other_hints": true
+  },
+
+  // AI Completion
+  "features": {
+    "inline_completion_provider": "supermaven"
+  },
+  "show_inline_completions": false, // to use as toggle only
+
+  // Language Specific Settings
+  "languages": {
+    "Python": {},
+    "Rust": {
+      "inlay_hints": {
+        "show_type_hints": true,
+        "show_parameter_hints": true,
+        "show_other_hints": true
+      }
+    }
+  },
+  "lsp": {},
+
+  // ssh
+  "ssh_connections": [],
+
+  /// Keymap ///
+
+  "base_keymap": "VSCode",
+  "vim_mode": true,
+  "vim": {
+    "use_system_clipboard": "on_yank"
+  }
+}
