@@ -1,4 +1,5 @@
 [
+  // VIM
   {
     "context": "VimControl && !menu",
     "bindings": {
@@ -7,15 +8,7 @@
       "space a": "editor::ToggleCodeActions",
 
       // Completions, Actions
-      "ctrl-/": "editor::ShowInlineCompletion",
-      "ctrl-.": "editor::NextInlineCompletion",
-      "ctrl-,": "editor::PreviousInlineCompletion",
-
-      // Search
-      "space f o": "file_finder::Toggle",
-      "space f s": "workspace::NewSearch",
-      "space t e": "project_panel::ToggleFocus",
-      "space o": "outline_panel::ToggleFocus",
+      "space f m": "editor::Format",
 
       // Gotos
       "g r": "editor::FindAllReferences",
@@ -26,6 +19,14 @@
     }
   },
   {
+    "context": "Editor && vim_mode == insert && !VimWaiting && !menu",
+    "bindings": {
+      "ctrl-/": "editor::ShowInlineCompletion",
+      "ctrl-.": "editor::NextInlineCompletion",
+      "ctrl-,": "editor::PreviousInlineCompletion"
+    }
+  },
+  {
     "context": "Editor || Dock",
     "bindings": {
       "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
@@ -33,7 +34,35 @@
       "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
       "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"]
     }
-  }
+  },
+  {
+    "context": "VimControl && Editor",
+    "bindings": {
+      // Search
+      "space f o": "file_finder::Toggle",
+      "space f s": "workspace::NewSearch",
+      "space t e": "project_panel::ToggleFocus",
+      "space o": "outline_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "shift-s": [
+        "vim::PushOperator",
+        {
+          "AddSurrounds": {}
+        }
+      ]
+    },
+    "space-y": ["workspace::SendKeyStrokes", "\" + y"]
+  },
+  {
+    "context": "vim_mode == visual || vim_mode == normal",
+    "bindings": {
+      "space-p": ["workspace::SendKeyStrokes", "\" + p"]
+    }
+  },
   // {
   //   "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
   //   "bindings": {
@@ -74,4 +103,18 @@
   //     // ... or other keybindings
   //   }
   // }
+
+  // NON-VIM
+  {
+    "context": "Editor",
+    "bindings": {
+      "f5": "task::Spawn"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-`": "workspace::ToggleBottomDock"
+    }
+  }
 ]

@@ -12,15 +12,15 @@
   // Theme
   "assistant": {
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-5-sonnet-20240620"
+      "provider": "copilot_chat",
+      "model": "gpt-4o"
     },
     "version": "2"
   },
   "theme": {
     "mode": "system",
     "light": "Catppuccin Latte",
-    "dark": "Catppuccin Macchiato"
+    "dark": "Catppuccin Mocha"
   },
 
   // Font
@@ -68,7 +68,7 @@
 
   // AI Completion
   "features": {
-    "inline_completion_provider": "supermaven"
+    "inline_completion_provider": "copilot"
   },
   "show_inline_completions": false, // to use as toggle only
 
@@ -83,7 +83,11 @@
       }
     }
   },
-  "lsp": {},
+  "lsp": {
+    "java": {
+      "java.jdtls.lombokSupport.enabled": "true"
+    }
+  },
 
   // ssh
   "ssh_connections": [],
@@ -93,6 +97,6 @@
   "base_keymap": "VSCode",
   "vim_mode": true,
   "vim": {
-    "use_system_clipboard": "on_yank"
+    "use_system_clipboard": "never"
   }
 }
