@@ -115,7 +115,7 @@ mason_lspconfig.setup_handlers {
     end,
 
     -- typescript
-    ["tsserver"] = function()
+    ["ts-ls"] = function()
         require("typescript-tools").setup({
             settings = {
                 tsserver_file_preferences = {

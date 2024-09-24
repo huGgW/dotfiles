@@ -114,20 +114,23 @@ require("lazy").setup({
     },
 
     -- Lint && Format
+    -- {
+    --     'nvimtools/none-ls.nvim',
+    --     event = "BufRead",
+    --     dependencies = { 'nvim-lua/plenary.nvim' },
+    --     config = function()
+    --         require("plugins.none-ls")
+    --     end
+    -- },
     {
-        'nvimtools/none-ls.nvim',
-        event = "BufRead",
-        dependencies = { 'nvim-lua/plenary.nvim' },
+        'stevearc/conform.nvim',
+        opts = {},
+        event = "LspAttach",
         config = function()
-            require("plugins.none-ls")
-        end
+            require("plugins.conform").setup()
+        end,
     },
-
-    -- snippets
-    {
-        "rafamadriz/friendly-snippets",
-        event = "BufRead",
-    },
+    -- TODO: add nvim-lint for linting
 
     -- tests
     {
@@ -145,6 +148,22 @@ require("lazy").setup({
         config = function()
             require("plugins.neotest")
         end,
+    },
+
+    -- task handling
+    {
+        'stevearc/overseer.nvim',
+        opts = {},
+        event = "VeryLazy",
+        config = function()
+            require('overseer').setup()
+        end,
+    },
+
+    -- snippets
+    {
+        "rafamadriz/friendly-snippets",
+        event = "BufRead",
     },
 
     -- illuminate
@@ -368,9 +387,16 @@ require("lazy").setup({
         end
     },
 
+    -- Git Blame
+    {
+        'f-person/git-blame.nvim',
+        event = "BufRead",
+    },
+
     -- Lazygit
     {
         "kdheepak/lazygit.nvim",
+        cmd = "LazyGit",
         -- optional for floating window border decoration
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -440,6 +466,7 @@ require("lazy").setup({
     {
         "j-hui/fidget.nvim",
         opts = {},
+        event = "LspAttach",
         config = function()
             require("fidget").setup()
         end
@@ -577,6 +604,12 @@ require("lazy").setup({
         end
     },
 
+    -- Scratch pad
+    {
+        "LintaoAmons/scratch.nvim",
+        event = "VeryLazy",
+    },
+
     -- Tmux + Vim
     {
         'christoomey/vim-tmux-navigator',
@@ -606,6 +639,7 @@ require("lazy").setup({
     -- Search keymaps
     {
         "tris203/hawtkeys.nvim",
+        cmd = { "Hawtkeys" },
         dependencies = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" },
         config = {},
     },
@@ -613,6 +647,11 @@ require("lazy").setup({
     -- Markdown Preview
     {
         'iamcco/markdown-preview.nvim',
+        cmd = {
+            'MarkdownPreview',
+            'MarkdownPreviewStop',
+            'MarkdownPreviewToggle',
+        },
         config = function()
             vim.fn['mkdp#util#install']()
         end,
