@@ -1,6 +1,8 @@
+fork = true
 no-multigrid = false
 vsync = true
+frame = "full"
 
 [font]
 normal = ["MonaspiceNe Nerd Font", "D2CodingLigature Nerd Font"]
-size = 16
+size = 14
