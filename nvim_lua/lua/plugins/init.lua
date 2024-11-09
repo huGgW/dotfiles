@@ -25,7 +25,7 @@ require("lazy").setup({
     {
         'nvim-treesitter/nvim-treesitter-context',
         event = "BufRead",
-        -- cond = not vim.g.neovide,
+        cond = not vim.g.neovide,
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
     },
     {
@@ -223,7 +223,7 @@ require("lazy").setup({
         build = "make",
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
-            "stevearc/dressing.nvim",
+            -- "stevearc/dressing.nvim", -- NOTE: Reenable this plugin when avante not works properly
             "nvim-lua/plenary.nvim",
             "MunifTanjim/nui.nvim",
             --- The below dependencies are optional,
@@ -256,7 +256,6 @@ require("lazy").setup({
             require('plugins.blink-cmp').setup()
         end
     },
-
 
     -- Improve LSP
     {
@@ -338,6 +337,16 @@ require("lazy").setup({
         event = "BufRead",
     },
 
+    -- QoL bundle plugins
+    {
+        'folke/snacks.nvim',
+        -- priority = 1000,
+        event = 'VeryLazy',
+        config = function ()
+            require('plugins.snacks').setup()
+        end
+    },
+
     -- Surround
     {
         "kylechui/nvim-surround",
@@ -399,19 +408,6 @@ require("lazy").setup({
         event = "BufRead",
     },
 
-    -- Lazygit
-    {
-        "kdheepak/lazygit.nvim",
-        cmd = "LazyGit",
-        -- optional for floating window border decoration
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-        config = function()
-            require("telescope").load_extension("lazygit")
-        end,
-    },
-
     -- DiffView
     {
         "sindrets/diffview.nvim",
@@ -445,25 +441,25 @@ require("lazy").setup({
     },
 
     -- Extra Beauty
-    {
-        "folke/noice.nvim",
-        event = "VeryLazy",
-        opts = {
-            -- add any options here
-        },
-        dependencies = {
-            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-            "MunifTanjim/nui.nvim",
-            -- OPTIONAL:
-            --   `nvim-notify` is only needed, if you want to use the notification view.
-            --   If not available, we use `mini` as the fallback
-            "rcarriga/nvim-notify",
-            -- 'echasnovski/mini.nvim',
-        },
-        config = function()
-            require("plugins.noice")
-        end
-    },
+    -- {
+    --     "folke/noice.nvim",
+    --     event = "VeryLazy",
+    --     opts = {
+    --         -- add any options here
+    --     },
+    --     dependencies = {
+    --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+    --         "MunifTanjim/nui.nvim",
+    --         -- OPTIONAL:
+    --         --   `nvim-notify` is only needed, if you want to use the notification view.
+    --         --   If not available, we use `mini` as the fallback
+    --         -- "rcarriga/nvim-notify",
+    --         -- 'echasnovski/mini.nvim',
+    --     },
+    --     config = function()
+    --         require("plugins.noice")
+    --     end
+    -- },
     {
         "rcarriga/nvim-notify",
         event = "VeryLazy",
@@ -601,16 +597,6 @@ require("lazy").setup({
         },
         config = function()
             require('oil').setup()
-        end
-    },
-
-    -- Toggle Term
-    {
-        'akinsho/toggleterm.nvim',
-        key = "<C-`>",
-        version = "*",
-        config = function()
-            require("plugins.toggleterm")
         end
     },
 
@@ -759,8 +745,8 @@ require("lazy").setup({
 
             -- optional
             "nvim-treesitter/nvim-treesitter",
-            "rcarriga/nvim-notify",
             "nvim-tree/nvim-web-devicons",
+            -- "rcarriga/nvim-notify",
         },
         opts = {
             -- configuration goes here

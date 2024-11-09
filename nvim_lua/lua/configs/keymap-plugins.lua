@@ -91,8 +91,10 @@ vim.keymap.set('n', '<leader>b', command('DapToggleBreakpoint'), { desc = "Toggl
 vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
 vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
 
--- LazyGit
-vim.keymap.set('n', '<leader>lg', command('LazyGit'), { desc = "LazyGit" })
+-- Snacks
+local snacks = require('snacks')
+vim.keymap.set('n', '<leader>lg', snacks.lazygit.open, { desc = "LazyGit" })
+vim.keymap.set({ 'n', 't' }, '<C-`>', snacks.terminal.toggle, { desc = "Toggle terminal" })
 
 -- Avante
 vim.keymap.set(
