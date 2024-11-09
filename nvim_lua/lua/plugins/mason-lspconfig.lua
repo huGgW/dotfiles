@@ -1,5 +1,8 @@
 local lspconfig = require("lspconfig")
 local mason_lspconfig = require("mason-lspconfig")
+local function blinkcapabilities()
+    return require('blink.cmp').get_lsp_capabilities(nil, true)
+end
 
 mason_lspconfig.setup({
     -- Install server automatically
@@ -11,7 +14,9 @@ mason_lspconfig.setup_handlers {
     -- and will be called for each installed server that doesn't have
     -- a dedicated handler.
     function(server_name) -- default handler (optional)
-        lspconfig[server_name].setup {}
+        lspconfig[server_name].setup {
+            capabilities = blinkcapabilities(),
+        }
     end,
 
     -- Next, you can provide a dedicated handler for specific servers.
@@ -20,6 +25,7 @@ mason_lspconfig.setup_handlers {
     -- kotlin
     ["kotlin_language_server"] = function()
         lspconfig.kotlin_language_server.setup({
+            capabilities = blinkcapabilities(),
             settings = {
                 kotlin = {
                     inlayHints = {
@@ -35,6 +41,7 @@ mason_lspconfig.setup_handlers {
     -- python
     ["basedpyright"] = function()
         lspconfig.basedpyright.setup({
+            capabilities = blinkcapabilities(),
             basedpyright = {
                 analysis = {
                     typeCheckingMode = "strict",
@@ -54,6 +61,7 @@ mason_lspconfig.setup_handlers {
     -- go
     ["gopls"] = function()
         lspconfig.gopls.setup({
+            capabilities = blinkcapabilities(),
             settings = {
                 gopls = {
                     hints = {
@@ -73,6 +81,7 @@ mason_lspconfig.setup_handlers {
     -- rust
     ["rust_analyzer"] = function()
         lspconfig.rust_analyzer.setup({
+            capabilities = blinkcapabilities(),
             on_attach = function(client, bufnr)
                 vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
             end,
@@ -81,7 +90,7 @@ mason_lspconfig.setup_handlers {
 
     -- c / c++
     ["clangd"] = function()
-        local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+        local capabilities = blinkcapabilities()
         capabilities.textDocument.semanticHighlighting = true
         capabilities.offsetEncoding = { "utf-16" }
 
@@ -104,6 +113,7 @@ mason_lspconfig.setup_handlers {
     -- lua
     ["lua_ls"] = function()
         lspconfig.lua_ls.setup({
+            capabilities = blinkcapabilities(),
             settings = {
                 Lua = {
                     hint = {
@@ -115,9 +125,10 @@ mason_lspconfig.setup_handlers {
     end,
 
     -- typescript
-    ["ts-ls"] = function()
+    ["ts_ls"] = function()
         require("typescript-tools").setup({
             settings = {
+                capabilities = blinkcapabilities(),
                 tsserver_file_preferences = {
                     includeInlayParameterNameHints = "all",
                     includeInlayParameterNameHintsWhenArgumentMatchesName = false,
@@ -134,7 +145,7 @@ mason_lspconfig.setup_handlers {
 
     -- css
     ["cssls"] = function()
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        local capabilities = blinkcapabilities()
         capabilities.textDocument.completion.completionItem.snippetSupport = true
 
         lspconfig.cssls.setup({
@@ -144,7 +155,7 @@ mason_lspconfig.setup_handlers {
 
     -- html
     ["html"] = function()
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        local capabilities = blinkcapabilities()
         capabilities.textDocument.completion.completionItem.snippetSupport = true
 
         lspconfig.html.setup({
@@ -156,6 +167,7 @@ mason_lspconfig.setup_handlers {
     ["jsonls"] = function()
         lspconfig.jsonls.setup({
             settings = {
+                capabilities = blinkcapabilities(),
                 json = {
                     schemas = require('schemastore').json.schemas(),
                     validate = { enable = true },
@@ -168,6 +180,7 @@ mason_lspconfig.setup_handlers {
     ["yamlls"] = function()
         lspconfig.yamlls.setup({
             settings = {
+                capabilities = blinkcapabilities(),
                 yaml = {
                     schemaStore = {
                         enable = false,

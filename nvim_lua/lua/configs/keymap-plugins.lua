@@ -1,5 +1,4 @@
 -- Use command as possible, to trigger lazy with command
-
 local function command(cmd)
     return function()
         vim.api.nvim_command(cmd)
@@ -7,13 +6,14 @@ local function command(cmd)
 end
 
 -- File Tree
--- map('n', '<Leader>te', ':NvimTreeToggle<CR>', { desc = "Toggle Nvim Tree" })
 vim.keymap.set('n', '<Leader>te', command('Neotree toggle'), { desc = "Toggle File Tree" })
 
 -- Oil.nvim
--- map('n', '<Leader>to', ':Oil<CR>', { desc = "Toggle Oil.nvim" })
 vim.keymap.set('n', '<Leader>to', command('Oil'), { desc = "Toggle Oil.nvim" })
 
+-- Bufferline
+vim.keymap.set('n', 'gb', command('BufferLineCycleNext'), { desc = "Go to next buffer" })
+vim.keymap.set('n', 'gB', command('BufferLineCyclePrev'), { desc = "Go to previous buffer" })
 
 -- Telescope
 local builtin = require('telescope.builtin')
@@ -24,7 +24,7 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = "Find help tags" }
 vim.keymap.set('n', '<leader>fd', builtin.lsp_dynamic_workspace_symbols, { desc = "Find symbols" })
 vim.keymap.set('n', '<leader>fp', builtin.commands, { desc = "Find commands" })
 
--- keymap to toggle aerial
+-- keymap to toggle outline
 vim.keymap.set("n", "<leader>o", command("AerialToggle"), { desc = "Toggle outline" })
 
 -- Guess Indent
@@ -73,7 +73,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end, opts)
         vim.keymap.set('n', '<f2>', vim.lsp.buf.rename, addDesc("Rename"))
         vim.keymap.set('n', '<leader>fm', function()
-        --   vim.lsp.buf.format { async = true }
+            --   vim.lsp.buf.format { async = true }
             require("conform").format({ async = true, lsp_format = "fallback" })
         end, addDesc("Format"))
     end,
@@ -93,3 +93,25 @@ vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
 
 -- LazyGit
 vim.keymap.set('n', '<leader>lg', command('LazyGit'), { desc = "LazyGit" })
+
+-- Avante
+vim.keymap.set(
+    { 'n', 'v' },
+    '<leader>ca',
+    function() require('avante.api').ask() end,
+    { desc = "avante: ask" }
+)
+
+vim.keymap.set(
+    { 'n', 'v' },
+    '<leader>ce',
+    function() require('avante.api').edit() end,
+    { desc = "avante: edit" }
+)
+
+vim.keymap.set(
+    { 'n' },
+    '<leader>cc',
+    command('AvanteChat'),
+    { desc = "avante: chat" }
+)

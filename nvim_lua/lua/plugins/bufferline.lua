@@ -1,6 +1,6 @@
 require('bufferline').setup{
     options = {
-        separator_style = "padded_slope",
+        separator_style = "thick",
         diagnostics = "nvim_lsp",
     }
 }

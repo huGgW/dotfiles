@@ -25,7 +25,7 @@ require("lazy").setup({
     {
         'nvim-treesitter/nvim-treesitter-context',
         event = "BufRead",
-        cond = not vim.g.neovide,
+        -- cond = not vim.g.neovide,
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
     },
     {
@@ -38,7 +38,6 @@ require("lazy").setup({
     {
         'nvim-java/nvim-java',
         ft = "java",
-        event = "BufEnter",
         config = function()
             require('plugins.java').setup()
         end,
@@ -47,7 +46,7 @@ require("lazy").setup({
     -- Mason (LSP installer)
     {
         'williamboman/mason.nvim',
-        event = "BufEnter",
+        event = "BufRead",
         build = ":MasonUpdate", -- updates registry contents
         config = function()
             require("mason").setup()
@@ -55,7 +54,7 @@ require("lazy").setup({
     },
     {
         'williamboman/mason-lspconfig.nvim',
-        event = "BufEnter",
+        event = "VeryLazy",
         config = function()
             require("plugins.mason-lspconfig")
         end
@@ -64,9 +63,10 @@ require("lazy").setup({
     -- Lsp Config
     {
         'neovim/nvim-lspconfig',
+        dependencies = { 'saghen/blink.cmp' },
         event = "BufRead",
         config = function()
-            require("plugins.lspconfig")
+            require("plugins.lspconfig").setup()
         end,
     },
 
@@ -88,11 +88,11 @@ require("lazy").setup({
     },
     {
         'rcarriga/nvim-dap-ui',
-        cmd = { "DapToggleBreakPoint", "DapContinue" },
         dependencies = { 'mfussenegger/nvim-dap' },
+        event = 'VeryLazy',
         config = function()
             require("plugins.dapui")
-        end
+        end,
     },
     {
         "theHamsta/nvim-dap-virtual-text",
@@ -114,14 +114,11 @@ require("lazy").setup({
     },
 
     -- Lint && Format
-    -- {
-    --     'nvimtools/none-ls.nvim',
-    --     event = "BufRead",
-    --     dependencies = { 'nvim-lua/plenary.nvim' },
-    --     config = function()
-    --         require("plugins.none-ls")
-    --     end
-    -- },
+    {
+        'mfussenegger/nvim-lint',
+        event = "LspAttach",
+
+    },
     {
         'stevearc/conform.nvim',
         opts = {},
@@ -130,7 +127,6 @@ require("lazy").setup({
             require("plugins.conform").setup()
         end,
     },
-    -- TODO: add nvim-lint for linting
 
     -- tests
     {
@@ -218,40 +214,49 @@ require("lazy").setup({
         end,
     },
 
-    -- Copilot chat
+    -- AI assistance like Cursor IDE
     {
-        "CopilotC-Nvim/CopilotChat.nvim",
-        branch = "canary",
-        cmd = {
-            "CopilotChat",
-            "CopilotChatToggle",
-            "CopilotChatFix",
-            "CopilotChatExplain",
-            "CopilotChatCommit",
-        },
+        "yetone/avante.nvim",
+        event = "VeryLazy",
+        -- lazy = false,
+        version = false, -- set this if you want to always pull the latest change
+        build = "make",
         dependencies = {
-            { "zbirenbaum/copilot.lua" },
-            { "nvim-lua/plenary.nvim" },
+            "nvim-treesitter/nvim-treesitter",
+            "stevearc/dressing.nvim",
+            "nvim-lua/plenary.nvim",
+            "MunifTanjim/nui.nvim",
+            --- The below dependencies are optional,
+            "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+            "zbirenbaum/copilot.lua",      -- for providers='copilot'
+            "HakonHarnes/img-clip.nvim",
+            'MeanderingProgrammer/render-markdown.nvim',
         },
-        opts = {
-        },
+        config = function()
+            require("plugins.avante").setup()
+        end,
     },
 
     -- Auto Complete
-    -- For vsnip users.
-    'hrsh7th/cmp-vsnip',
-    'hrsh7th/vim-vsnip',
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-path',
-    'hrsh7th/cmp-cmdline',
     {
-        'hrsh7th/nvim-cmp',
-        event = "InsertEnter",
+        'saghen/blink.cmp',
+        lazy = false, -- lazy loading handled internally
+
+        -- optional: provides snippets for the snippet source
+        dependencies = 'rafamadriz/friendly-snippets',
+
+        -- use a release tag to download pre-built binaries
+        version = 'v0.*',
+
+        -- allows extending the enabled_providers array elsewhere in your config
+        -- without having to redefining it
+        opts_extend = { "sources.completion.enabled_providers" },
+
         config = function()
-            require("plugins.nvim-cmp")
+            require('plugins.blink-cmp').setup()
         end
     },
+
 
     -- Improve LSP
     {
@@ -319,16 +324,17 @@ require("lazy").setup({
             require('crates').setup()
         end,
     },
-    -- nvim lua lsp Improve
+    -- lsp improvement for neovim config, develop
     {
-        'folke/neodev.nvim',
+        'folke/lazydev.nvim',
         ft = "lua",
         event = "LspAttach",
-        opts = {}
+        opts = {},
     },
     -- json/yaml common schemas
     {
         "b0o/schemastore.nvim",
+        ft = { "json", "yaml" },
         event = "BufRead",
     },
 
@@ -428,10 +434,14 @@ require("lazy").setup({
         end,
     },
 
-    -- Smooooth
+    -- Smooth
     {
-        'psliwka/vim-smoothie',
+        'karb94/neoscroll.nvim',
+        event = "BufRead",
         cond = not vim.g.neovide,
+        config = function()
+            require('plugins.neoscroll')
+        end
     },
 
     -- Extra Beauty
@@ -475,17 +485,17 @@ require("lazy").setup({
     -- Scrollbar
     {
         "dstein64/nvim-scrollview",
-        -- cond = not vim.g.neovide,
+        cond = not vim.g.neovide,
     },
 
     -- vscode icon on auto-complete
-    {
-        "onsails/lspkind-nvim",
-        event = "LspAttach",
-        config = function()
-            require("plugins.lspkind")
-        end
-    },
+    -- {
+    --     "onsails/lspkind-nvim",
+    --     event = "LspAttach",
+    --     config = function()
+    --         require("plugins.lspkind")
+    --     end
+    -- },
 
     -- Dashboard
     -- {
@@ -661,11 +671,31 @@ require("lazy").setup({
     {
         'MeanderingProgrammer/markdown.nvim',
         name = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
-        ft = "markdown",
+        ft = { "markdown", "Avante", "octo" },
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
         config = function()
-            require('render-markdown').setup({})
+            require('render-markdown').setup({
+                file_types = { "markdown", "Avante", "octo" },
+            })
         end,
+    },
+
+    -- Image paste
+    {
+        "HakonHarnes/img-clip.nvim",
+        event = "VeryLazy",
+        opts = {
+            -- recommended settings
+            default = {
+                embed_image_as_base64 = false,
+                prompt_for_file_name = false,
+                drag_and_drop = {
+                    insert_mode = true,
+                },
+                -- required for Windows users
+                use_absolute_path = true,
+            },
+        },
     },
 
     -- Colorrize

@@ -1,10 +1,11 @@
 require('lspsaga').setup({
     lightbulb = {
-        enabled = true,
-        sign = false,
-        virtual_text = true,
+        enable = false
     },
-    breadcrumb = {
-        enabled = false,
+    symbols_in_winbar = {
+        enable = true
     },
+    implement = {
+        enable = true
+    }
 })
