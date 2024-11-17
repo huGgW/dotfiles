@@ -9,6 +9,6 @@ require("copilot").setup({
         }
     },
     filetypes = {
-        ["*"] = true
+        yaml = true,
     }
 })

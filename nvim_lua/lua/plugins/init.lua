@@ -48,9 +48,7 @@ require("lazy").setup({
         'williamboman/mason.nvim',
         event = "BufRead",
         build = ":MasonUpdate", -- updates registry contents
-        config = function()
-            require("mason").setup()
-        end
+        opts = {},
     },
     {
         'williamboman/mason-lspconfig.nvim',
@@ -63,7 +61,7 @@ require("lazy").setup({
     -- Lsp Config
     {
         'neovim/nvim-lspconfig',
-        dependencies = { 'saghen/blink.cmp' },
+        -- dependencies = { 'saghen/blink.cmp' },
         event = "BufRead",
         config = function()
             require("plugins.lspconfig").setup()
@@ -239,23 +237,40 @@ require("lazy").setup({
 
     -- Auto Complete
     {
-        'saghen/blink.cmp',
-        lazy = false, -- lazy loading handled internally
-
-        -- optional: provides snippets for the snippet source
-        dependencies = 'rafamadriz/friendly-snippets',
-
-        -- use a release tag to download pre-built binaries
-        version = 'v0.*',
-
-        -- allows extending the enabled_providers array elsewhere in your config
-        -- without having to redefining it
-        opts_extend = { "sources.completion.enabled_providers" },
-
+        "iguanacucumber/magazine.nvim",
+        name = "nvim-cmp",
+        event = "BufRead",
         config = function()
-            require('plugins.blink-cmp').setup()
-        end
+            require('plugins.nvim-cmp').setup()
+        end,
     },
+
+    --* the sources *--
+    { "iguanacucumber/mag-nvim-lsp", name = "cmp-nvim-lsp", opts = {} },
+    { "iguanacucumber/mag-nvim-lua", name = "cmp-nvim-lua" },
+    { "iguanacucumber/mag-buffer",   name = "cmp-buffer" },
+    { "iguanacucumber/mag-cmdline",  name = "cmp-cmdline" },
+    { "hrsh7th/cmp-vsnip" },
+    { "hrsh7th/vim-vsnip" },
+    "https://codeberg.org/FelipeLema/cmp-async-path", -- not by me, but better than cmp-path
+    -- {
+    --     'saghen/blink.cmp',
+    --     lazy = false, -- lazy loading handled internally
+    --
+    --     -- optional: provides snippets for the snippet source
+    --     dependencies = 'rafamadriz/friendly-snippets',
+    --
+    --     -- use a release tag to download pre-built binaries
+    --     version = 'v0.*',
+    --
+    --     -- allows extending the enabled_providers array elsewhere in your config
+    --     -- without having to redefining it
+    --     opts_extend = { "sources.completion.enabled_providers" },
+    --
+    --     config = function()
+    --         require('plugins.blink-cmp').setup()
+    --     end
+    -- },
 
     -- Improve LSP
     {
@@ -302,7 +317,14 @@ require("lazy").setup({
     -- Typescript
     {
         "pmizio/typescript-tools.nvim",
-        ft = { "javascript", "typescript" },
+        ft = {
+            "javascript",
+            "typescript",
+            "typescriptreact",
+            "javascriptreact",
+            "typescript.tsx",
+            "javascript.tsx",
+        },
         event = "LspAttach",
         dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
         opts = {},
@@ -313,6 +335,7 @@ require("lazy").setup({
         ft = { "c", "cpp" },
         event = "LspAttach",
     },
+    -- rust
     {
         'saecki/crates.nvim',
         tag = 'stable',
@@ -322,6 +345,11 @@ require("lazy").setup({
         config = function()
             require('crates').setup()
         end,
+    },
+    {
+        'mrcjkb/rustaceanvim',
+        version = '^5', -- Recommended
+        lazy = false,   -- This plugin is already lazy
     },
     -- lsp improvement for neovim config, develop
     {
@@ -342,7 +370,7 @@ require("lazy").setup({
         'folke/snacks.nvim',
         -- priority = 1000,
         event = 'VeryLazy',
-        config = function ()
+        config = function()
             require('plugins.snacks').setup()
         end
     },
@@ -471,11 +499,12 @@ require("lazy").setup({
     -- LSP load notify
     {
         "j-hui/fidget.nvim",
-        opts = {},
+        opts = {
+            ignore = {
+                "jdtls",
+            }
+        },
         event = "LspAttach",
-        config = function()
-            require("fidget").setup()
-        end
     },
 
     -- Scrollbar
@@ -485,24 +514,23 @@ require("lazy").setup({
     },
 
     -- vscode icon on auto-complete
-    -- {
-    --     "onsails/lspkind-nvim",
-    --     event = "LspAttach",
-    --     config = function()
-    --         require("plugins.lspkind")
-    --     end
-    -- },
+    {
+        "onsails/lspkind-nvim",
+        event = "LspAttach",
+        config = function()
+            require("plugins.lspkind")
+        end
+    },
 
     -- Dashboard
-    -- {
-    -- 	'nvimdev/dashboard-nvim',
-    -- 	event = 'VimEnter',
-    -- 	config = function()
-    -- 		require('dashboard').setup {
-    -- 		}
-    -- 	end,
-    -- 	dependencies = { { 'nvim-tree/nvim-web-devicons' } }
-    -- },
+    {
+        'nvimdev/dashboard-nvim',
+        event = 'VimEnter',
+        config = function()
+            require('plugins.dashboard').setup()
+        end,
+        dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+    },
 
     -- Rainbow Parenthesis
     {
@@ -513,7 +541,14 @@ require("lazy").setup({
         end
     },
 
-    -- TODO
+    -- comment improvement
+    {
+        "folke/ts-comments.nvim",
+        opts = {},
+        event = "VeryLazy",
+        enabled = vim.fn.has("nvim-0.10.0") == 1,
+    },
+
     {
         "folke/todo-comments.nvim",
         event = "BufRead",
@@ -730,6 +765,17 @@ require("lazy").setup({
     {
         'Mofiqul/dracula.nvim',
         priority = 999,
+    },
+    {
+        "savq/melange-nvim",
+        priority = 999,
+    },
+    {
+        "ellisonleao/gruvbox.nvim",
+        priority = 1000,
+        config = function()
+            require('plugins.gruvbox').setup()
+        end,
     },
 
 
