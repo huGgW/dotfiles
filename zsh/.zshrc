@@ -1,3 +1,6 @@
+# uncomment if want to profile
+# zmodload zsh/zprof
+
 # >>> Operating System Specific Configs >>>
 if [[ `uname` == "Darwin" ]]; then
     source ~/zshrc/macos.sh
@@ -52,8 +55,9 @@ alias sudo="sudo "
 alias vim="nvim"
 alias where="pwd"
 alias ls="eza --icons"
-alias gfs="git fetch && git status"
 alias grep="rg"
+alias k="kubectl"
+
 # bat
 if [[ `uname` == "Darwin" ]]; then
 	alias cat="bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo OneHalfDark || echo OneHalfLight)"
@@ -66,10 +70,6 @@ fi
 # >>> thefuck >>>
 eval $(thefuck --alias)
 # <<< thefuck <<<
-
-# >>> fzf >>>
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# <<< fzf <<<
 
 # Set ls color (fix the odd color in wsl)
 LS_COLORS="ow=01;36;40" && export LS_COLORS
@@ -176,11 +176,22 @@ fi
 
 # <<< zoxide (z) configs <<<
 
+# >>> fzf config >>>
+if command -v fzf > /dev/null 2>&1; then
+    source <(fzf --zsh)
+fi
+# <<< fzf config <<<
+
 # >>> Docker autocomplete >>>
 if command -v docker > /dev/null 2>&1; then
     source <(docker completion zsh)
 fi
 # <<< Docker autocomplete <<<
+
+# >>> tmux >>>
+# tmux-session-wizard
+export PATH=$HOME/.tmux/plugins/tmux-session-wizard/bin:$PATH
+# <<< tmux <<<
 
 # >>> SDKMAN >>>
 if [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] then
@@ -189,22 +200,15 @@ if [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] then
 fi
 # <<< SDKMAN <<<
 
-# >>> NVM (mac only yet) >>>
-if [[ -s "/opt/homebrew/opt/nvm/nvm.sh" ]] then 
-    . "/opt/homebrew/opt/nvm/nvm.sh"
-    export NVM_DIR="$HOME/.nvm"
+# >>> FNM (npm version management) >>>
+if command -v fnm > /dev/null 2>&1; then
+    eval "$(fnm env --use-on-cd --shell zsh)"
 fi
-
-if [[ -s "/opt/homebrew/opt/etc/bash_completion.d/nvm" ]] then
-   . "/opt/homebrew/opt/etc/bash_completion.d/nvm"
-fi
-# <<< NVM <<<
+# <<< FNM (npm version management) <<<
 
 # >>> goenv >>>
 # Enable goenv (set gopath if not exists)
-if [[ -d "$HOME/.goenv" ]]; then
-    export GOENV_ROOT="$HOME/.goenv"
-    export PATH="$GOENV_ROOT/bin:$PATH"
+if [ -d "$HOME/.goenv" ]; then
     eval "$(goenv init -)"
     export PATH="$GOROOT/bin:$PATH"
     export PATH="$PATH:$GOPATH/bin"
@@ -213,12 +217,6 @@ else
     export PATH="$GOPATH/bin:$PATH"
 fi
 # <<< goenv <<<
-
-# >>> tmux >>>
-# tmux-session-wizard
-export PATH=$HOME/.tmux/plugins/tmux-session-wizard/bin:$PATH
-# <<< tmux <<<
-
 
 # >>> Device Specific Configs >>>
 if [[ -f ~/zshrc/device.sh ]]; then
@@ -236,3 +234,6 @@ fi
 autoload -Uz compinit
 compinit
 # <<< auto complete load <<<
+
+# uncomment if want to profile
+# zprof

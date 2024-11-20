@@ -16,3 +16,9 @@ export FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 # >>> iterm2 >>>
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 # <<< iterm2 <<<
+
+# >>> rust >>>
+if [ -d "/opt/homebrew/opt/rustup/bin" ]; then
+    export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
+fi
+# <<< rust <<<
