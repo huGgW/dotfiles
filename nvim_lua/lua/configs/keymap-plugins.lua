@@ -96,6 +96,10 @@ local snacks = require('snacks')
 vim.keymap.set('n', '<leader>lg', snacks.lazygit.open, { desc = "LazyGit" })
 vim.keymap.set({ 'n', 't' }, '<C-`>', snacks.terminal.toggle, { desc = "Toggle terminal" })
 
+-- Copilot
+vim.keymap.set({ 'n', 'v' }, '<C-/>', require("copilot.suggestion").toggle_auto_trigger,
+    { desc = "Toggle copilot auto_suggestion" })
+
 -- Avante
 vim.keymap.set(
     { 'n', 'v' },

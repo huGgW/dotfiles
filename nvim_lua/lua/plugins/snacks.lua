@@ -24,6 +24,10 @@ local setup = function()
         terminal = {
         },
 
+        dashboard = {
+            enabled = true,
+        },
+
         words = {
             enabled = false,
         },

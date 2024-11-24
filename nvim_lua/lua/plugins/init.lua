@@ -37,7 +37,7 @@ require("lazy").setup({
     -- Java LSP specific (should be come before mason, lspconfig)
     {
         'nvim-java/nvim-java',
-        ft = "java",
+        ft = {"java", "kotlin"},
         config = function()
             require('plugins.java').setup()
         end,
@@ -520,16 +520,6 @@ require("lazy").setup({
         config = function()
             require("plugins.lspkind")
         end
-    },
-
-    -- Dashboard
-    {
-        'nvimdev/dashboard-nvim',
-        event = 'VimEnter',
-        config = function()
-            require('plugins.dashboard').setup()
-        end,
-        dependencies = { { 'nvim-tree/nvim-web-devicons' } }
     },
 
     -- Rainbow Parenthesis
