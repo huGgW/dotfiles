@@ -18,12 +18,6 @@ end
 -- wezterm.gui is not available to the mux server, so take care to
 -- do something reasonable when this config is evaluated by the mux
 local function get_appearance()
-  -- Use dark mode on linux (since hyprland cannot detect dark mode on linux)
-  wezterm.log_warn("target_triple: " .. wezterm.target_triple)
-  if wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
-    return 'Dark'
-  end
-
   -- get dark or light mode if supported
   if wezterm.gui then
     return wezterm.gui.get_appearance()
@@ -34,9 +28,9 @@ end
 
 local function scheme_for_appearance(appearance)
   if appearance:find 'Dark' then
-    return 'Catppuccin Mocha'
+    return 'Gruvbox dark, hard (base16)'
   else
-    return 'Catppuccin Latte'
+    return 'Gruvbox light, hard (base16)'
   end
 end
 
@@ -57,15 +51,14 @@ config.font_size = 13
 
 ---- Appearance settings
 config.hide_tab_bar_if_only_one_tab = true
-config.window_decorations = "RESIZE"
 
 -- blur and transparent
-config.window_background_opacity = 0.90
-config.macos_window_background_blur = 64
+-- config.window_background_opacity = 0.9
+-- config.macos_window_background_blur = 16
 
 -- solid
--- config.window_background_opacity = 1
--- config.macos_window_background_blur = 0
+config.window_background_opacity = 1
+config.macos_window_background_blur = 0
 
 
 -- Windows Mica 
