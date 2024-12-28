@@ -57,6 +57,7 @@ alias where="pwd"
 alias ls="eza --icons"
 alias grep="rg"
 alias k="kubectl"
+alias lg="lazygit"
 
 # bat
 if [[ `uname` == "Darwin" ]]; then
