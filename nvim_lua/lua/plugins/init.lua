@@ -160,6 +160,12 @@ require("lazy").setup({
         event = "BufRead",
     },
 
+    -- Doc generate
+    {
+        "danymat/neogen",
+        config = true,
+    },
+
     -- illuminate
     {
         'RRethy/vim-illuminate',
