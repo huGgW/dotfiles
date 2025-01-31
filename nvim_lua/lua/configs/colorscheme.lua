@@ -4,4 +4,4 @@ vim.cmd([[
     endif
     ]])
 
-vim.cmd.colorscheme 'gruvbox'
+vim.cmd.colorscheme 'rose-pine'

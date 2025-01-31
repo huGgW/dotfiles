@@ -755,22 +755,17 @@ require("lazy").setup({
         end,
     },
     {
-        "sainnhe/everforest",
-        priority = 999,
-    },
-    {
-        'Mofiqul/dracula.nvim',
-        priority = 999,
-    },
-    {
-        "savq/melange-nvim",
-        priority = 999,
-    },
-    {
         "ellisonleao/gruvbox.nvim",
-        priority = 1000,
+        priority = 999,
         config = function()
             require('plugins.gruvbox').setup()
+        end,
+    },
+    {
+        "rose-pine/neovim",
+        priority = 999,
+        config = function()
+            require('plugins.rose-pine').setup()
         end,
     },
 
