@@ -1,5 +1,8 @@
--- enable virtual text for diagnostics
-vim.diagnostic.config({ virtual_text = true })
+-- enable virtual text, virtual line for diagnostics
+vim.diagnostic.config({
+    virtual_text = true,
+    virtual_line = true,
+})
 
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
