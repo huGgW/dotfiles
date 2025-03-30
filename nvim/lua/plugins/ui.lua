@@ -1,5 +1,6 @@
 return {
     {
+        -- colorschemes
         "rose-pine/neovim",
         name = "rose-pine",
         priority = 999,
