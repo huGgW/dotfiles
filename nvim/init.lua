@@ -1,3 +1,6 @@
+-- Load general config
+require('config.option')
+
 -- Load lazy.nvim for plugin management
 require('config.lazy')
 
