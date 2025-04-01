@@ -12,3 +12,12 @@ vim.api.nvim_command("syntax on")
 
 -- set number
 vim.api.nvim_command("set number")
+
+-- Set indentation as 4 in default
+vim.api.nvim_command("set tabstop=4")
+vim.api.nvim_command("set softtabstop=4")
+vim.api.nvim_command("set expandtab")
+vim.api.nvim_command("set shiftwidth=4")
+vim.api.nvim_command("set autoindent")
+vim.api.nvim_command("set copyindent")
+vim.api.nvim_command("set smartindent")
