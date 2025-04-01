@@ -12,8 +12,8 @@ return {
             -- ui utility
             indent = { enabled = true },
             notifier = { enabled = true },
-            scroll = { enabled = true },
             statuscolumn = { enabled = true },
+            -- scroll = { enabled = true },
 
             -- image utility
             image = { enabled = true },
@@ -37,7 +37,18 @@ return {
         },
     },
     {
-        'echasnovski/mini.nvim',
+        "echasnovski/mini.nvim",
         version = false,
+        config = function()
+            -- Text Editing
+            require("mini.pairs").setup()
+
+            -- General Workflow
+
+            -- Appearance
+            require("mini.animate").setup()
+            require("mini.statusline").setup()
+            require("mini.tabline").setup()
+        end,
     },
 }
