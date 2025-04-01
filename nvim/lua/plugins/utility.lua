@@ -13,7 +13,7 @@ return {
             indent = { enabled = true },
             notifier = { enabled = true },
             scroll = { enabled = true },
-            statuscolumn = { enabled = true }, -- FIXME: maybe should install gitsigns.nvim
+            statuscolumn = { enabled = true },
 
             -- image utility
             image = { enabled = true },
