@@ -21,4 +21,7 @@ return {
             require("gitsigns").setup()
         end,
     },
+    {
+        'christoomey/vim-tmux-navigator',
+    },
 }
