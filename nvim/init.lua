@@ -4,9 +4,6 @@ require('config.option')
 -- Load lazy.nvim for plugin management
 require('config.lazy')
 
--- Load colorscheme config
-require('config.colorscheme')
-
 -- Enable LSPs on /lsp/*
 local configs = {}
 
