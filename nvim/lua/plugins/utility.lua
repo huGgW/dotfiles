@@ -7,6 +7,7 @@ return {
             -- file utililty
             bigfile = { enabled = true },
             quickfile = { enabled = true },
+            explorer = { enabled = true },
             -- TODO: config rename if needed
 
             -- ui utility
@@ -31,6 +32,7 @@ return {
         keys = {
             { "<leader>lg", function() Snacks.lazygit() end, desc = "LazyGit" },
             { "<leader>tm", function() Snacks.terminal() end, desc = "Terminal" },
+            { "<leader>te", function() Snacks.explorer() end, desc = "Explorer" },
         },
         dependencies = {
             "nvim-tree/nvim-web-devicons",
