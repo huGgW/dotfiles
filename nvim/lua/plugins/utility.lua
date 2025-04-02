@@ -31,7 +31,7 @@ return {
         },
         keys = {
             { "<leader>lg", function() Snacks.lazygit() end, desc = "LazyGit" },
-            { "<leader>tm", function() Snacks.terminal() end, desc = "Terminal" },
+            { "<C-`>", function() Snacks.terminal() end, mode = {"n", "t"}, desc = "Terminal" },
             { "<leader>te", function() Snacks.explorer() end, desc = "Explorer" },
         },
         dependencies = {
