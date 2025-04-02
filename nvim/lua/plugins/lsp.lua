@@ -45,4 +45,12 @@ return {
 			format_on_save = { timeout_ms = 500 },
 		},
 	},
+	{
+		"mfussenegger/nvim-lint",
+		config = function()
+			require("lint").linters_by_ft = {
+				go = { "golangcilint" },
+			}
+		end,
+	},
 }
