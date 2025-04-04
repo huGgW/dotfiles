@@ -15,6 +15,7 @@ return {
             notifier = { enabled = true },
             statuscolumn = { enabled = true },
             scroll = { enabled = true },
+            input = { enabled = true },
 
             -- image utility
             image = { enabled = true },
