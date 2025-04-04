@@ -15,15 +15,7 @@ return {
 				autotag = {
 					enable = true,
 				},
-			})
-		end,
-	},
-	{
-		"nvim-treesitter/nvim-treesitter-textobjects",
-		dependency = { "nvim-treesitter/nvim-treesitter" },
-		config = function()
-			-- TODO: customize config
-			require("nvim-treesitter.configs").setup({
+				-- TODO: customize config
 				textobjects = {
 					select = {
 						enable = true,
@@ -68,5 +60,9 @@ return {
 				},
 			})
 		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		dependency = { "nvim-treesitter/nvim-treesitter" },
 	},
 }
