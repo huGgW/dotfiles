@@ -3,6 +3,19 @@ local configs = {
         cmd = { "gopls" },
         filetypes = { "go", "gomod", "gowork", "gotmpl" },
         single_file_support = true,
+        settings = {
+            gopls = {
+                hints = {
+                    rangeVariableTypes = true,
+                    parameterNames = true,
+                    constantValues = true,
+                    assignVariableTypes = false,
+                    compositeLiteralFields = true,
+                    compositeLiteralTypes = true,
+                    functionTypeParameters = true,
+                },
+            }
+        },
     },
 
     ts_ls = {
@@ -12,6 +25,32 @@ local configs = {
             hostInfo = "neovim",
         },
         single_file_support = true,
+        settings = {
+            typescript = {
+                inlayHints = {
+                    includeInlayParameterNameHints = "all",
+                    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                    includeInlayFunctionParameterTypeHints = true,
+                    includeInlayVariableTypeHints = true,
+                    includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                    includeInlayPropertyDeclarationTypeHints = true,
+                    includeInlayFunctionLikeReturnTypeHints = true,
+                    includeInlayEnumMemberValueHints = true,
+                },
+            },
+            javascript = {
+                inlayHints = {
+                    includeInlayParameterNameHints = "all",
+                    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                    includeInlayFunctionParameterTypeHints = true,
+                    includeInlayVariableTypeHints = true,
+                    includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                    includeInlayPropertyDeclarationTypeHints = true,
+                    includeInlayFunctionLikeReturnTypeHints = true,
+                    includeInlayEnumMemberValueHints = true,
+                },
+            },
+        },
     },
 
     html = {
