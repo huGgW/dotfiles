@@ -21,3 +21,10 @@ vim.api.nvim_command("set shiftwidth=4")
 vim.api.nvim_command("set autoindent")
 vim.api.nvim_command("set copyindent")
 vim.api.nvim_command("set smartindent")
+
+-- Set cursorline
+vim.api.nvim_command('hi CursorLine   cterm=NONE ctermbg=0')
+vim.api.nvim_command('set cursorline')
+
+-- Set vertical rulers
+vim.api.nvim_command('set colorcolumn=100')
