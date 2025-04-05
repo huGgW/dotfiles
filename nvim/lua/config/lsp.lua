@@ -1,4 +1,6 @@
 local configs = {
+    -- core languages
+
     gopls = {
         cmd = { "gopls" },
         filetypes = { "go", "gomod", "gowork", "gotmpl" },
@@ -17,6 +19,8 @@ local configs = {
             }
         },
     },
+
+    -- frontend related languages
 
     ts_ls = {
         cmd = { "typescript-language-server", "--stdio" },
@@ -67,10 +71,40 @@ local configs = {
         single_file_support = true,
     },
 
+    -- config langauges
+
     lua_ls = {
         cmd = { "lua-language-server" },
         filetypes = { "lua" },
-    }
+        single_file_support = true,
+    },
+
+    jsonls = {
+        cmd = { "vscode-json-language-server", "--stdio" },
+        filetypes = { "json", "jsonc" },
+        init_options = {
+            provideFormatter = true
+        },
+        single_file_support = true,
+    },
+
+    yamlls = {
+        cmd = { "yaml-language-server", "--stdio" },
+        filetypes = { "yaml", "yml", "yaml.docker-compose", "yaml.gitlab" },
+        settings = {
+            redhat = {
+                telemetry = {
+                    enabled = false
+                }
+            }
+        },
+        single_file_support = true,
+    },
+
+    terraformls = {
+        cmd = { "terraform-ls", "serve" },
+        filetypes = { "terraform", "terraform-vars" },
+    },
 }
 
 
