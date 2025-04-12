@@ -19,6 +19,14 @@ local configs = {
             }
         },
     },
+    jdtls = {
+        cmd = { "jdtls" },
+        filetypes = { "java" },
+        single_file_support = true,
+        init_options = {
+            jvm_args = { 'Xmx4g' },
+        },
+    },
 
     -- frontend related languages
 
