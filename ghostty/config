@@ -1,11 +1,12 @@
 # Font
 font-family = "MonaspiceNe Nerd Font"
 font-family = "D2CodingLigature Nerd Font"
+font-size = 13
 
 # Theme
-theme = dark:rose-pine-moon,light:rose-pine-dawn
-background-opacity=0.8
-background-blur=true
+theme = dark:catppuccin-mocha,light:catppuccin-latte
+# background-opacity=0.8
+# background-blur=true
 
 # Keybind
 keybind = global:cmd+grave_accent=toggle_quick_terminal
