@@ -50,10 +50,10 @@ return {
             },
         },
         keys = {
-            { "<leader>ce", "<cmd>CodeCompanion<cr>",         mode = { "n", "v" },            desc = "Code Companion Inline" },
-            { "<leader>ca", "<cmd>CodeCompanionChat<cr>",     mode = { "n" },                 desc = "Code Companion Chat" },
-            { "<leader>ca", "<cmd>CodeCompanionChat Add<cr>", mode = { "v" },                 desc = "Code Companion Chat Add" },
-            { "<leader>ca", "<cmd>CodeCompanionActions<cr>",  desc = "Code Companion Actions" },
+            { "<leader>ce", "<cmd>CodeCompanion<cr>",         mode = { "n", "v" }, desc = "Code Companion Inline" },
+            { "<leader>ca", "<cmd>CodeCompanionChat<cr>",     mode = { "n" },      desc = "Code Companion Chat" },
+            { "<leader>ca", "<cmd>CodeCompanionChat Add<cr>", mode = { "v" },      desc = "Code Companion Chat Add" },
+            -- { "<leader>ca", "<cmd>CodeCompanionActions<cr>",  desc = "Code Companion Actions" },
         },
     },
 }

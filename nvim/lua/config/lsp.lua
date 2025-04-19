@@ -78,6 +78,17 @@ local configs = {
         },
         single_file_support = true,
     },
+    tailwindcss = {
+        cmd = { "tailwindcss-language-server", "--stdio" },
+        filetypes = { "html", "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue" },
+        -- init_options = {
+        --     userLanguages = {
+        --         typescriptreact = "javascriptreact",
+        --         javascriptreact = "javascriptreact",
+        --     },
+        -- },
+        single_file_support = true,
+    },
 
     -- config langauges
 
