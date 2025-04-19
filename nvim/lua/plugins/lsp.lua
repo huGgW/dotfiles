@@ -62,18 +62,4 @@ return {
         "RRethy/vim-illuminate",
         event = { "BufRead" },
     },
-
-    -- laguage specific
-    {
-        'nvim-java/nvim-java',
-        ft = { "java" },
-        event = { "BufReadPre" },
-        config = function()
-            require('java').setup({
-                jdk = {
-                    auto_install = false,
-                },
-            })
-        end
-    }
 }

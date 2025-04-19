@@ -1,5 +1,9 @@
 return {
     {
+        "HiPhish/rainbow-delimiters.nvim",
+        event = "BufReadPre",
+    },
+    {
         "lewis6991/gitsigns.nvim",
         event = "BufRead",
         config = function()

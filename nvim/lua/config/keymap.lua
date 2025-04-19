@@ -14,3 +14,7 @@ vim.api.nvim_set_keymap("v", "<leader>P", '"+P', { desc = "paset line" })
 -- Set lsp keymap
 vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "rename" })
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "code action" })
+
+-- Buffer navigation
+vim.keymap.set("n", "gb", vim.cmd.bnext, { desc = "next buffer" })
+vim.keymap.set("n", "gB", vim.cmd.bprev, { desc = "previous buffer" })
