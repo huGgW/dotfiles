@@ -1,4 +1,0 @@
-ripgrep
-fd
-npm
-jdtls
