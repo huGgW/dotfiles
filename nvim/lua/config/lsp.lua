@@ -27,6 +27,15 @@ local configs = {
             jvm_args = { 'Xmx4g' },
         },
     },
+    rust_analyser = {
+        cmd = { "rust-analyzer" },
+        filetypes = { "rust" },
+        capabilities = {
+            experimental = {
+                serverStatusNotification = true,
+            },
+        },
+    },
 
     -- frontend related languages
 
