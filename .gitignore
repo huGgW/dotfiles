@@ -1,2 +1,5 @@
 **/.DS_Store
 karabiner/automatic_backups
+zsh/zshrc/device.sh
+zsh/.zprofile
+nvim/.config/nvim/lazy-lock.json
