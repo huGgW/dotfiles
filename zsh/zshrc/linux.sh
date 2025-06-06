@@ -23,8 +23,8 @@ alias sleep_status="systemctl status sleep.target suspend.target hibernate.targe
 alias sleep_disable="systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target"
 alias sleep_enable="systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target"
 
-# >>> Rancher Desktop >>>
-export PATH="$HOME/.rd/bin:$PATH"
-# <<< Rancher Desktop <<<
+# >>> rofi path >>>
+export PATH="$HOME/.config/rofi/scripts:$PATH"
+# <<< rofi path <<<
 
 # <<< Linux Specific <<<
