@@ -42,14 +42,6 @@ return {
         },
     },
     {
-        'MeanderingProgrammer/markdown.nvim',
-        ft = { "markdown" },
-        dependencies = { 'nvim-treesitter/nvim-treesitter' },
-        opts = {
-            file_types = { "markdown" },
-        },
-    },
-    {
         "folke/trouble.nvim",
         opts = {},
         cmd = "Trouble",
@@ -70,5 +62,19 @@ return {
                 desc = "Symbols (Trouble)",
             },
         },
-    }
+    },
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        ft = { "markdown" },
+        build = ":call mkdp#util#install()"
+    },
+    {
+        'MeanderingProgrammer/markdown.nvim',
+        ft = { "markdown" },
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        opts = {
+            file_types = { "markdown" },
+        },
+    },
 }
