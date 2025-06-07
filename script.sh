@@ -15,7 +15,8 @@ stow_common() {
 
 stow_macos() {
     $StowOnHome \
-        aerospace
+        aerospace \
+        hammerspoon
 }
 
 stow_linux() {
