@@ -64,11 +64,12 @@ alias k="kubectl"
 alias lg="lazygit"
 
 # bat
-if [[ `uname` == "Darwin" ]]; then
-	alias cat="bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo OneHalfDark || echo OneHalfLight)"
-else
-	alias cat="bat"
-fi
+# if [[ `uname` == "Darwin" ]]; then
+# 	alias cat="bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo OneHalfDark || echo OneHalfLight)"
+# else
+# 	alias cat="bat"
+# fi
+alias cat="bat --theme=ansi"
 
 # <<< Alias <<<
 
