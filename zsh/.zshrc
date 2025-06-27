@@ -18,8 +18,8 @@ fi
 # >>> ZPLUG >>>
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zdharma-continuum/fast-syntax-highlighting"
-zplug "conda-incubator/conda-zsh-completion"
 zplug "caarlos0/zsh-git-sync"
+zplug "Aloxaf/fzf-tab"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -216,8 +216,6 @@ fi
 # Enable goenv (set gopath if not exists)
 if [ -d "$HOME/.goenv" ]; then
     eval "$(goenv init -)"
-    export PATH="$GOROOT/bin:$PATH"
-    export PATH="$PATH:$GOPATH/bin"
 else
     export GOPATH="$HOME/go"
     export PATH="$GOPATH/bin:$PATH"
