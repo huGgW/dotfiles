@@ -2,6 +2,21 @@ return {
     {
         "neovim/nvim-lspconfig",
         config = function()
+            vim.lsp.config('gopls', {
+                settings = {
+                    gopls = {
+                        hints = {
+                            rangeVariableTypes = true,
+                            parameterNames = true,
+                            constantValues = true,
+                            assignVariableTypes = false,
+                            compositeLiteralFields = true,
+                            compositeLiteralTypes = true,
+                            functionTypeParameters = true,
+                        },
+                    }
+                },
+            })
             -- enable inlay hint
             vim.lsp.inlay_hint.enable()
         end,
@@ -27,6 +42,9 @@ return {
         opts = {
             keymap = { preset = "enter" },
             completion = {
+                accept = {
+                    resolve_timeout_ms = 300,
+                },
                 documentation = {
                     auto_show = true,
                     auto_show_delay_ms = 100,
