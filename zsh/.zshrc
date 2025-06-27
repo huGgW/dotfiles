@@ -46,8 +46,13 @@ setopt appendhistory
 
 # >>> PATH >>>
 export PATH="$HOME/.local/bin:$PATH"
+
 # Jetbrains Path
 export PATH="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
+
+# Claude code path
+export PATH="$HOME/.claude/local:$PATH"
+
 # <<< PATH <<<
 
 # >>> EDITOR >>>
