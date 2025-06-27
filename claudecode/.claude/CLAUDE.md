@@ -60,6 +60,11 @@ When receives a user's code development request, it follows these steps sequenti
 
 ---
 
+# MCP tool usage guideline
+- @mcp_guide.md
+
+---
+
 # Git Commit Splitting and Creation Guidelines
 - @git_commit.md
 
@@ -70,5 +75,5 @@ When receives a user's code development request, it follows these steps sequenti
 
 ---
 
-# MCP tool usage guideline
-- @mcp_guide.md
+# Document Writing Guidelines
+- @document_write_guide.md
