@@ -58,7 +58,7 @@ return {
             },
             {
                 "<leader>o",
-                "<cmd>Trouble symbols toggle focus=false<cr>",
+                "<cmd>Trouble symbols toggle focus=false win.size=100<cr>",
                 desc = "Symbols (Trouble)",
             },
         },
