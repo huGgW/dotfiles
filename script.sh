@@ -10,7 +10,8 @@ stow_common() {
         nvim \
         starship \
         tmux \
-        zsh
+        zsh \
+        claudecode
 }
 
 stow_macos() {
