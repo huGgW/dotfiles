@@ -1,0 +1,1 @@
+../../claudecode/.claude/document_write_guide.md

@@ -1,0 +1,1 @@
+../../claudecode/.claude/mcp_guide.md

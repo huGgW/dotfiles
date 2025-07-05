@@ -11,7 +11,8 @@ stow_common() {
         starship \
         tmux \
         zsh \
-        claudecode
+        claudecode \
+        gemini
 }
 
 stow_macos() {
