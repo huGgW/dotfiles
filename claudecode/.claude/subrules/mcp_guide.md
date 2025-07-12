@@ -4,6 +4,8 @@
 - Context7 MCP pulls up-to-date, version-specific documentation and code examples straight from the source — and places them directly into your prompt.
 - use it if you need library / framework information
 
+---
+
 ## mcp-gopls
 - This MCP server helps AI assistants to:
     - Use LSP to analyze Go code
@@ -12,6 +14,45 @@
     - Get hover information for symbols
     - Get completion suggestions
 - use it when you need to interact with Go's Language Server Protocol (LSP) and benefit from advanced Go code analysis features.
+
+---
+
+## Sequential Thinking MCP Server
+An MCP server implementation that provides a tool for dynamic and reflective problem-solving through a structured thinking process.
+
+### Features
+
+- Break down complex problems into manageable steps
+- Revise and refine thoughts as understanding deepens
+- Branch into alternative paths of reasoning
+- Adjust the total number of thoughts dynamically
+- Generate and verify solution hypotheses
+
+### Tool
+#### sequential_thinking
+Facilitates a detailed, step-by-step thinking process for problem-solving and analysis.
+
+**Inputs:**
+- `thought` (string): The current thinking step
+- `nextThoughtNeeded` (boolean): Whether another thought step is needed
+- `thoughtNumber` (integer): Current thought number
+- `totalThoughts` (integer): Estimated total thoughts needed
+- `isRevision` (boolean, optional): Whether this revises previous thinking
+- `revisesThought` (integer, optional): Which thought is being reconsidered
+- `branchFromThought` (integer, optional): Branching point thought number
+- `branchId` (string, optional): Branch identifier
+- `needsMoreThoughts` (boolean, optional): If more thoughts are needed
+
+### Usage
+The Sequential Thinking tool is designed for:
+- Breaking down complex problems into steps
+- Planning and design with room for revision
+- Analysis that might need course correction
+- Problems where the full scope might not be clear initially
+- Tasks that need to maintain context over multiple steps
+- Situations where irrelevant information needs to be filtered out
+
+---
 
 ## fetcher
 - MCP server for fetch web page content using Playwright headless browser.
