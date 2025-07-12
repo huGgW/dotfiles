@@ -6,17 +6,6 @@
 
 ---
 
-## mcp-gopls
-- This MCP server helps AI assistants to:
-    - Use LSP to analyze Go code
-    - Navigate to definitions and find references
-    - Check code diagnostics
-    - Get hover information for symbols
-    - Get completion suggestions
-- use it when you need to interact with Go's Language Server Protocol (LSP) and benefit from advanced Go code analysis features.
-
----
-
 ## Sequential Thinking MCP Server
 An MCP server implementation that provides a tool for dynamic and reflective problem-solving through a structured thinking process.
 

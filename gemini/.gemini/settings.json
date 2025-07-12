@@ -1,21 +1,27 @@
 {
-	"theme": "GitHub",
-	"selectedAuthType": "oauth-personal",
-	"mcpServers": {
-		"fetcher": {
-			"command": "npx",
-			"args": ["-y", "fetcher-mcp"]
-		},
-		"context7": {
-			"command": "npx",
-			"args": ["-y", "@upstash/context7-mcp"]
-		},
-		"mcp-gopls": {
-			"command": "mcp-gopls"
-		},
-		"sequential-thinking": {
-			"command": "npx",
-			"args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
-		}
-	}
+    "theme": "GitHub",
+    "selectedAuthType": "oauth-personal",
+    "mcpServers": {
+        "fetcher": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "fetcher-mcp"
+            ]
+        },
+        "context7": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@upstash/context7-mcp"
+            ]
+        },
+        "sequential-thinking": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-sequential-thinking"
+            ]
+        }
+    }
 }
