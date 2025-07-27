@@ -10,3 +10,6 @@ background-blur=true
 
 # Keybind
 keybind = global:cmd+grave_accent=toggle_quick_terminal
+
+# Shaders
+custom-shader = cursor_frozen.glsl
