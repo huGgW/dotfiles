@@ -1,22 +1,38 @@
 {
-	"theme": "GitHub",
-	"selectedAuthType": "oauth-personal",
-	"mcpServers": {
-		"fetcher": {
-			"command": "npx",
-			"args": ["-y", "fetcher-mcp"]
-		},
-		"context7": {
-			"command": "npx",
-			"args": ["-y", "@upstash/context7-mcp"]
-		},
-		"sequential-thinking": {
-			"command": "npx",
-			"args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
-		},
-		"notionMCP": {
-			"command": "npx",
-			"args": ["-y", "mcp-remote", "https://mcp.notion.com/mcp"]
-		}
-	}
+    "theme": "GitHub",
+    "selectedAuthType": "oauth-personal",
+    "mcpServers": {
+        "fetcher": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "fetcher-mcp"
+            ]
+        },
+        "context7": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@upstash/context7-mcp"
+            ]
+        },
+        "grep": {
+            "url": "https://mcp.grep.app"
+        },
+        "sequential-thinking": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-sequential-thinking"
+            ]
+        },
+        "notionMCP": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "mcp-remote",
+                "https://mcp.notion.com/mcp"
+            ]
+        }
+    }
 }
