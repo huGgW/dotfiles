@@ -1,5 +1,21 @@
 return {
     {
+        "A7Lavinraj/fyler.nvim",
+        dependencies = { "echasnovski/mini.icons" },
+        opts = {
+            views = {
+                explorer = {
+                    win = {
+                        kind = "split_left_most"
+                    }
+                }
+            }
+        },
+        keys = {
+            { "<leader>te", function() require("fyler").open() end, desc = "Fyler(Explorer)" },
+        }
+    },
+    {
         "HiPhish/rainbow-delimiters.nvim",
         submodules = false,
         event = "BufReadPre",

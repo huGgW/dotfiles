@@ -7,7 +7,7 @@ return {
             -- file utililty
             bigfile = { enabled = true },
             quickfile = { enabled = true },
-            explorer = { enabled = true },
+            -- explorer = { enabled = true },
             -- TODO: config rename if needed
 
             -- ui utility
@@ -33,7 +33,7 @@ return {
         keys = {
             { "<leader>lg", function() Snacks.lazygit() end,                      desc = "LazyGit" },
             { "<C-`>",      function() Snacks.terminal() end,                     mode = { "n", "t" },            desc = "Terminal" },
-            { "<leader>te", function() Snacks.explorer() end,                     desc = "Explorer" },
+            -- { "<leader>te", function() Snacks.explorer() end,                     desc = "Explorer" },
 
             -- pickers
             { "<leader>fo", function() Snacks.picker.files() end,                 desc = "Find Files" },
