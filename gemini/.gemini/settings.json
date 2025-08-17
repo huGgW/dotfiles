@@ -2,6 +2,10 @@
 	"theme": "GitHub",
 	"selectedAuthType": "oauth-personal",
 	"mcpServers": {
+		"sequential-thinking": {
+			"command": "npx",
+			"args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+		},
 		"fetcher": {
 			"command": "npx",
 			"args": ["-y", "fetcher-mcp"]

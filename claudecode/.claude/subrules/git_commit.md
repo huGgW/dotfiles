@@ -47,7 +47,7 @@ This guideline describes the process for helping users split changes (typically 
            *   List the exact files that need to be staged for *this specific commit*. (AI typically proposes entire files as staging targets.)
            *   AI proposes executing `git add <file1> <file2>...` command through `run_terminal_cmd` to stage the listed files and waits for user approval.
            *   If the user wants to stage only specific parts (hunks) of files, AI should guide the user to execute `git add -p <file>` directly in the terminal. In this case, AI may skip proposing the `git add` command for that file.
-           *   To confirm all necessary changes are staged (e.g., AI proposes executing `git status` and user confirms results), AI proposes executing `git commit -m "subject line" -m "body content..."` command using the planned commit message through `run_terminal_cmd` and waits for user approval.
+           *   To confirm all necessary changes are staged (e.g., AI proposes executing `git status` and user confirms results), AI proposes executing `git commit -n -m "subject line" -m "body content..."` command using the planned commit message through `run_terminal_cmd` and waits for user approval. **Always use the `-n` flag to skip git hooks during commit execution.**
            *   After confirming successful commit execution (e.g., AI proposes executing `git log -1` and user confirms results), proceed to the next commit.
    *   AI proposes exact commands at each `git add` and `git commit` step and executes them through `run_terminal_cmd` under user approval.
    *   If errors occur or the user wants changes midway, return to step 3 to adjust the plan for remaining commits.
@@ -59,3 +59,4 @@ This guideline describes the process for helping users split changes (typically 
 *   **Atomicity**: Continuously emphasize and help users create atomic commits. Each commit should represent a single logical unit of work.
 *   **Context Awareness**: If aware of project-specific commit message formats, branch naming conventions, or pre-commit hooks (e.g., from project documentation or other conventions), integrate this knowledge into guidance.
 *   **Confirmed Execution**: Repository-changing operations like `git add` and `git commit` are executed only after AI proposes command execution through `run_terminal_cmd` as described in step 4, and receives explicit user approval for each command. AI does not automatically execute commit-related commands without user approval.
+*   **Hook Management**: Always use the `-n` flag with `git commit` commands to skip git hooks execution. This prevents potential interruptions or failures during the automated commit process and ensures consistent behavior across different repository configurations.

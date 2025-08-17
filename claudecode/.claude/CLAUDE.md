@@ -60,20 +60,19 @@ When receives a user's code development request, it follows these steps sequenti
 
 ---
 
-# MCP tool usage guideline
+# Tool usage guidelines
 - @subrules/mcp_guide.md
+- @subrules/cli_guide.md
 
 ---
 
-# Git Commit Splitting and Creation Guidelines
+# Git related task guidelines
 - @subrules/git_commit.md
-
----
-
-# PR Description Generation Rule
 - @subrules/pr_description.md
+- @subrules/code_review.md
 
 ---
 
-# Document Writing Guidelines
+# Documetation related guidelines
 - @subrules/document_write_guide.md
+- @subrules/prompt_generate.md

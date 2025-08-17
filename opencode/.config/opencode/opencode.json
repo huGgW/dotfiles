@@ -24,10 +24,20 @@
 			"make test": "allow",
 			"./gradlew build": "allow",
 			"./gradlew test": "allow",
+			"./gradlew tasks": "allow",
 			"*": "ask"
 		}
 	},
 	"mcp": {
+		"sequential-thinking": {
+			"type": "local",
+			"command": [
+				"npx",
+				"-y",
+				"@modelcontextprotocol/server-sequential-thinking"
+			],
+			"enabled": true
+		},
 		"fetcher": {
 			"type": "local",
 			"command": ["npx", "-y", "fetcher-mcp"],
