@@ -1,15 +1,5 @@
 # >>> Linux Specific >>>
 
-# >>> Initialize zplug >>>
-if [ -d /usr/share/zsh/scripts/zplug ]; then
-	source /usr/share/zsh/scripts/zplug/init.zsh
-	export ZPLUG_HOME=~/.zplug
-elif [ -d ~/.zplug ]; then
-	export ZPLUG_HOME=~/.zplug
-	source $ZPLUG_HOME/init.zsh
-fi
-# <<< Initialize zplug <<<
-
 # for amd MKL performance hack
 export MKL_DEBUG_CPU_TYPE=5
 
