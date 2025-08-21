@@ -7,7 +7,18 @@
 ---
 ## grep
 - Grep MCP server provides an endpoint that searches public GitHub repositories. Through the Grep MCP server, AI agents can issue search queries and retrieve code snippets that match specific patterns or regular expressions, filtered by language, repository, and file path.
-- **Use it if you need to search references from actual project & code**
+- **Use it ONLY when you need to find specific code implementation patterns or snippets from real open-source projects**
+- **For general information search or documentation lookup, prefer using WebSearch tool instead**
+
+### When to use grep MCP:
+- Finding real-world usage examples of specific APIs or libraries
+- Looking for code patterns or implementations in open-source projects
+- Searching for specific code syntax or patterns across GitHub repositories
+
+### When NOT to use grep MCP:
+- General information search (use WebSearch instead)
+- Documentation lookup (use context7 or WebSearch instead)
+- Concept explanations or tutorials (use WebSearch instead)
 
 ---
 
