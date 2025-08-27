@@ -12,7 +12,6 @@ stow_common() {
         tmux \
         zsh \
         claudecode \
-        gemini \
         opencode
 }
 
