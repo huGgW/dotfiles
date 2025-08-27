@@ -48,6 +48,19 @@
 			"command": ["npx", "-y", "@upstash/context7-mcp"],
 			"enabled": true
 		},
+		"serena": {
+			"type": "local",
+			"command": [
+				"uvx",
+				"--from",
+				"git+https://github.com/oraios/serena",
+				"serena",
+				"start-mcp-server",
+				"--context",
+				"ide-assistant",
+			],
+			"enabled": true
+		},
 		"grep": {
 			"type": "remote",
 			"url": "https://mcp.grep.app"
