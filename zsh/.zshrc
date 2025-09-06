@@ -24,3 +24,4 @@ safe_source ~/zshrc/finish.sh
 
 # uncomment if want to profile
 # zprof
+
