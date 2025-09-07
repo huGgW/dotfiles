@@ -30,17 +30,43 @@ return {
     {
         "williamboman/mason-lspconfig.nvim",
         config = function()
-            require("mason-lspconfig").setup()
+            require("mason-lspconfig").setup({
+                automatic_enable = {
+                    exclude = {}
+                }
+            })
         end,
     },
     {
         "saghen/blink.cmp",
         dependencies = {
             "rafamadriz/friendly-snippets",
+            "copilotlsp-nvim/copilot-lsp",
+            "fang2hou/blink-copilot",
         },
         version = "1.*",
         opts = {
-            keymap = { preset = "enter" },
+            keymap = {
+                preset = "enter",
+                ["<Tab>"] = {
+                    function(cmp)
+                        if vim.b[vim.api.nvim_get_current_buf()].nes_state then
+                            cmp.hide()
+                            return (
+                                require("copilot-lsp.nes").apply_pending_nes()
+                                and require("copilot-lsp.nes").walk_cursor_end_edit()
+                            )
+                        end
+                        if cmp.snippet_active() then
+                            return cmp.accept()
+                        else
+                            return cmp.select_and_accept()
+                        end
+                    end,
+                    "snippet_forward",
+                    "fallback",
+                },
+            },
             completion = {
                 accept = {
                     resolve_timeout_ms = 300,
@@ -49,16 +75,30 @@ return {
                     auto_show = true,
                     auto_show_delay_ms = 100,
                 },
+                menu = {
+                    direction_priority = { 'n', 's' },
+                },
+                ghost_text = {
+                    enabled = true,
+                    show_with_selection = true,
+                    show_without_selection = false,
+                    show_with_menu = true,
+                    show_without_menu = true,
+                },
             },
             sources = {
-                -- add lazydev to your completion providers
-                default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+                default = { "copilot", "lazydev", "lsp", "path", "snippets", "buffer" },
                 providers = {
                     lazydev = {
                         name = "LazyDev",
                         module = "lazydev.integrations.blink",
-                        -- make lazydev completions top priority (see `:h blink.cmp`)
                         score_offset = 100,
+                    },
+                    copilot = {
+                        name = "copilot",
+                        module = "blink-copilot",
+                        score_offset = 1,
+                        async = true,
                     },
                 },
             },
