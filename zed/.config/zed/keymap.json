@@ -1,0 +1,55 @@
+[
+  // vim extra key bindings
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "shift-s": ["vim::PushAddSurrounds", {}]
+    }
+  },
+  {
+    "context": "vim_mode == normal || !Editor && !Terminal",
+    "bindings": {
+      // move
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      // toggle panes
+      "space t e": "workspace::ToggleLeftDock",
+      "space c c": "agent::ToggleFocus",
+      // find
+      "space f o": "file_finder::Toggle",
+      "space f s": "pane::DeploySearch",
+      "space f p": "command_palette::Toggle",
+      "space f d": "project_symbols::Toggle",
+      // paste
+      "space p": ["workspace::SendKeystrokes", "\" + p"],
+      "space shift-p": ["workspace::SendKeystrokes", "\" + P"]
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // goto
+      "g d": "editor::GoToDefinition",
+      "g p d": "editor::GoToDefinitionSplit",
+      "g shift-i": "editor::GoToImplementation",
+      "g r": "editor::FindAllReferences",
+      "g y": "editor::GoToTypeDefinition",
+      // actions
+      "space a": "editor::ToggleCodeActions",
+      "space b": "editor::ToggleBreakpoint"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == visual",
+    "bindings": {
+      // yanks
+      "space y": ["workspace::SendKeystrokes", "\" + y"],
+      "space d": ["workspace::SendKeystrokes", "\" + d"],
+      // multi cursor
+      "ctrl-n": "vim::SelectNext",
+      "ctrl-shift-n": "vim::SelectNext"
+    }
+  }
+]

@@ -11,6 +11,7 @@ stow_common() {
         starship \
         tmux \
         zsh \
+        zed \
         claudecode \
         opencode
 }
@@ -40,4 +41,3 @@ elif [ "$OS" = "Linux" ]; then
 else
     echo "unknown os: $OS"
 fi
-
