@@ -3,17 +3,19 @@ return {
         "A7Lavinraj/fyler.nvim",
         dependencies = { "echasnovski/mini.icons" },
         opts = {
-            views = {
-                explorer = {
-                    win = {
-                        kind = "split_left_most"
-                    }
-                }
-            }
+            default_explorer = true
         },
         keys = {
-            { "<leader>te", function() require("fyler").open() end, desc = "Fyler(Explorer)" },
-        }
+            {
+                "<leader>te",
+                function()
+                    require("fyler").open({
+                        kind = "split_left_most"
+                    })
+                end,
+                desc = "Fyler(Explorer)"
+            },
+        },
     },
     {
         "HiPhish/rainbow-delimiters.nvim",
