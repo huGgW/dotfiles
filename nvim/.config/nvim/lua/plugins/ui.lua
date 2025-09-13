@@ -52,7 +52,7 @@ return {
                     light = "latte",
                     dark = "mocha",
                 },
-                transparent_background = true,
+                transparent_background = false,
                 term_colors = true,
                 default_integrations = true,
                 integrations = {
