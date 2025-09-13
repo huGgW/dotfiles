@@ -13,7 +13,8 @@ stow_common() {
         zsh \
         zed \
         claudecode \
-        opencode
+        opencode \
+        codex
 }
 
 stow_macos() {
