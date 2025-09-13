@@ -8,15 +8,8 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
   // font
-  "agent": {
-    "always_allow_tool_actions": true,
-    "default_model": {
-      "provider": "openrouter",
-      "model": "openai/gpt-5"
-    }
-  },
-  "ui_font_size": 16,
-  "buffer_font_size": 15,
+  "ui_font_size": 14,
+  "buffer_font_size": 13,
   "buffer_font_family": "FiraCode Nerd Font Propo",
 
   // theme
@@ -50,6 +43,7 @@
     "file_icons": true,
     "show_diagnostics": "all"
   },
+  "wrap_guides": [80, 100, 120],
 
   // ai related
   "features": {
@@ -66,7 +60,12 @@
       "**/secrets.yml"
     ]
   },
-
-  // lsp configs
-  "language_servers": []
+  "agent": {
+    "play_sound_when_agent_done": true,
+    "always_allow_tool_actions": false,
+    "default_model": {
+      "provider": "openrouter",
+      "model": "openrouter/sonoma-sky-alpha"
+    }
+  }
 }

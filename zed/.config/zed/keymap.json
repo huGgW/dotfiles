@@ -38,7 +38,8 @@
       "g y": "editor::GoToTypeDefinition",
       // actions
       "space a": "editor::ToggleCodeActions",
-      "space b": "editor::ToggleBreakpoint"
+      "space b": "editor::ToggleBreakpoint",
+      "space f m": "editor::Format"
     }
   },
   {
@@ -50,6 +51,14 @@
       // multi cursor
       "ctrl-n": "vim::SelectNext",
       "ctrl-shift-n": "vim::SelectNext"
+    }
+  },
+
+  // change normal keymaps
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-`": "workspace::ToggleBottomDock"
     }
   }
 ]
