@@ -12,6 +12,37 @@ vim.api.nvim_command("syntax on")
 
 -- set number
 vim.api.nvim_command("set number")
+vim.opt.relativenumber = true
+
+-- relative number based on insert mode
+vim.api.nvim_create_autocmd("InsertEnter", {
+    pattern = "*",
+    callback = function()
+        vim.opt.relativenumber = false
+    end,
+})
+
+vim.api.nvim_create_autocmd("InsertLeave", {
+    pattern = "*",
+    callback = function()
+        vim.opt.relativenumber = true
+    end,
+})
+
+-- relative number based on focus
+vim.api.nvim_create_autocmd("FocusLost", {
+    pattern = "*",
+    callback = function()
+        vim.opt.relativenumber = false
+    end,
+})
+
+vim.api.nvim_create_autocmd("FocusGained", {
+    pattern = "*",
+    callback = function()
+        vim.opt.relativenumber = true
+    end,
+})
 
 -- Set indentation as 4 in default
 vim.api.nvim_command("set tabstop=4")
