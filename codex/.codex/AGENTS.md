@@ -1,1 +1,1 @@
-../../claudecode/.claude/CLAUDE.md
+../../agent_rules/AGENTS.md
