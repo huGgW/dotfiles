@@ -87,6 +87,16 @@ The Sequential Thinking tool is designed for:
 ---
 
 ## notionMCP
-- **Use when notion related task is needed**
+- **Always use when notion related task is needed**
+
+---
+
+## serena
+- Serena provides essential semantic code retrieval and editing tools that are akin to an IDE's capabilities, extracting code entities at the symbol level and exploiting relational structure. When combined with an existing coding agent, these tools greatly enhance (token) efficiency.
+- Do not use Serena on large-scale `Java` projects.
+- Always onboard or search project based on path names.
+- Prefer using serena for project-specific code search and simple replace, correction tasks.
+- Do not use serena for complex refactoring or large-scale code modifications, since it needs to be handled and reviewed by ai agents.
+- Ensure to consult project documentation for additional guidelines related to code practices.
 
 ---
