@@ -48,24 +48,6 @@ return {
         opts = {
             keymap = {
                 preset = "enter",
-                ["<Tab>"] = {
-                    function(cmp)
-                        if vim.b[vim.api.nvim_get_current_buf()].nes_state then
-                            cmp.hide()
-                            return (
-                                require("copilot-lsp.nes").apply_pending_nes()
-                                and require("copilot-lsp.nes").walk_cursor_end_edit()
-                            )
-                        end
-                        if cmp.snippet_active() then
-                            return cmp.accept()
-                        else
-                            return cmp.select_and_accept()
-                        end
-                    end,
-                    "snippet_forward",
-                    "fallback",
-                },
             },
             completion = {
                 accept = {
@@ -87,18 +69,12 @@ return {
                 },
             },
             sources = {
-                default = { "copilot", "lazydev", "lsp", "path", "snippets", "buffer" },
+                default = { "lazydev", "lsp", "path", "snippets", "buffer" },
                 providers = {
                     lazydev = {
                         name = "LazyDev",
                         module = "lazydev.integrations.blink",
                         score_offset = 100,
-                    },
-                    copilot = {
-                        name = "copilot",
-                        module = "blink-copilot",
-                        score_offset = 1,
-                        async = true,
                     },
                 },
             },
