@@ -28,6 +28,9 @@
             "*": "ask"
         }
     },
+    "plugin": [
+        "opencode-openai-codex-auth"
+    ],
     "mcp": {
         "sequential-thinking": {
             "type": "local",
