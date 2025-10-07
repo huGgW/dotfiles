@@ -2,6 +2,7 @@ return {
     {
         "A7Lavinraj/fyler.nvim",
         dependencies = { "echasnovski/mini.icons" },
+        branch = "stable",
         opts = {
             default_explorer = true
         },
@@ -96,10 +97,10 @@ return {
         },
     },
     {
-       "m4xshen/hardtime.nvim",
-       lazy = false,
-       dependencies = { "MunifTanjim/nui.nvim" },
-       opts = {
+        "m4xshen/hardtime.nvim",
+        lazy = false,
+        dependencies = { "MunifTanjim/nui.nvim" },
+        opts = {
             disable_mouse = false,
             restriction_mode = "hint",
         },
