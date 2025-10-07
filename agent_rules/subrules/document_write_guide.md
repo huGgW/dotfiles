@@ -1,146 +1,52 @@
-# 문서 작성 가이드라인 (Document Writing Guidelines)
+# Document writing guideline
+This guide helps to produce high-quality documentation for software projects, prioritizing clarity, completeness, and developer usability.
 
-이 가이드라인은 기술 문서를 **간결하고 명확하게** 작성하기 위한 규칙을 제공합니다.
+## Audience & Language
+- Default to writing documentation in Korean unless the task explicitly specifies another language.
+- Identify the target audience (e.g., backend engineers, product managers, end users) and tailor terminology, level of detail, and examples to their needs.
 
-## 1. 설계 및 기획 문서 (Design & Planning Document)
+## Document Scope
+Support the following documentation categories (and similar developer-focused outputs):
+- Planning & design documents (system/service abstracts, architectural decisions, component responsibilities)
+- Problem analysis & solution documents (issue overviews, root cause analysis, mitigation plans, validation strategies)
+- Structure & usage guides (library/tool overviews, API references, best practices, real-world usage scenarios)
 
-### 구조
-```
-# [서비스/시스템명]
+## Working Principles
+1. Lead with the final outcome: state what the reader will achieve or learn.
+2. Apply "problem → solution → implementation" flow where applicable.
+3. Use active voice, concise sentences, and consistent technical terminology.
+4. Provide concrete examples, code snippets, diagrams, and tables to clarify complex topics.
+5. Ensure every instruction or code sample is executable and verified.
+6. Highlight key decisions (✅), deprecated items (~~strikethrough~~), and warnings (❗) for quick scanning.
 
-## Abstract
-- 핵심 목적과 해결하고자 하는 문제 요약 (3-5줄)
-- 기대 효과 명시
+## Structured Workflow
+1. **Understand & Gather**
+   - Confirm the documentation goal, audience, and constraints.
+   - Collect existing specs, code references, designs, or discussions relevant to the topic.
+2. **Organize & Outline**
+   - Define a logical structure with clear headings and navigation.
+   - Prioritize information by importance and reader tasks.
+3. **Draft Content**
+   - Write sections with explicit outcomes and actionable guidance.
+   - Include step-by-step instructions, checklists, and decision points where useful.
+   - Provide code blocks with syntax highlighting and real outputs.
+4. **Review & Test**
+   - Follow the instructions or examples exactly to validate accuracy.
+   - Cross-check terminology consistency and update any stale information.
+5. **Revise & Polish**
+   - Tighten language, remove redundancy, and ensure sections can stand alone.
+   - Add cross-links, diagrams, or tables if they improve comprehension.
 
-## Introduction
-### Motivation
-- 현재 문제점과 배경
-- 구체적인 사례 제시
+## Quality Checklist
+- [ ] Documentation is clear, concise, and audience-appropriate.
+- [ ] Technical details are accurate, current, and verified.
+- [ ] Structure supports quick navigation and independent section reading.
+- [ ] Examples, code snippets, and diagrams work as described.
+- [ ] Grammar, spelling, and formatting meet professional standards.
+- [ ] Action items, decisions, and warnings are explicitly marked.
 
-### Goals  
-- 달성하고자 하는 목표 (구체적이고 측정 가능한 형태)
-
-### Concepts
-- 핵심 개념과 용어 정의
-- 시스템 구성 요소 설명
-
-## Design
-- 아키텍처 다이어그램
-- 주요 컴포넌트별 역할
-- 데이터 플로우
-
-## Implementation Details (선택사항)
-- 기술적 세부 구현 사항
-- 성능 고려사항
-```
-
-### 작성 원칙
-- **문제 → 해결책 → 구현** 순서로 논리적 흐름 유지
-- 다이어그램 적극 활용 (복잡한 설명을 시각화)
-- 구체적인 수치와 예시 포함
-- 각 섹션은 독립적으로 이해 가능하도록 작성
-
-## 2. 문제파악 및 해결법 문서 (Problem & Solution Document)
-
-### 구조
-```
-# [기능/이슈명]
-
-## 개요
-- 문제 상황 간단 요약
-- 목표 상태 명시
-
-## 현재 상황 분석
-- 구체적인 문제점 나열
-- 영향도 분석
-
-## 해결 방안
-### 선택지 비교 (필요시)
-- 방법 A ✅ / ~~방법 B~~ 형태로 선택된 방안 명시
-- 각 방법의 장단점 간단 비교
-
-### 구현 계획
-- 단계별 작업 계획
-- 체크리스트 형태 활용
-
-## 기술적 세부사항
-- API 명세
-- 데이터 모델
-- 배포 계획
-
-## 검증 계획
-- 테스트 시나리오
-- 성공 기준
-```
-
-### 작성 원칙
-- **문제 정의가 해결책보다 중요** - 문제를 명확히 정의
-- 체크리스트와 단계별 계획 적극 활용
-- 결정된 사항은 명확히 표시 (✅, ~~취소선~~)
-- 실행 가능한 액션 아이템 포함
-
-## 3. 구조 및 사용법 문서 (Structure & Usage Document)
-
-### 구조
-```
-# [라이브러리/도구명]
-
-간단한 한 줄 설명
-
-## 특징
-- 핵심 기능 3-5개 bullet point
-
-## 시작하기
-### 기본 사용법
-```code
-// 가장 간단한 예제 코드
-```
-
-### 고급 사용법 (필요시)
-```code  
-// 실제 활용 예제
-```
-
-## Best Practices
-- Do's and Don'ts
-- 주의사항
-- 권장 패턴
-
-## 구조 및 컴포넌트
-- 주요 인터페이스/클래스 설명
-- 옵션 및 설정값
-
-## 예시 사례
-- 실제 사용 시나리오별 구현 예제
-```
-
-### 작성 원칙
-- **사용법이 가장 중요** - 코드 예제를 풍부하게 제공
-- 간단한 예제 → 복잡한 예제 순서
-- 실제 동작하는 코드만 포함
-- 주의사항과 제약사항 명확히 명시
-
-## 공통 작성 원칙
-
-### 문체 및 스타일
-- **간결함이 최우선** - 불필요한 설명 제거
-- 능동태 사용, 명확한 주어 명시
-- 기술 용어는 일관성 있게 사용
-- 번호 매기기/bullet point 적극 활용
-
-### 구조화
-- 섹션별 독립성 유지 (각 섹션만 읽어도 이해 가능)
-- 중요도 순으로 정보 배치
-- 3단계 이상 depth 지양 (## > ### > #### 최대)
-- 코드 블록에는 언어 지정 필수
-
-### 시각적 요소
-- 다이어그램/표/체크리스트 적극 활용
-- 중요 정보는 > blockquote 또는 **bold** 강조
-- 결정 사항: ✅, 취소 사항: ~~취소선~~
-- 주의사항: ❗ 또는 <aside> 활용
-
-### 검증
-- 모든 코드 예제는 실제 동작 검증 필수
-- 외부 링크는 최소화, 필요시 설명과 함께 제공
-- 문서 마지막에 작성일/업데이트일 명시 
+## Delivery Format
+- Provide well-structured Markdown with descriptive headings (##, ###), ordered/unordered lists, and tables when helpful.
+- Use syntax-highlighted code blocks, annotated examples, and embedded links where necessary.
+- Include diagrams or images only if they add significant clarity (describe them when graphical output is unavailable).
+- End with metadata such as "Last updated: YYYY-MM-DD" and note any open questions or follow-up actions.
