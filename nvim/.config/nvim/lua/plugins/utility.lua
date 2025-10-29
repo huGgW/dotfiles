@@ -3,33 +3,40 @@ return {
         "folke/snacks.nvim",
         priority = 998,
         lazy = false,
-        opts = {
-            -- file utililty
-            bigfile = { enabled = true },
-            quickfile = { enabled = true },
-            -- explorer = { enabled = true },
-            -- TODO: config rename if needed
+        config = function()
+            local scrollEnable = true
+            if vim.g.neovide then
+                scrollEnable = false
+            end
 
-            -- ui utility
-            indent = { enabled = true },
-            notifier = { enabled = true },
-            statuscolumn = { enabled = true },
-            scroll = { enabled = true },
-            input = { enabled = true },
+            require("snacks").setup({
+                -- file utililty bigfile = { enabled = true },
+                quickfile = { enabled = true },
+                -- explorer = { enabled = true },
+                -- TODO: config rename if needed
 
-            -- image utility
-            image = { enabled = true },
+                -- ui utility
+                indent = { enabled = true },
+                notifier = { enabled = true },
+                statuscolumn = { enabled = true },
+                scroll = { enabled = scrollEnable },
+                input = { enabled = true },
 
-            -- git utility
-            lazygit = { enabled = true },
+                -- image utility
+                image = { enabled = true },
 
-            -- search utility
-            -- TODO: configure picker
+                -- git utility
+                lazygit = { enabled = true },
 
-            -- extra utility
-            terminal = { enabled = true },
-            -- TODO: configure scratch if needed
-        },
+                -- search utility
+                -- TODO: configure picker
+
+                -- extra utility
+                terminal = { enabled = true },
+                -- TODO: configure scratch if needed
+
+            })
+        end,
         keys = {
             { "<leader>lg", function() Snacks.lazygit() end,                      desc = "LazyGit" },
             { "<C-`>",      function() Snacks.terminal() end,                     mode = { "n", "t" },            desc = "Terminal" },
