@@ -155,22 +155,6 @@
         }
     },
     "mcp": {
-        "sequential-thinking": {
-            "type": "local",
-            "command": [
-                "npx",
-                "-y",
-                "@modelcontextprotocol/server-sequential-thinking"
-            ],
-            "enabled": true
-        },
-        "fetcher": {
-            "type": "local",
-            "command": [
-                "npx",
-                "-y",
-                "fetcher-mcp"
-            ],
             "enabled": true
         },
         "context7": {
@@ -179,21 +163,6 @@
                 "npx",
                 "-y",
                 "@upstash/context7-mcp"
-            ],
-            "enabled": true
-        },
-        "serena": {
-            "type": "local",
-            "command": [
-                "uvx",
-                "--from",
-                "git+https://github.com/oraios/serena",
-                "serena",
-                "start-mcp-server",
-                "--context",
-                "ide-assistant",
-                "--enable-web-dashboard",
-                "False"
             ],
             "enabled": true
         },
