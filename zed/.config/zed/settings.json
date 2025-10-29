@@ -15,8 +15,8 @@
   // theme
   "theme": {
     "mode": "system",
-    "light": "Catppuccin Latte",
-    "dark": "Catppuccin Mocha"
+    "light": "Zedokai Light",
+    "dark": "Zedokai"
   },
   "icon_theme": "Material Icon Theme",
 
@@ -62,10 +62,12 @@
   },
   "agent": {
     "play_sound_when_agent_done": true,
-    "always_allow_tool_actions": false,
-    "default_model": {
-      "provider": "openrouter",
-      "model": "openrouter/sonoma-sky-alpha"
+    "always_allow_tool_actions": false
+  },
+  "agent_servers": {
+    "opencode": {
+      "command": "opencode",
+      "args": ["acp"]
     }
   }
 }
