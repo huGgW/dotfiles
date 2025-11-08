@@ -24,7 +24,6 @@ alias sudo="sudo "
 alias vim="nvim"
 alias where="pwd"
 alias ls="eza --icons"
-alias grep="rg"
 alias k="kubectl"
 alias lg="lazygit"
 
