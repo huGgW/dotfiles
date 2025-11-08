@@ -54,6 +54,46 @@
   },
   "wrap_guides": [80, 100, 120],
 
+  // language configs
+  "lsp": {
+    "gopls": {
+      "initialization_options": {
+        "hints": {
+          "assignVariableTypes": true,
+          "compositeLiteralFields": true,
+          "compositeLiteralTypes": true,
+          "constantValues": true,
+          "functionTypeParameters": true,
+          "parameterNames": true,
+          "rangeVariableTypes": true
+        }
+      }
+    },
+    "jdtls": {
+      "initialization_options": {
+        "arguments": [
+          "-XX:+UseParallelGC",
+          "-XX:GCTimeRatio=4",
+          "-XX:AdaptiveSizePolicyWeight=90",
+          "-Dsun.zip.disableMemoryMapping=true",
+          "-Xmx16G",
+          "-Xms4G"
+        ]
+      },
+      "settings": {
+        "java": {
+          "jdt": {
+            "ls": {
+              "lombokSupport": {
+                "enabled": true // Set this to true to enable lombok support
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
   // ai related
   "features": {
     "edit_prediction_provider": "copilot"
