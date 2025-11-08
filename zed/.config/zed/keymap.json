@@ -39,7 +39,8 @@
       // actions
       "space a": "editor::ToggleCodeActions",
       "space b": "editor::ToggleBreakpoint",
-      "space f m": "editor::Format"
+      "space f m": "editor::Format",
+      "space r": "editor::Rename"
     }
   },
   {
