@@ -16,7 +16,12 @@ return {
                 -- TODO: config rename if needed
 
                 -- ui utility
-                indent = { enabled = true },
+                indent = {
+                    enabled = true,
+                    chunk = {
+                        enabled = true,
+                    }
+                },
                 notifier = { enabled = true },
                 statuscolumn = { enabled = true },
                 scroll = { enabled = scrollEnable },
@@ -73,7 +78,6 @@ return {
 
             -- Appearance
             require("mini.statusline").setup()
-            require("mini.tabline").setup()
             require("mini.hipatterns").setup({
                 highlighters = {
                     -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
