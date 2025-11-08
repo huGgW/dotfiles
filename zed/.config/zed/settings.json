@@ -41,11 +41,12 @@
     "show_background": true
   },
   "relative_line_numbers": true,
+  "go_to_definition_fallback": "none",
 
   // style
   "indent_guides": {
     "coloring": "indent_aware",
-    "background_coloring": "indent_aware"
+    "background_coloring": "disabled"
   },
   "tabs": {
     "file_icons": true,
