@@ -30,9 +30,17 @@
   // behavior
   "restore_on_startup": "none",
   "autosave": "on_focus_change",
-  "inline": {
-    "enabled": true
+  "diagnostics": {
+    "inline": {
+      "enabled": true,
+      "max_severity": null
+    }
   },
+  "inlay_hints": {
+    "enabled": true,
+    "show_background": true
+  },
+  "relative_line_numbers": true,
 
   // style
   "indent_guides": {
