@@ -1,4 +1,6 @@
+[mcp_servers.linear]
 command = "npx"
+args = ["-y", "mcp-remote", "https://mcp.linear.app/sse"]
 
 [mcp_servers.context7]
 command = "npx"
@@ -11,3 +13,12 @@ args = ["-y", "mcp-remote", "https://mcp.grep.app"]
 [mcp_servers.notionMCP]
 command = "npx"
 args = ["-y", "mcp-remote", "https://mcp.notion.com/mcp"]
+
+[mcp_servers.markitdown-mcp]
+command = "uvx"
+args = ["markitdown-mcp"]
+
+[mcp_servers.deepwiki]
+command = "npx"
+args = ["-y", "mcp-remote", "https://mcp.deepwiki.com/sse"]
+
