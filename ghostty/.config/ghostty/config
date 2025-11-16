@@ -4,7 +4,7 @@ font-family = "D2CodingLigature Nerd Font Propo"
 font-size = 13
 
 # Theme
-theme = dark:Monokai Pro,light:Monokai Pro Light
+theme = dark:Catppuccin Mocha,light:Catppuccin Latte
 background-opacity=0.95
 background-blur=true
 

@@ -15,8 +15,8 @@
   // theme
   "theme": {
     "mode": "system",
-    "light": "Zedokai Light",
-    "dark": "Zedokai"
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Mocha"
   },
   "icon_theme": "Material Icon Theme",
 

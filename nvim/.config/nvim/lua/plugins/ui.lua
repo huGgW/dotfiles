@@ -66,6 +66,8 @@ return {
                     which_key = true,
                 },
             })
+
+            vim.cmd.colorscheme("catppuccin")
         end
     },
     {
@@ -93,8 +95,6 @@ return {
                     }
                 end,
             })
-
-            vim.cmd.colorscheme("monokai-pro")
         end,
     },
 }
