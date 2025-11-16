@@ -3,6 +3,9 @@
     "theme": "system",
     "autoshare": false,
     "autoupdate": true,
+    "instructions": [
+        "subrules/*.md"
+    ],
     "permission": {
         "edit": "ask",
         "bash": {
@@ -198,7 +201,23 @@
             "command": [
                 "uvx",
                 "markitdown-mcp"
-            ]
+            ],
+            "enabled": true
+        },
+        "serena": {
+            "type": "local",
+            "command": [
+                "uvx",
+                "--from",
+                "git+https://github.com/oraios/serena",
+                "serena",
+                "start-mcp-server",
+                "--context",
+                "ide-assistant",
+                "--enable-web-dashboard",
+                "False"
+            ],
+            "enabled": true
         }
     }
 }
