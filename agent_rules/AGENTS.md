@@ -29,22 +29,28 @@
 
 ---
 
-# Task execution (code development) procedure
+# Rules for specific situation
+- When working on tasks, proactively read and follow the relevant rules from the paths specified below if the situation is appropriate
+- Do NOT blindly read all rules at once, but actively identify when a situation matches a specific rule
+category and read that rule thoroughly
+- All paths are relative paths from this file's location
+- Prioritize understanding and applying these rules over making assumptions
+
+## Task execution (code development) procedure
 - @subrules/task_execution_code_development.md
 
-# Tool usage guidelines
-- @subrules/mcp_guide.md
+## Tool usage guidelines
 - @subrules/cli_guide.md
 
-# Git related task procedures
+## Git related task procedures
 - @subrules/git_commit.md
 - @subrules/pr_description.md
 
-# Code review procedures
+## Code review procedures
 - @subrules/code_review.md
 
-# Documetation related guidelines
+## Documetation related guidelines
 - @subrules/document_write_guide.md
 
-# AI prompt generation guidelines
+## AI prompt generation guidelines
 - @subrules/prompt_generate.md
