@@ -18,6 +18,7 @@ return {
                     }
                 },
             })
+
             -- enable inlay hint
             vim.lsp.inlay_hint.enable()
         end,
@@ -135,7 +136,9 @@ return {
             library = {
                 -- See the configuration section for more details
                 -- Load luvit types when the `vim.uv` word is found
-                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                vim.env.VIMRUNTIME,
+                { path = "${3rd}/luv/library",    words = { "vim%.uv" } },
+                { path = "${3rd}/busted/library", words = { "vim%.uv" } },
             },
         },
     },
