@@ -13,7 +13,7 @@ set incsearch
 map Q gq
 
 set number
-" set relativenumber
+set relativenumber
 
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
@@ -111,14 +111,17 @@ nmap gr <Action>(ShowUsages)
 " code action
 map <leader>a <Action>(ShowIntentionActions)
 
-" toggle structure view
-map <leader>o <Action>(ActivateStructureToolWindow)
-
 " format code
 map <leader>fm <Action>(ReformatCode)
 
+" rename symbol
+map <leader>r <Action>(RenameElement)
+
 " unsplit
 map <C-w>q <Action>(Unsplit)
+
+" toggle structure view
+map <leader>o <Action>(ActivateStructureToolWindow)
 
 " toggle errors
 map <leader>e <Action>(ActivateProblemsViewToolWindow)
