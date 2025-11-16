@@ -59,3 +59,10 @@ vim.api.nvim_command('set cursorline')
 
 -- Set vertical rulers
 vim.api.nvim_command('set colorcolumn=100')
+
+-- Set auto refresh when gain focus or enter buffer
+vim.o.autoread = true
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+    command = "if mode() != 'c' | checktime | endif",
+    pattern = "*",
+})
