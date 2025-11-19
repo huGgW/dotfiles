@@ -39,6 +39,9 @@ category and read that rule thoroughly
 ## Task execution (code development) procedure
 - @subrules/task_execution_code_development.md
 
+## Response style guidelines
+- @subrules/response_style_guide.md
+
 ## Tool usage guidelines
 - @subrules/cli_guide.md
 
