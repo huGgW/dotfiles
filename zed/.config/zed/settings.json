@@ -10,7 +10,8 @@
   // font
   "ui_font_size": 14,
   "buffer_font_size": 13,
-  "buffer_font_family": "FiraCode Nerd Font Propo",
+  "buffer_font_family": "MonaspiceXe Nerd Font",
+  "buffer_font_fallbacks": ["EliceDigitalCodingVer.H Nerd Font"],
 
   // theme
   "theme": {
@@ -40,7 +41,7 @@
     "enabled": true,
     "show_background": true
   },
-  "relative_line_numbers": true,
+  "relative_line_numbers": "wrapped",
   "go_to_definition_fallback": "none",
 
   // style
@@ -52,7 +53,7 @@
     "file_icons": true,
     "show_diagnostics": "all"
   },
-  "wrap_guides": [80, 100, 120],
+  "wrap_guides": [120],
 
   // language configs
   "lsp": {
