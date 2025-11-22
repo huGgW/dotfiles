@@ -57,18 +57,6 @@ nmap <leader>P "+P
 vmap <leader>p "+p
 vmap <leader>P "+P
 
-" Set scroll to center
-nmap <C-d> <C-d>zz
-vmap <C-d> <C-d>zz
-nmap <C-u> <C-u>zz
-vmap <C-u> <C-u>zz
-
-" Search to center"
-" nmap n nzz
-" nmap N nzz
-" nmap * *zz
-" nmap # #zz
-
 " Move pane
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
@@ -99,8 +87,8 @@ map <leader>fd <Action>(GotoSymbol)
 " goto declaration
 nmap gd <Action>(GotoDeclaration)
 
-" peak declaration
-nmap gpd <Action>(QuickImplementations)
+" split and goto declaration
+nmap gpd :vsplit<CR><Action>(GotoDeclaration)
 
 " goto implementation
 nmap gI <Action>(GotoImplementation)
