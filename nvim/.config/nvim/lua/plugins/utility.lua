@@ -43,24 +43,38 @@ return {
             })
         end,
         keys = {
-            { "<leader>lg", function() Snacks.lazygit() end,                      desc = "LazyGit" },
-            { "<C-`>",      function() Snacks.terminal() end,                     mode = { "n", "t" },            desc = "Terminal" },
+            { "<leader>lg", function() Snacks.lazygit() end,                desc = "LazyGit" },
+            { "<C-`>",      function() Snacks.terminal() end,               mode = { "n", "t" },     desc = "Terminal" },
             -- { "<leader>te", function() Snacks.explorer() end,                     desc = "Explorer" },
 
             -- pickers
-            { "<leader>fo", function() Snacks.picker.files() end,                 desc = "Find Files" },
-            { "<leader>fs", function() Snacks.picker.grep() end,                  desc = "Grep" },
-            { "<leader>fb", function() Snacks.picker.buffers() end,               desc = "Buffers" },
-            { "<leader>fp", function() Snacks.picker.commands() end,              desc = "Commands" },
-            { "<leader>g?", function() Snacks.picker.keymaps() end,               desc = "Keymaps" },
+            { "<leader>fo", function() Snacks.picker.files() end,           desc = "Find Files" },
+            { "<leader>fs", function() Snacks.picker.grep() end,            desc = "Grep" },
+            { "<leader>fb", function() Snacks.picker.buffers() end,         desc = "Buffers" },
+            { "<leader>fp", function() Snacks.picker.commands() end,        desc = "Commands" },
+            { "<leader>g?", function() Snacks.picker.keymaps() end,         desc = "Keymaps" },
 
             -- LSP-related picker
-            { "gd",         function() Snacks.picker.lsp_definitions() end,       desc = "Goto Definition" },
-            { "gD",         function() Snacks.picker.lsp_declarations() end,      desc = "Goto Declaration" },
-            { "gr",         function() Snacks.picker.lsp_references() end,        nowait = true,                  desc = "References" },
-            { "gI",         function() Snacks.picker.lsp_implementations() end,   desc = "Goto Implementation" },
-            { "gy",         function() Snacks.picker.lsp_type_definitions() end,  desc = "Goto T[y]pe Definition" },
-            { "<leader>fd", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+            { "gd",         function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
+            {
+                "gpd",
+                function()
+                    -- vsplit and move to that window
+                    vim.api.nvim_open_win(0, true, { split = "right" })
+
+                    -- call lsp definition picker
+                    Snacks.picker.lsp_definitions()
+                end,
+                desc = "Split And Goto Definition"
+            },
+            { "gD",          function() Snacks.picker.lsp_declarations() end,      desc = "Goto Declaration" },
+            { "gr",          function() Snacks.picker.lsp_references() end,        nowait = true,                  desc = "References" },
+            { "gI",          function() Snacks.picker.lsp_implementations() end,   desc = "Goto Implementation" },
+            { "gy",          function() Snacks.picker.lsp_type_definitions() end,  desc = "Goto T[y]pe Definition" },
+            { "<leader>fd",  function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+
+            -- Git-related picker
+            { "<leader>ghp", function() Snacks.picker.gh_pr() end,                 desc = "Github Pull Requests" },
         },
         dependencies = {
             "nvim-tree/nvim-web-devicons",
