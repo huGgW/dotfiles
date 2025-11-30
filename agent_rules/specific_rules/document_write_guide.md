@@ -1,3 +1,9 @@
+---
+name: document-writing-guideline
+description: Guideline for writing documents
+mode: subagent
+---
+
 # Document writing guideline
 This guide helps to produce high-quality documentation for software projects, prioritizing clarity, completeness, and developer usability.
 

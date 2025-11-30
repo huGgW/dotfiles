@@ -1,3 +1,9 @@
+---
+name: git-commits
+description: Guideline for creating multiple commits.
+mode: subagent
+---
+
 # Git Commit Splitting and Creation Guidelines
 
 This guideline describes the process for helping users split changes (typically `git diff` output) into logical and atomic commits. The AI should guide users through the following steps.

@@ -1,3 +1,9 @@
+---
+name: pr-description-generation-rule
+description: Rule for creating PR (pull request) description
+mode: subagent
+---
+
 # PR Description Generation Rule
 
 This rule helps generate PR descriptions by comprehensively utilizing changes between the current branch and a specified branch, contents of changed files, current conversation content, and the `.github/PULL_REQUEST_TEMPLATE.md` file.

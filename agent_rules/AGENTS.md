@@ -29,31 +29,37 @@
 
 ---
 
-# Rules for specific situation
+# Core Rules (Always Loaded)
+- These rules are fundamental and should be applied to all interactions
+- All paths are relative paths from this file's location
+
+## Response style guidelines
+- @common_rules/response_style_guide.md
+
+## Tool usage guidelines
+- @common_rules/cli_guide.md
+- @common_rules/mcp_tools_guide.md
+
+## Task execution (code development) procedure
+- @common_rules/task_execution_code_development.md
+
+---
+
+# Specialized Rules (Load on Demand)
 - When working on tasks, proactively read and follow the relevant rules from the paths specified below if the situation is appropriate
-- Do NOT blindly read all rules at once, but actively identify when a situation matches a specific rule
-category and read that rule thoroughly
+- Do NOT blindly read all rules at once, but actively identify when a situation matches a specific rule category and read that rule thoroughly
 - All paths are relative paths from this file's location
 - Prioritize understanding and applying these rules over making assumptions
 
-## Task execution (code development) procedure
-- @subrules/task_execution_code_development.md
-
-## Response style guidelines
-- @subrules/response_style_guide.md
-
-## Tool usage guidelines
-- @subrules/cli_guide.md
-
 ## Git related task procedures
-- @subrules/git_commit.md
-- @subrules/pr_description.md
+- specific_rules/git_commit.md
+- specific_rules/pr_description.md
 
 ## Code review procedures
-- @subrules/code_review.md
+- specific_rules/code_review.md
 
-## Documetation related guidelines
-- @subrules/document_write_guide.md
+## Documentation related guidelines
+- specific_rules/document_write_guide.md
 
 ## AI prompt generation guidelines
-- @subrules/prompt_generate.md
+- specific_rules/prompt_generate.md
