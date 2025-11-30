@@ -31,6 +31,11 @@ return {
         end,
     },
     {
+        "esmuellert/vscode-diff.nvim",
+        dependencies = { "MunifTanjim/nui.nvim" },
+        cmd = { "CodeDiff" },
+    },
+    {
         "christoomey/vim-tmux-navigator",
     },
     {
