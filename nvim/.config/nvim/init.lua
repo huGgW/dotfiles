@@ -6,3 +6,6 @@ require("config.keymap")
 
 -- Load lazy.nvim for plugin management
 require("config.lazy")
+
+-- Load config for neovide
+require("config.neovide")
