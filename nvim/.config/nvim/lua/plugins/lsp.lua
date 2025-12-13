@@ -2,6 +2,11 @@ return {
     {
         "neovim/nvim-lspconfig",
         config = function()
+            -- enable locally installed servers
+            -- other servers will be enabled via mason-lspconfig
+            vim.lsp.enable("gleam")
+
+            -- config for pre-defined servers by mason
             -- go
             vim.lsp.config('gopls', {
                 settings = {
@@ -139,7 +144,41 @@ return {
                 vim.env.VIMRUNTIME,
                 { path = "${3rd}/luv/library",    words = { "vim%.uv" } },
                 { path = "${3rd}/busted/library", words = { "vim%.uv" } },
+                vim.lsp.enable('lua')
             },
         },
+    },
+    {
+        'mrcjkb/rustaceanvim',
+        version = '^6',
+        lazy = false, -- This plugin is already lazy
+
+    },
+    {
+        "pmizio/typescript-tools.nvim",
+        dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+        ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+        opts = {},
+    },
+    {
+        'mfussenegger/nvim-jdtls',
+        ft = { 'java' },
+        config = function()
+            vim.lsp.config("jdtls", {
+
+                settings = {
+                    java = {
+                        jdt = {
+                            ls = {
+                                lombokSupport = {
+                                    enabled = true
+                                }
+                            }
+                        }
+                    }
+                },
+            })
+            vim.lsp.enable('jdtls')
+        end,
     },
 }
