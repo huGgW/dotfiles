@@ -9,6 +9,38 @@ return {
                 scrollEnable = false
             end
 
+            ---@class snacks.layout.Box
+            local extendedDefaultLayout = {
+                box = "horizontal",
+                width = 0.95,
+                min_width = 120,
+                height = 0.95,
+                {
+                    box = "vertical",
+                    border = true,
+                    title = "{title} {live} {flags}",
+                    { win = "input", height = 1,     border = "bottom" },
+                    { win = "list",  border = "none" },
+                },
+                { win = "preview", title = "{preview}", border = true, width = 0.75 },
+            }
+
+            ---@class snacks.layout.Box
+            local extendedVerticalLayout = {
+                backdrop = false,
+                width = 0.95,
+                min_width = 80,
+                height = 0.95,
+                min_height = 30,
+                box = "vertical",
+                border = true,
+                title = "{title} {live} {flags}",
+                title_pos = "center",
+                { win = "input",   height = 1,          border = "bottom" },
+                { win = "list",    border = "none" },
+                { win = "preview", title = "{preview}", height = 0.75,    border = "top" },
+            }
+
             require("snacks").setup({
                 -- file utililty bigfile = { enabled = true },
                 quickfile = { enabled = true },
@@ -34,7 +66,13 @@ return {
                 lazygit = { enabled = true },
 
                 -- search utility
-                -- TODO: configure picker
+                picker = {
+                    cycle = true,
+                    layout = {
+                        -- TODO: make this responsive based on window size
+                        layout = vim.o.columns >= 120 and extendedDefaultLayout or extendedVerticalLayout,
+                    },
+                },
 
                 -- extra utility
                 terminal = { enabled = true },
