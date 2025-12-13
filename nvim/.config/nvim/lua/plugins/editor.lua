@@ -102,12 +102,10 @@ return {
         },
     },
     {
-        "m4xshen/hardtime.nvim",
-        lazy = false,
-        dependencies = { "MunifTanjim/nui.nvim" },
-        opts = {
-            disable_mouse = false,
-            restriction_mode = "hint",
-        },
+        "nmac427/guess-indent.nvim",
+        command = { "GuessIndent" },
+        config = function()
+            require("guess-indent").setup({})
+        end,
     },
 }
