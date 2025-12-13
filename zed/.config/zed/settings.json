@@ -47,6 +47,8 @@
   // style
   "indent_guides": {
     "coloring": "indent_aware",
+    "line_width": 2,
+    "active_line_width": 3,
     "background_coloring": "disabled"
   },
   "tabs": {
@@ -116,6 +118,7 @@
   },
   "agent_servers": {
     "opencode": {
+      "type": "custom",
       "command": "opencode",
       "args": ["acp"]
     }
