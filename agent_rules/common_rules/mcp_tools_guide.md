@@ -2,8 +2,7 @@
 
 ## AST-grep
 **When to use:** Analyzing or refactoring code structure programmatically
-- *Prioritize AST-grep tool when working in codebase*
-    - Especially for the cases when using `rg`, `grep`, `fd`, `find` in codebase.
+- **whenever a search requires syntax-aware or structural matching, default to ast-grep --lang go -p '<pattern>' (or set --lang appropriately) and avoid falling back to text-only tools like rg or grep unless I explicitly request a plain-text search.**
 - Finding specific code patterns across large codebases
 - Performing structural code searches beyond simple text matching
 - Understanding syntax tree structure for complex refactoring
