@@ -103,7 +103,7 @@ return {
     },
     {
         "nmac427/guess-indent.nvim",
-        command = { "GuessIndent" },
+        lazy = false,
         config = function()
             require("guess-indent").setup({})
         end,
