@@ -161,11 +161,17 @@ return {
         opts = {},
     },
     {
-        'mfussenegger/nvim-jdtls',
+        'nvim-java/nvim-java',
         ft = { 'java' },
         config = function()
-            vim.lsp.config("jdtls", {
+            require('java').setup({
+                jdk = {
+                    auto_install = true,
+                    version = '25'
+                },
+            })
 
+            vim.lsp.config("jdtls", {
                 settings = {
                     java = {
                         jdt = {
@@ -178,6 +184,7 @@ return {
                     }
                 },
             })
+
             vim.lsp.enable('jdtls')
         end,
     },
