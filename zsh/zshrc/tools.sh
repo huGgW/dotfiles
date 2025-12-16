@@ -117,12 +117,6 @@ fi
 # tmux-session-wizard
 export PATH=$HOME/.tmux/plugins/tmux-session-wizard/bin:$PATH
 
-# SDKMAN
-if [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] then
-    source "$HOME/.sdkman/bin/sdkman-init.sh"
-    export SDKMAN_DIR="$HOME/.sdkman"
-fi
-
 # FNM (npm version management)
 if command -v fnm > /dev/null 2>&1; then
     eval "$(fnm env --use-on-cd --shell zsh)"
@@ -136,3 +130,9 @@ else
     export GOPATH="$HOME/go"
     export PATH="$GOPATH/bin:$PATH"
 fi
+
+# mise
+if command -v mise > /dev/null 2>&1; then
+    eval "$(mise activate zsh)"
+fi
+
