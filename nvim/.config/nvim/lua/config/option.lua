@@ -66,3 +66,6 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
     command = "if mode() != 'c' | checktime | endif",
     pattern = "*",
 })
+
+-- Set reading local config file (ex. .nvim.lua)
+vim.o.exrc = true
