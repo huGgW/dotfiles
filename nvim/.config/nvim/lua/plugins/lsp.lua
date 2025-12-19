@@ -165,10 +165,6 @@ return {
         ft = { 'java' },
         config = function()
             require('java').setup({
-                jdk = {
-                    auto_install = true,
-                    version = '25'
-                },
             })
 
             vim.lsp.config("jdtls", {
@@ -178,10 +174,17 @@ return {
                             ls = {
                                 lombokSupport = {
                                     enabled = true
-                                }
+                                },
+                                vmargs =
+                                "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx16G -Xms4G",
                             }
-                        }
-                    }
+                        },
+                        compile = {
+                            nullAnalysis = {
+                                mode = "automatic"
+                            },
+                        },
+                    },
                 },
             })
 
