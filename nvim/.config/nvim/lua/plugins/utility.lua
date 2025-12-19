@@ -68,9 +68,16 @@ return {
                 -- search utility
                 picker = {
                     cycle = true,
-                    layout = {
-                        -- TODO: make this responsive based on window size
-                        layout = vim.o.columns >= 120 and extendedDefaultLayout or extendedVerticalLayout,
+                    --     layout = {
+                    --         -- TODO: make this responsive based on window size
+                    --         layout = vim.o.columns >= 120 and extendedDefaultLayout or extendedVerticalLayout,
+                    --     },
+                    sources = {
+                        gh_diff = {
+                            layout = {
+                                layout = vim.o.columns >= 120 and extendedDefaultLayout or extendedVerticalLayout,
+                            },
+                        },
                     },
                 },
 
