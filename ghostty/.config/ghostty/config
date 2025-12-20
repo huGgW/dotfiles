@@ -13,3 +13,6 @@ keybind = global:cmd+backquote=toggle_quick_terminal
 
 # Shaders
 custom-shader = cursor_frozen.glsl
+
+# ssh config
+shell-integration-features = ssh-terminfo,ssh-env
