@@ -44,6 +44,67 @@ return {
             })
         end,
     },
+
+    -- language specifics
+    {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                vim.env.VIMRUNTIME,
+                { path = "${3rd}/luv/library",    words = { "vim%.uv" } },
+                { path = "${3rd}/busted/library", words = { "vim%.uv" } },
+                vim.lsp.enable('lua')
+            },
+        },
+    },
+    {
+        'mrcjkb/rustaceanvim',
+        version = '^6',
+        lazy = false, -- This plugin is already lazy
+
+    },
+    {
+        "pmizio/typescript-tools.nvim",
+        dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+        ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+        opts = {},
+    },
+    {
+        'nvim-java/nvim-java',
+        ft = { 'java' },
+        config = function()
+            require('java').setup({
+            })
+
+            vim.lsp.config("jdtls", {
+                settings = {
+                    java = {
+                        jdt = {
+                            ls = {
+                                lombokSupport = {
+                                    enabled = true
+                                },
+                                vmargs =
+                                "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx16G -Xms1G",
+                            }
+                        },
+                        compile = {
+                            nullAnalysis = {
+                                mode = "automatic"
+                            },
+                        },
+                    },
+                },
+            })
+
+            vim.lsp.enable('jdtls')
+        end,
+    },
+
+    -- autocompletion
     {
         "saghen/blink.cmp",
         dependencies = {
@@ -90,6 +151,8 @@ return {
             }
         },
     },
+
+    -- formatter, linter
     {
         "stevearc/conform.nvim",
         event = { "BufWritePre" },
@@ -106,17 +169,18 @@ return {
         },
         opts = {
             formatters_by_ft = {
-                go = { "goimports", "gofumpt" },
+                go = { "gofumpt" },
                 typescript = { "biome" },
                 javascript = { "biome" },
                 typescriptreact = { "biome" },
                 javascriptreact = { "biome" },
                 json = { "biome" },
+                python = { "ruff" },
             },
             default_format_opts = {
                 lsp_format = "fallback",
             },
-            format_on_save = { timeout_ms = 1000 },
+            format_on_save = { timeout_ms = 3000 },
         },
     },
     {
@@ -124,71 +188,24 @@ return {
         event = { "BufRead" },
         config = function()
             require("lint").linters_by_ft = {
-                go = { "golangcilint" },
             }
+
+            vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+                callback = function()
+                    require("lint").try_lint()
+                end,
+            })
+
+            vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+                callback = function()
+                    require("lint").try_lint()
+                end,
+            })
         end,
     },
+
     {
         "RRethy/vim-illuminate",
         event = { "BufRead" },
-    },
-
-    -- language specifics
-    {
-        "folke/lazydev.nvim",
-        ft = "lua",
-        opts = {
-            library = {
-                -- See the configuration section for more details
-                -- Load luvit types when the `vim.uv` word is found
-                vim.env.VIMRUNTIME,
-                { path = "${3rd}/luv/library",    words = { "vim%.uv" } },
-                { path = "${3rd}/busted/library", words = { "vim%.uv" } },
-                vim.lsp.enable('lua')
-            },
-        },
-    },
-    {
-        'mrcjkb/rustaceanvim',
-        version = '^6',
-        lazy = false, -- This plugin is already lazy
-
-    },
-    {
-        "pmizio/typescript-tools.nvim",
-        dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-        ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
-        opts = {},
-    },
-    {
-        'nvim-java/nvim-java',
-        ft = { 'java' },
-        config = function()
-            require('java').setup({
-            })
-
-            vim.lsp.config("jdtls", {
-                settings = {
-                    java = {
-                        jdt = {
-                            ls = {
-                                lombokSupport = {
-                                    enabled = true
-                                },
-                                vmargs =
-                                "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx16G -Xms4G",
-                            }
-                        },
-                        compile = {
-                            nullAnalysis = {
-                                mode = "automatic"
-                            },
-                        },
-                    },
-                },
-            })
-
-            vim.lsp.enable('jdtls')
-        end,
     },
 }
