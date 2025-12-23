@@ -2,7 +2,7 @@
 
 ## AST-grep
 **When to use:** Analyzing or refactoring code structure programmatically
-- **whenever a search requires syntax-aware or structural matching, default to ast-grep --lang go -p '<pattern>' (or set --lang appropriately) and avoid falling back to text-only tools like rg or grep unless I explicitly request a plain-text search.**
+- **whenever a search requires syntax-aware or structural matching, default to ast-grep mcp tools and avoid falling back to text-only tools like rg or grep unless I explicitly request a plain-text search.**
 - Finding specific code patterns across large codebases
 - Performing structural code searches beyond simple text matching
 - Understanding syntax tree structure for complex refactoring
@@ -25,20 +25,3 @@
 - Asking questions about specific repository implementation
 - Exploring repository architecture and design decisions
 
-## MarkItDown
-**When to use:** Converting various document formats to Markdown
-- Processing documents from URLs or local files
-- Extracting content from PDFs, Office docs, or web pages
-- Preparing content for documentation or knowledge base
-
-## Notion Tools
-**When to use:** Managing documentation, knowledge bases, or project databases in Notion
-- Creating/updating pages, databases, and structured content
-- Searching across workspace content and connected sources
-- Managing comments, teams, and collaborative workflows
-
-## Linear Tools
-**When to use:** Managing software development issues and project tracking
-- Creating, updating, or searching issues and projects
-- Managing issue states, labels, cycles, and assignments
-- Adding comments or tracking project progress

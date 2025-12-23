@@ -1,7 +1,6 @@
 ---
 name: document-writing-guideline
 description: Guideline for writing documents
-mode: subagent
 ---
 
 # Document writing guideline

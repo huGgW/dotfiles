@@ -34,14 +34,14 @@
 - All paths are relative paths from this file's location
 
 ## Response style guidelines
-- @common_rules/response_style_guide.md
+- @common-rules/response-style-guide.md
 
 ## Tool usage guidelines
-- @common_rules/cli_guide.md
-- @common_rules/mcp_tools_guide.md
+- @common-rules/cli-guide.md
+- @common-rules/mcp-tools-guide.md
 
 ## Task execution (code development) procedure
-- @common_rules/task_execution_code_development.md
+- @common-rules/task-execution-code-development.md
 
 ---
 
@@ -52,14 +52,14 @@
 - Prioritize understanding and applying these rules over making assumptions
 
 ## Git related task procedures
-- specific_rules/git_commit.md
-- specific_rules/pr_description.md
+- skill/git-commit.md
+- skill/pr-description.md
 
 ## Code review procedures
-- specific_rules/code_review.md
+- skill/code-review.md
 
 ## Documentation related guidelines
-- specific_rules/document_write_guide.md
+- skill/document-write-guide.md
 
 ## AI prompt generation guidelines
-- specific_rules/prompt_generate.md
+- skill/prompt-generate.md

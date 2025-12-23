@@ -1,7 +1,6 @@
 ---
 name: pr-description-generation-rule
 description: Rule for creating PR (pull request) description
-mode: subagent
 ---
 
 # PR Description Generation Rule

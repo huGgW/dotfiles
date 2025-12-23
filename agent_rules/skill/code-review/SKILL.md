@@ -1,7 +1,6 @@
 ---
 name: code-review
 description: Guideline for reviewing code
-mode: subagent
 ---
 
 # Code review guideline

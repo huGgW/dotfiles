@@ -1,7 +1,6 @@
 ---
 name: git-commits
 description: Guideline for creating multiple commits.
-mode: subagent
 ---
 
 # Git Commit Splitting and Creation Guidelines

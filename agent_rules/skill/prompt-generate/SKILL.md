@@ -1,7 +1,6 @@
 ---
 name: prompt-generation-guideline
 description: Guideline for generating AI prompt or coding agent rules
-mode: subagent
 ---
 
 # Promte generation guideline
