@@ -110,7 +110,29 @@ return {
                     -- call lsp definition picker
                     Snacks.picker.lsp_definitions()
                 end,
-                desc = "Split And Goto Definition"
+                desc = "(Vertically) Split And Goto Definition"
+            },
+            {
+                "gvd",
+                function()
+                    -- vsplit and move to that window
+                    vim.api.nvim_open_win(0, true, { split = "right" })
+
+                    -- call lsp definition picker
+                    Snacks.picker.lsp_definitions()
+                end,
+                desc = "Vertically Split And Goto Definition"
+            },
+            {
+                "gsd",
+                function()
+                    -- ssplit and move to that window
+                    vim.api.nvim_open_win(0, true, { split = "below" })
+
+                    -- call lsp definition picker
+                    Snacks.picker.lsp_definitions()
+                end,
+                desc = "Horizontally Split And Goto Definition"
             },
             { "gD",          function() Snacks.picker.lsp_declarations() end,      desc = "Goto Declaration" },
             { "gr",          function() Snacks.picker.lsp_references() end,        nowait = true,                  desc = "References" },
