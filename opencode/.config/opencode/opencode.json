@@ -3,9 +3,7 @@
     "theme": "system",
     "autoshare": false,
     "autoupdate": true,
-    "instructions": [
-        "common_rules/*.md"
-    ],
+    "instructions": ["common_rules/*.md"],
     "permission": {
         "edit": "ask",
         "bash": {
@@ -38,7 +36,9 @@
         "doom_loop": "deny"
     },
     "plugin": [
-        "opencode-openai-codex-auth@4.0.2"
+        "opencode-openai-codex-auth@4.2.0",
+        "@tarquinen/opencode-dcp@latest",
+        "@franlol/opencode-md-table-formatter@0.0.3"
     ],
     "provider": {
         "openai": {
@@ -46,221 +46,9 @@
                 "reasoningEffort": "medium",
                 "reasoningSummary": "auto",
                 "textVerbosity": "medium",
-                "include": [
-                    "reasoning.encrypted_content"
-                ],
+                "include": ["reasoning.encrypted_content"],
                 "store": false
             },
-            "models": {
-                "gpt-5.1-codex-low": {
-                    "name": "GPT 5.1 Codex Low (OAuth)",
-                    "limit": {
-                        "context": 272000,
-                        "output": 128000
-                    },
-                    "options": {
-                        "reasoningEffort": "low",
-                        "reasoningSummary": "auto",
-                        "textVerbosity": "medium",
-                        "include": [
-                            "reasoning.encrypted_content"
-                        ],
-                        "store": false
-                    }
-                },
-                "gpt-5.1-codex-medium": {
-                    "name": "GPT 5.1 Codex Medium (OAuth)",
-                    "limit": {
-                        "context": 272000,
-                        "output": 128000
-                    },
-                    "options": {
-                        "reasoningEffort": "medium",
-                        "reasoningSummary": "auto",
-                        "textVerbosity": "medium",
-                        "include": [
-                            "reasoning.encrypted_content"
-                        ],
-                        "store": false
-                    }
-                },
-                "gpt-5.1-codex-high": {
-                    "name": "GPT 5.1 Codex High (OAuth)",
-                    "limit": {
-                        "context": 272000,
-                        "output": 128000
-                    },
-                    "options": {
-                        "reasoningEffort": "high",
-                        "reasoningSummary": "detailed",
-                        "textVerbosity": "medium",
-                        "include": [
-                            "reasoning.encrypted_content"
-                        ],
-                        "store": false
-                    }
-                },
-                "gpt-5.1-codex-max": {
-                    "name": "GPT 5.1 Codex Max (OAuth)",
-                    "limit": {
-                        "context": 272000,
-                        "output": 128000
-                    },
-                    "options": {
-                        "reasoningEffort": "high",
-                        "reasoningSummary": "detailed",
-                        "textVerbosity": "medium",
-                        "include": [
-                            "reasoning.encrypted_content"
-                        ],
-                        "store": false
-                    }
-                },
-                "gpt-5.1-codex-max-low": {
-                    "name": "GPT 5.1 Codex Max Low (OAuth)",
-                    "limit": {
-                        "context": 272000,
-                        "output": 128000
-                    },
-                    "options": {
-                        "reasoningEffort": "low",
-                        "reasoningSummary": "detailed",
-                        "textVerbosity": "medium",
-                        "include": [
-                            "reasoning.encrypted_content"
-                        ],
-                        "store": false
-                    }
-                },
-                "gpt-5.1-codex-max-medium": {
-                    "name": "GPT 5.1 Codex Max Medium (OAuth)",
-                    "limit": {
-                        "context": 272000,
-                        "output": 128000
-                    },
-                    "options": {
-                        "reasoningEffort": "medium",
-                        "reasoningSummary": "detailed",
-                        "textVerbosity": "medium",
-                        "include": [
-                            "reasoning.encrypted_content"
-                        ],
-                        "store": false
-                    }
-                },
-                "gpt-5.1-codex-max-high": {
-                    "name": "GPT 5.1 Codex Max High (OAuth)",
-                    "limit": {
-                        "context": 272000,
-                        "output": 128000
-                    },
-                    "options": {
-                        "reasoningEffort": "high",
-                        "reasoningSummary": "detailed",
-                        "textVerbosity": "medium",
-                        "include": [
-                            "reasoning.encrypted_content"
-                        ],
-                        "store": false
-                    }
-                },
-                "gpt-5.1-codex-max-xhigh": {
-                    "name": "GPT 5.1 Codex Max Extra High (OAuth)",
-                    "limit": {
-                        "context": 272000,
-                        "output": 128000
-                    },
-                    "options": {
-                        "reasoningEffort": "xhigh",
-                        "reasoningSummary": "detailed",
-                        "textVerbosity": "medium",
-                        "include": [
-                            "reasoning.encrypted_content"
-                        ],
-                        "store": false
-                    }
-                },
-                "gpt-5.1-codex-mini-medium": {
-                    "name": "GPT 5.1 Codex Mini Medium (OAuth)",
-                    "limit": {
-                        "context": 272000,
-                        "output": 128000
-                    },
-                    "options": {
-                        "reasoningEffort": "medium",
-                        "reasoningSummary": "auto",
-                        "textVerbosity": "medium",
-                        "include": [
-                            "reasoning.encrypted_content"
-                        ],
-                        "store": false
-                    }
-                },
-                "gpt-5.1-codex-mini-high": {
-                    "name": "GPT 5.1 Codex Mini High (OAuth)",
-                    "limit": {
-                        "context": 272000,
-                        "output": 128000
-                    },
-                    "options": {
-                        "reasoningEffort": "high",
-                        "reasoningSummary": "detailed",
-                        "textVerbosity": "medium",
-                        "include": [
-                            "reasoning.encrypted_content"
-                        ],
-                        "store": false
-                    }
-                },
-                "gpt-5.1-low": {
-                    "name": "GPT 5.1 Low (OAuth)",
-                    "limit": {
-                        "context": 272000,
-                        "output": 128000
-                    },
-                    "options": {
-                        "reasoningEffort": "low",
-                        "reasoningSummary": "auto",
-                        "textVerbosity": "low",
-                        "include": [
-                            "reasoning.encrypted_content"
-                        ],
-                        "store": false
-                    }
-                },
-                "gpt-5.1-medium": {
-                    "name": "GPT 5.1 Medium (OAuth)",
-                    "limit": {
-                        "context": 272000,
-                        "output": 128000
-                    },
-                    "options": {
-                        "reasoningEffort": "medium",
-                        "reasoningSummary": "auto",
-                        "textVerbosity": "medium",
-                        "include": [
-                            "reasoning.encrypted_content"
-                        ],
-                        "store": false
-                    }
-                },
-                "gpt-5.1-high": {
-                    "name": "GPT 5.1 High (OAuth)",
-                    "limit": {
-                        "context": 272000,
-                        "output": 128000
-                    },
-                    "options": {
-                        "reasoningEffort": "high",
-                        "reasoningSummary": "detailed",
-                        "textVerbosity": "high",
-                        "include": [
-                            "reasoning.encrypted_content"
-                        ],
-                        "store": false
-                    }
-                }
-            }
         }
     },
     "mcp": {
@@ -290,11 +78,7 @@
         },
         "context7": {
             "type": "local",
-            "command": [
-                "npx",
-                "-y",
-                "@upstash/context7-mcp"
-            ],
+            "command": ["npx", "-y", "@upstash/context7-mcp"],
             "enabled": true
         },
         "grep": {
@@ -309,10 +93,7 @@
         },
         "markitdown": {
             "type": "local",
-            "command": [
-                "uvx",
-                "markitdown-mcp"
-            ],
+            "command": ["uvx", "markitdown-mcp"],
             "enabled": true
         },
         "ast-grep": {
