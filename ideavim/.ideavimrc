@@ -89,6 +89,8 @@ nmap gd <Action>(GotoDeclaration)
 
 " split and goto declaration
 nmap gpd :vsplit<CR><Action>(GotoDeclaration)
+nmap gvd :vsplit<CR><Action>(GotoDeclaration)
+nmap gsd :split<CR><Action>(GotoDeclaration)
 
 " goto implementation
 nmap gI <Action>(GotoImplementation)
