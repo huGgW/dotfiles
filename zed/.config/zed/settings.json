@@ -25,7 +25,7 @@
   "base_keymap": "VSCode",
   "vim_mode": true,
   "vim": {
-    "use_system_clipboard": "never"
+    "use_system_clipboard": "never",
   },
 
   // behavior
@@ -34,12 +34,12 @@
   "diagnostics": {
     "inline": {
       "enabled": true,
-      "max_severity": null
-    }
+      "max_severity": null,
+    },
   },
   "inlay_hints": {
     "enabled": true,
-    "show_background": true
+    "show_background": true,
   },
   "relative_line_numbers": "wrapped",
   "go_to_definition_fallback": "none",
@@ -49,11 +49,11 @@
     "coloring": "indent_aware",
     "line_width": 2,
     "active_line_width": 3,
-    "background_coloring": "disabled"
+    "background_coloring": "disabled",
   },
   "tabs": {
     "file_icons": true,
-    "show_diagnostics": "all"
+    "show_diagnostics": "all",
   },
   "wrap_guides": [120],
 
@@ -65,9 +65,15 @@
         // use the default configuration.
         "ty",
         "!basedpyright",
-        "..."
-      ]
-    }
+        "...",
+      ],
+    },
+    "Java": {
+      "tab_size": 2,
+      "preferred_line_length": 120,
+      "format_on_save": "on",
+      "formatter": "language_server",
+    },
   },
   "lsp": {
     "gopls": {
@@ -79,9 +85,9 @@
           "constantValues": true,
           "functionTypeParameters": true,
           "parameterNames": true,
-          "rangeVariableTypes": true
-        }
-      }
+          "rangeVariableTypes": true,
+        },
+      },
     },
     "jdtls": {
       "initialization_options": {
@@ -91,26 +97,34 @@
           "-XX:AdaptiveSizePolicyWeight=90",
           "-Dsun.zip.disableMemoryMapping=true",
           "-Xmx16G",
-          "-Xms4G"
-        ]
+          "-Xms4G",
+        ],
       },
       "settings": {
         "java": {
           "jdt": {
             "ls": {
               "lombokSupport": {
-                "enabled": true // Set this to true to enable lombok support
-              }
-            }
-          }
-        }
-      }
-    }
+                "enabled": true, // Set this to true to enable lombok support
+              },
+            },
+          },
+        },
+        "compile": {
+          "nullAnalysis": {
+            "mode": "automatic",
+          },
+        },
+        "configuration": {
+          "updateBuildConfiguration": "automatic",
+        },
+      },
+    },
   },
 
   // ai related
   "features": {
-    "edit_prediction_provider": "copilot"
+    "edit_prediction_provider": "copilot",
   },
   "edit_predictions": {
     "disabled_globs": [
@@ -120,18 +134,18 @@
       "**/*.cert",
       "**/*.crt",
       "**/.dev.vars",
-      "**/secrets.yml"
-    ]
+      "**/secrets.yml",
+    ],
   },
   "agent": {
     "play_sound_when_agent_done": true,
-    "always_allow_tool_actions": false
+    "always_allow_tool_actions": false,
   },
   "agent_servers": {
     "opencode": {
       "type": "custom",
       "command": "opencode",
-      "args": ["acp"]
-    }
-  }
+      "args": ["acp"],
+    },
+  },
 }
