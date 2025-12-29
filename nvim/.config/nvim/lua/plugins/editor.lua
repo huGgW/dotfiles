@@ -108,4 +108,19 @@ return {
             require("guess-indent").setup({})
         end,
     },
+    {
+        "jinh0/eyeliner.nvim",
+        opts = {
+            highlight_on_key = true,
+        }
+    },
+    {
+        "folke/todo-comments.nvim",
+        config = function()
+            require("todo-comments").setup()
+            vim.api.nvim_create_user_command("TODO", function()
+                Snacks.picker.todo_comments()
+            end, { desc = "Todo Comments" })
+        end,
+    },
 }
