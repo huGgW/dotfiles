@@ -5,8 +5,8 @@ font-size = 13
 
 # Theme
 theme = dark:Catppuccin Mocha,light:Catppuccin Latte
-background-opacity=0.95
-background-blur=true
+background-opacity=0.90
+background-blur=64
 
 # Keybind
 keybind = global:cmd+backquote=toggle_quick_terminal
