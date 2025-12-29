@@ -81,11 +81,29 @@ return {
                     },
                 },
 
+                -- editing utility
+                scope = {
+                    enabled = true,
+                },
+
                 -- extra utility
                 terminal = { enabled = true },
                 -- TODO: configure scratch if needed
 
             })
+
+            -- custom commands
+            vim.api.nvim_create_user_command("PR", function()
+                Snacks.picker.gh_pr()
+            end, { desc = "GitHub Pull Requests" })
+
+            vim.api.nvim_create_user_command("Dim", function()
+                if (Snacks.dim.enabled) then
+                    Snacks.dim.disable()
+                else
+                    Snacks.dim.enable()
+                end
+            end, { desc = "Toggle dim" })
         end,
         keys = {
             { "<leader>lg", function() Snacks.lazygit() end,                desc = "LazyGit" },
@@ -148,7 +166,7 @@ return {
         },
     },
     {
-        "echasnovski/mini.nvim",
+        "nvim-mini/mini.nvim",
         version = false,
         config = function()
             -- Text Editing
@@ -159,19 +177,6 @@ return {
 
             -- Appearance
             require("mini.statusline").setup()
-            require("mini.hipatterns").setup({
-                highlighters = {
-                    -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-                    fixme     = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
-                    hack      = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
-                    todo      = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
-                    note      = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
-
-                    -- Highlight hex color strings (`#rrggbb`) using that color
-                    hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
-                },
-
-            })
             require("mini.trailspace").setup()
         end,
     },
