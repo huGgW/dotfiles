@@ -3,8 +3,8 @@
   {
     "context": "vim_mode == visual",
     "bindings": {
-      "shift-s": ["vim::PushAddSurrounds", {}]
-    }
+      "shift-s": ["vim::PushAddSurrounds", {}],
+    },
   },
   {
     "context": "vim_mode == normal || !Editor && !Terminal",
@@ -17,6 +17,7 @@
       // toggle panes
       "space t e": "workspace::ToggleLeftDock",
       "space c c": "agent::ToggleFocus",
+      "space o": "outline::Toggle",
       // find
       "space f o": "file_finder::Toggle",
       "space f s": "pane::DeploySearch",
@@ -24,8 +25,8 @@
       "space f d": "project_symbols::Toggle",
       // paste
       "space p": ["workspace::SendKeystrokes", "\" + p"],
-      "space shift-p": ["workspace::SendKeystrokes", "\" + P"]
-    }
+      "space shift-p": ["workspace::SendKeystrokes", "\" + P"],
+    },
   },
   {
     "context": "Editor && vim_mode == normal",
@@ -40,8 +41,8 @@
       "space a": "editor::ToggleCodeActions",
       "space b": "editor::ToggleBreakpoint",
       "space f m": "editor::Format",
-      "space r": "editor::Rename"
-    }
+      "space r": "editor::Rename",
+    },
   },
   {
     "context": "Editor && vim_mode == visual",
@@ -51,15 +52,15 @@
       "space d": ["workspace::SendKeystrokes", "\" + d"],
       // multi cursor
       "ctrl-n": "vim::SelectNext",
-      "ctrl-shift-n": "vim::SelectNext"
-    }
+      "ctrl-shift-n": "vim::SelectNext",
+    },
   },
 
   // change normal keymaps
   {
     "context": "Workspace",
     "bindings": {
-      "ctrl-`": "workspace::ToggleBottomDock"
-    }
-  }
+      "ctrl-`": "workspace::ToggleBottomDock",
+    },
+  },
 ]
