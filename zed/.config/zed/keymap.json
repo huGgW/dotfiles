@@ -34,6 +34,7 @@
       // goto
       "g d": "editor::GoToDefinition",
       "g p d": "editor::GoToDefinitionSplit",
+      "g v d": "editor::GoToDefinitionSplit",
       "g shift-i": "editor::GoToImplementation",
       "g r": "editor::FindAllReferences",
       "g y": "editor::GoToTypeDefinition",
