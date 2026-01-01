@@ -89,10 +89,15 @@
             },
             "enabled": false
         },
+        "markitdown": {
+            "type": "local",
+            "command": ["uvx", "markitdown-mcp"],
+            "enabled": false
+        },
         "context7": {
             "type": "local",
             "command": ["npx", "-y", "@upstash/context7-mcp"],
-            "enabled": false
+            "enabled": true
         },
         "grep": {
             "type": "remote",
@@ -102,11 +107,6 @@
         "deepwiki": {
             "type": "remote",
             "url": "https://mcp.deepwiki.com/sse",
-            "enabled": true
-        },
-        "markitdown": {
-            "type": "local",
-            "command": ["uvx", "markitdown-mcp"],
             "enabled": true
         },
         "ast-grep": {
