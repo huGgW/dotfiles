@@ -58,6 +58,7 @@ return {
                 statuscolumn = { enabled = true },
                 scroll = { enabled = scrollEnable },
                 input = { enabled = true },
+                dim = {},
 
                 -- image utility
                 image = { enabled = true },
@@ -104,6 +105,9 @@ return {
                     Snacks.dim.enable()
                 end
             end, { desc = "Toggle dim" })
+
+            -- trigger some defaults
+            Snacks.dim.enable()
         end,
         keys = {
             { "<leader>lg", function() Snacks.lazygit() end,                desc = "LazyGit" },
