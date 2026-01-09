@@ -1,5 +1,5 @@
 ---
-name: prompt-generation-guideline
+name: prompt-generator
 description: Guideline for generating AI prompt or coding agent rules
 ---
 

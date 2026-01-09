@@ -1,5 +1,5 @@
 ---
-name: git-commits
+name: git-commit
 description: Guideline for creating multiple commits.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: document-writing-guideline
+name: document-writer
 description: Guideline for writing documents
 ---
 

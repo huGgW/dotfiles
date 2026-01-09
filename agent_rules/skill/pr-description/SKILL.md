@@ -1,5 +1,5 @@
 ---
-name: pr-description-generation-rule
+name: pr-description
 description: Rule for creating PR (pull request) description
 ---
 

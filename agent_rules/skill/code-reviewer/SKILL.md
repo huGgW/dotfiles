@@ -1,5 +1,5 @@
 ---
-name: code-review
+name: code-reviewer
 description: Guideline for reviewing code
 ---
 
