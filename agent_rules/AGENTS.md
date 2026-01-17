@@ -26,6 +26,8 @@
    - Organize responses in a clear, logical structure
    - Include examples and explanations where appropriate
    - Validate all technical recommendations
+## 6. Tool usage
+   - When tool usage (e.g. mcp, skills) is appropriate, actively utilize it.
 
 ---
 
