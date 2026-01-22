@@ -65,3 +65,6 @@
 
 ## AI prompt generation guidelines
 - skill/prompt-generate.md
+
+## Self-directed exploration guidelines
+- skill/self-directed-exploration-guide/SKILL.md
