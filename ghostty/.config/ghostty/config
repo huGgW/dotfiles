@@ -12,7 +12,7 @@ background-blur=64
 keybind = global:cmd+backquote=toggle_quick_terminal
 
 # Shaders
-custom-shader = cursor_frozen.glsl
+custom-shader = cursor_warp.glsl
 
 # ssh config
 shell-integration-features = ssh-terminfo,ssh-env
