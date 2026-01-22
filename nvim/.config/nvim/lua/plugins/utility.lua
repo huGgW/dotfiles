@@ -56,7 +56,12 @@ return {
                 },
                 notifier = { enabled = true },
                 statuscolumn = { enabled = true },
-                scroll = { enabled = scrollEnable },
+                scroll = {
+                    enabled = scrollEnable,
+                    animate = {
+                        easing = "outQuad"
+                    },
+                },
                 input = { enabled = true },
                 dim = {},
 
