@@ -176,6 +176,7 @@ return {
                 javascriptreact = { "biome" },
                 json = { "biome" },
                 python = { "ruff" },
+                ocaml = { "ocamlformat" },
             },
             default_format_opts = {
                 lsp_format = "fallback",
