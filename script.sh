@@ -12,6 +12,7 @@ stow_common() {
         tmux \
         zsh \
         zed \
+        kanata \
         claudecode \
         opencode \
         codex
