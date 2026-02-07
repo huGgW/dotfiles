@@ -88,13 +88,22 @@ return {
                                     enabled = true
                                 },
                                 vmargs =
-                                "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx16G -Xms1G",
+                                "-Xmx16G -Xms1G -XX:+UseParallelGC -XX:+UseStringDeduplication -Dsun.zip.disableMemoryMapping -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true",
                             }
                         },
                         compile = {
                             nullAnalysis = {
                                 mode = "automatic"
                             },
+                        },
+                        referencesCodeLens = {
+                            enabled = false,
+                        },
+                        implementationsCodeLens = {
+                            enabled = false,
+                        },
+                        signatureHelp = {
+                            enabled = true,
                         },
                     },
                 },
@@ -205,8 +214,14 @@ return {
         end,
     },
 
+    -- esc language related improvements
     {
         "RRethy/vim-illuminate",
         event = { "BufRead" },
+    },
+    {
+        "danymat/neogen",
+        event = { "BufRead" },
+        config = true,
     },
 }
