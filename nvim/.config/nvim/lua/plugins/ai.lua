@@ -4,7 +4,7 @@ return {
         requires = {
             "copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
             init = function()
-                vim.g.copilot_nes_debounce = 500
+                vim.g.copilot_nes_debounce = 100
             end,
         },
         cmd = { "Copilot" },
