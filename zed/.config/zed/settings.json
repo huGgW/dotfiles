@@ -29,9 +29,10 @@
   },
 
   // behavior
-  "restore_on_startup": "none",
+  "restore_on_startup": "launchpad",
   "autosave": "on_focus_change",
   "diagnostics": {
+    "lsp_pull_diagnostics": {},
     "inline": {
       "enabled": true,
       "max_severity": null,
@@ -90,43 +91,48 @@
       },
     },
     "jdtls": {
-      "initialization_options": {
-        "arguments": [
-          "-XX:+UseParallelGC",
-          "-XX:GCTimeRatio=4",
-          "-XX:AdaptiveSizePolicyWeight=90",
-          "-Dsun.zip.disableMemoryMapping=true",
-          "-Xmx16G",
-          "-Xms4G",
-        ],
-      },
       "settings": {
-        "java": {
-          "jdt": {
-            "ls": {
-              "lombokSupport": {
-                "enabled": true, // Set this to true to enable lombok support
+        "lombok_support": true,
+        "initialization_options": {
+          "arguments": [
+            "-Xmx16G",
+            "-Xms1G",
+            "-XX:+UseParallelGC",
+            "-XX:+UseStringDeduplication",
+            "-Dsun.zip.disableMemoryMapping",
+            "-XX:GCTimeRatio=4",
+            "-XX:AdaptiveSizePolicyWeight=90",
+            "-Dsun.zip.disableMemoryMapping=true",
+          ],
+          "settings": {
+            "java": {
+              "compile": {
+                "nullAnalysis": {
+                  "mode": "automatic",
+                },
+              },
+              "referencesCodeLens": {
+                "enabled": false,
+              },
+              "implementationsCodeLens": {
+                "enabled": false,
+              },
+              "signatureHelp": {
+                "enabled": true,
+              },
+              "configuration": {
+                "updateBuildConfiguration": "automatic",
               },
             },
           },
-        },
-        "compile": {
-          "nullAnalysis": {
-            "mode": "automatic",
-          },
-        },
-        "configuration": {
-          "updateBuildConfiguration": "automatic",
         },
       },
     },
   },
 
   // ai related
-  "features": {
-    "edit_prediction_provider": "copilot",
-  },
   "edit_predictions": {
+    "provider": "copilot",
     "disabled_globs": [
       "**/.env*",
       "**/*.pem",
