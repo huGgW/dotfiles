@@ -6,21 +6,24 @@
 ;; be passed straight to the operating system.
 (defsrc
   r
-  caps h    j    k    l
+  caps    f    h    j    k    l
+  c
   rmet
 )
 
 ;; this layer defines default key behavior
 (deflayer base
   r
-  @cps h    j    k    l
+  @cps    f    h    j    k    l
+  c
   @im
 )
 
 ;; this layer defines vim arrow key behavior with caps key pressed
 (deflayer arrows
   lrld
-  _ left down up right
+  _ @hrsel left down up right
+  @hrscr
   _
 )
 
@@ -37,4 +40,11 @@
   ;; TODO: current this only works on macos with f18 configured as input method switcher,
   ;;       need to make it cross-platform
   im f18
+
+  ;; config for homerow mode in macos
+  ;; use f19, f20 in homerow config
+  ;; TODO: current this only works on macos with homerow configured,
+  ;;       need to make it cross-platform
+  hrsel (multi lmet lsft f)
+  hrscr (multi lmet lsft j)
 )
