@@ -63,7 +63,14 @@ return {
                     },
                 },
                 input = { enabled = true },
-                dim = {},
+                dim = {
+                    filter = function(buf)
+                        return vim.g.snacks_dim ~= false
+                            and vim.b[buf].snacks_dim ~= false
+                            and vim.bo[buf].buftype == ""
+                            and not vim.tbl_contains({ "markdown" }, vim.bo[buf].filetype)
+                    end,
+                },
 
                 -- image utility
                 image = { enabled = true },
