@@ -68,3 +68,6 @@
 
 ## Self-directed exploration guidelines
 - skill/self-directed-exploration-guide/SKILL.md
+
+## Multi-agent orchestration guidelines
+- skill/parallel-agents/SKILL.md
