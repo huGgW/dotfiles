@@ -71,3 +71,6 @@
 
 ## Multi-agent orchestration guidelines
 - skill/parallel-agents/SKILL.md
+
+## Deep research guidelines
+- skill/deep-research/SKILL.md
