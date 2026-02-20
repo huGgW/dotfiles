@@ -14,8 +14,7 @@ stow_common() {
         zed \
         kanata \
         claudecode \
-        opencode \
-        codex
+        opencode
 }
 
 stow_macos() {
