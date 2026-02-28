@@ -10,14 +10,13 @@
   // font
   "ui_font_size": 14,
   "buffer_font_size": 13,
-  "buffer_font_family": "MonaspiceXe Nerd Font",
-  "buffer_font_fallbacks": ["EliceDigitalCodingVer.H Nerd Font"],
+  "buffer_font_family": "Sarasa Term K Nerd Font",
 
   // theme
   "theme": {
     "mode": "system",
-    "light": "Catppuccin Latte (Blur) [Heavy]",
-    "dark": "Catppuccin Mocha (Blur) [Heavy]",
+    "light": "Catppuccin Latte (Blur)",
+    "dark": "Catppuccin Mocha (Blur)",
   },
   "icon_theme": "Material Icon Theme",
 
@@ -32,7 +31,6 @@
   "restore_on_startup": "launchpad",
   "autosave": "on_focus_change",
   "diagnostics": {
-    "lsp_pull_diagnostics": {},
     "inline": {
       "enabled": true,
       "max_severity": null,
@@ -42,7 +40,7 @@
     "enabled": true,
     "show_background": true,
   },
-  "relative_line_numbers": "wrapped",
+  "relative_line_numbers": "enabled",
   "go_to_definition_fallback": "none",
 
   // style
@@ -145,7 +143,6 @@
   },
   "agent": {
     "play_sound_when_agent_done": true,
-    "always_allow_tool_actions": false,
   },
   "agent_servers": {
     "opencode": {
