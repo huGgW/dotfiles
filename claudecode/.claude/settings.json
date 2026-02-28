@@ -1,9 +1,7 @@
 {
-  "alwaysThinkingEnabled": true,
   "permissions": {
     "allow": [
       "WebFetch",
-
       "Bash(pwd)",
       "Bash(ls)",
       "Bash(ls *)",
@@ -21,7 +19,6 @@
       "Bash(diff *)",
       "Bash(printf)",
       "Bash(printf *)",
-
       "Bash(fd)",
       "Bash(fd *)",
       "Bash(find)",
@@ -32,7 +29,6 @@
       "Bash(grep *)",
       "Bash(tree)",
       "Bash(tree *)",
-
       "Bash(sed)",
       "Bash(sed *)",
       "Bash(sort)",
@@ -49,7 +45,6 @@
       "Bash(awk *)",
       "Bash(jq)",
       "Bash(jq *)",
-
       "Bash(which)",
       "Bash(which *)",
       "Bash(file)",
@@ -60,7 +55,6 @@
       "Bash(dirname *)",
       "Bash(realpath)",
       "Bash(realpath *)",
-
       "Bash(git diff)",
       "Bash(git diff *)",
       "Bash(git status)",
@@ -79,7 +73,6 @@
       "Bash(git remote *)",
       "Bash(git rev-parse)",
       "Bash(git rev-parse *)",
-
       "Bash(gh pr list)",
       "Bash(gh pr list *)",
       "Bash(gh pr view)",
@@ -92,9 +85,15 @@
       "Bash(gh issue view *)",
       "Bash(gh repo view)",
       "Bash(gh repo view *)",
-
       "Bash(./gradlew tasks)",
       "Bash(./gradlew tasks *)"
     ]
+  },
+  "alwaysThinkingEnabled": true,
+  "statusLine": {
+    "type": "command",
+    "command": "bunx -y ccstatusline@latest",
+    "padding": 0
   }
 }
+
