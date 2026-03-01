@@ -42,8 +42,8 @@
 - @common-rules/cli-guide.md
 - @common-rules/mcp-tools-guide.md
 
-## Task execution (code development) procedure
-- @common-rules/task-execution-code-development.md
+## Code development policy (execution + precautions)
+- @common-rules/code-development-precautions.md
 
 ---
 
