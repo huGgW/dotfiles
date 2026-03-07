@@ -143,3 +143,8 @@ fi
 # This section can be safely removed at any time if needed.
 [[ ! -r '~/.opam/opam-init/init.zsh' ]] || source '~/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
 # END opam configuration
+
+# opencode enable lsp flag
+if command -v opencode > /dev/null 2>&1; then
+    export OPENCODE_EXPERIMENTAL_LSP_TOOL=true
+fi
