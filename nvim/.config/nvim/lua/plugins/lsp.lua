@@ -76,6 +76,17 @@ return {
         'nvim-java/nvim-java',
         ft = { 'java' },
         config = function()
+            vim.env.JDTLS_JVM_ARGS = table.concat({
+                "-Xmx16G",
+                "-Xms1G",
+                "-XX:+UseParallelGC",
+                "-XX:+UseStringDeduplication",
+                "-Dsun.zip.disableMemoryMapping",
+                "-XX:GCTimeRatio=4",
+                "-XX:AdaptiveSizePolicyWeight=90",
+                "-Dsun.zip.disableMemoryMapping=true",
+            }, " ")
+
             require('java').setup({
             })
 
