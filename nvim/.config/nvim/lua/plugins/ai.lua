@@ -1,32 +1,52 @@
 return {
+    -- {
+    --     "zbirenbaum/copilot.lua",
+    --     requires = {
+    --         "copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
+    --         init = function()
+    --             vim.g.copilot_nes_debounce = 100
+    --         end,
+    --     },
+    --     cmd = { "Copilot" },
+    --     event = { "InsertEnter" },
+    --     config = function()
+    --         require("copilot").setup({
+    --             suggestion = {
+    --                 auto_trigger = true,
+    --                 keymap = {
+    --                     accept = "<Tab>",
+    --                     next = "<C-.>",
+    --                     prev = "<C-,>",
+    --                 },
+    --             },
+    --             nes = {
+    --                 enabled = true,
+    --                 keymap = {
+    --                     accept_and_goto = "<Tab>",
+    --                     accept = false,
+    --                     dismiss = "<Esc>",
+    --                 },
+    --             },
+    --         })
+    --     end,
+    -- },
     {
-        "zbirenbaum/copilot.lua",
-        requires = {
-            "copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
-            init = function()
-                vim.g.copilot_nes_debounce = 100
-            end,
-        },
-        cmd = { "Copilot" },
-        event = { "InsertEnter" },
+        "leonardcser/cursortab.nvim",
+        lazy = false, -- The server is already lazy loaded
+        build = "cd server && go build",
         config = function()
-            require("copilot").setup({
-                suggestion = {
-                    auto_trigger = true,
-                    keymap = {
-                        accept = "<Tab>",
-                        next = "<C-.>",
-                        prev = "<C-,>",
-                    },
-                },
-                nes = {
-                    enabled = true,
-                    keymap = {
-                        accept_and_goto = "<Tab>",
-                        accept = false,
-                        dismiss = "<Esc>",
-                    },
-                },
+            require("cursortab").setup({
+                -- provider = {
+                --     type = "copilot",
+                -- },
+                -- provider = {
+                --     type = "sweep",
+                --     url = "http://localhost:8000",
+                -- },
+                provider = {
+                    type = "sweepapi",
+                    api_key_env = "SWEEPAPI_TOKEN"
+                }
             })
         end,
     },
