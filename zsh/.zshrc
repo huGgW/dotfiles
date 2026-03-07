@@ -1,5 +1,8 @@
-# uncomment if want to profile
-# zmodload zsh/zprof
+
+# if flag given, load profiling module
+if [[ "$ZSH_PROFILE_ENABLE" == "true" || "$ZSH_PROFILE_ENABLE" == "1" ]]; then
+    zmodload zsh/zprof
+fi
 
 # Load utils
 source ~/zshrc/utils.sh
@@ -22,6 +25,8 @@ safe_source ~/zshrc/device.sh
 # Finish
 safe_source ~/zshrc/finish.sh
 
-# uncomment if want to profile
-# zprof
+# if flag given, do profiling
+if [[ "$ZSH_PROFILE_ENABLE" == "true" || "$ZSH_PROFILE_ENABLE" == "1" ]]; then
+    zprof
+fi
 
