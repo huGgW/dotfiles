@@ -147,6 +147,46 @@
         "ty": {
             "command": ["uvx", "ty", "server"],
             "extensions": [".py", ".pyi"]
+        },
+        "jdtls": {
+            "command": [
+                "jdtls",
+                "--jvm-arg=-Xmx16G",
+                "--jvm-arg=-Xms1G",
+                "--jvm-arg=-XX:+UseParallelGC",
+                "--jvm-arg=-XX:+UseStringDeduplication",
+                "--jvm-arg=-Dsun.zip.disableMemoryMapping",
+                "--jvm-arg=-XX:GCTimeRatio=4",
+                "--jvm-arg=-XX:AdaptiveSizePolicyWeight=90"
+            ],
+            "extensions": [".java"],
+            "initialization": {
+                "settings": {
+                    "java": {
+                        "jdt": {
+                            "ls": {
+                                "lombokSupport": {
+                                    "enabled": true
+                                }
+                            }
+                        },
+                        "compile": {
+                            "nullAnalysis": {
+                                "mode": "automatic"
+                            }
+                        },
+                        "referencesCodeLens": {
+                            "enabled": false
+                        },
+                        "implementationsCodeLens": {
+                            "enabled": false
+                        },
+                        "signatureHelp": {
+                            "enabled": true
+                        }
+                    }
+                }
+            }
         }
     },
     "mcp": {
