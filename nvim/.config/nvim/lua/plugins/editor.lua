@@ -89,12 +89,19 @@ return {
         build = ":call mkdp#util#install()"
     },
     {
-        'MeanderingProgrammer/markdown.nvim',
+        'MeanderingProgrammer/render-markdown.nvim',
         ft = { "markdown" },
-        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },
         opts = {
             file_types = { "markdown" },
         },
+        config = function()
+            require("render-markdown").setup({
+                completions = {
+                    lsp = { enabled = true },
+                },
+            })
+        end,
     },
     {
         "nmac427/guess-indent.nvim",
