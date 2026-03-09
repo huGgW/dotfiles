@@ -26,6 +26,11 @@
       // paste
       "space p": ["workspace::SendKeystrokes", "\" + p"],
       "space shift-p": ["workspace::SendKeystrokes", "\" + P"],
+      // git (lazygit)
+      "space l g": [
+        "task::Spawn",
+        { "task_name": "lazygit", "reveal_target": "center" },
+      ],
     },
   },
   {
