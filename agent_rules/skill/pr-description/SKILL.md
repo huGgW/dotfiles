@@ -1,6 +1,12 @@
 ---
 name: pr-description
-description: Rule for creating PR (pull request) description
+description: >
+  This skill should be used when the user asks to generate, write, or draft a
+  pull request description. Common requests include "PR 설명 작성해줘",
+  "PR description 만들어줘", "풀리퀘스트 설명 생성", "generate PR description",
+  "write pull request description". It analyzes git diff, commit history,
+  conversation context, and PULL_REQUEST_TEMPLATE.md to create comprehensive
+  PR descriptions.
 ---
 
 # PR Description Generation Rule

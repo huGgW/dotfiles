@@ -1,6 +1,12 @@
 ---
 name: parallel-agents
-description: Guide for orchestrating agents (subagents and agent teams) to handle complex multi-step tasks effectively
+description: >
+  This skill should be used when the user needs to orchestrate multiple agents
+  for complex multi-step tasks, or when discussing agent team coordination
+  patterns. Common requests include "에이전트 여러 개로 작업해줘", "병렬로 처리해줘",
+  "멀티 에이전트로 분석", "use multiple agents", "parallelize this task",
+  "orchestrate agents". It covers task decomposition, parallel/sequential
+  execution patterns, Agent Teams vs Subagents selection, and result synthesis.
 ---
 
 # Multi-Agent Orchestration Guide

@@ -1,6 +1,12 @@
 ---
 name: code-reviewer
-description: Guideline for reviewing code
+description: >
+  This skill should be used when the user asks for a code review, PR review, or
+  wants to review changes between branches. Common requests include "코드 리뷰해줘",
+  "PR 리뷰", "코드 검토", "review this code", "review my changes", "review PR".
+  It provides structured reviews with findings categorized by priority
+  (Critical/Warning/Suggestion) covering code quality, security, performance,
+  testing, and architecture.
 ---
 
 # Code review guideline

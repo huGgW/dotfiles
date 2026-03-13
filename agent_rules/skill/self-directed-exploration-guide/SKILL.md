@@ -1,6 +1,13 @@
 ---
 name: self-directed-exploration-guide
-description: Guideline for self-directed codebase and technology exploration with AI agents
+description: >
+  This skill should be used when the user wants to explore and learn about a
+  codebase or technology through self-directed discovery rather than direct
+  explanation. Common requests include "코드베이스 탐색하고 싶어",
+  "이 프로젝트 구조 파악하고 싶어", "스스로 공부하고 싶어", "explore this codebase",
+  "help me understand this project", "guide me through the code".
+  It provides exploration maps, starting points, and self-discovery questions
+  instead of direct answers, with progressive depth on follow-ups.
 ---
 
 # Self-Directed Codebase Exploration Guide

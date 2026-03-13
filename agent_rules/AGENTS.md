@@ -54,17 +54,17 @@
 - Prioritize understanding and applying these rules over making assumptions
 
 ## Git related task procedures
-- skill/git-commit.md
-- skill/pr-description.md
+- skill/git-commit/SKILL.md
+- skill/pr-description/SKILL.md
 
 ## Code review procedures
-- skill/code-review.md
+- skill/code-reviewer/SKILL.md
 
 ## Documentation related guidelines
-- skill/document-write-guide.md
+- skill/document-writer/SKILL.md
 
 ## AI prompt generation guidelines
-- skill/prompt-generate.md
+- skill/prompt-generator/SKILL.md
 
 ## Self-directed exploration guidelines
 - skill/self-directed-exploration-guide/SKILL.md
@@ -74,3 +74,6 @@
 
 ## Deep research guidelines
 - skill/deep-research/SKILL.md
+
+## Dependabot PR review & merge guidelines
+- skill/dependabot-review/SKILL.md

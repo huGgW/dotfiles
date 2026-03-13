@@ -1,6 +1,12 @@
 ---
 name: git-commit
-description: Guideline for creating multiple commits.
+description: >
+  This skill should be used when the user asks to split changes into multiple
+  commits, create atomic commits from a large diff, or organize commit structure.
+  Common requests include "커밋 나눠줘", "커밋 분리해줘", "변경사항 커밋으로 정리",
+  "split commits", "organize commits", "create atomic commits".
+  It guides through diff analysis, commit planning with user feedback, and
+  sequential execution of git add/commit operations.
 ---
 
 # Git Commit Splitting and Creation Guidelines

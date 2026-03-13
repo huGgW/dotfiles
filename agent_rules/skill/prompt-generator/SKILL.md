@@ -1,6 +1,12 @@
 ---
 name: prompt-generator
-description: Guideline for generating AI prompt or coding agent rules
+description: >
+  This skill should be used when the user asks to create, improve, or optimize
+  AI prompts, system prompts, or coding agent rules. Common requests include
+  "프롬프트 만들어줘", "프롬프트 개선해줘", "AI 프롬프트 생성", "agent rule 작성",
+  "create a prompt", "optimize this prompt", "write system prompt",
+  "CLAUDE.md 규칙 작성". It applies prompt engineering techniques including
+  few-shot, chain-of-thought, and model-specific optimization.
 ---
 
 # Promte generation guideline

@@ -1,6 +1,13 @@
 ---
 name: document-writer
-description: Guideline for writing documents
+description: >
+  This skill should be used when the user asks to write, draft, or improve
+  technical documentation for software projects. Common requests include
+  "설계 문서 작성해줘", "기술 문서 만들어줘", "문서 작성", "API 문서 정리",
+  "아키텍처 문서 작성", "write design doc", "draft technical documentation",
+  "create architecture document", "write problem analysis doc".
+  It covers planning/design documents, problem analysis documents, and
+  structure/usage guides with a structured workflow from gathering through review.
 ---
 
 # Document writing guideline
@@ -12,7 +19,7 @@ This guide helps to produce high-quality documentation for software projects, pr
 
 ## Document Scope
 Support the following documentation categories (and similar developer-focused outputs):
-- Planning & design documents (system/service abstracts, architectural decisions, component responsibilities)
+- Planning & design documents (system/service abstracts, architectural decisions, component responsibilities) — **Follow the template in `references/planning-design-template.md`**
 - Problem analysis & solution documents (issue overviews, root cause analysis, mitigation plans, validation strategies)
 - Structure & usage guides (library/tool overviews, API references, best practices, real-world usage scenarios)
 
@@ -50,8 +57,14 @@ Support the following documentation categories (and similar developer-focused ou
 - [ ] Grammar, spelling, and formatting meet professional standards.
 - [ ] Action items, decisions, and warnings are explicitly marked.
 
+## Visual Aids
+Visuals are far easier to understand than prose for architecture, flows, and relationships. **Actively include diagrams** wherever they help — but do not add them where a simple table or list is clearer.
+
+- **Prefer Mermaid diagrams** (sequence, flowchart, C4, ER, state, etc.) as the default. They are version-controllable, diffable, and render natively in most Markdown viewers.
+- **Use ASCII diagrams** only when Mermaid cannot express the layout well (e.g., free-form box-and-arrow overviews, tree structures).
+- **When the user explicitly requests a richer visual**, prefer generating an SVG image over ASCII art.
+
 ## Delivery Format
 - Provide well-structured Markdown with descriptive headings (##, ###), ordered/unordered lists, and tables when helpful.
 - Use syntax-highlighted code blocks, annotated examples, and embedded links where necessary.
-- Include diagrams or images only if they add significant clarity (describe them when graphical output is unavailable).
 - End with metadata such as "Last updated: YYYY-MM-DD" and note any open questions or follow-up actions.
