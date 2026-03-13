@@ -4,10 +4,6 @@
     "autoupdate": true,
     "instructions": ["common_rules/*.md"],
     "permission": {
-        "webfetch": "allow",
-        "skill": "allow",
-        "doom_loop": "deny",
-        "lsp": "allow",
         "bash": {
             "*": "ask",
             "pwd": "allow",
@@ -101,7 +97,6 @@
         "build": {
             "permission": {
                 "edit": "allow",
-                "doom_loop": "ask",
                 "bash": {
                     "mkdir": "allow",
                     "mkdir *": "allow",
