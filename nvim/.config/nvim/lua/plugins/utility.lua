@@ -73,7 +73,14 @@ return {
                 },
 
                 -- image utility
-                image = { enabled = true },
+                image = {
+                    enabled = true,
+                    doc = {
+                        enabled = true,
+                        max_width = 240,
+                        max_height = 240,
+                    }
+                },
 
                 -- git utility
                 lazygit = { enabled = true },

@@ -100,6 +100,13 @@ return {
                 completions = {
                     lsp = { enabled = true },
                 },
+                code = {
+                    enabled = true,
+                    disable = {
+                        "mermaid",
+                        "math",
+                    },
+                },
             })
         end,
     },
