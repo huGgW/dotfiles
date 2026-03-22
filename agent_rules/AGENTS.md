@@ -63,6 +63,9 @@
 ## Documentation related guidelines
 - skill/document-writer/SKILL.md
 
+## Project design guidelines
+- skill/project-architect/SKILL.md
+
 ## AI prompt generation guidelines
 - skill/prompt-generator/SKILL.md
 
