@@ -10,6 +10,7 @@ stow_common() {
         nvim \
         starship \
         tmux \
+        yazi \
         zsh \
         zed \
         kanata \
