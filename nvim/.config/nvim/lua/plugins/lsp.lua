@@ -116,6 +116,9 @@ return {
                         signatureHelp = {
                             enabled = true,
                         },
+                        sharedIndexes = {
+                            enabled = true,
+                        },
                     },
                 },
             })
