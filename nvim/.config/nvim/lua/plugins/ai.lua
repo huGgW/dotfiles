@@ -45,7 +45,7 @@ return {
                 -- },
                 provider = {
                     type = "sweepapi",
-                    api_key_env = "SWEEPAPI_TOKEN"
+                    api_key_env = "SWEEP_AI_TOKEN"
                 }
             })
         end,
