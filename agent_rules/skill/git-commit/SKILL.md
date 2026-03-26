@@ -1,73 +1,143 @@
 ---
 name: git-commit
 description: >
-  This skill should be used when the user asks to split changes into multiple
-  commits, create atomic commits from a large diff, or organize commit structure.
-  Common requests include "커밋 나눠줘", "커밋 분리해줘", "변경사항 커밋으로 정리",
-  "split commits", "organize commits", "create atomic commits".
-  It guides through diff analysis, commit planning with user feedback, and
+  This skill should be used when the user asks to create commits, write commit
+  messages, split changes into multiple commits, organize commit structure, or
+  follow commit message conventions. Common requests include "커밋 해줘",
+  "커밋 메시지 작성해줘", "커밋 나눠줘", "커밋 분리해줘", "변경사항 커밋으로 정리",
+  "커밋 메시지 포맷", "Conventional Commits 적용", "commit these changes",
+  "write commit message", "split commits", "organize commits",
+  "create atomic commits", "commit message format", "conventional commit".
+  It guides through diff analysis, commit message formatting following
+  Conventional Commits v1.0.0, commit planning with user feedback, and
   sequential execution of git add/commit operations.
 ---
 
-# Git Commit Splitting and Creation Guidelines
+# Git Commit Creation and Splitting Guidelines
 
-This guideline describes the process for helping users split changes (typically `git diff` output) into logical and atomic commits. The AI should guide users through the following steps.
+## Commit Message Format (Conventional Commits v1.0.0)
 
-## 1. Understanding Changes (Based on git diff and Context)
+All commit messages follow the Conventional Commits format:
 
-*   **Goal**: Accurately identify and understand all changes presented by the user (primarily `git diff` output) to plan commits on a file-by-file basis.
-*   **AI's Tasks**:
-   *   Analyze the `git diff` provided by the user.
-   *   If the user provides additional context (e.g., related issue tracker IDs, work descriptions, feature branch names), integrate this information to better understand the purpose and scope of the changes.
-   *   **Work units must be identified strictly on a file basis only, and each commit should be planned to consist only of different files.** That is, one file should be included in only one commit. Even if changes are related, if they span multiple files, each file should be separated into individual commits, or related file groups should be bundled into a single commit after discussion with the user, but there should be no overlap between files.
-   *   If the diff is large or complex making file-based splitting ambiguous, or if multiple files form one logical unit requiring user confirmation, ask clear questions to the user before proceeding with commit planning to ensure complete understanding. Example: "The changes in file A and file B appear to be closely related. Should we bundle these two files into one commit, or separate commits for each file?"
+```
+<type>[optional scope]: <description>
 
-## 2. Planning Commit Structure (Listing Files and Messages)
+[optional body]
 
-*   **Goal**: Propose a structured list of commits ensuring each commit is atomic, clear, and has a well-defined purpose message.
-*   **AI's Tasks**:
-   *   Based on the logical units identified in step 1, propose a series of individual commits.
-   *   For each proposed commit:
-       *   Clearly list the specific files and related changed chunks (hunks) (or line ranges if identifiable from the diff) that should be included in this commit.
-       *   Draft a clear and concise commit message. Follow standard conventions (e.g., Conventional Commits) unless project-specific guidelines (e.g., different rules, `CONTRIBUTING.md`, or user instructions) are known.
-           *   **Subject line**: Use imperative mood (e.g., "Fix: null pointer exception in UserLoginService"). Should be a concise summary of the change, ideally under 50 characters.
-           *   **Body (optional but recommended for complex changes)**: Explain the "what" and "why" of the change, not the "how" (which is in the code). Reference issue tracker IDs where applicable. Separate subject and body with a blank line.
-   *   Present the complete list of planned commits (including files/hunks and message drafts) to the user in a clear format (e.g., numbered list) for review and feedback.
+[optional footer(s)]
+```
 
-## 3. Incorporating Feedback and Revisions
+### Quick Reference
 
-*   **Goal**: Collaboratively improve the commit plan based on user feedback.
-*   **AI's Tasks**:
-   *   Carefully review and understand the user's feedback on the proposed commit structure, file/hunk groupings, and messages.
-   *   Make necessary adjustments to the plan. This may include:
-       *   Regrouping changes between commits.
-       *   Changing which files or hunks are included in specific commits.
-       *   Modifying commit messages.
-       *   Adding or removing commits from the plan.
-   *   Present the revised plan to the user.
-   *   Repeat this feedback and revision cycle until the user explicitly confirms satisfaction with the plan.
-   *   **Important: Do not proceed with any actual `git commit` operations or automatically suggest `git commit` commands during this step.** The goal is to finalize the *plan*. Wait for explicit user instruction to proceed to the commit execution phase.
+| Type | When to use | SemVer |
+|------|-------------|--------|
+| feat | New feature or capability | MINOR |
+| fix | Bug fix | PATCH |
+| refactor | Code restructuring, no behavior change | - |
+| docs | Documentation only | - |
+| style | Formatting, whitespace, no logic change | - |
+| perf | Performance improvement | - |
+| test | Adding or correcting tests | - |
+| build | Build system or dependency changes | - |
+| ci | CI/CD configuration changes | - |
+| chore | Maintenance tasks (no src/test change) | - |
 
-## 4. Commit Execution (Upon User Command)
+### Key Rules
 
-*   **Goal**: Execute commits sequentially according to the approved plan with AI performing actions under user confirmation.
-*   **AI's Tasks**:
-   *   Only after the user explicitly commands to proceed with commits (e.g., "Okay, let's commit these" or "Proceed with the plan"):
-       *   For each planned commit, one by one in the agreed order:
-           *   Specify the commit to be created (e.g., "Next, creating commit for 'Refactor: optimize data processing module'").
-           *   List the exact files that need to be staged for *this specific commit*. (AI typically proposes entire files as staging targets.)
-           *   AI proposes executing `git add <file1> <file2>...` command through `run_terminal_cmd` to stage the listed files and waits for user approval.
-           *   If the user wants to stage only specific parts (hunks) of files, AI should guide the user to execute `git add -p <file>` directly in the terminal. In this case, AI may skip proposing the `git add` command for that file.
-           *   To confirm all necessary changes are staged (e.g., AI proposes executing `git status` and user confirms results), AI proposes executing `git commit -n -m "subject line" -m "body content..."` command using the planned commit message through `run_terminal_cmd` and waits for user approval. **Always use the `-n` flag to skip git hooks during commit execution.**
-           *   After confirming successful commit execution (e.g., AI proposes executing `git log -1` and user confirms results), proceed to the next commit.
-   *   AI proposes exact commands at each `git add` and `git commit` step and executes them through `run_terminal_cmd` under user approval.
-   *   If errors occur or the user wants changes midway, return to step 3 to adjust the plan for remaining commits.
+- **Type**: Lowercase noun from the table above
+- **Scope** (optional): Module or component in parentheses — `fix(parser):`
+- **Description**: Lowercase start, imperative mood ("add" not "added"), no trailing period
+- **Breaking change**: Add `!` before colon — `feat!:` or `feat(api)!:`
 
-## General Principles for AI Assistance
+### Examples
 
-*   **User Control**: The user is always in control. AI suggests and guides, but the user makes decisions and executes critical commands (e.g., `git commit`).
-*   **Clarity and Precision**: All suggestions, file lists, and commands must be exceptionally clear and accurate to avoid errors.
-*   **Atomicity**: Continuously emphasize and help users create atomic commits. Each commit should represent a single logical unit of work.
-*   **Context Awareness**: If aware of project-specific commit message formats, branch naming conventions, or pre-commit hooks (e.g., from project documentation or other conventions), integrate this knowledge into guidance.
-*   **Confirmed Execution**: Repository-changing operations like `git add` and `git commit` are executed only after AI proposes command execution through `run_terminal_cmd` as described in step 4, and receives explicit user approval for each command. AI does not automatically execute commit-related commands without user approval.
-*   **Hook Management**: Always use the `-n` flag with `git commit` commands to skip git hooks execution. This prevents potential interruptions or failures during the automated commit process and ensures consistent behavior across different repository configurations.
+```
+feat: add user authentication via OAuth2
+fix(parser): handle null input in token validation
+refactor: extract validation logic into shared module
+docs: update API endpoint documentation for v2
+feat!: redesign configuration format
+```
+
+**Multi-line example:**
+```
+fix(auth): prevent session fixation on login
+
+Regenerate session ID after successful authentication
+to prevent session fixation attacks.
+
+Closes #1234
+```
+
+> See `references/conventional-commits.md` for full spec details including
+> type selection decision tree, body/footer rules, and BREAKING CHANGE syntax.
+
+---
+
+## Workflow: Single Commit
+
+For cases where the user wants to commit all current changes as a single commit:
+
+1. Run `git diff --stat` and `git diff` to understand what changed
+2. Determine the appropriate commit type from the Quick Reference table
+3. Identify scope if changes are concentrated in a specific module
+4. Draft a commit message following the Conventional Commits format above
+5. Present the proposed message to the user for confirmation
+6. Execute `git add` and `git commit` with user-approved message
+
+---
+
+## Workflow: Splitting Changes into Multiple Commits
+
+### Phase 1: Understanding Changes
+
+*   **Goal**: Identify and understand all changes to plan commits on a file-by-file basis.
+*   **Tasks**:
+    *   Analyze the `git diff` provided by the user.
+    *   Integrate any additional context (issue tracker IDs, work descriptions, feature branch names).
+    *   **Identify work units strictly on a file basis — each file belongs to only one commit.** Related files can be bundled into a single commit after discussion with the user, but there must be no overlap between commits.
+    *   If the diff is large or file-based splitting is ambiguous, ask clear questions before proceeding. Example: "The changes in file A and file B appear to be closely related. Should we bundle these into one commit, or separate them?"
+
+### Phase 2: Planning Commit Structure
+
+*   **Goal**: Propose a structured list of atomic commits, each with a clear Conventional Commits message.
+*   **Tasks**:
+    *   For each proposed commit:
+        *   List the specific files and changed hunks to include.
+        *   Draft a commit message following the Conventional Commits format:
+            *   **Subject**: `<type>[scope]: <description>` — imperative mood, under 50 characters preferred
+            *   **Body** (optional, recommended for complex changes): Explain "what" and "why", not "how". Reference issue IDs where applicable.
+    *   Present the complete plan as a numbered list for review.
+
+### Phase 3: Incorporating Feedback
+
+*   **Goal**: Collaboratively refine the commit plan.
+*   **Tasks**:
+    *   Review user feedback on groupings and messages.
+    *   Adjust as needed: regroup changes, modify messages, add or remove commits.
+    *   Present the revised plan and repeat until the user explicitly confirms.
+    *   **Do not proceed with any `git commit` operations during this phase.** Wait for explicit user instruction.
+
+### Phase 4: Commit Execution
+
+*   **Goal**: Execute commits sequentially according to the approved plan.
+*   **Tasks**:
+    *   Only after the user explicitly commands to proceed:
+        *   For each planned commit, one by one in agreed order:
+            *   Announce the commit being created (e.g., "Creating commit: `refactor(db): simplify connection pooling`").
+            *   Stage files with `git add <file1> <file2>...` and wait for user approval.
+            *   If the user wants to stage only specific hunks, guide them to use `git add -p <file>` directly.
+            *   Execute `git commit -m "subject line" -m "body content..."` with the planned message and wait for user approval.
+            *   After confirming success (e.g., `git log -1`), proceed to the next commit.
+    *   If errors occur or the user wants changes midway, return to Phase 3.
+
+---
+
+## General Principles
+
+*   **User Control**: The user is always in control. Suggest and guide, but the user makes decisions and approves critical commands.
+*   **Clarity and Precision**: All suggestions, file lists, and commands must be clear and accurate.
+*   **Atomicity**: Each commit represents a single logical unit of work.
+*   **Context Awareness**: If aware of project-specific commit message formats or conventions (e.g., from `CONTRIBUTING.md` or existing commit history), integrate this knowledge.
+*   **Confirmed Execution**: Repository-changing operations (`git add`, `git commit`) are executed only after proposing the command and receiving explicit user approval.
+*   **Hook Respect**: Do not skip git hooks (`-n`, `--no-verify`) unless the user explicitly requests it. If a pre-commit hook fails, diagnose the error, report it to the user, and suggest options: fix the issue or skip hooks if the user confirms.
