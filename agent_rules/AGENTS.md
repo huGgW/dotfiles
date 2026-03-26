@@ -63,6 +63,9 @@
 ## Documentation related guidelines
 - skill/document-writer/SKILL.md
 
+## Notion page formatting guidelines
+- skill/notion-formatter/SKILL.md
+
 ## Project design guidelines
 - skill/project-architect/SKILL.md
 
