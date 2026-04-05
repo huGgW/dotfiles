@@ -148,3 +148,9 @@ fi
 if command -v opencode > /dev/null 2>&1; then
     export OPENCODE_EXPERIMENTAL_LSP_TOOL=true
 fi
+
+# claude code enable experimental screen draw
+if command -v claude > /dev/null 2>&1; then
+    export CLAUDE_CODE_NO_FLICKER=1
+fi
+
