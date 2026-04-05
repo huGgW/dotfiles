@@ -55,39 +55,118 @@ that all subsequent Phases build upon.
 ## Phase 2: Research
 
 ### Purpose
-Gather information to make informed decisions in Phase 3.
-Investigate options, study prior art, and evaluate technologies.
+
+Conduct systematic, in-depth research to build the knowledge foundation for Phase 3 design decisions. This is not a quick lookup or surface-level survey — each research topic is an independent deep investigation that requires multi-source analysis, cross-validation of findings, and synthesis into actionable insights.
+
+Every research document must be **self-sufficient**: a reader with no prior context should be able to understand the topic fully from the document alone, verify claims through the cited references, and trace how the findings connect to design decisions.
 
 ### Key Questions
-- What approaches exist for solving this type of problem?
-- What are the industry best practices?
-- What technology options are available, and what are their tradeoffs?
-- What have similar projects done? What worked and what didn't?
-- Are there any risks or unknowns that need investigation?
+- What approaches exist for solving this type of problem, and what are their underlying mechanisms?
+- What are the industry best practices, and what evidence supports them?
+- What technology options are available? How do they compare across our evaluation criteria?
+- What have similar projects done in production? What worked, what failed, and why?
+- What risks, edge cases, or failure modes should we anticipate?
+- What are the ecosystem maturity, community support, and long-term viability of each option?
+- How does each approach align with our goals, constraints, and principles from Phase 1?
+
+### Research Topic Identification
+
+Derive research topics systematically from Phase 1 deliverables. Each topic must directly inform a Phase 3 design decision — if a topic doesn't connect to a concrete decision, it doesn't belong here.
+
+| Phase 1 Source | Topic Derivation |
+|---|---|
+| `goals.md` | Technical approaches to achieve each goal |
+| `constraints.md` | Viable options within each constraint |
+| `principles.md` | Patterns and methodologies that embody each principle |
+| `problem-statement.md` | Prior art — how similar problems have been solved |
+| `as-is-analysis.md` | Approaches to overcome current system limitations |
+
+**Filtering rule**: For each candidate topic, ask "Which Phase 3 design decision does this inform?" If there is no clear answer, either refine or drop the topic.
+
+### Per-Topic Research Protocol
+
+Each topic requires thorough investigation across multiple dimensions, not just a single-source summary. The goal is comprehensive understanding that enables confident design decisions.
+
+#### Research Angles
+
+Apply the relevant angles based on the topic's nature. Not every angle applies to every topic, but consider each before skipping it.
+
+| Angle | What to Investigate | When Essential |
+|---|---|---|
+| **Mechanism** | How it works internally — architecture, data flow, algorithms | Always for technical options |
+| **Tradeoffs** | Strengths, weaknesses, and the tensions between them | Always |
+| **Ecosystem** | Community size, tooling, documentation quality, release cadence, corporate backing | When choosing between competing technologies |
+| **Production Evidence** | Real-world case studies, post-mortems, migration stories | When evaluating unproven or high-risk approaches |
+| **Risk & Edge Cases** | Known pitfalls, failure scenarios, scaling limits, operational complexity | Always |
+| **Fit Assessment** | Alignment with our specific goals, constraints, and principles | Always — this is the bridge to Phase 3 |
+
+#### Source Diversity
+
+A single source produces a single perspective. Cross-validate findings across different source types to build confidence. Each topic should draw from at least **2 different source types**.
+
+| Source Type | Best For | Examples |
+|---|---|---|
+| Official documentation | Authoritative specs, API behavior, configuration | Docs sites, RFCs, specifications |
+| Technical blogs & talks | Practical experience, operational insights, lessons learned | Engineering blogs, conference presentations |
+| GitHub repositories | Real implementation patterns, community adoption signals | OSS projects, example architectures |
+| Benchmarks & comparisons | Quantitative performance data, objective comparisons | Published benchmarks, comparison reports |
+| Community discussions | Real-user pain points, gotchas, workarounds | Stack Overflow, GitHub Issues/Discussions |
+
+#### Self-Sufficiency Principle
+
+Each `{topic}.md` must stand on its own. A reader should never need to leave the document to understand the core content.
+
+- Define acronyms and technical terms on first use
+- Include enough background that the "why" behind each finding is clear
+- Do not write "see X for details" without also including the essential content inline
+- References are for **verification and deeper exploration**, not for carrying essential information
+
+#### Reference Tracking
+
+Every factual claim, data point, and external example must cite its source using inline references.
+
+**Inline format**: Use `[Ref-N]` markers in the body text where a claim is made.
+
+**Reference table** (required at the end of every `{topic}.md`):
+
+| # | Title | Type | URL/Location | Credibility | Note |
+|---|-------|------|-------------|-------------|------|
+
+**Credibility guidelines**:
+- **High**: Official documentation, peer-reviewed papers, established technical authorities
+- **Medium**: Reputable engineering blogs, well-known tech publications, vendor-published reports (note potential bias)
+- **Low–Medium**: Community forums, individual blog posts, anecdotal reports
+
+**Unsourced claims**: If a claim comes from general experience or inference rather than a specific source, mark it explicitly as "Based on general industry practice" or "Requires further verification."
 
 ### Activities
-1. Identify research topics based on Phase 1 deliverables
-2. Research each topic thoroughly and from multiple angles
-   - Proven approaches and their tradeoffs
-   - Real-world implementations and case studies
-   - Edge cases and risks
-3. Document findings in per-topic `.md` files
-4. Synthesize all findings into `findings-summary.md`
-5. Update `principles.md` if research reveals new architectural considerations (Phase 1 revisit)
-6. Write `_overview.md`
+
+1. **Identify topics** — Review Phase 1 deliverables and derive research topics using the topic identification table above. Present the topic list to the user for confirmation before proceeding.
+2. **Research each topic** — For each topic, conduct a thorough, multi-source investigation:
+   a. Establish scope: what specific questions does this topic need to answer?
+   b. Gather information across multiple source types (see Source Diversity)
+   c. Analyze from relevant research angles (see Research Angles)
+   d. Cross-validate key claims across sources
+   e. Assess fit with project context (goals, constraints, principles)
+   f. Document everything in `{topic}.md` using the template from `references/templates.md`
+3. **Synthesize findings** — Compile cross-topic patterns, insights, and implications into `findings-summary.md`
+4. **Update principles** — If research reveals new architectural considerations, revisit Phase 1 `principles.md`
+5. **Write `_overview.md`** — Summarize Phase 2 scope, topics covered, and key takeaways
 
 ### Deliverables
 | File | Required | Notes |
 |------|----------|-------|
 | `_overview.md` | Always | |
-| `{topic}.md` | Per topic | One file per research area, dynamically created |
-| `findings-summary.md` | Always | Synthesis of all research with design implications |
+| `{topic}.md` | Per topic | One file per research area — must follow the topic template |
+| `findings-summary.md` | Always | Cross-topic synthesis with design implications and consolidated references |
 
 ### Completion Criteria
-- All identified topics researched with sufficient depth
-- Findings are synthesized with clear implications for design
-- Open questions are documented with suggested next steps
-- Enough information to make informed decisions in Phase 3
+- All identified topics researched across multiple angles with multiple source types
+- Each `{topic}.md` is self-sufficient — readable without external context
+- Each `{topic}.md` has a References table with **3+ sources** and inline `[Ref-N]` citations
+- Findings are synthesized with clear implications for Phase 3 design decisions
+- Open questions and remaining uncertainties are documented with suggested next steps
+- Enough information to make confident, well-informed decisions in Phase 3
 
 ### Revisit Conditions
 - Phase 3 or 4 reveals insufficient information on a topic

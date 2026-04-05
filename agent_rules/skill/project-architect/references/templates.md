@@ -217,21 +217,117 @@ Unlike constraints (externally imposed), principles are **internally defined** d
 
 ## Phase 2 Files
 
+### `{topic}.md`
+
+Per-topic research file. Each file must be **self-sufficient** — a reader with no prior context
+should fully understand the topic from this document alone. Use inline `[Ref-N]` markers
+throughout the body to cite the References table at the bottom.
+
+```markdown
+# {Topic Name}
+
+## Overview
+{What this topic is and why it is relevant to this project's design decisions.
+ Briefly state which Phase 3 decision(s) this research informs.}
+
+## Background & Key Concepts
+{Core concepts the reader needs to understand before diving into the analysis.
+ Define acronyms and technical terms on first use.
+ Aim for enough depth that a reader unfamiliar with this domain can follow the rest of the document.}
+
+## Detailed Analysis
+
+### How It Works
+{Internal mechanism, architecture, data flow, algorithms.
+ Use diagrams (Mermaid or ASCII) where they aid understanding. [Ref-N]}
+
+### Strengths
+{Advantages and benefits — with evidence or reasoning, not just assertions. [Ref-N]}
+
+### Weaknesses & Risks
+{Limitations, known pitfalls, failure scenarios, operational complexity.
+ Include specific scenarios, not just abstract concerns. [Ref-N]}
+
+### Performance Characteristics
+{Scalability, throughput, latency, resource usage — include numbers where available.
+ Omit this section if not applicable to the topic.} [Ref-N]
+
+## Comparison with Alternatives
+
+{Compare against 2+ alternatives using criteria relevant to this project's
+ goals, constraints, and principles.}
+
+| Criteria | {Option A} | {Option B} | {Option C} |
+|----------|-----------|-----------|-----------|
+| {Criterion 1} | ... | ... | ... |
+| {Criterion 2} | ... | ... | ... |
+| {Criterion 3} | ... | ... | ... |
+
+## Real-World Implementations
+
+{Production case studies and lessons learned. Each case should include enough
+ context to understand why the outcome occurred.}
+
+### Case 1: {Company/Project Name}
+- **Context**: {Why they adopted this approach}
+- **Approach**: {How they implemented it}
+- **Outcome**: {Results — both successes and challenges}
+- **Lesson**: {Key takeaway for our project}
+- **Source**: [Ref-N]
+
+## Implications for This Project
+{Connect findings back to our specific context:
+ - How does this align with our goals (reference goals.md)?
+ - Does it satisfy or violate our constraints (reference constraints.md)?
+ - Does it support our principles (reference principles.md)?
+ - What direction does this suggest for Phase 3?}
+
+## Open Questions
+| Question | Why It Matters | Suggested Next Step |
+|----------|---------------|---------------------|
+
+## References
+| # | Title | Type | URL/Location | Credibility | Note |
+|---|-------|------|-------------|-------------|------|
+| 1 | {Source title} | {Official Docs / Blog / Benchmark / GitHub / Community} | {URL} | {High / Medium / Low} | {Version, date, or context} |
+```
+
 ### `findings-summary.md`
+
+Cross-topic synthesis document. Aggregates insights from all `{topic}.md` files
+and connects them to Phase 3 design decisions.
 
 ```markdown
 # Research Findings Summary
 
 ## Key Findings
-| # | Finding | Implication for Design | Source |
-|---|---------|----------------------|--------|
+| # | Finding | Implication for Design | Source Topics |
+|---|---------|----------------------|---------------|
+{Each finding references which topic file(s) it was derived from.}
+
+## Cross-Topic Insights
+{Patterns or insights that only become visible when viewing multiple topics together.
+ e.g., "Both the messaging and database research point toward eventual consistency
+ as the dominant pattern for our scale requirements."}
 
 ## Recommended Directions
-{Summary of how research findings inform the high-level design}
+{How the research findings collectively inform Phase 3 design decisions.
+ Map each recommendation to the specific findings that support it.}
+
+## Risk & Uncertainty Summary
+| Risk / Uncertainty | Related Topics | Severity | Mitigation |
+|-------------------|----------------|----------|------------|
+{Consolidate risks and unknowns discovered across all topic research.}
 
 ## Open Questions
 | Question | Why It Matters | Suggested Next Step |
 |----------|---------------|---------------------|
+
+## Consolidated References
+{Master reference list — the most important sources across all topics, for quick access.}
+| # | Title | Type | URL/Location | Referenced In |
+|---|-------|------|-------------|---------------|
+{Referenced In: which topic file(s) cite this source.}
 ```
 
 ---

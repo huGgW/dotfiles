@@ -103,7 +103,7 @@ Phase 4 uses a **soft completion** model:
 2. **User gates at phase boundaries** — Confirm with user before advancing or retreating between Phases. Execute autonomously within a Phase.
 3. **Every directory tells its story** — Every directory must have `_overview.md` answering: what is this, what was decided, what are its children?
 4. **Options before decisions** — Present 2+ options with tradeoff analysis before recommending a direction. Let the user make the final call.
-5. **Research thoroughly** — Investigate topics deeply and from multiple angles. Consider proven approaches, tradeoffs, real-world implementations, edge cases, and risks.
+5. **Research as deep investigation** — Treat each research topic as a thorough, independent investigation requiring multi-source analysis and synthesis into actionable insights. Each research document must be self-sufficient (fully understandable on its own) and include verifiable references. See `references/phase-guide.md` Phase 2 for the full research protocol.
 6. **Depth-aware structure** — No depth limit, but at 4+ depth, review the tree and propose compression to user if possible. See `references/structure-rules.md` for compression strategies.
 7. **Incremental documentation** — Write design documents as work progresses, not at the end.
 
