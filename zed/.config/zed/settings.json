@@ -43,6 +43,9 @@
   },
   "relative_line_numbers": "enabled",
   "go_to_definition_fallback": "none",
+  "semantic_tokens": "combined",
+  "document_symbols": "on",
+  "document_folding_ranges": "on",
 
   // style
   "indent_guides": {
@@ -134,7 +137,10 @@
 
   // ai related
   "edit_predictions": {
-    "provider": "copilot",
+    "provider": "sweep",
+    "sweep": {
+      "privacy_mode": true,
+    },
     "disabled_globs": [
       "**/.env*",
       "**/*.pem",
