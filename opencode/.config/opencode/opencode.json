@@ -199,9 +199,9 @@
             },
             "enabled": false
         },
-        "sentry": {
+        "datadog": {
             "type": "remote",
-            "url": "https://mcp.sentry.dev/mcp",
+            "url": "https://mcp.datadoghq.com/api/unstable/mcp-server/mcp",
             "oauth": {
                 "scope": "tools:read"
             },
