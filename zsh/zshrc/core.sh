@@ -26,6 +26,7 @@ alias where="pwd"
 alias ls="eza --icons"
 alias k="kubectl"
 alias lg="lazygit"
+alias t="__sesh_invoker"
 
 # bat
 alias cat="bat --theme=ansi"

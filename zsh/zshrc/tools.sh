@@ -3,6 +3,30 @@ if command -v thefuck > /dev/null 2>&1; then
     eval $(thefuck --alias)
 fi
 
+# sesh session tool invoker
+function __sesh_invoker() {
+    if [ $# -eq 0 ]; then
+        # when no argument is provided, select or create session using fzf
+        sesh connect "$(
+            sesh list --icons | fzf-tmux -p 80%,70% \
+                --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \
+                --header '  ^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' \
+                --bind 'tab:down,btab:up' \
+                --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list --icons)' \
+                --bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t --icons)' \
+                --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c --icons)' \
+                --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z --icons)' \
+                --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
+                --bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons)' \
+                --preview-window 'right:55%' \
+                --preview 'sesh preview {}'
+        )"
+    else
+        # when argument given, directly create sesh session on given path
+        sesh connect "$@"
+    fi
+}
+
 # zoxide (z) configs
 # =============================================================================
 #
@@ -113,10 +137,6 @@ if command -v docker > /dev/null 2>&1; then
     source <(docker completion zsh)
 fi
 
-# tmux
-# tmux-session-wizard
-export PATH=$HOME/.tmux/plugins/tmux-session-wizard/bin:$PATH
-
 # FNM (npm version management)
 if command -v fnm > /dev/null 2>&1; then
     eval "$(fnm env --use-on-cd --shell zsh)"
@@ -153,4 +173,3 @@ fi
 if command -v claude > /dev/null 2>&1; then
     export CLAUDE_CODE_NO_FLICKER=1
 fi
-

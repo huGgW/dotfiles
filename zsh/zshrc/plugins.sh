@@ -17,7 +17,7 @@ zplug "Aloxaf/fzf-tab"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
-    if is_interactive; then
+    if __is_interactive; then
         printf "Install? [y/N]: "
         if read -q; then
             echo; zplug install
