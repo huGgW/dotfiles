@@ -62,9 +62,12 @@ return {
         priority = 999,
         config = function()
             require("rose-pine").setup({
+                transparent_background = true,
                 variant = "auto",
                 dark_variant = "moon"
             })
+
+            vim.cmd.colorscheme("rose-pine")
         end,
     },
     {
@@ -92,8 +95,6 @@ return {
                     which_key = true,
                 },
             })
-
-            vim.cmd.colorscheme("catppuccin")
         end
     },
     {
