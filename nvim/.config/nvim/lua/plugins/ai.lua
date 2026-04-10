@@ -65,8 +65,27 @@ return {
             -- { "<Leader>yl", mode = "v",          desc = "PromptYank: selection + definitions" },
             -- { "<Leader>yL", mode = "v",          desc = "PromptYank: selection + deep definitions" },
             -- { "<Leader>yR", mode = "n",          desc = "PromptYank: related files" },
-            { "<Leader>ca", mode = { "n", "v" }, desc = "PromptYank: file/selection" },
-            { "<Leader>cf", mode = "n",          desc = "PromptYank: function" },
+            {
+                "<Leader>ca",
+                function() require("prompt-yank").yank_selection() end,
+                mode = { "v" },
+                desc = "PromptYank: selection"
+            },
+            {
+                "<Leader>ca",
+                function() require("prompt-yank").yank_file() end,
+                mode = { "n" },
+                desc = "PromptYank: file"
+            },
+            {
+                "<Leader>cf",
+                mode = "n",
+                function()
+                    require("prompt-yank")
+                        .yank_function()
+                end,
+                desc = "PromptYank: function",
+            },
         },
         opts = {},
         config = function(_, opts)
