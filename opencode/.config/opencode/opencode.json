@@ -123,6 +123,13 @@
                     "git commit *": "allow"
                 }
             }
+        },
+        "yolo": {
+            "permission": {
+                "*": {
+                    "*": "allow"
+                }
+            }
         }
     },
     "plugin": [
