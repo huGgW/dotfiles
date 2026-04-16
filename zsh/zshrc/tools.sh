@@ -26,6 +26,7 @@ function __sesh_invoker() {
         sesh connect "$@"
     fi
 }
+compdef __sesh_invoker=cd # use cd command completion
 
 # zoxide (z) configs
 # =============================================================================
@@ -140,15 +141,6 @@ fi
 # FNM (npm version management)
 if command -v fnm > /dev/null 2>&1; then
     eval "$(fnm env --use-on-cd --shell zsh)"
-fi
-
-# goenv
-# Enable goenv (set gopath if not exists)
-if [ -d "$HOME/.goenv" ]; then
-    eval "$(goenv init -)"
-else
-    export GOPATH="$HOME/go"
-    export PATH="$GOPATH/bin:$PATH"
 fi
 
 # mise
