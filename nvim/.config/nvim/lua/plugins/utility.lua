@@ -126,7 +126,6 @@ return {
             end, { desc = "Toggle dim" })
 
             -- trigger some defaults
-            Snacks.dim.enable()
         end,
         keys = {
             { "<leader>lg", function() Snacks.lazygit() end,                desc = "LazyGit" },
