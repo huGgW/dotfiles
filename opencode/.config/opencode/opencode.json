@@ -234,7 +234,8 @@
                 "-y",
                 "chrome-devtools-mcp@latest",
                 "--no-performance-crud",
-                "--no-usage-statistics"
+                "--no-usage-statistics",
+                "--autoConnect"
             ],
             "enabled": false
         },
