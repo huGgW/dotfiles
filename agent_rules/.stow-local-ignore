@@ -1,0 +1,5 @@
+^/\.stow-local-ignore$
+^/\.DS_Store$
+^/\.claude(/|$)
+^/AGENTS\.md$
+^/common-rules(/|$)

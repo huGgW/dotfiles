@@ -33,7 +33,7 @@
 
 # Core Rules (Always Loaded)
 - These rules are fundamental and should be applied to all interactions
-- All paths are relative paths from this file's location
+- Core rule paths are relative paths from this file's location
 
 ## Response style guidelines
 - @common-rules/response-style-guide.md
@@ -47,39 +47,6 @@
 
 ---
 
-# Specialized Rules (Load on Demand)
-- When working on tasks, proactively read and follow the relevant rules from the paths specified below if the situation is appropriate
-- Do NOT blindly read all rules at once, but actively identify when a situation matches a specific rule category and read that rule thoroughly
-- All paths are relative paths from this file's location
-- Prioritize understanding and applying these rules over making assumptions
-
-## Git related task procedures
-- skill/git-commit/SKILL.md
-- skill/pr-description/SKILL.md
-
-## Code review procedures
-- skill/code-reviewer/SKILL.md
-
-## Documentation related guidelines
-- skill/document-writer/SKILL.md
-
-## Notion page formatting guidelines
-- skill/notion-formatter/SKILL.md
-
-## Project design guidelines
-- skill/project-architect/SKILL.md
-
-## AI prompt generation guidelines
-- skill/prompt-generator/SKILL.md
-
-## Self-directed exploration guidelines
-- skill/self-directed-exploration-guide/SKILL.md
-
-## Multi-agent orchestration guidelines
-- skill/parallel-agents/SKILL.md
-
-## Deep research guidelines
-- skill/deep-research/SKILL.md
-
-## Dependabot PR review & merge guidelines
-- skill/dependabot-review/SKILL.md
+# Specialized Skills
+- Always assume the `skill` tool is available.
+- Proactively load and use relevant skills whenever they can improve task quality, accuracy, or workflow.

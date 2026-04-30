@@ -208,7 +208,7 @@ Launch all N Agents **simultaneously** using the Agent tool with `run_in_backgro
 Each agent performs **both info gathering AND impact analysis** in a single pass.
 
 See `references/agent-prompts.md` for the unified prompt template.
-See `skill/parallel-agents/SKILL.md` for general parallel agent orchestration patterns.
+See `~/.agents/skills/parallel-agents/SKILL.md` for general parallel agent orchestration patterns.
 
 #### Each Agent performs:
 

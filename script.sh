@@ -4,6 +4,9 @@ OS=`uname`
 StowOnHome="stow -v --target $HOME"
 
 stow_common() {
+    mkdir -p "$HOME/.agents/skills"
+    mkdir -p "$HOME/.config/opencode"
+
     $StowOnHome \
         ghostty \
         ideavim \
