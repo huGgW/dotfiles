@@ -14,7 +14,7 @@ stow_common() {
         zsh \
         zed \
         kanata \
-        claudecode \
+        agent_rules \
         opencode
 }
 
