@@ -16,8 +16,8 @@
   // theme
   "theme": {
     "mode": "system",
-    "light": "Catppuccin Latte (Blur)",
-    "dark": "Catppuccin Mocha (Blur)",
+    "light": "Rosé Pine Dawn",
+    "dark": "Rosé Pine Moon",
   },
   "icon_theme": "Material Icon Theme",
 
@@ -71,15 +71,12 @@
         "...",
       ],
     },
-    "Java": {
-      "tab_size": 2,
-      "preferred_line_length": 120,
-      "format_on_save": "on",
-      "formatter": "language_server",
-    },
     "Kotlin": {
       "language_servers": ["kotlin-lsp", "!kotlin-language-server"],
     },
+  },
+  "global_lsp_settings": {
+    "request_timeout": 240,
   },
   "lsp": {
     "gopls": {
@@ -137,10 +134,7 @@
 
   // ai related
   "edit_predictions": {
-    "provider": "sweep",
-    "sweep": {
-      "privacy_mode": true,
-    },
+    "provider": "copilot",
     "disabled_globs": [
       "**/.env*",
       "**/*.pem",
@@ -152,7 +146,9 @@
     ],
   },
   "agent": {
-    "play_sound_when_agent_done": true,
+    "sidebar_side": "right",
+    "dock": "right",
+    "play_sound_when_agent_done": "always",
   },
   "agent_servers": {
     "opencode": {
