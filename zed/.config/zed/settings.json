@@ -95,36 +95,42 @@
     "jdtls": {
       "settings": {
         "lombok_support": true,
-        "initialization_options": {
-          "arguments": [
-            "-Xmx16G",
-            "-Xms1G",
-            "-XX:+UseParallelGC",
-            "-XX:+UseStringDeduplication",
-            "-Dsun.zip.disableMemoryMapping",
-            "-XX:GCTimeRatio=4",
-            "-XX:AdaptiveSizePolicyWeight=90",
-            "-Dsun.zip.disableMemoryMapping=true",
-          ],
-          "settings": {
-            "java": {
-              "compile": {
-                "nullAnalysis": {
-                  "mode": "automatic",
-                },
+        "jdk_auto_download": false,
+        "min_memory": "1G",
+        "max_memory": "16G",
+      },
+      "initialization_options": {
+        "arguments": [
+          "-Xmx16G",
+          "-Xms1G",
+          "-XX:+UseParallelGC",
+          "-XX:+UseStringDeduplication",
+          "-Dsun.zip.disableMemoryMapping",
+          "-XX:GCTimeRatio=4",
+          "-XX:AdaptiveSizePolicyWeight=90",
+          "-Dsun.zip.disableMemoryMapping=true",
+        ],
+        "settings": {
+          "java": {
+            "compile": {
+              "nullAnalysis": {
+                "mode": "automatic",
               },
-              "referencesCodeLens": {
-                "enabled": false,
-              },
-              "implementationsCodeLens": {
-                "enabled": false,
-              },
-              "signatureHelp": {
-                "enabled": true,
-              },
-              "configuration": {
-                "updateBuildConfiguration": "automatic",
-              },
+            },
+            "referencesCodeLens": {
+              "enabled": false,
+            },
+            "implementationsCodeLens": {
+              "enabled": false,
+            },
+            "signatureHelp": {
+              "enabled": true,
+            },
+            "shareIndexes": {
+              "enabled": true,
+            },
+            "configuration": {
+              "updateBuildConfiguration": "automatic",
             },
           },
         },
