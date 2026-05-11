@@ -36,17 +36,9 @@ return {
         build = "cd server && go build",
         config = function()
             require("cursortab").setup({
-                -- provider = {
-                --     type = "copilot",
-                -- },
-                -- provider = {
-                --     type = "sweep",
-                --     url = "http://localhost:8000",
-                -- },
                 provider = {
-                    type = "sweepapi",
-                    api_key_env = "SWEEP_AI_TOKEN"
-                }
+                    type = "copilot",
+                },
             })
         end,
     },
