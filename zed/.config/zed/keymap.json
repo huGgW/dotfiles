@@ -19,7 +19,11 @@
       "space c c": "agent::ToggleFocus",
       "space o": "outline::Toggle",
       // find
-      "space f o": "file_finder::Toggle",
+      // "space f o": "file_finder::Toggle",
+      "space f o": [
+        "task::Spawn",
+        { "task_name": "fzf_file", "reveal_target": "center" },
+      ],
       "space f s": "pane::DeploySearch",
       "space f p": "command_palette::Toggle",
       "space f d": "project_symbols::Toggle",
