@@ -24,6 +24,10 @@ Keep this file short — decision and change history belong in separate files.
 ## Current Status
 > Phase {N} — {Phase Name} 🔄
 > Working on: {current task description}
+> Last Consensus Gate: {what the user has explicitly agreed to, or "none yet"}
+> Unresolved Discussion: {open agenda or decision still being discussed}
+> Pending Candidate Set: {candidate options/topics/goals not yet documented, or "none"}
+> Next Required User Confirmation: {what must be confirmed before writing/updating artifacts}
 
 ## Phase Tracking
 
@@ -35,21 +39,22 @@ Keep this file short — decision and change history belong in separate files.
 - [ ] as-is-analysis.md              <!-- non-greenfield only -->
 
 ### Phase 2: Research [⬜]
+- [ ] research-plan
 - [ ] {topic-a}
 - [ ] {topic-b}
 - [ ] findings-summary
 
 ### Phase 3: High-Level Design [⬜]
-- [ ] architecture-overview
-- [ ] {decision-area-1}: options → decision
-- [ ] {decision-area-2}: options → decision
+- [ ] architecture-overview              <!-- required for multi-decision, optional for single-decision -->
+- [ ] {decision-area-1}: discussion → option files → decision
+- [ ] {decision-area-2}: discussion → option files → decision
 
 ### Phase 4: Detailed Design [⬜]
 - [ ] cross-cutting/                  <!-- if applicable -->
 - [ ] interfaces/                     <!-- if applicable -->
 - [ ] {component-a}
   - [ ] _overview + design
-  - [ ] {sub-component}              <!-- recursive as needed -->
+  - [ ] {sub-decision}: discussion → option files → decision  <!-- recursive as needed -->
 - [ ] {component-b}
   - [ ] _overview + design
 ```
@@ -118,6 +123,12 @@ Required in every directory. Summarizes the branch's purpose, decisions, and chi
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
 
+## Decision Artifacts
+| Artifact | Purpose | Status |
+|----------|---------|--------|
+| `options/option-a-{name}.md` | Candidate option summary link only; full details live in the file | Proposed / Rejected / Selected / Deferred |
+| `decision.md` | Final decision and rationale | Pending / Complete |
+
 ## Children
 | Name | Description | Status |
 |------|-------------|--------|
@@ -138,6 +149,9 @@ Required in every directory. Summarizes the branch's purpose, decisions, and chi
 ## Context
 {Background information, current situation, why this problem matters}
 
+## Discussion Summary
+{Key points agreed with the user before documenting this problem framing}
+
 ## Impact
 | Area | Impact |
 |------|--------|
@@ -156,6 +170,9 @@ Required in every directory. Summarizes the branch's purpose, decisions, and chi
 |---|------|------------------|----------|
 | G-1 | {Goal statement} | {Measurable criteria} | Must / Should / Nice-to-have |
 | G-2 | ... | ... | ... |
+
+## Prioritization Rationale
+{Why these goals and priorities were agreed}
 ```
 
 ### `constraints.md`
@@ -170,6 +187,9 @@ External constraints imposed on the project. These are given, not chosen.
 | C-1 | Budget: $50K | Budget | Limits infrastructure choices |
 | C-2 | Python 3.11+ | Technical | Runtime requirement |
 | C-3 | MVP in 3 months | Timeline | Phased delivery needed |
+
+## Clarifications
+{Ambiguities resolved with the user before documenting constraints}
 ```
 
 ### `principles.md`
@@ -185,6 +205,9 @@ Unlike constraints (externally imposed), principles are **internally defined** d
 | P-1 | Independent deployability | Every service must be independently deployable | No shared DB between services | Phase 1 |
 | P-2 | Availability over consistency | Prefer eventual consistency when trade-off is needed | Use async events instead of sync calls | Phase 2 (after research) |
 | P-3 | {Principle name} | {Description} | {Concrete example} | {When established} |
+
+## Why These Principles
+{Discussion summary explaining why these principles were selected over other possible guardrails}
 ```
 
 > Principles may be updated when Phase 1 is revisited after research findings or external feedback.
@@ -216,6 +239,34 @@ Unlike constraints (externally imposed), principles are **internally defined** d
 ---
 
 ## Phase 2 Files
+
+### `research-plan.md`
+
+Write this after discussing candidate research topics with the user. It records the agreed scope before research starts.
+
+```markdown
+# Research Plan
+
+## Discussion Summary
+{What was discussed before finalizing the topic list, including user-added, removed, merged, or reprioritized topics}
+
+## Agreed Topics
+| Topic | Decision Informed | Priority | Depth | Agreed Scope | Out of Scope | User Notes |
+|-------|-------------------|----------|-------|--------------|--------------|------------|
+| {topic-a} | {Phase 3 decision this informs} | Must / Should / Optional | Quick / Standard / Deep | ... | ... | ... |
+
+## Comparison Criteria
+| Criterion | Why It Matters | Applies To |
+|-----------|----------------|------------|
+
+## Source Strategy
+| Source Type | Purpose | Required? |
+|-------------|---------|-----------|
+
+## Open Questions Before Research
+| Question | Owner | Next Step |
+|----------|-------|-----------|
+```
 
 ### `{topic}.md`
 
@@ -280,7 +331,7 @@ throughout the body to cite the References table at the bottom.
  - How does this align with our goals (reference goals.md)?
  - Does it satisfy or violate our constraints (reference constraints.md)?
  - Does it support our principles (reference principles.md)?
- - What direction does this suggest for Phase 3?}
+ - What candidate directions or questions does this suggest for Phase 3 discussion?}
 
 ## Open Questions
 | Question | Why It Matters | Suggested Next Step |
@@ -310,9 +361,10 @@ and connects them to Phase 3 design decisions.
  e.g., "Both the messaging and database research point toward eventual consistency
  as the dominant pattern for our scale requirements."}
 
-## Recommended Directions
-{How the research findings collectively inform Phase 3 design decisions.
- Map each recommendation to the specific findings that support it.}
+## Candidate Directions for Phase 3 Discussion
+{How the research findings inform possible Phase 3 directions.
+ Keep this neutral: these are inputs for discussion, not final decisions.}
+Do not use "Recommended Direction" or select a winner in Phase 2.
 
 ## Risk & Uncertainty Summary
 | Risk / Uncertainty | Related Topics | Severity | Mitigation |
@@ -336,7 +388,7 @@ and connects them to Phase 3 design decisions.
 
 ### `architecture-overview.md`
 
-```markdown
+````markdown
 # Architecture Overview
 
 ## System Diagram
@@ -354,6 +406,51 @@ graph TB
 ## Key Interactions
 | From | To | Method | Data |
 |------|----|--------|------|
+````
+
+### `options/option-{letter}-{name}.md`
+
+Use one file per candidate direction for Phase 3 decisions and recursive Phase 4 decisions. Create these files only after the user agrees on the candidate set.
+
+```markdown
+# Option {Letter}: {Option Name}
+
+## Core Idea
+{What this option proposes}
+
+## Discussion Context
+{Why this option was considered, including whether it was introduced by the user or by the assistant}
+
+## When This Fits
+{Conditions where this option is appropriate}
+
+## Pros
+- ...
+
+## Cons
+- ...
+
+## Trade-offs
+| Dimension | Impact |
+|-----------|--------|
+| Complexity | ... |
+| Scalability | ... |
+| Operability | ... |
+| Delivery Speed | ... |
+| Cost | ... |
+| Risk | ... |
+
+## Alignment with Principles
+| Principle | Alignment | Notes |
+|-----------|-----------|-------|
+
+## Risks
+| Risk | Impact | Mitigation |
+|------|--------|------------|
+
+## Open Questions
+| Question | Why It Matters | Suggested Next Step |
+|----------|----------------|---------------------|
 ```
 
 ### `decision.md`
@@ -366,12 +463,23 @@ Used within each decision area (or at Phase 3 root for single-decision projects)
 ## Context
 {Why this decision is needed, what it affects}
 
+## Discussion Summary
+{Key discussion points, user concerns, added options, changed criteria, and how the team converged}
+
+## Decision Criteria
+| Criterion | Weight / Priority | Reason |
+|-----------|-------------------|--------|
+
 ## Options Considered
 
-| Option | Core Idea | Pros | Cons |
-|--------|-----------|------|------|
-| **A. {Name}** | {Summary} | {Pros} | {Cons} |
-| **B. {Name}** | {Summary} | {Pros} | {Cons} |
+| Option | File | Summary | Outcome |
+|--------|------|---------|---------|
+| A. {Name} | `options/option-a-{name}.md` | {Summary} | Selected / Rejected / Deferred |
+| B. {Name} | `options/option-b-{name}.md` | {Summary} | Selected / Rejected / Deferred |
+
+## User-Introduced Options
+| Option | Origin / Prompt | How It Was Evaluated |
+|--------|------------------|----------------------|
 
 ## Decision
 **Selected: Option {X}**
@@ -381,6 +489,14 @@ Used within each decision area (or at Phase 3 root for single-decision projects)
 **Trade-offs accepted**: {What we're giving up}
 
 **Alignment with principles**: {Which principles from principles.md support this decision}
+
+## Why Not the Other Options
+| Option | Reason Not Selected |
+|--------|---------------------|
+
+## Follow-up Items
+| Item | Owner | Target Phase / Artifact |
+|------|-------|-------------------------|
 ```
 
 ---
@@ -394,6 +510,9 @@ Used within each decision area (or at Phase 3 root for single-decision projects)
 
 ## Responsibility
 {What this component does and its boundaries}
+
+## Design Rationale
+{Why this design was chosen after discussion. Reference related Phase 3 or recursive Phase 4 decisions when applicable.}
 
 ## Design
 
@@ -411,7 +530,14 @@ Used within each decision area (or at Phase 3 root for single-decision projects)
 |-----------|------|-----------|
 | {Other component} | Sync/Async | {API/Event reference in interfaces/} |
 
-## Open Items
-| Item | Priority | Notes |
-|------|----------|-------|
+## Alternatives Considered
+Summarize only. Substantive alternatives with tradeoffs must have their own `options/option-*.md` file and local `decision.md` before this section is treated as final.
+
+| Alternative | Reason Not Chosen | Reference |
+|-------------|-------------------|-----------|
+| {Alternative name} | ... | `options/option-x-{name}.md` |
+
+## Open Decisions
+| Decision | Priority | Notes | Suggested Next Step |
+|----------|----------|-------|---------------------|
 ```

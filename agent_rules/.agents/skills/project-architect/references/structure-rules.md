@@ -19,7 +19,7 @@ Rules for naming, organizing, and managing the design directory tree.
 |------|-----------|----------|
 | Meta files | `_` prefix + kebab-case | `_plan.md`, `_overview.md`, `_decisions.md`, `_changelog.md` |
 | Content files | kebab-case | `problem-statement.md`, `goals.md`, `design.md` |
-| Option files | `option-` prefix or descriptive | `option-a-event-driven.md`, `option-b-rest.md` |
+| Option files | `option-{letter}-{short-name}.md` | `option-a-event-driven.md`, `option-b-rest.md` |
 | Research files | Topic name | `event-sourcing.md`, `database-per-service.md` |
 
 ---
@@ -30,18 +30,57 @@ Rules for naming, organizing, and managing the design directory tree.
 
 | Condition | Structure | Example |
 |-----------|----------|---------|
-| One dominant architectural choice | Single (flat `options/` + `decision.md`) | Small service with one core design question |
+| One dominant architectural choice | Single (flat `_overview.md` + `options/` + `decision.md`) | Small service with one core design question |
 | 2+ independent design decisions | Multi (decision area subdirectories) | Microservices platform with communication, data, deployment choices |
 
 ### Multi-Decision Guidelines
 
-- Each decision area gets its own subdirectory with `options/` + `decision.md`
-- `architecture-overview.md` at Phase 3 root provides the system-level view
+- Each decision area gets its own subdirectory with `_overview.md`, `options/`, and `decision.md`
+- `architecture-overview.md` at Phase 3 root provides the system-level view; it is required for multi-decision Phase 3 and optional for single-decision projects
 - Decision areas should be **independent** — if two decisions are tightly coupled, merge them into one area
+
+### Option Artifact Rules
+
+- Discuss candidate directions in conversation before creating option files.
+- After the user agrees on the candidate set, create exactly one file per candidate direction under `options/`.
+- Do not store full option descriptions only in `_overview.md`, `architecture-overview.md`, `design.md`, or `decision.md`.
+- `_overview.md` should summarize purpose, children, and status; it may link to option files but must not replace them.
+- `decision.md` should reference option files and explain the final rationale; it should not duplicate full option analysis.
+- If the user introduces a new option later, add the next lettered option file (for example, `option-d-workflow-engine.md`) and re-evaluate it alongside the existing options.
+
+Required structure:
+
+```
+{decision-area}/
+├── _overview.md
+├── options/
+│   ├── option-a-{name}.md
+│   ├── option-b-{name}.md
+│   └── option-c-{name}.md
+└── decision.md
+```
 
 ---
 
 ## Phase 4 Special Directories
+
+### Recursive Decision Structure
+
+When a Phase 4 component needs a local design decision, use the same option artifact rules as Phase 3. Any substantive component-level alternative with tradeoffs counts as a local design decision. The decision lives inside the component tree.
+
+```
+{component}/
+├── _overview.md
+├── design.md
+└── {sub-decision}/
+    ├── _overview.md
+    ├── options/
+    │   ├── option-a-{name}.md
+    │   └── option-b-{name}.md
+    └── decision.md
+```
+
+Only write or update the parent `design.md` with the selected direction after the user explicitly confirms the local decision and the local `decision.md` exists. If no decision has been made, record it under `Open Decisions` in `design.md` instead of presenting a tentative direction as final. `design.md` may summarize and link to option files, but must not be the only place where substantive option details are recorded.
 
 ### `cross-cutting/`
 
