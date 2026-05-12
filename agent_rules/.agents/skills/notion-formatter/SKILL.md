@@ -28,9 +28,11 @@ Guide for AI agents to write Notion pages with enhanced readability using Notion
 
 ## Prerequisite
 
-Before writing content, read the official Notion-flavored Markdown spec:
-1. Fetch the MCP resource `notion://docs/enhanced-markdown-spec` from the Notion MCP server
-2. Refer to `references/block-syntax-guide.md` in this skill for readability-focused patterns and examples
+Before writing content, read the local references in this order:
+1. `references/enhanced-markdown-spec.md` for the official Notion enhanced markdown syntax snapshot
+2. `references/readability-patterns.md` for opinionated formatting patterns and readability examples
+
+Only fetch https://developers.notion.com/guides/data-apis/enhanced-markdown.md when the user explicitly asks to refresh the spec or verify the latest upstream behavior. If the local spec and readability guide conflict, follow the local official spec first.
 
 ## Workflow
 
@@ -60,7 +62,7 @@ Choose blocks based on the content situation, not arbitrarily.
 | Keyword/status highlighting | `<span color="red">text</span>` | Unstyled inline text |
 | Section breaks between H1s | `---` divider | Excessive empty lines |
 
-> See `references/block-syntax-guide.md` for exact syntax and examples of each block.
+> See `references/readability-patterns.md` for opinionated usage patterns and examples. Use `references/enhanced-markdown-spec.md` as the canonical syntax source.
 
 ## Color Convention
 

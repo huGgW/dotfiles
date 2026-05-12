@@ -1,6 +1,6 @@
-# Block Syntax Guide for Notion-flavored Markdown
+# Readability Patterns for Notion Enhanced Markdown
 
-This reference covers the Notion-flavored Markdown syntax for blocks that directly improve page readability. Use this alongside the official spec (`notion://docs/enhanced-markdown-spec` MCP resource).
+This guide provides opinionated readability patterns for using Notion enhanced markdown. For canonical syntax, follow `references/enhanced-markdown-spec.md` first.
 
 > **Note:** All indentation in Notion-flavored Markdown uses **tabs**, not spaces. This is critical for toggles, callouts, and columns.
 
