@@ -22,7 +22,7 @@ This template defines the section structure, recurring patterns, and writing rul
 
 ### 1. Problem Definition
 
-Start with a numbered summary table, then optionally drill into technical complexity.
+Start with a numbered summary table, then optionally drill into technical complexity. Keep summary cells short; move long analysis into the optional deep-dive section.
 
 ```markdown
 ## 1. Problem Definition
@@ -44,7 +44,7 @@ Start with a numbered summary table, then optionally drill into technical comple
 
 ### 2. Goals
 
-Numbered goal table followed by AS-IS vs TO-BE comparison.
+Numbered goal table followed by AS-IS vs TO-BE comparison. Use concise cell content; if a goal or comparison needs extended explanation, summarize it in the table and explain below.
 
 ```markdown
 ## 2. Goals
@@ -185,9 +185,14 @@ Separate pending items (blocked by prerequisites) from follow-up tasks (to-do).
 
 These patterns repeat throughout the document. Apply them consistently.
 
+### Table Readability Guardrail
+
+Use tables when they improve quick comparison, but avoid forcing long content into cells. If a cell needs multi-sentence explanations, long lists, code blocks, nested detail, or wraps heavily on mobile, use a short table plus bullets/subsections, or replace the table with prose or a diagram.
+
 ### 1. "At a Glance" Pattern
 Every major section (##) opens with a summary table or diagram BEFORE any prose.
 The reader should be able to skim only "At a Glance" blocks and understand the full picture.
+Prefer a diagram or short bullet summary over a table when the content would require long wrapped cells.
 
 ### 2. Decision Comparison Table
 When 2+ alternatives were considered, present them in a comparison table:
@@ -201,6 +206,7 @@ When 2+ alternatives were considered, present them in a comparison table:
 
 - Use (check) for adopted, (cross) for rejected, (warning) for conditionally viable.
 - Always include the reasoning, not just the decision.
+- Keep each rationale compact. If the reasoning needs multiple sentences, put a short summary in the table and add a follow-up subsection for the full explanation.
 
 ### 3. AS-IS vs TO-BE Table
 Use for any before/after comparison:
@@ -238,6 +244,7 @@ When a key decision cascades into other decisions:
 | **Decisions as comparison tables** | Any decision with 2+ alternatives uses the comparison table format |
 | **Changes as AS-IS vs TO-BE** | Before/after content uses the comparison table |
 | **Deep dive is optional** | Only complex topics get a "Deep Dive:" subsection |
+| **Tables stay scannable** | Use tables for compact comparisons; move long cell content into prose, bullets, diagrams, or deep dives |
 | **Document what you didn't do** | Explicitly list not-adopted decisions with rationale |
 | **Separate open from pending** | Pending (blocked) vs follow-up tasks (to-do) are distinct |
 | **Track all decisions** | The Confirmed Decision Catalog indexes every decision in the document |

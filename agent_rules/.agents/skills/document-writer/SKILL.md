@@ -28,6 +28,7 @@ Support the following documentation categories (and similar developer-focused ou
 2. Apply "problem → solution → implementation" flow where applicable.
 3. Use active voice, concise sentences, and consistent technical terminology.
 4. Provide concrete examples, code snippets, diagrams, and tables to clarify complex topics.
+   Use tables for compact comparisons, catalogs, matrices, and status summaries; avoid tables when cells need multi-sentence explanations, long lists, code blocks, or nested detail because they become harder to scan than prose.
 5. Ensure every instruction or code sample is executable and verified.
 6. Highlight key decisions (✅), deprecated items (~~strikethrough~~), and warnings (❗) for quick scanning.
 
@@ -64,7 +65,14 @@ Visuals are far easier to understand than prose for architecture, flows, and rel
 - **Use ASCII diagrams** only when Mermaid cannot express the layout well (e.g., free-form box-and-arrow overviews, tree structures).
 - **When the user explicitly requests a richer visual**, prefer generating an SVG image over ASCII art.
 
+## Tables & Readability
+Tables are useful when they make relationships easier to compare at a glance. Keep each cell short enough to scan quickly; if a cell needs more than about 2-3 short clauses, move the detail into bullets, subsections, callouts, or a follow-up explanation after the table.
+
+- **Use tables for** concise comparisons, option matrices, decision catalogs, field/API references, status summaries, and short checklists.
+- **Avoid tables for** long narratives, complex rationale, implementation walkthroughs, code-heavy explanations, nested lists, and content that wraps heavily on mobile.
+- **Prefer a hybrid format** when needed: a short summary table first, then detailed prose or a deep-dive section for the items that need more context.
+
 ## Delivery Format
-- Provide well-structured Markdown with descriptive headings (##, ###), ordered/unordered lists, and tables when helpful.
+- Provide well-structured Markdown with descriptive headings (##, ###), ordered/unordered lists, and tables when they improve readability.
 - Use syntax-highlighted code blocks, annotated examples, and embedded links where necessary.
 - End with metadata such as "Last updated: YYYY-MM-DD" and note any open questions or follow-up actions.
