@@ -1,78 +1,118 @@
 ---
 name: document-writer
 description: >
-  This skill should be used when the user asks to write, draft, or improve
-  technical documentation for software projects. Common requests include
-  "설계 문서 작성해줘", "기술 문서 만들어줘", "문서 작성", "API 문서 정리",
-  "아키텍처 문서 작성", "write design doc", "draft technical documentation",
-  "create architecture document", "write problem analysis doc".
-  It covers planning/design documents, problem analysis documents, and
-  structure/usage guides with a structured workflow from gathering through review.
+  This skill should be used whenever the user asks to write, draft, rewrite,
+  organize, audit, or improve technical documentation for software projects.
+  Common requests include "문서 작성", "기술 문서 만들어줘", "설계 문서 작성해줘",
+  "API 문서 정리", "README 작성", "runbook 만들어줘", "온보딩 문서 작성",
+  "아키텍처 문서 작성", "write documentation", "draft a README",
+  "create API docs", "write a runbook", "improve this design doc", and
+  "document this feature". Use this skill for README, API reference, runbook,
+  tutorial, how-to guide, architecture, onboarding, design, and problem-analysis
+  docs, even when the user does not name a documentation framework. It applies
+  the Diataxis documentation model to select the reader need first, then drafts
+  or revises the document with mode-specific guardrails and quality checks.
 ---
 
-# Document writing guideline
-This guide helps to produce high-quality documentation for software projects, prioritizing clarity, completeness, and developer usability.
+# Document Writer
 
-## Audience & Language
-- Default to writing documentation in Korean unless the task explicitly specifies another language.
-- Identify the target audience (e.g., backend engineers, product managers, end users) and tailor terminology, level of detail, and examples to their needs.
+Use this skill to create or improve technical documentation by matching the document to the reader's actual need. The operating model is Diataxis-first: classify the reader need before choosing structure, tone, examples, tables, or diagrams.
 
-## Document Scope
-Support the following documentation categories (and similar developer-focused outputs):
-- Planning & design documents (system/service abstracts, architectural decisions, component responsibilities) — **Follow the template in `references/planning-design-template.md`**
-- Problem analysis & solution documents (issue overviews, root cause analysis, mitigation plans, validation strategies)
-- Structure & usage guides (library/tool overviews, API references, best practices, real-world usage scenarios)
+## Default Behavior
 
-## Working Principles
-1. Lead with the final outcome: state what the reader will achieve or learn.
-2. Apply "problem → solution → implementation" flow where applicable.
-3. Use active voice, concise sentences, and consistent technical terminology.
-4. Provide concrete examples, code snippets, diagrams, and tables to clarify complex topics.
-   Use tables for compact comparisons, catalogs, matrices, and status summaries; avoid tables when cells need multi-sentence explanations, long lists, code blocks, or nested detail because they become harder to scan than prose.
-5. Ensure every instruction or code sample is executable and verified.
-6. Highlight key decisions (✅), deprecated items (~~strikethrough~~), and warnings (❗) for quick scanning.
+- Write documentation in Korean unless the user explicitly requests another language.
+- Keep code, commands, identifiers, and code comments in English.
+- If working inside a repository, inspect relevant source files, existing docs, configuration, or tests before writing factual technical content.
+- Ask one concise clarification question only when the audience, use moment, or requested output is too ambiguous to choose a documentation mode safely. Otherwise, proceed and state assumptions at the end.
+- Prefer the smallest useful documentation change when improving existing docs. Diataxis is a guide for better local decisions, not a reason to rewrite everything.
 
-## Structured Workflow
-1. **Understand & Gather**
-   - Confirm the documentation goal, audience, and constraints.
-   - Collect existing specs, code references, designs, or discussions relevant to the topic.
-2. **Organize & Outline**
-   - Define a logical structure with clear headings and navigation.
-   - Prioritize information by importance and reader tasks.
-3. **Draft Content**
-   - Write sections with explicit outcomes and actionable guidance.
-   - Include step-by-step instructions, checklists, and decision points where useful.
-   - Provide code blocks with syntax highlighting and real outputs.
-4. **Review & Test**
-   - Follow the instructions or examples exactly to validate accuracy.
-   - Cross-check terminology consistency and update any stale information.
-5. **Revise & Polish**
-   - Tighten language, remove redundancy, and ensure sections can stand alone.
-   - Add cross-links, diagrams, or tables if they improve comprehension.
+## Diataxis Compass
 
-## Quality Checklist
-- [ ] Documentation is clear, concise, and audience-appropriate.
-- [ ] Technical details are accurate, current, and verified.
-- [ ] Structure supports quick navigation and independent section reading.
-- [ ] Examples, code snippets, and diagrams work as described.
-- [ ] Grammar, spelling, and formatting meet professional standards.
-- [ ] Action items, decisions, and warnings are explicitly marked.
+Before drafting, classify the document or section with two questions:
 
-## Visual Aids
-Visuals are far easier to understand than prose for architecture, flows, and relationships. **Actively include diagrams** wherever they help — but do not add them where a simple table or list is clearer.
+1. Is the reader trying to act or think?
+2. Is the reader acquiring new capability or applying existing capability?
 
-- **Prefer Mermaid diagrams** (sequence, flowchart, C4, ER, state, etc.) as the default. They are version-controllable, diffable, and render natively in most Markdown viewers.
-- **Use ASCII diagrams** only when Mermaid cannot express the layout well (e.g., free-form box-and-arrow overviews, tree structures).
-- **When the user explicitly requests a richer visual**, prefer generating an SVG image over ASCII art.
+| Need | Mode | Reader question | Use this when |
+| --- | --- | --- | --- |
+| Action + acquisition | Tutorial | "Can you teach me to...?" | The reader needs a safe, guided learning experience. |
+| Action + application | How-to guide | "How do I...?" | The reader is competent and needs to complete a real task. |
+| Cognition + application | Reference | "What is...?" | The reader needs exact facts while working. |
+| Cognition + acquisition | Explanation | "Why...?" | The reader needs context, background, or understanding. |
 
-## Tables & Readability
-Tables are useful when they make relationships easier to compare at a glance. Keep each cell short enough to scan quickly; if a cell needs more than about 2-3 short clauses, move the detail into bullets, subsections, callouts, or a follow-up explanation after the table.
+Do not treat README, API docs, runbooks, architecture docs, onboarding guides, design docs, or problem-analysis docs as primary modes. They are composite document patterns that may contain multiple Diataxis modes.
 
-- **Use tables for** concise comparisons, option matrices, decision catalogs, field/API references, status summaries, and short checklists.
-- **Avoid tables for** long narratives, complex rationale, implementation walkthroughs, code-heavy explanations, nested lists, and content that wraps heavily on mobile.
-- **Prefer a hybrid format** when needed: a short summary table first, then detailed prose or a deep-dive section for the items that need more context.
+## Workflow
 
-## Delivery Format
-- Provide well-structured Markdown with descriptive headings (##, ###), ordered/unordered lists, and tables when they improve readability.
-- Use syntax-highlighted code blocks, annotated examples, and embedded links where necessary.
-- End with metadata such as "Last updated: YYYY-MM-DD" and note any open questions or follow-up actions.
+1. Define the reader and use moment.
+   - Identify who reads the document, what they already know, what they are trying to do or understand, and when they read it.
+   - Capture constraints such as output path, language, product area, deadline, required sources, or style requirements.
+
+2. Classify the mode.
+   - For a simple document, choose one primary mode.
+   - For a composite document, classify each major section independently.
+   - If helpful, create a compact section map: `Section | Reader need | Diataxis mode | Source material`.
+
+3. Gather source material.
+   - Use existing code, configuration, tests, API schemas, design notes, incidents, tickets, or prior docs as evidence.
+   - Prefer links and citations to duplicated facts when duplication would become stale.
+   - Do not invent commands, API fields, system behavior, ownership, SLAs, or operational procedures.
+
+4. Draft or revise with mode-specific rules.
+   - Use `references/diataxis-mode-guide.md` for non-trivial tutorial, how-to, reference, or explanation work.
+   - Use `references/composite-doc-patterns.md` when the user asks for README, API docs, runbook, architecture, onboarding, design, or problem-analysis docs.
+   - Keep each section locally pure. If a section needs a different mode, split it or link to a better location.
+
+5. Verify functional quality.
+   - Check accuracy, completeness for the chosen scope, executable examples, terminology consistency, prerequisites, version assumptions, and staleness risks.
+   - Run commands or tests when feasible and safe. If not feasible, clearly state what was not verified.
+
+6. Review deep quality.
+   - Check whether the document fits the reader's need, preserves flow, anticipates likely next questions, and avoids mode contamination.
+   - Use `references/quality-checklists.md` before finalizing substantial docs or documentation reviews.
+
+7. Deliver the result.
+   - Provide the document or apply the file edits requested by the user.
+   - End with concise notes only when useful: sources checked, assumptions, verification performed, and open gaps.
+
+## Mode Quick Rules
+
+| Mode | Optimize for | Include | Avoid |
+| --- | --- | --- | --- |
+| Tutorial | Successful learning experience | Guided steps, visible progress, expected output, things to notice | Options, digressions, troubleshooting matrices, broad explanation |
+| How-to guide | Real task completion | Preconditions, executable steps, branches, checks, rollback or next action when relevant | Teaching basics, exhaustive reference, product-feature tours |
+| Reference | Accurate lookup during work | Parameters, fields, commands, behavior, limits, defaults, errors, concise examples | Narrative, rationale, task walkthroughs, opinions |
+| Explanation | Understanding and context | Background, reasons, trade-offs, design intent, implications, alternatives | Step-by-step procedures, exhaustive option lists, operational checklists |
+
+## Composite Documents
+
+Use document-type labels as practical patterns, not as substitutes for Diataxis classification.
+
+- README: landing page plus selected tutorial, how-to, reference, and explanation sections.
+- API documentation: mostly reference, with concise illustrative examples and links to task guides.
+- Runbook: operational how-to, supported by brief reference facts and escalation criteria.
+- Architecture document: mostly explanation, with diagrams or decision/reference tables only when they clarify the system.
+- Onboarding guide: tutorial sequence plus explanation map and links to reference material.
+- Design or problem-analysis document: explanation of context and trade-offs, plus decision reference and implementation follow-ups where needed.
+
+Read `references/composite-doc-patterns.md` before drafting these document types from scratch.
+
+## Formatting Principles
+
+- Choose headings that match the reader's task or question, not generic template slots.
+- Use tables for compact comparisons, option matrices, API/field references, decision catalogs, and status summaries.
+- Avoid tables for long rationale, code-heavy walkthroughs, nested detail, or prose that wraps heavily on mobile.
+- Use diagrams only when they reduce cognitive load. Prefer Mermaid for architecture, sequence, flow, ER, state, and dependency diagrams when Markdown rendering supports it.
+- Keep examples concrete and runnable. Show expected output when it helps the reader know they are on track.
+- Do not add decorative markers, forced metadata, or boilerplate sections unless the user or repository convention requires them.
+
+## Anti-Patterns To Catch
+
+- Mixing tutorial and how-to because both contain steps. A tutorial teaches; a how-to helps a competent user finish work.
+- Turning a how-to guide into a product-feature tour. A how-to is organized around the user's goal, not the machinery.
+- Expanding reference into explanation. Reference should describe facts with precision and consistency.
+- Turning explanation into a procedure. Explanation should connect ideas and answer why, not instruct the reader through a task.
+- Creating empty top-level `Tutorials / How-to / Reference / Explanation` boxes without evidence that the structure helps readers.
+- Forcing a planning/design template onto every design problem.
+- Adding diagrams, tables, examples, or decision catalogs because they look professional rather than because they improve use.
+- Duplicating volatile technical facts across documents instead of linking to the authoritative source.
