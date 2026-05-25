@@ -8,7 +8,7 @@ Rules for naming, organizing, and managing the design directory tree.
 
 | Type | Convention | Examples |
 |------|-----------|----------|
-| Phase directories | Number prefix + kebab-case | `1-problem-definition/`, `2-research/`, `3-high-level-design/`, `4-detailed-design/` |
+| Phase directories | Number prefix + kebab-case | `1-problem-definition/`, `2-research/`, `3-solution-concept/`, `4-high-level-design/`, `5-detailed-design/` |
 | Component directories | kebab-case (descriptive name) | `auth-service/`, `order-service/`, `payment-gateway/` |
 | Decision area directories | kebab-case (topic name) | `communication/`, `data-strategy/`, `deployment/` |
 | Special directories | Reserved names | `cross-cutting/`, `interfaces/`, `options/` |
@@ -18,7 +18,7 @@ Rules for naming, organizing, and managing the design directory tree.
 | Type | Convention | Examples |
 |------|-----------|----------|
 | Meta files | `_` prefix + kebab-case | `_plan.md`, `_overview.md`, `_decisions.md`, `_changelog.md` |
-| Content files | kebab-case | `problem-statement.md`, `goals.md`, `design.md` |
+| Content files | kebab-case | `problem-statement.md`, `goals.md`, `concept.md`, `operating-model.md`, `architecture-overview.md`, `domain-model.md`, `design.md` |
 | Option files | `option-{letter}-{short-name}.md` | `option-a-event-driven.md`, `option-b-rest.md` |
 | Research files | Topic name | `event-sourcing.md`, `database-per-service.md` |
 
@@ -26,29 +26,84 @@ Rules for naming, organizing, and managing the design directory tree.
 
 ## Phase 3 Structure Rules
 
-### Determining Single vs Multi-Decision
+Phase 3 (Solution Concept) is intentionally lighter than the structural phases. It always contains the core artifacts and only adds an option-decision branch when there are competing big-picture directions.
+
+### Required Structure
+
+```
+3-solution-concept/
+├── _overview.md
+├── concept.md
+├── operating-model.md
+├── principles.md
+└── options/                       # only when competing big-picture directions exist
+    ├── option-a-{name}.md
+    └── option-b-{name}.md
+└── decision.md                    # paired with options/
+```
+
+### When to Add Concept-Level Options
+
+Add `options/` and `decision.md` to Phase 3 only when there are genuinely competing **big-picture directions** — different concepts of what the system fundamentally is or how it operates. Examples:
+
+- Real-time streaming product vs scheduled batch product
+- Single-tenant vs multi-tenant from day one
+- Product (end-user-facing) vs platform (developer-facing API)
+- Push-based vs pull-based interaction model
+
+Do **not** create options for:
+- Architecture-style choices (REST vs gRPC, etc.) → Phase 4
+- Technology choices (Postgres vs DynamoDB, etc.) → Phase 4
+- Component-internal choices → Phase 5
+
+### Option Artifact Rules (Phase 3)
+
+The same general rules apply as in Phase 4 / Phase 5:
+- Discuss candidate directions in conversation before creating option files.
+- After the user agrees on the candidate set, create exactly one file per candidate direction under `options/`.
+- `_overview.md` should summarize purpose, children, and status; it may link to option files but must not replace them.
+- `decision.md` should reference option files and explain the final rationale; it should not duplicate full option analysis.
+
+---
+
+## Phase 4 Structure Rules
+
+### Determining Decision Areas
 
 | Condition | Structure | Example |
 |-----------|----------|---------|
-| One dominant architectural choice | Single (flat `_overview.md` + `options/` + `decision.md`) | Small service with one core design question |
-| 2+ independent design decisions | Multi (decision area subdirectories) | Microservices platform with communication, data, deployment choices |
+| No skeleton-level decisions to make | Just `architecture-overview.md` + `domain-model.md` | Project where the concept is concrete enough that the structure follows naturally |
+| One dominant skeleton-level decision | Flat `_overview.md` + `options/` + `decision.md` alongside the overview/model | Project where one structural choice dominates |
+| 2+ independent skeleton-level decisions | Multi (decision area subdirectories) | Microservices platform with communication, data, deployment choices |
+
+### Skeleton-Level Decision Test
+
+A question belongs in Phase 4 only if **changing it later would ripple across multiple components**. Examples of skeleton-level decisions:
+
+- Synchronous vs asynchronous communication style across services
+- Centralized vs distributed data ownership
+- Deployment topology (monolith vs services, regional vs global)
+- Authentication / identity propagation strategy
+- Event schema / contract evolution policy
+
+If the question stays inside a single component, push it to Phase 5.
 
 ### Multi-Decision Guidelines
 
 - Each decision area gets its own subdirectory with `_overview.md`, `options/`, and `decision.md`
-- `architecture-overview.md` at Phase 3 root provides the system-level view; it is required for multi-decision Phase 3 and optional for single-decision projects
+- `architecture-overview.md` and `domain-model.md` at Phase 4 root are always required, regardless of whether decision-area subdirectories exist
 - Decision areas should be **independent** — if two decisions are tightly coupled, merge them into one area
 
-### Option Artifact Rules
+### Option Artifact Rules (Phase 4)
 
 - Discuss candidate directions in conversation before creating option files.
 - After the user agrees on the candidate set, create exactly one file per candidate direction under `options/`.
-- Do not store full option descriptions only in `_overview.md`, `architecture-overview.md`, `design.md`, or `decision.md`.
+- Do not store full option descriptions only in `_overview.md`, `architecture-overview.md`, `domain-model.md`, or `decision.md`.
 - `_overview.md` should summarize purpose, children, and status; it may link to option files but must not replace them.
 - `decision.md` should reference option files and explain the final rationale; it should not duplicate full option analysis.
 - If the user introduces a new option later, add the next lettered option file (for example, `option-d-workflow-engine.md`) and re-evaluate it alongside the existing options.
 
-Required structure:
+Required structure for a decision area:
 
 ```
 {decision-area}/
@@ -62,11 +117,16 @@ Required structure:
 
 ---
 
-## Phase 4 Special Directories
+## Phase 5 Special Directories
 
 ### Recursive Decision Structure
 
-When a Phase 4 component needs a local design decision, use the same option artifact rules as Phase 3. Any substantive component-level alternative with tradeoffs counts as a local design decision. The decision lives inside the component tree.
+When a Phase 5 component needs a local design decision, use the same option artifact rules as Phase 4. A component-level alternative becomes a local sub-decision only when:
+
+1. The options differ in architecture, data ownership, interface contract, operational model, scalability, security, cost, or delivery risk, **and**
+2. Choosing wrongly would block or invalidate work-issue creation for this component.
+
+If the alternatives are genuinely interchangeable from a work-planning perspective, defer the choice to the actual work — do not spawn a sub-decision tree for it.
 
 ```
 {component}/
@@ -145,10 +205,11 @@ For migration or evolution projects (non-greenfield):
   - Documents the current system's architecture, components, technology, and pain points
   - Serves as the baseline for understanding what exists before designing what comes next
 - Phase 2 research may include analysis of the existing codebase alongside external research
-- Phase 4 decomposition may use different units depending on the project nature:
+- Phase 3 (Solution Concept) should explicitly capture how the new system relates to the old one (replacement, parallel run, gradual migration, etc.) in `concept.md` or `operating-model.md`
+- Phase 5 decomposition may use different units depending on the project nature:
   - Migration: wave-based (`wave-1-auth/`, `wave-2-orders/`)
   - Evolution: change-area-based (`api-layer-refactor/`, `db-migration/`)
-  - The appropriate decomposition unit is determined during Phase 3
+  - The appropriate decomposition unit is determined during Phase 4
 
 ---
 
@@ -179,9 +240,10 @@ After the document has been updated, remove the marker.
 ### Cascade Check
 
 After modifying a document, check whether downstream documents are affected:
-- Phase 1 change → may affect Phase 2, 3, 4
-- Phase 2 change → may affect Phase 3, 4
-- Phase 3 change → may affect Phase 4
-- Phase 4 component change → may affect `interfaces/`, other dependent components
+- Phase 1 change → may affect Phase 2, 3, 4, 5
+- Phase 2 change → may affect Phase 3, 4, 5
+- Phase 3 change → may affect Phase 4, 5 (concept and principles propagate)
+- Phase 4 change → may affect Phase 5
+- Phase 5 component change → may affect `interfaces/`, other dependent components
 
 Document all affected artifacts in `_changelog.md` before starting updates.

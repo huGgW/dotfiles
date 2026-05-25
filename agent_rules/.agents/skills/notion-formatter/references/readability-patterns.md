@@ -359,7 +359,7 @@ Content that stays synchronized across multiple pages. Edit once, update everywh
 
 **Syntax (create new):**
 ```xml
-<synced_block>
+<synced_block url="{{URL}}">
 	Shared content here
 	- Common guidelines
 	- Team conventions
@@ -379,7 +379,7 @@ Content that stays synchronized across multiple pages. Edit once, update everywh
 - Team conventions referenced across multiple docs
 
 **Rules:**
-- When creating new synced blocks, omit the `url` — it is auto-generated
+- When creating synced blocks, include the required `url` attribute
 - When referencing, `url` must point to an existing synced block
 - Editing a reference updates the original and all other references
 - To detach a specific instance, the user must manually "Unsync" in Notion UI

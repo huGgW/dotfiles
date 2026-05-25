@@ -34,9 +34,8 @@ Keep this file short — decision and change history belong in separate files.
 ### Phase 1: Problem Definition [✅ / 🔄 / ⬜ / 🔁]
 - [x] problem-statement.md
 - [x] goals.md
-- [x] constraints.md
-- [x] principles.md
-- [ ] as-is-analysis.md              <!-- non-greenfield only -->
+- [ ] constraints.md                  <!-- when applicable -->
+- [ ] as-is-analysis.md               <!-- non-greenfield only -->
 
 ### Phase 2: Research [⬜]
 - [ ] research-plan
@@ -44,19 +43,26 @@ Keep this file short — decision and change history belong in separate files.
 - [ ] {topic-b}
 - [ ] findings-summary
 
-### Phase 3: High-Level Design [⬜]
-- [ ] architecture-overview              <!-- required for multi-decision, optional for single-decision -->
-- [ ] {decision-area-1}: discussion → option files → decision
+### Phase 3: Solution Concept [⬜]
+- [ ] concept
+- [ ] operating-model
+- [ ] principles
+- [ ] direction options + decision    <!-- only when competing big-picture directions exist -->
+
+### Phase 4: High-Level Design [⬜]
+- [ ] architecture-overview
+- [ ] domain-model
+- [ ] {decision-area-1}: discussion → option files → decision   <!-- only for skeleton-level decisions -->
 - [ ] {decision-area-2}: discussion → option files → decision
 
-### Phase 4: Detailed Design [⬜]
+### Phase 5: Detailed Design [⬜]
 - [ ] cross-cutting/                  <!-- if applicable -->
 - [ ] interfaces/                     <!-- if applicable -->
 - [ ] {component-a}
-  - [ ] _overview + design
-  - [ ] {sub-decision}: discussion → option files → decision  <!-- recursive as needed -->
+  - [ ] _overview + design (checklist met)
+  - [ ] {sub-decision}: discussion → option files → decision  <!-- only when blocking work-issue split -->
 - [ ] {component-b}
-  - [ ] _overview + design
+  - [ ] _overview + design (checklist met)
 ```
 
 **Status markers:**
@@ -76,8 +82,9 @@ Central log of all design decisions. Referenced when checking prior decisions.
 
 | ID | Date | Phase | Area | Decision | Rationale | Alternatives Considered |
 |----|------|-------|------|----------|-----------|------------------------|
-| D-1 | YYYY-MM-DD | Phase 3 | Communication | Event-driven architecture | Loose coupling between services, better scalability | REST (rejected: tight coupling), gRPC (rejected: complexity) |
-| D-2 | YYYY-MM-DD | Phase 4 | Auth | JWT with refresh tokens | Stateless, standard | Session-based (rejected: scaling issues) |
+| D-1 | YYYY-MM-DD | Phase 3 | Big-picture direction | Real-time event-streaming product | Aligns with goal G-2 (sub-second feedback) | Batch analytics product (rejected: latency mismatch) |
+| D-2 | YYYY-MM-DD | Phase 4 | Communication | Asynchronous event bus | Loose coupling between services, better scalability | Synchronous REST (rejected: tight coupling) |
+| D-3 | YYYY-MM-DD | Phase 5 | Auth component | JWT with refresh tokens | Stateless, standard | Session-based (rejected: scaling issues) |
 ```
 
 ---
@@ -92,8 +99,9 @@ and affected artifacts for invalidation tracking.
 
 | Date | Phase | Change | Reason | Source | Affected Artifacts |
 |------|-------|--------|--------|--------|-------------------|
-| YYYY-MM-DD | Phase 1 🔁 | Added new constraint: GDPR compliance | Team review (2026-03-20) | External feedback | `constraints.md`, `principles.md`, `3-high-level-design/data-strategy/decision.md` |
-| YYYY-MM-DD | Phase 2 🔁 | Added research on event sourcing | Insufficient info in Phase 3 | Internal discovery | `findings-summary.md` |
+| YYYY-MM-DD | Phase 1 🔁 | Added new constraint: GDPR compliance | Team review (2026-03-20) | External feedback | `constraints.md`, `3-solution-concept/principles.md`, `4-high-level-design/data-strategy/decision.md` |
+| YYYY-MM-DD | Phase 2 🔁 | Added research on event sourcing | Insufficient info in Phase 4 | Internal discovery | `findings-summary.md` |
+| YYYY-MM-DD | Phase 3 🔁 | Adjusted operating model to support multi-tenant from day one | Stakeholder request | External feedback | `operating-model.md`, `principles.md`, downstream Phase 4 + 5 docs |
 ```
 
 **Source types:**
@@ -175,9 +183,10 @@ Required in every directory. Summarizes the branch's purpose, decisions, and chi
 {Why these goals and priorities were agreed}
 ```
 
-### `constraints.md`
+### `constraints.md` (when applicable)
 
-External constraints imposed on the project. These are given, not chosen.
+External constraints imposed on the project. These are given, not chosen. Skip this file
+when there are no non-trivial external constraints — do not invent constraints to fill the section.
 
 ```markdown
 # Constraints
@@ -191,27 +200,6 @@ External constraints imposed on the project. These are given, not chosen.
 ## Clarifications
 {Ambiguities resolved with the user before documenting constraints}
 ```
-
-### `principles.md`
-
-Architecture principles that serve as guardrails for all subsequent decisions.
-Unlike constraints (externally imposed), principles are **internally defined** design guidelines.
-
-```markdown
-# Architecture Principles
-
-| # | Principle | Description | Example | Established |
-|---|-----------|-------------|---------|-------------|
-| P-1 | Independent deployability | Every service must be independently deployable | No shared DB between services | Phase 1 |
-| P-2 | Availability over consistency | Prefer eventual consistency when trade-off is needed | Use async events instead of sync calls | Phase 2 (after research) |
-| P-3 | {Principle name} | {Description} | {Concrete example} | {When established} |
-
-## Why These Principles
-{Discussion summary explaining why these principles were selected over other possible guardrails}
-```
-
-> Principles may be updated when Phase 1 is revisited after research findings or external feedback.
-> Any change to principles must be recorded in `_changelog.md`.
 
 ### `as-is-analysis.md` (non-greenfield only)
 
@@ -253,7 +241,7 @@ Write this after discussing candidate research topics with the user. It records 
 ## Agreed Topics
 | Topic | Decision Informed | Priority | Depth | Agreed Scope | Out of Scope | User Notes |
 |-------|-------------------|----------|-------|--------------|--------------|------------|
-| {topic-a} | {Phase 3 decision this informs} | Must / Should / Optional | Quick / Standard / Deep | ... | ... | ... |
+| {topic-a} | {Phase 3 / Phase 4 decision this informs} | Must / Should / Optional | Quick / Standard / Deep | ... | ... | ... |
 
 ## Comparison Criteria
 | Criterion | Why It Matters | Applies To |
@@ -279,7 +267,7 @@ throughout the body to cite the References table at the bottom.
 
 ## Overview
 {What this topic is and why it is relevant to this project's design decisions.
- Briefly state which Phase 3 decision(s) this research informs.}
+ Briefly state which Phase 3 or Phase 4 decision(s) this research informs.}
 
 ## Background & Key Concepts
 {Core concepts the reader needs to understand before diving into the analysis.
@@ -306,7 +294,7 @@ throughout the body to cite the References table at the bottom.
 ## Comparison with Alternatives
 
 {Compare against 2+ alternatives using criteria relevant to this project's
- goals, constraints, and principles.}
+ goals and constraints.}
 
 | Criteria | {Option A} | {Option B} | {Option C} |
 |----------|-----------|-----------|-----------|
@@ -329,9 +317,8 @@ throughout the body to cite the References table at the bottom.
 ## Implications for This Project
 {Connect findings back to our specific context:
  - How does this align with our goals (reference goals.md)?
- - Does it satisfy or violate our constraints (reference constraints.md)?
- - Does it support our principles (reference principles.md)?
- - What candidate directions or questions does this suggest for Phase 3 discussion?}
+ - Does it satisfy or violate our constraints (reference constraints.md, if any)?
+ - What candidate directions or questions does this suggest for Phase 3 (concept-level) or Phase 4 (skeleton-level) discussion?}
 
 ## Open Questions
 | Question | Why It Matters | Suggested Next Step |
@@ -346,7 +333,7 @@ throughout the body to cite the References table at the bottom.
 ### `findings-summary.md`
 
 Cross-topic synthesis document. Aggregates insights from all `{topic}.md` files
-and connects them to Phase 3 design decisions.
+and connects them to Phase 3 (concept-level) and Phase 4 (skeleton-level) decisions.
 
 ```markdown
 # Research Findings Summary
@@ -361,8 +348,8 @@ and connects them to Phase 3 design decisions.
  e.g., "Both the messaging and database research point toward eventual consistency
  as the dominant pattern for our scale requirements."}
 
-## Candidate Directions for Phase 3 Discussion
-{How the research findings inform possible Phase 3 directions.
+## Candidate Directions for Phase 3 / Phase 4 Discussion
+{How the research findings inform possible concept-level (Phase 3) or skeleton-level (Phase 4) directions.
  Keep this neutral: these are inputs for discussion, not final decisions.}
 Do not use "Recommended Direction" or select a winner in Phase 2.
 
@@ -386,6 +373,175 @@ Do not use "Recommended Direction" or select a winner in Phase 2.
 
 ## Phase 3 Files
 
+### `concept.md`
+
+Defines what the system is, in a way that anyone joining the project can quickly understand.
+Keep this short and grounded. Avoid marketing language.
+
+```markdown
+# Solution Concept
+
+## One-Paragraph Definition
+{What is this system? Single paragraph. Concrete, not aspirational.}
+
+## What This Is Not
+{Explicit boundaries — what this system does not try to do.
+ Useful for shutting down scope-creep early.}
+
+## Discussion Summary
+{Key framing points agreed with the user before documenting the concept.
+ Include alternative framings that were considered and rejected.}
+
+## Inputs to Phase 4
+{Anything from this concept that should drive Phase 4 architecture decisions.
+ e.g., "Operating mode requires async-first design", "Multi-tenant from day one".}
+```
+
+### `operating-model.md`
+
+Describes how the system behaves from an outside view. The reader should come away
+understanding *how the system is used and how it operates*, without needing the architecture.
+
+```markdown
+# Operating Model
+
+## Mode of Operation
+{How the system runs in steady state. Real-time? Scheduled? On-demand? Always-on?
+ Single-tenant per deployment, or multi-tenant?}
+
+## Key Scenarios
+{2-5 concrete scenarios showing how users or integrating systems interact with this system.
+ Each scenario describes inputs, outputs, and observable behavior — not internals.}
+
+### Scenario 1: {Name}
+- **Trigger**: {What starts this scenario}
+- **Actors**: {Who or what is involved}
+- **Flow**: {Observable steps from outside the system}
+- **Outcome**: {Resulting state or output}
+
+### Scenario 2: {Name}
+- ...
+
+## Lifecycle
+{If applicable, describe the lifecycle of key concepts in the system:
+ onboarding, steady state, retirement.}
+
+## Non-Functional Behavior
+{Outside-visible qualities: availability targets, latency expectations,
+ consistency model, security posture. Keep at the operating-model level —
+ implementation details belong in Phase 4 or 5.}
+```
+
+### `principles.md`
+
+Architecture principles that serve as guardrails for all subsequent decisions.
+Unlike constraints (externally imposed), principles are **internally defined** design guidelines.
+They are established here, after the concept is agreed, because principles only become
+meaningful in light of what the system is.
+
+```markdown
+# Architecture Principles
+
+| # | Principle | Description | Example | Established |
+|---|-----------|-------------|---------|-------------|
+| P-1 | Independent deployability | Every service must be independently deployable | No shared DB between services | Phase 3 |
+| P-2 | Availability over consistency | Prefer eventual consistency when trade-off is needed | Use async events instead of sync calls | Phase 3 |
+| P-3 | {Principle name} | {Description} | {Concrete example} | {When established} |
+
+## Why These Principles
+{Discussion summary explaining why these principles were selected over other possible guardrails,
+ and how they relate to the concept and operating model.}
+```
+
+> Principles may be updated when the concept is revisited or when later phases reveal
+> the need for additional guardrails. Any change must be recorded in `_changelog.md`.
+
+### `options/option-{letter}-{name}.md` (Phase 3, only when needed)
+
+Use Phase 3 option files **only** when there are competing big-picture directions
+(e.g., real-time vs batch product, multi-tenant vs single-tenant, push vs pull model).
+For most projects, this directory is not needed.
+
+```markdown
+# Option {Letter}: {Concept-Level Direction Name}
+
+## Core Idea
+{What this big-picture direction proposes the system should be}
+
+## Discussion Context
+{Why this direction was considered, including whether it was introduced by the user or by the assistant}
+
+## What the System Looks Like Under This Direction
+{How would users / integrating systems experience this option?
+ What is the operating mode? What is in scope, what is not?}
+
+## Pros
+- ...
+
+## Cons
+- ...
+
+## Trade-offs
+| Dimension | Impact |
+|-----------|--------|
+| Complexity | ... |
+| Time to value | ... |
+| Long-term flexibility | ... |
+| Operability | ... |
+| Cost profile | ... |
+
+## Risks
+| Risk | Impact | Mitigation |
+|------|--------|------------|
+
+## Open Questions
+| Question | Why It Matters | Suggested Next Step |
+|----------|----------------|---------------------|
+```
+
+### `decision.md` (Phase 3, paired with `options/`)
+
+Used at the Phase 3 root when a concept-level decision was made between competing big-picture directions.
+
+```markdown
+# Decision: Solution Direction
+
+## Context
+{Why a concept-level decision is needed — what genuine alternatives existed}
+
+## Discussion Summary
+{Key discussion points, user concerns, added options, changed criteria, and how the team converged}
+
+## Decision Criteria
+| Criterion | Weight / Priority | Reason |
+|-----------|-------------------|--------|
+
+## Options Considered
+
+| Option | File | Summary | Outcome |
+|--------|------|---------|---------|
+| A. {Name} | `options/option-a-{name}.md` | {Summary} | Selected / Rejected / Deferred |
+| B. {Name} | `options/option-b-{name}.md` | {Summary} | Selected / Rejected / Deferred |
+
+## Decision
+**Selected: Option {X}**
+
+**Rationale**: {Why this option was chosen}
+
+**Trade-offs accepted**: {What we're giving up}
+
+## Why Not the Other Options
+| Option | Reason Not Selected |
+|--------|---------------------|
+
+## Implications for Subsequent Phases
+{What this concept-level decision constrains or enables for Phase 4 and Phase 5}
+```
+
+---
+
+## Phase 4 Files
+
 ### `architecture-overview.md`
 
 ````markdown
@@ -406,17 +562,54 @@ graph TB
 ## Key Interactions
 | From | To | Method | Data |
 |------|----|--------|------|
+
+## End-to-End Flows
+{1-3 most important flows through the system, described at the system level —
+ which components are involved, in what order, with what data.
+ Internal component logic belongs in Phase 5.}
+
+### Flow 1: {Name}
+- ...
 ````
 
-### `options/option-{letter}-{name}.md`
+### `domain-model.md`
 
-Use one file per candidate direction for Phase 3 decisions and recursive Phase 4 decisions. Create these files only after the user agrees on the candidate set.
+Primary domain entities and relationships at the system level.
+Capture entity-level definitions (what entities exist, what they own, how they relate).
+Field-level schemas belong in Phase 5 component design.
+
+````markdown
+# Domain Model
+
+## Primary Entities
+| Entity | Description | Owned By (component) | Key Identifiers |
+|--------|-------------|---------------------|-----------------|
+
+## Relationships
+
+```mermaid
+erDiagram
+    ...
+```
+
+## Ownership Boundaries
+{Which component is the source of truth for each entity.
+ Highlight any cross-component shared state and the rationale.}
+
+## Lifecycle Notes
+{If certain entities have non-trivial lifecycles (e.g., draft → published → archived),
+ describe them at the system level. Detailed state machines belong in Phase 5.}
+````
+
+### `options/option-{letter}-{name}.md` (Phase 4, per skeleton-level decision area)
+
+Use one file per candidate direction for Phase 4 skeleton-level decisions. Create these files only after the user agrees on the candidate set.
 
 ```markdown
 # Option {Letter}: {Option Name}
 
 ## Core Idea
-{What this option proposes}
+{What this option proposes at the system-skeleton level}
 
 ## Discussion Context
 {Why this option was considered, including whether it was introduced by the user or by the assistant}
@@ -453,15 +646,15 @@ Use one file per candidate direction for Phase 3 decisions and recursive Phase 4
 |----------|----------------|---------------------|
 ```
 
-### `decision.md`
+### `decision.md` (Phase 4, per skeleton-level decision area)
 
-Used within each decision area (or at Phase 3 root for single-decision projects).
+Used within each decision area for skeleton-level decisions.
 
 ```markdown
 # Decision: {Decision Area}
 
 ## Context
-{Why this decision is needed, what it affects}
+{Why this skeleton-level decision is needed, what it affects}
 
 ## Discussion Summary
 {Key discussion points, user concerns, added options, changed criteria, and how the team converged}
@@ -488,7 +681,7 @@ Used within each decision area (or at Phase 3 root for single-decision projects)
 
 **Trade-offs accepted**: {What we're giving up}
 
-**Alignment with principles**: {Which principles from principles.md support this decision}
+**Alignment with principles**: {Which principles from `3-solution-concept/principles.md` support this decision}
 
 ## Why Not the Other Options
 | Option | Reason Not Selected |
@@ -501,43 +694,65 @@ Used within each decision area (or at Phase 3 root for single-decision projects)
 
 ---
 
-## Phase 4 Files
+## Phase 5 Files
 
 ### `design.md` (per component)
+
+Each component design must satisfy the completion checklist (see `phase-guide.md` Phase 5).
+Stop at the level needed to split into work issues. Do not micro-design.
 
 ```markdown
 # {Component Name} — Detailed Design
 
 ## Responsibility
-{What this component does and its boundaries}
+{What this component does and its boundaries.
+ Be explicit about what is *not* this component's responsibility.}
 
 ## Design Rationale
-{Why this design was chosen after discussion. Reference related Phase 3 or recursive Phase 4 decisions when applicable.}
+{Why this design was chosen after discussion. Reference related Phase 4 or recursive Phase 5 decisions when applicable.}
 
 ## Design
 
-### Data Model
-{Entity definitions, schemas, relationships}
+### Data / State Model
+{Entity-level definitions, ownership, relationships.
+ Field-level schema is welcome but not required — implementation decides minor fields.}
 
-### Behavior
-{Key flows, state transitions, algorithms}
+### Key Behaviors and Flows
+{State transitions, main scenarios, happy path, key error paths.
+ Sufficient detail that a developer can split this into work issues.}
 
-### Error Handling
-{How errors are handled, retry/fallback strategies}
+### Error Handling Strategy
+{Policy-level: retry, fallback, propagation, observability hooks.
+ Specific exception classes / error codes can be left to implementation.}
 
-## Dependencies
-| Dependency | Type | Interface |
-|-----------|------|-----------|
-| {Other component} | Sync/Async | {API/Event reference in interfaces/} |
+### Interfaces and Dependencies
+| Direction | Other Component | Method | Data | Reference |
+|-----------|----------------|--------|------|-----------|
+| Inbound | {Caller component} | API/Event | ... | `interfaces/{ref}.md` (if applicable) |
+| Outbound | {Other component} | Sync/Async | ... | `interfaces/{ref}.md` (if applicable) |
 
 ## Alternatives Considered
-Summarize only. Substantive alternatives with tradeoffs must have their own `options/option-*.md` file and local `decision.md` before this section is treated as final.
+Summarize only. Substantive alternatives that would block work-issue creation must have their own `options/option-*.md` file and local `decision.md` before this section is treated as final.
 
 | Alternative | Reason Not Chosen | Reference |
 |-------------|-------------------|-----------|
-| {Alternative name} | ... | `options/option-x-{name}.md` |
+| {Alternative name} | ... | `options/option-x-{name}.md` (if it exists) |
 
 ## Open Decisions
+{Things that need to be decided, but only if they would block creating work issues.
+ If the implementer can decide it freely at coding time, omit it from this section.}
+
 | Decision | Priority | Notes | Suggested Next Step |
 |----------|----------|-------|---------------------|
+
+## Out of Scope (Decided at Implementation Time)
+{Optional. Use this to make explicit which decisions are intentionally being deferred to actual development work — variable names, exact method signatures, equivalent algorithm choices, etc.}
 ```
+
+### `options/option-{letter}-{name}.md` and `decision.md` (Phase 5, recursive)
+
+Use the same templates as Phase 4 (above). Create them only when:
+1. The component-level alternatives differ in architecture, data ownership, interface contract, operational model, scalability, security, cost, or delivery risk, **and**
+2. Choosing wrongly would block or invalidate work-issue creation for this component.
+
+If the alternatives are interchangeable from a work-planning perspective, defer the choice to the actual work — do not spawn a sub-decision.
