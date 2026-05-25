@@ -159,6 +159,8 @@ fi
 # opencode enable lsp flag
 if command -v opencode > /dev/null 2>&1; then
     export OPENCODE_EXPERIMENTAL_LSP_TOOL=true
+    export OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS=true
+    export OPENCODE_EXPERIMENTAL_LSP_TY=true
 fi
 
 # claude code enable experimental screen draw
