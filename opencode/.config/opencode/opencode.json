@@ -8,6 +8,10 @@
         "skill": "allow",
         "doom_loop": "deny",
         "lsp": "allow",
+        "external_directory" : {
+            "*": "ask",
+            "~/github/**": "allow"
+        },
         "bash": {
             "*": "ask",
             "pwd": "allow",
@@ -130,14 +134,22 @@
                     "*": "allow"
                 }
             }
-        }
+        },
+        "general": {
+            "permission": {}
+        },
     },
     "plugin": [
         "@tarquinen/opencode-dcp@latest",
-        "@franlol/opencode-md-table-formatter@0.0.3",
-        "@mohak34/opencode-notifier@latest"
+        "@mohak34/opencode-notifier@latest",
+        "@devtheops/opencode-plugin-otel"
     ],
     "provider": {
+    "compaction": {
+        "auto": false,
+    },
+    "experimental": {
+        "batch_tool": true,
     },
     "lsp": {
         "pyright": {
