@@ -61,7 +61,7 @@ Each phase has a clear purpose and produces artifacts that feed the next phase, 
 
 | Stage | Location | Rule |
 |---|---|---|
-| Open exploration | Conversation | Discuss agendas, candidate directions, tradeoffs, and user-added options before writing final artifacts |
+| Open exploration | Conversation | Discuss agendas, candidate research topics, factual inputs, candidate directions, tradeoffs, and user-added options before writing final artifacts |
 | Agreed candidate set | `options/*.md` for Phase 3, Phase 4, and recursive Phase 5; relevant Phase file only for non-option agendas | Document only after the user agrees which candidates/topics/goals should be recorded |
 | Final decision | `decision.md`, `_decisions.md`, or Phase artifact | Write only after explicit user consensus on the direction |
 | Summary | `_overview.md` | Summarize status and links; do not use `_overview.md` as the only place where option details live |
@@ -77,7 +77,7 @@ Each phase has a clear purpose and produces artifacts that feed the next phase, 
 | Phase | Purpose | Key Deliverables | Revisit When |
 |---|---|---|---|
 | **1. Problem Definition** | Define what and why through discussion | problem-statement, goals, constraints (when applicable), as-is (non-greenfield) | New requirements, scope change |
-| **2. Research** | Agree what to research and then investigate | research-plan, per-topic research files, findings-summary | Insufficient info found in later phases |
+| **2. Research** | Gather and organize information needed by later design phases; do not make design decisions | research-plan, per-topic research files, codebase-analysis when applicable, findings-summary | Insufficient info found in later phases |
 | **3. Solution Concept** | Decide what we are building and how it operates at a big-picture level | concept, operating-model, principles, direction options + decision (when needed) | Big-picture direction proves wrong |
 | **4. High-Level Design** | Capture the overall flow and key models for the system | architecture-overview, domain-model, system-skeleton decisions only | A skeleton-level decision proves infeasible |
 | **5. Detailed Design** | Detail components to a level that can be split into work issues | Per-component designs, recursive option files/decisions | — (recursive expansion) |
@@ -165,12 +165,12 @@ Workflow:
 ## Working Principles
 
 1. **Plan first, always** — Read `_plan.md` before any work. Update it at every milestone and agenda boundary, including the last consensus gate, unresolved discussion, pending candidate set, and next required user confirmation.
-2. **Discussion before documentation** — For each agenda (problem framing, research topics, solution concept, decision areas, component designs), discuss candidate directions in conversation before creating or updating final artifacts. This applies to **all phases including Phase 1**.
+2. **Discussion before documentation** — For each agenda (problem framing, research topics, solution concept, decision areas, component designs), discuss the relevant candidates in conversation before creating or updating final artifacts: research topics and information needs in Phase 2, design directions in later design phases. This applies to **all phases including Phase 1**.
 3. **User gates at phase and agenda boundaries** — Confirm with the user before advancing between Phases and before finalizing each agenda. Work autonomously only after the user agrees on the local direction or scope.
 4. **Every directory tells its story** — Every directory must have `_overview.md` answering: what is this, what was decided, what are its children?
 5. **Options before decisions** — Present 2+ options with tradeoff analysis in conversation before offering a provisional fit assessment. Do not use final-sounding labels like "recommended" or "selected" until the user explicitly decides.
 6. **Option artifacts are first-class documents** — For Phase 3, Phase 4, and recursive Phase 5 decisions, each candidate direction must be documented as a separate file under `options/`. Do not collapse full option details into `_overview.md`, `architecture-overview.md`, `design.md`, or `decision.md`.
-7. **Research as deep investigation** — Treat each research topic as a thorough, independent investigation requiring multi-source analysis and synthesis into actionable insights. Each research document must be self-sufficient (fully understandable on its own) and include verifiable references. See `references/phase-guide.md` Phase 2 for the full research protocol.
+7. **Research as decision preparation** — Treat each research topic as a thorough, independent investigation that gathers facts, codebase observations, constraints, risks, alternatives, and open questions needed by later design phases. Phase 2 must not recommend, select, or finalize a design direction; design opinions and decisions belong to Phase 3, 4, or 5 after user discussion. Each research document must be self-sufficient (fully understandable on its own) and include verifiable references. See `references/phase-guide.md` Phase 2 for the full research protocol.
 8. **Defer to the next phase or to the work itself** — If a question can be answered just as well by the next phase or during actual implementation, defer it. Phase 3 should not draw the architecture; Phase 4 should not design component internals; Phase 5 should not micro-design implementation details.
 9. **Depth-aware structure** — No depth limit, but at 4+ depth, review the tree and propose compression to user if possible. See `references/structure-rules.md` for compression strategies.
 10. **Documentation after consensus** — Write design documents as work progresses, but only after local consensus. Capture the discussion summary, criteria, alternatives, and rationale when documenting the agreed outcome.
@@ -195,6 +195,7 @@ design/
 ├── 2-research/
 │   ├── _overview.md
 │   ├── research-plan.md
+│   ├── codebase-analysis.md          # when an existing codebase must inform design
 │   ├── {topic}.md
 │   └── findings-summary.md
 │

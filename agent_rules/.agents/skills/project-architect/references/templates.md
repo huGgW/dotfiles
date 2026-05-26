@@ -39,6 +39,7 @@ Keep this file short — decision and change history belong in separate files.
 
 ### Phase 2: Research [⬜]
 - [ ] research-plan
+- [ ] codebase-analysis                 <!-- when existing codebase context is relevant -->
 - [ ] {topic-a}
 - [ ] {topic-b}
 - [ ] findings-summary
@@ -230,7 +231,7 @@ when there are no non-trivial external constraints — do not invent constraints
 
 ### `research-plan.md`
 
-Write this after discussing candidate research topics with the user. It records the agreed scope before research starts.
+Write this after discussing candidate research topics with the user. It records the agreed scope before research starts. The plan should describe what information later design phases need, not what design direction should be chosen.
 
 ```markdown
 # Research Plan
@@ -239,9 +240,9 @@ Write this after discussing candidate research topics with the user. It records 
 {What was discussed before finalizing the topic list, including user-added, removed, merged, or reprioritized topics}
 
 ## Agreed Topics
-| Topic | Decision Informed | Priority | Depth | Agreed Scope | Out of Scope | User Notes |
-|-------|-------------------|----------|-------|--------------|--------------|------------|
-| {topic-a} | {Phase 3 / Phase 4 decision this informs} | Must / Should / Optional | Quick / Standard / Deep | ... | ... | ... |
+| Topic | Later-Phase Question / Artifact | Priority | Depth | Agreed Scope | Out of Scope | User Notes |
+|-------|---------------------------------|----------|-------|--------------|--------------|------------|
+| {topic-a} | {Phase 3 / Phase 4 question or artifact this prepares} | Must / Should / Optional | Quick / Standard / Deep | ... | ... | ... |
 
 ## Comparison Criteria
 | Criterion | Why It Matters | Applies To |
@@ -266,8 +267,8 @@ throughout the body to cite the References table at the bottom.
 # {Topic Name}
 
 ## Overview
-{What this topic is and why it is relevant to this project's design decisions.
- Briefly state which Phase 3 or Phase 4 decision(s) this research informs.}
+{What this topic is and why it is relevant to later design phases.
+ Briefly state which Phase 3 or Phase 4 question(s) or artifact(s) this research prepares.}
 
 ## Background & Key Concepts
 {Core concepts the reader needs to understand before diving into the analysis.
@@ -314,11 +315,14 @@ throughout the body to cite the References table at the bottom.
 - **Lesson**: {Key takeaway for our project}
 - **Source**: [Ref-N]
 
-## Implications for This Project
+## Inputs for Later Design Phases
 {Connect findings back to our specific context:
- - How does this align with our goals (reference goals.md)?
- - Does it satisfy or violate our constraints (reference constraints.md, if any)?
- - What candidate directions or questions does this suggest for Phase 3 (concept-level) or Phase 4 (skeleton-level) discussion?}
+  - How does this align with our goals (reference goals.md)?
+  - Does it satisfy or violate our constraints (reference constraints.md, if any)?
+  - What current-codebase facts, constraints, risks, or unknowns must later design phases consider?
+  - What questions should Phase 3 (concept-level) or Phase 4 (skeleton-level) answer later?}
+
+Do not recommend, select, or finalize a design direction in this section. Use it only to prepare later discussion.
 
 ## Open Questions
 | Question | Why It Matters | Suggested Next Step |
@@ -330,28 +334,75 @@ throughout the body to cite the References table at the bottom.
 | 1 | {Source title} | {Official Docs / Blog / Benchmark / GitHub / Community} | {URL} | {High / Medium / Low} | {Version, date, or context} |
 ```
 
+### `codebase-analysis.md` (when applicable)
+
+Use this when an existing repository or system must inform later design phases. This file documents current-state facts and risks. It is not a target architecture, refactoring plan, or recommendation.
+
+```markdown
+# Codebase Analysis
+
+## Scope
+{Which repository, directories, services, or modules were investigated and why they matter to later design phases.}
+
+## Entry Points and Runtime Shape
+| Area | Path / Artifact | Purpose | Notes |
+|------|-----------------|---------|-------|
+
+## Module and Layer Structure
+| Module / Directory | Responsibility | Key Dependencies | Notes |
+|--------------------|----------------|------------------|-------|
+
+## Current Flows
+{Document request flow, data flow, event flow, background jobs, CLI flow, or other relevant paths. Use diagrams where helpful.}
+
+## External Interfaces and Dependencies
+| Interface / Dependency | Location | Direction | Notes |
+|------------------------|----------|-----------|-------|
+
+## Configuration, Build, Test, and Deploy Paths
+| Concern | Location / Command | Notes |
+|---------|--------------------|-------|
+
+## Existing Constraints and Conventions
+| Constraint / Convention | Evidence | Later-Phase Relevance |
+|-------------------------|----------|-----------------------|
+
+## Risks, Coupling, and Unknowns
+| Item | Evidence | Why It Matters | Suggested Follow-up |
+|------|----------|----------------|---------------------|
+
+## Inputs for Later Design Phases
+| Later Phase | Question / Artifact | Codebase Input |
+|-------------|---------------------|----------------|
+
+## References
+| # | Location | Type | Note |
+|---|----------|------|------|
+| 1 | `{path}` | File / Directory / Command / Local artifact | {Why this reference matters} |
+```
+
 ### `findings-summary.md`
 
 Cross-topic synthesis document. Aggregates insights from all `{topic}.md` files
-and connects them to Phase 3 (concept-level) and Phase 4 (skeleton-level) decisions.
+and organizes the information Phase 3 (concept-level) and Phase 4 (skeleton-level) will need later. It must not select, recommend, or finalize a design direction.
 
 ```markdown
 # Research Findings Summary
 
 ## Key Findings
-| # | Finding | Implication for Design | Source Topics |
-|---|---------|----------------------|---------------|
+| # | Finding | Later-Phase Input | Source Topics |
+|---|---------|-------------------|---------------|
 {Each finding references which topic file(s) it was derived from.}
 
 ## Cross-Topic Insights
 {Patterns or insights that only become visible when viewing multiple topics together.
- e.g., "Both the messaging and database research point toward eventual consistency
- as the dominant pattern for our scale requirements."}
+ e.g., "Both the messaging and database research identify consistency model as a
+ Phase 4 question because it affects data ownership, latency, and failure handling."}
 
-## Candidate Directions for Phase 3 / Phase 4 Discussion
-{How the research findings inform possible concept-level (Phase 3) or skeleton-level (Phase 4) directions.
- Keep this neutral: these are inputs for discussion, not final decisions.}
-Do not use "Recommended Direction" or select a winner in Phase 2.
+## Design Questions and Decision Inputs
+{List the concept-level (Phase 3) and skeleton-level (Phase 4) questions that the research prepares the team to discuss later.
+ Keep this neutral: these are inputs for discussion, not recommendations or final decisions.}
+Do not use "Recommended Direction", "Best Option", "Selected", or select a winner in Phase 2.
 
 ## Risk & Uncertainty Summary
 | Risk / Uncertainty | Related Topics | Severity | Mitigation |

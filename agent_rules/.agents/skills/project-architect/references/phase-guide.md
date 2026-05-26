@@ -62,9 +62,11 @@ Do not create final Phase 1 artifacts before the user agrees on the relevant age
 
 ### Purpose
 
-Conduct systematic, in-depth research to build the knowledge foundation for Phase 3 (Solution Concept) direction-setting and Phase 4 (High-Level Design) skeleton decisions. This is not a quick lookup or surface-level survey — each research topic is an independent deep investigation that requires multi-source analysis, cross-validation of findings, and synthesis into actionable insights.
+Conduct systematic, in-depth research to build the information foundation for later design phases. Phase 2 is **decision preparation, not decision making**: gather and organize the facts, existing-codebase context, constraints, risks, technology options, tradeoffs, and open questions that Phase 3 (Solution Concept) and Phase 4 (High-Level Design) will need.
 
-Every research document must be **self-sufficient**: a reader with no prior context should be able to understand the topic fully from the document alone, verify claims through the cited references, and trace how the findings connect to design decisions.
+This is not a quick lookup or surface-level survey. Each research topic is an independent investigation that requires multi-source analysis, cross-validation of findings, and careful organization of decision inputs. Do not recommend, select, or finalize a design direction in Phase 2; design opinions and conclusions belong to Phase 3, 4, or 5 after user discussion.
+
+Every research document must be **self-sufficient**: a reader with no prior context should be able to understand the topic fully from the document alone, verify claims through the cited references, and see which later-phase questions the information supports.
 
 ### Key Questions
 - What approaches exist for solving this type of problem, and what are their underlying mechanisms?
@@ -73,24 +75,25 @@ Every research document must be **self-sufficient**: a reader with no prior cont
 - What have similar projects done in production? What worked, what failed, and why?
 - What risks, edge cases, or failure modes should we anticipate?
 - What are the ecosystem maturity, community support, and long-term viability of each option?
-- How does each approach align with our goals and constraints from Phase 1?
+- How does each approach relate to our goals and constraints from Phase 1, without choosing among approaches yet?
+- What does the current codebase already do, and which files, modules, data flows, APIs, dependencies, tests, or deployment paths will later design phases need to understand?
 
 ### Research Topic Identification
 
-Derive research topics systematically from Phase 1 deliverables. Each topic must directly inform a Phase 3 or Phase 4 decision — if a topic doesn't connect to a concrete downstream decision, it doesn't belong here.
+Derive research topics systematically from Phase 1 deliverables. Each topic must directly inform a Phase 3 or Phase 4 design question — if a topic doesn't connect to a concrete downstream information need, it doesn't belong here.
 
 | Phase 1 Source | Topic Derivation |
 |---|---|
 | `goals.md` | Technical approaches to achieve each goal |
 | `constraints.md` | Viable options within each constraint |
 | `problem-statement.md` | Prior art — how similar problems have been solved |
-| `as-is-analysis.md` | Approaches to overcome current system limitations |
+| `as-is-analysis.md` | Current codebase structure, constraints, risks, and options for addressing current system limitations |
 
-**Filtering rule**: For each candidate topic, ask "Which Phase 3 or Phase 4 decision does this inform?" If there is no clear answer, either refine or drop the topic.
+**Filtering rule**: For each candidate topic, ask "Which Phase 3 or Phase 4 question does this prepare us to answer?" If there is no clear answer, either refine or drop the topic.
 
 ### Per-Topic Research Protocol
 
-Each topic requires thorough investigation across multiple dimensions, not just a single-source summary. The goal is comprehensive understanding that enables confident design decisions.
+Each topic requires thorough investigation across multiple dimensions, not just a single-source summary. The goal is comprehensive understanding that enables later design discussions to make informed decisions without prematurely making those decisions in Phase 2.
 
 #### Research Angles
 
@@ -103,7 +106,7 @@ Apply the relevant angles based on the topic's nature. Not every angle applies t
 | **Ecosystem** | Community size, tooling, documentation quality, release cadence, corporate backing | When choosing between competing technologies |
 | **Production Evidence** | Real-world case studies, post-mortems, migration stories | When evaluating unproven or high-risk approaches |
 | **Risk & Edge Cases** | Known pitfalls, failure scenarios, scaling limits, operational complexity | Always |
-| **Fit Assessment** | Alignment with our specific goals and constraints | Always — this is the bridge to Phase 3 / Phase 4 |
+| **Project Context Mapping** | How the findings relate to our goals, constraints, current codebase, risks, and later design questions | Always — this is the bridge to Phase 3 / Phase 4, but it must not select a design direction |
 
 #### Source Diversity
 
@@ -146,13 +149,37 @@ Every factual claim, data point, and external example must cite its source using
 
 ### Research Plan Discussion
 
-Before performing research, discuss what should be researched and why. Present candidate topics with the downstream decision each topic informs (Phase 3 concept-level, or Phase 4 skeleton-level), proposed scope, priority, depth, and comparison criteria. Let the user add, remove, split, merge, or reprioritize topics before writing the research plan.
+Before performing research, discuss what should be researched and why. Present candidate topics with the downstream design question or artifact each topic informs (Phase 3 concept-level, or Phase 4 skeleton-level), proposed scope, priority, depth, and comparison criteria. Let the user add, remove, split, merge, or reprioritize topics before writing the research plan.
+
+### Phase 2 Non-Goals
+
+Phase 2 should make later design conversations easier, not replace them. Avoid these patterns:
+
+- Do not write a recommended architecture, selected option, or target refactoring plan
+- Do not rank one approach as the final answer; capture comparative facts and tradeoffs instead
+- Do not create Phase 3 or Phase 4 option/decision artifacts from research alone
+- Do not turn codebase analysis into a proposed implementation plan
+- Do not skip codebase investigation for non-greenfield work when the repository is available and relevant
+
+### Codebase Investigation (When Applicable)
+
+When the project evolves an existing repository, migrates a system, or the user asks for codebase understanding, Phase 2 must include codebase investigation. The purpose is to document what later design phases need to know about the actual system, not to propose the target architecture or refactoring plan.
+
+Investigate the relevant current-state facts:
+
+- Entrypoints, package/module boundaries, layers, and ownership areas
+- Existing data flow, request flow, event flow, API surfaces, and integration points
+- Dependencies, configuration, persistence, infrastructure, build/test/deploy paths
+- Existing conventions, extension points, and constraints that future design should respect
+- Fragile areas, hidden coupling, missing tests, operational risks, and unknowns
+
+Document broad findings in `codebase-analysis.md` when the whole codebase matters, or inside a narrower `{topic}.md` when the investigation belongs to a specific research topic. Cite file paths, directories, commands, or local artifacts as references. End with later-phase design questions and open issues, not recommendations.
 
 ### Activities
 
 1. **Identify candidate topics** — Review Phase 1 deliverables and derive research topics using the topic identification table above. Present the topic list as candidates, not as a final plan.
 2. **Discuss and refine the research scope** — For each topic, agree on:
-   a. Which Phase 3 or Phase 4 decision it informs
+   a. Which Phase 3 or Phase 4 design question or artifact it informs
    b. Priority (`Must`, `Should`, `Optional`)
    c. Depth (`Quick`, `Standard`, `Deep`)
    d. Included and excluded scope
@@ -163,18 +190,19 @@ Before performing research, discuss what should be researched and why. Present c
    b. Gather information across multiple source types (see Source Diversity)
    c. Analyze from relevant research angles (see Research Angles)
    d. Cross-validate key claims across sources
-   e. Assess fit with project context (goals, constraints)
+   e. Map findings to project context (goals, constraints, current codebase) without recommending a design direction
    f. Document everything in `{topic}.md` using the template from `references/templates.md`
-5. **Synthesize findings** — Compile cross-topic patterns, insights, risks, and candidate directions for Phase 3 / Phase 4 discussion into `findings-summary.md`. Do not treat these as final design decisions.
+5. **Synthesize findings** — Compile cross-topic patterns, facts, constraints, risks, open questions, and later-phase decision inputs into `findings-summary.md`. Do not treat these as recommendations or final design decisions.
 6. **Write `_overview.md`** — Summarize Phase 2 scope, topics covered, and key takeaways
 
 ### Deliverables
 | File | Required | Notes |
 |------|----------|-------|
 | `_overview.md` | Always | |
-| `research-plan.md` | Always | Agreed topic list, priority, depth, scope, and decision mapping |
+| `research-plan.md` | Always | Agreed topic list, priority, depth, scope, and later-phase question/artifact mapping |
+| `codebase-analysis.md` | When applicable | Current-codebase findings needed by later design phases |
 | `{topic}.md` | Per topic | One file per research area — must follow the topic template |
-| `findings-summary.md` | Always | Cross-topic synthesis with design implications and consolidated references |
+| `findings-summary.md` | Always | Cross-topic synthesis with later-phase inputs, open questions, and consolidated references |
 
 `research-plan.md` is required for Phase 2 completion, but must not be created before the user agrees on topic list, scope, priority, depth, and comparison criteria.
 
@@ -182,9 +210,10 @@ Before performing research, discuss what should be researched and why. Present c
 - All identified topics researched across multiple angles with multiple source types
 - Each `{topic}.md` is self-sufficient — readable without external context
 - Each `{topic}.md` has a References table with **3+ sources** and inline `[Ref-N]` citations
-- Findings are synthesized with clear implications for Phase 3 (concept-level) and Phase 4 (skeleton-level) decisions
+- Existing codebase context is documented when relevant, with concrete file paths, modules, flows, dependencies, and risks
+- Findings are synthesized as clear inputs and questions for Phase 3 (concept-level) and Phase 4 (skeleton-level) discussion, not as recommendations
 - Open questions and remaining uncertainties are documented with suggested next steps
-- Enough information to make confident, well-informed decisions in Phase 3 and Phase 4
+- Enough information for Phase 3 and Phase 4 to make confident, well-informed decisions later
 - User has agreed on the research topic list before research begins
 
 ### Revisit Conditions

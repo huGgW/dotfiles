@@ -204,7 +204,7 @@ For migration or evolution projects (non-greenfield):
 - Add `as-is-analysis.md` to Phase 1 deliverables
   - Documents the current system's architecture, components, technology, and pain points
   - Serves as the baseline for understanding what exists before designing what comes next
-- Phase 2 research may include analysis of the existing codebase alongside external research
+- Phase 2 research should include current-codebase analysis when the repository is available and relevant, alongside any external research
 - Phase 3 (Solution Concept) should explicitly capture how the new system relates to the old one (replacement, parallel run, gradual migration, etc.) in `concept.md` or `operating-model.md`
 - Phase 5 decomposition may use different units depending on the project nature:
   - Migration: wave-based (`wave-1-auth/`, `wave-2-orders/`)
