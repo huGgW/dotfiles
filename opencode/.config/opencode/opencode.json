@@ -142,7 +142,7 @@
     "plugin": [
         "@tarquinen/opencode-dcp@latest",
         "@mohak34/opencode-notifier@latest",
-        "@devtheops/opencode-plugin-otel"
+        "opencode-auto-resume"
     ],
     "provider": {
     "compaction": {
