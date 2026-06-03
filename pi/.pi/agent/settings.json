@@ -1,0 +1,25 @@
+{
+  "defaultThinkingLevel": "xhigh",
+  "hideThinkingBlock": true,
+  "packages": [
+    "npm:pi-mcp-adapter",
+    "npm:pi-subagents",
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:@juicesharp/rpiv-todo",
+    "npm:pi-powerline-footer",
+    "npm:pi-better-openai",
+    "npm:@spences10/pi-lsp",
+    "npm:@pi-unipi/notify",
+    "npm:pi-rewind-hook",
+    "npm:pi-markdown-preview",
+    "npm:pi-autoname",
+    "npm:pi-context-prune",
+    "npm:@ff-labs/pi-fff",
+    "npm:@ifi/oh-pi-themes",
+    "npm:pi-intercom",
+    "npm:pi-code-previews",
+    "npm:pi-tool-display"
+  ],
+  "doubleEscapeAction": "tree",
+  "treeFilterMode": "default"
+}

@@ -1,0 +1,61 @@
+{
+  "mcpServers": {
+    "exa": {
+      "url": "https://mcp.exa.ai/mcp"
+    },
+    "linear": {
+      "url": "https://mcp.linear.app/mcp",
+      "oauth": {
+        "scope": "tools:read"
+      }
+    },
+    "datadog": {
+      "url": "https://mcp.datadoghq.com/api/unstable/mcp-server/mcp",
+      "oauth": {
+        "scope": "tools:read"
+      }
+    },
+    "notionMCP": {
+      "url": "https://mcp.notion.com/mcp",
+      "oauth": {
+        "scope": "tools:read"
+      }
+    },
+    "markitdown": {
+      "command": "uvx",
+      "args": ["markitdown-mcp"]
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--no-performance-crud",
+        "--no-usage-statistics",
+        "--autoConnect"
+      ]
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    },
+    "grep": {
+      "url": "https://mcp.grep.app"
+    },
+    "deepwiki": {
+      "url": "https://mcp.deepwiki.com/mcp"
+    },
+    "ast-grep": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/ast-grep/ast-grep-mcp",
+        "ast-grep-server"
+      ]
+    },
+    "grafana": {
+      "command": "uvx",
+      "args": ["mcp-grafana"],
+    },
+  }
+}

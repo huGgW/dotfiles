@@ -6,6 +6,7 @@ StowOnHome="stow -v --target $HOME"
 stow_common() {
     mkdir -p "$HOME/.agents/skills"
     mkdir -p "$HOME/.config/opencode"
+    mkdir -p "$HOME/.pi/agent"
 
     $StowOnHome \
         ghostty \
@@ -18,7 +19,8 @@ stow_common() {
         zed \
         kanata \
         agent_rules \
-        opencode
+        opencode \
+        pi
 }
 
 stow_macos() {
