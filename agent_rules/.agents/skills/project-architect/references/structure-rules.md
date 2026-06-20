@@ -219,13 +219,15 @@ When a Phase is revisited and changes are made:
 
 ### Recording Changes
 
-Add an entry to `_changelog.md` with:
+Add an entry to `_changelog.md` only for design-impacting changes with:
 - Date of change
 - Which Phase was revisited
 - What changed
 - Why (reason/source)
 - Source: `Internal discovery` or `External feedback` (with meeting/review details)
 - List of affected artifacts in downstream Phases
+
+Do not add changelog entries for typo fixes, formatting-only edits, link cleanup, or wording changes that do not alter meaning.
 
 ### Marking Affected Documents
 
@@ -247,3 +249,15 @@ After modifying a document, check whether downstream documents are affected:
 - Phase 5 component change → may affect `interfaces/`, other dependent components
 
 Document all affected artifacts in `_changelog.md` before starting updates.
+
+### Changelog Compaction
+
+Periodically compact `_changelog.md` after major phase transitions, long sessions, or after all affected artifacts from older changes have been updated.
+
+Use these rules:
+- Keep entries that still affect open decisions, unresolved cascade checks, downstream artifacts, or stakeholder accountability.
+- Summarize related old entries into one line when their detailed sequence no longer matters.
+- Move detailed historical entries to `archive/changelog-YYYY-MM.md` only when the user agrees or the project already uses archives.
+- Remove trivial entries for typo, formatting, link cleanup, or wording-only changes unless meaning changed.
+- Never remove entries that explain why a major direction changed, why an option was rejected, or which external feedback caused a revisit.
+- Before adding or keeping a meta entry, ask: “Will this help a future session resume, revisit, or validate the design?” If not, omit or compact it.

@@ -22,6 +22,8 @@ Use this skill to create or improve technical documentation by matching the docu
 
 - Write documentation in Korean unless the user explicitly requests another language.
 - Keep code, commands, identifiers, and code comments in English.
+- Assume documentation may be reviewed together over screen sharing. Favor compact, scannable structure over long prose.
+- In Korean documents, minimize English except where exact technical meaning requires it, such as code, commands, identifiers, API names, configuration keys, and product names. Prefer plain Korean over difficult Sino-Korean terms, translationese, or overly formal phrasing.
 - If working inside a repository, inspect relevant source files, existing docs, configuration, or tests before writing factual technical content.
 - Ask one concise clarification question only when the audience, use moment, or requested output is too ambiguous to choose a documentation mode safely. Otherwise, proceed and state assumptions at the end.
 - Prefer the smallest useful documentation change when improving existing docs. Diataxis is a guide for better local decisions, not a reason to rewrite everything.
@@ -69,6 +71,8 @@ Do not treat README, API docs, runbooks, architecture docs, onboarding guides, d
 
 6. Review deep quality.
    - Check whether the document fits the reader's need, preserves flow, anticipates likely next questions, and avoids mode contamination.
+   - Check whether the document works when read together on a shared screen: compact sections, visible structure, and low scanning effort.
+   - For Korean documents, check whether English terms and difficult phrasing can be reduced without losing technical precision.
    - Use `references/quality-checklists.md` before finalizing substantial docs or documentation reviews.
 
 7. Deliver the result.
@@ -100,8 +104,12 @@ Read `references/composite-doc-patterns.md` before drafting these document types
 ## Formatting Principles
 
 - Choose headings that match the reader's task or question, not generic template slots.
+- Keep shared-screen readability in mind: prefer short sections, short paragraphs, bullets, tables, and diagrams when they help readers follow the document quickly.
+- Prefer bullet points when sentences become long, contain multiple ideas, or need to separate conditions, caveats, or action items.
 - Use tables for compact comparisons, option matrices, API/field references, decision catalogs, and status summaries.
+- Prefer tables when each item has several short attributes, such as status, owner, scope, default, constraint, option, or comparison point.
 - Avoid tables for long rationale, code-heavy walkthroughs, nested detail, or prose that wraps heavily on mobile.
+- If table cells require long prose, use bullets or short sections instead.
 - Use diagrams only when they reduce cognitive load. Prefer Mermaid for architecture, sequence, flow, ER, state, and dependency diagrams when Markdown rendering supports it.
 - Keep examples concrete and runnable. Show expected output when it helps the reader know they are on track.
 - Do not add decorative markers, forced metadata, or boilerplate sections unless the user or repository convention requires them.

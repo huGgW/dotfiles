@@ -26,8 +26,11 @@ Check:
 
 - Reader fit: the assumed skill level matches the actual audience.
 - Use moment: the document works where it will be read, such as during work, during learning, or during reflection.
+- Shared-screen fit: the document can be followed during live review without burying key points in long prose.
 - Flow: the next needed information appears before the reader has to hunt for it.
 - Cognitive load: the document avoids unnecessary branching, formatting, tables, diagrams, and digressions.
+- Scannability: long sentences or multi-idea paragraphs are split into bullets, while repeated short attributes are organized in tables.
+- Language fit: Korean documents minimize unnecessary English and difficult phrasing without losing technical precision.
 - Anticipation: likely next questions are answered or linked without derailing the current mode.
 - Confidence: the reader can tell when they are done, successful, or ready to continue elsewhere.
 - Navigability: headings, anchors, and links support scanning without replacing the substance.
@@ -97,12 +100,19 @@ Use small, responsive improvements instead of defaulting to broad rewrites.
 
 ## Tables And Diagrams
 
+Use bullets when they make long or multi-idea sentences easier to scan:
+
+- Conditions, caveats, risks, and action items.
+- Short explanation fragments that would become hard to read in one sentence.
+- Ordered or unordered ideas where the reader needs to pause at each point.
+
 Use tables when they make comparison or lookup easier:
 
 - API fields, options, limits, and errors.
 - Short decision comparisons.
 - Status, ownership, and follow-up tracking.
 - Compatibility or support matrices.
+- Items that each have several short attributes, such as status, owner, scope, default, constraint, option, or comparison point.
 
 Avoid tables when:
 
@@ -110,6 +120,7 @@ Avoid tables when:
 - The content is a narrative, tutorial, or rationale.
 - Code blocks or commands dominate the content.
 - The table will wrap heavily on mobile.
+- Bullets or short sections would preserve meaning with less visual strain.
 
 Use diagrams when they reduce explanation cost:
 
@@ -124,6 +135,15 @@ Avoid diagrams when:
 - A short paragraph or list is clearer.
 - The diagram duplicates nearby text without adding structure.
 - Maintaining it would be harder than maintaining the source facts.
+
+## Korean Readability
+
+For Korean documents, check:
+
+- English terms are used only when needed for exact technical meaning, such as code, commands, identifiers, API names, configuration keys, product names, or unavoidable industry terms.
+- Plain Korean is preferred over difficult Sino-Korean terms, translationese, or overly formal phrasing.
+- Unavoidable English terms are introduced with enough context for the intended reader.
+- Natural Korean word order is preserved instead of mirroring English sentence structure.
 
 ## Final Delivery Notes
 

@@ -9,8 +9,9 @@ Copy and adapt each template as needed during design work.
 
 ### `_plan.md`
 
-Lightweight Phase tracking file. Read at the start of every session.
-Keep this file short — decision and change history belong in separate files.
+Lightweight operational checkpoint. Read at the start of every session.
+Keep this file short — it is not a todo archive, meeting notes file, or change history.
+Once an agenda outcome is documented in the relevant artifact, remove the detailed tracking note from `_plan.md`.
 
 ```markdown
 # Design Plan: {Project Name}
@@ -28,6 +29,11 @@ Keep this file short — decision and change history belong in separate files.
 > Unresolved Discussion: {open agenda or decision still being discussed}
 > Pending Candidate Set: {candidate options/topics/goals not yet documented, or "none"}
 > Next Required User Confirmation: {what must be confirmed before writing/updating artifacts}
+
+## Maintenance Rules
+- Keep only the current phase, active agenda, unresolved discussion, pending candidate set, and next required confirmation.
+- Remove completed agenda notes once outcomes are documented in phase artifacts.
+- Do not duplicate decision rationale here; link to `decision.md`, `_decisions.md`, or the relevant artifact instead.
 
 ## Phase Tracking
 
@@ -72,6 +78,11 @@ Keep this file short — decision and change history belong in separate files.
 - ⬜ Pending
 - 🔁 Revisiting (returned to a previously completed Phase)
 
+**Compaction rules:**
+- Keep `_plan.md` focused on “where are we and what must happen next?”
+- Remove stale completed todos, old discussion notes, and history-like detail after they are captured in the appropriate artifact.
+- Preserve unresolved discussion, undocumented candidate sets, and the next required user confirmation.
+
 ---
 
 ### `_decisions.md`
@@ -92,11 +103,17 @@ Central log of all design decisions. Referenced when checking prior decisions.
 
 ### `_changelog.md`
 
-Tracks all revisits and modifications. Includes source (internal discovery vs external feedback)
-and affected artifacts for invalidation tracking.
+Tracks design-impacting revisits and modifications. Includes source (internal discovery vs external feedback)
+and affected artifacts for invalidation tracking. Do not log typo fixes, formatting-only edits,
+or wording cleanup unless they change meaning.
 
 ```markdown
 # Changelog
+
+## Retention Rules
+- Keep changes that may affect future design work, open decisions, downstream artifacts, or stakeholder accountability.
+- Compact or archive entries after all affected artifacts are updated and detailed sequencing no longer matters.
+- Do not record trivial edits unless they change meaning.
 
 | Date | Phase | Change | Reason | Source | Affected Artifacts |
 |------|-------|--------|--------|--------|-------------------|
@@ -108,6 +125,17 @@ and affected artifacts for invalidation tracking.
 **Source types:**
 - `Internal discovery` — Found during design work in a later Phase
 - `External feedback` — Input from team review, stakeholder meeting, etc. (include meeting name/date)
+
+**What not to log:**
+- Typo fixes, formatting-only edits, link cleanup, or wording changes that do not alter meaning
+- Short-lived work notes already captured in `_plan.md` or the relevant artifact
+- Repeated micro-updates that can be summarized as one design-impacting change
+
+**Compaction rules:**
+- Before adding or keeping an entry, ask: “Will this help a future session resume, revisit, or validate the design?”
+- Summarize related old entries when the detailed sequence no longer matters.
+- Move detailed historical entries to `archive/changelog-YYYY-MM.md` only after user agreement or when the project already uses archives.
+- Never remove entries that explain a major direction change, rejected option, or external feedback that caused a revisit.
 
 **Invalidation marker** — Place at the top of affected documents before updating:
 ```markdown
