@@ -4,147 +4,94 @@
     "autoupdate": true,
     "instructions": ["common_rules/*.md"],
     "permission": {
-        "webfetch": "allow",
-        "skill": "allow",
-        "doom_loop": "deny",
-        "lsp": "allow",
+        "*": "allow",
         "external_directory" : {
             "*": "ask",
             "~/github/**": "allow"
         },
         "bash": {
-            "*": "ask",
-            "pwd": "allow",
-            "ls": "allow",
-            "ls *": "allow",
-            "echo": "allow",
-            "echo *": "allow",
-            "cat": "allow",
-            "cat *": "allow",
-            "date": "allow",
-            "date *": "allow",
-            "head": "allow",
-            "head *": "allow",
-            "tail": "allow",
-            "tail *": "allow",
-            "diff": "allow",
-            "diff *": "allow",
-            "printf": "allow",
-            "printf *": "allow",
-            "fd": "allow",
-            "fd *": "allow",
-            "find": "allow",
-            "find *": "allow",
-            "rg": "allow",
-            "rg *": "allow",
-            "grep": "allow",
-            "grep *": "allow",
-            "sed": "allow",
-            "sed *": "allow",
-            "sort": "allow",
-            "sort *": "allow",
-            "wc": "allow",
-            "wc *": "allow",
-            "tr": "allow",
-            "tr *": "allow",
-            "cut": "allow",
-            "cut *": "allow",
-            "uniq": "allow",
-            "uniq *": "allow",
-            "awk": "allow",
-            "awk *": "allow",
-            "which": "allow",
-            "which *": "allow",
-            "file": "allow",
-            "file *": "allow",
-            "tree": "allow",
-            "tree *": "allow",
-            "jq": "allow",
-            "jq *": "allow",
-            "basename": "allow",
-            "basename *": "allow",
-            "dirname": "allow",
-            "dirname *": "allow",
-            "realpath": "allow",
-            "realpath *": "allow",
-            "git diff": "allow",
-            "git diff *": "allow",
-            "git status": "allow",
-            "git status *": "allow",
-            "git log": "allow",
-            "git log *": "allow",
-            "gh pr list": "allow",
-            "gh pr list *": "allow",
-            "gh pr view": "allow",
-            "gh pr view *": "allow",
-            "gh pr diff": "allow",
-            "gh pr diff *": "allow",
-            "./gradlew tasks": "allow",
-            "./gradlew tasks *": "allow",
-            "git branch": "allow",
-            "git branch *": "allow",
-            "git show": "allow",
-            "git show *": "allow",
-            "git tag": "allow",
-            "git tag *": "allow",
-            "git stash list": "allow",
-            "git stash list *": "allow",
-            "git remote": "allow",
-            "git remote *": "allow",
-            "git rev-parse": "allow",
-            "git rev-parse *": "allow",
-            "gh issue list": "allow",
-            "gh issue list *": "allow",
-            "gh issue view": "allow",
-            "gh issue view *": "allow",
-            "gh repo view": "allow",
-            "gh repo view *": "allow"
-        }
-    },
-    "agent": {
-        "build": {
-            "permission": {
-                "edit": "allow",
-                "doom_loop": "ask",
-                "bash": {
-                    "mkdir": "allow",
-                    "mkdir *": "allow",
-                    "go build": "allow",
-                    "go build *": "allow",
-                    "go test": "allow",
-                    "go test *": "allow",
-                    "make build": "allow",
-                    "make build *": "allow",
-                    "make test": "allow",
-                    "make test *": "allow",
-                    "./gradlew build": "allow",
-                    "./gradlew build *": "allow",
-                    "./gradlew test": "allow",
-                    "./gradlew test *": "allow",
-                    "git add": "allow",
-                    "git add *": "allow",
-                    "git commit": "allow",
-                    "git commit *": "allow"
-                }
-            }
-        },
-        "yolo": {
-            "permission": {
-                "*": {
-                    "*": "allow"
-                }
-            }
-        },
-        "general": {
-            "permission": {}
+            "rm -rf": "ask",
         },
     },
     "plugin": [
         "@tarquinen/opencode-dcp@latest",
         "@mohak34/opencode-notifier@latest",
-        "opencode-auto-resume"
+        ["opencode-auto-resume", {
+            "chunkTimeoutMs": 600000,
+            "gracePeriodMs": 8000,
+            "checkIntervalMs": 10000,
+            "maxRetries": 3,
+            "baseBackoffMs": 60000,
+            "maxBackoffMs": 480000,
+            "subagentWaitMs": 600000,
+            "loopMaxContinues": 3,
+            "loopWindowMs": 1800000
+        }],
     ],
     "provider": {
+        "openai": {
+            "models": {
+                "gpt-5.5": {
+                    "name": "GPT-5.5 (Codex)",
+                    "family": "gpt",
+                    "release_date": "2026-04-23",
+                    "attachment": true,
+                    "reasoning": true,
+                    "temperature": false,
+                    "tool_call": true,
+                    "limit": {
+                        "context": 272000,
+                        "input": 272000,
+                        "output": 128000
+                    },
+                    "modalities": {
+                        "input": ["text", "image", "pdf"],
+                        "output": ["text"]
+                    }
+                },
+                "gpt-5.5-fast": {
+                    "id": "gpt-5.5",
+                    "name": "GPT-5.5 Fast (Codex)",
+                    "family": "gpt",
+                    "release_date": "2026-04-23",
+                    "attachment": true,
+                    "reasoning": true,
+                    "temperature": false,
+                    "tool_call": true,
+                    "options": {
+                        "serviceTier": "priority"
+                    },
+                    "limit": {
+                        "context": 272000,
+                        "input": 272000,
+                        "output": 128000
+                    },
+                    "modalities": {
+                        "input": ["text", "image", "pdf"],
+                        "output": ["text"]
+                    }
+                },
+                "gpt-5.5-pro": {
+                    "name": "GPT-5.5 Pro (Codex)",
+                    "family": "gpt-pro",
+                    "release_date": "2026-04-23",
+                    "attachment": true,
+                    "reasoning": true,
+                    "temperature": false,
+                    "tool_call": true,
+                    "limit": {
+                        "context": 272000,
+                        "input": 272000,
+                        "output": 128000
+                    },
+                    "modalities": {
+                        "input": ["text", "image", "pdf"],
+                        "output": ["text"]
+                    }
+                }
+            }
+        },
+        "prism": {
     "compaction": {
         "auto": false,
     },
