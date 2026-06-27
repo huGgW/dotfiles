@@ -1,4 +1,7 @@
 {
+  "lastChangelogVersion": "0.79.6",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.5",
   "defaultThinkingLevel": "xhigh",
   "hideThinkingBlock": true,
   "packages": [
@@ -6,19 +9,22 @@
     "npm:pi-subagents",
     "npm:@juicesharp/rpiv-ask-user-question",
     "npm:@juicesharp/rpiv-todo",
-    "npm:pi-powerline-footer",
     "npm:pi-better-openai",
     "npm:@spences10/pi-lsp",
-    "npm:@pi-unipi/notify",
     "npm:pi-rewind-hook",
     "npm:pi-markdown-preview",
     "npm:pi-autoname",
     "npm:pi-context-prune",
     "npm:@ff-labs/pi-fff",
-    "npm:@ifi/oh-pi-themes",
     "npm:pi-intercom",
     "npm:pi-code-previews",
-    "npm:pi-tool-display"
+    "npm:pi-tool-display",
+    "npm:pi-web-access",
+    "npm:@sherif-fanous/pi-theme-sync",
+    "npm:pi-mono-multi-edit",
+    "npm:@jmcombs/pi-notify"
+  ],
+  "theme": "dark",
   ],
   "doubleEscapeAction": "tree",
   "treeFilterMode": "default"
