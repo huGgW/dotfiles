@@ -63,6 +63,7 @@ If 200 lines can be 50 with equal clarity and safety, simplify.
 When editing existing code:
 - Do not refactor unrelated areas.
 - Do not change adjacent formatting/comments without a direct reason.
+- Readability-preserving whitespace in newly written or directly modified code is a valid direct reason.
 - Match existing style and architecture conventions.
 - If unrelated issues are noticed, report them instead of fixing without request.
 
@@ -72,7 +73,18 @@ When your changes create orphans:
 
 Every changed line must be traceable to the approved plan.
 
-## 6. Verification-Driven Execution
+## 6. Readable Code Layout
+
+**Use blank lines to separate meaningful code groups. Compact code is not the same as readable code.**
+
+When writing or modifying code:
+- Group related statements together.
+- Insert blank lines between distinct responsibilities, phases, or validation branches.
+- Keep setup, validation, transformation, side effects, and return logic visually distinguishable when they are meaningfully separate.
+- Do not remove useful blank lines just to make code shorter.
+- Do not add decorative spacing that conflicts with the surrounding project style.
+
+## 7. Verification-Driven Execution
 
 **Define success criteria, then verify with evidence.**
 
@@ -87,7 +99,7 @@ At completion, provide:
 - Verification evidence (executed tests/commands or clear reason if not run).
 - Known limitations or follow-up risks.
 
-## 7. Clarification Rules
+## 8. Clarification Rules
 
 Ask clarification questions only when truly necessary:
 - Ambiguity that materially changes implementation.
