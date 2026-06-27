@@ -24,8 +24,11 @@ stow_common() {
 }
 
 stow_macos() {
+    mkdir -p "$HOME/.config/karabiner"
+
     $StowOnHome \
         aerospace \
+        karabiner \
         hammerspoon
 }
 
