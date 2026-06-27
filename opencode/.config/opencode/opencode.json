@@ -2,31 +2,35 @@
     "$schema": "https://opencode.ai/config.json",
     "autoshare": false,
     "autoupdate": true,
-    "instructions": ["common_rules/*.md"],
+    "instructions": [
+        "common_rules/*.md",
+        "AGENTS.local.md"
+    ],
     "permission": {
         "*": "allow",
         "external_directory" : {
             "*": "ask",
-            "~/github/**": "allow"
+            "~/.agents/**": "allow",
+            "~/github/**": "allow",
+            "~/.plannotator/**": "allow",
+            "~/Library/Application Support/rtk/**": "allow",
         },
         "bash": {
             "rm -rf": "ask",
+            "git push * --force *": "ask",
+            "git push * -f *": "ask",
+            "git reset * -h *": "ask",
+            "git reset * --hard *": "ask",
         },
     },
     "plugin": [
         "@tarquinen/opencode-dcp@latest",
         "@mohak34/opencode-notifier@latest",
-        ["opencode-auto-resume", {
-            "chunkTimeoutMs": 600000,
-            "gracePeriodMs": 8000,
-            "checkIntervalMs": 10000,
-            "maxRetries": 3,
-            "baseBackoffMs": 60000,
-            "maxBackoffMs": 480000,
-            "subagentWaitMs": 600000,
-            "loopMaxContinues": 3,
-            "loopWindowMs": 1800000
-        }],
+        "opencode-betterglob",
+        "opencode-bettergrep",
+        "opencode-betterread",
+        ["@plannotator/opencode@latest",{
+            "workflow": "user-managed"}]
     ],
     "provider": {
         "openai": {
@@ -154,7 +158,7 @@
             "oauth": {
                 "scope": "tools:read"
             },
-            "enabled": false
+            "enabled": true
         },
         "datadog": {
             "type": "remote",
@@ -163,36 +167,6 @@
                 "scope": "tools:read"
             },
             "enabled": false
-        },
-        "notionMCP": {
-            "type": "remote",
-            "url": "https://mcp.notion.com/mcp",
-            "oauth": {
-                "scope": "tools:read"
-            },
-            "enabled": false
-        },
-        "markitdown": {
-            "type": "local",
-            "command": ["uvx", "markitdown-mcp"],
-            "enabled": false
-        },
-        "chrome-devtools": {
-            "type": "local",
-            "command": [
-                "npx",
-                "-y",
-                "chrome-devtools-mcp@latest",
-                "--no-performance-crud",
-                "--no-usage-statistics",
-                "--autoConnect"
-            ],
-            "enabled": false
-        },
-        "context7": {
-            "type": "local",
-            "command": ["npx", "-y", "@upstash/context7-mcp"],
-            "enabled": true
         },
         "grep": {
             "type": "remote",
@@ -204,15 +178,9 @@
             "url": "https://mcp.deepwiki.com/mcp",
             "enabled": true
         },
-        "ast-grep": {
             "type": "local",
             "command": [
                 "uvx",
-                "--from",
-                "git+https://github.com/ast-grep/ast-grep-mcp",
-                "ast-grep-server"
             ],
-            "enabled": true
-        }
     }
 }
