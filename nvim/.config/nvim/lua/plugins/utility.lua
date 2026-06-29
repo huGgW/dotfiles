@@ -201,6 +201,9 @@ return {
             -- Appearance
             require("mini.statusline").setup()
             require("mini.trailspace").setup()
+
+            -- icon
+            require('mini.icons').setup()
         end,
     },
 }

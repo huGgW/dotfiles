@@ -1,10 +1,9 @@
 return {
     {
         "A7Lavinraj/fyler.nvim",
-        dependencies = { "echasnovski/mini.icons" },
         branch = "stable",
-        opts = {
-            default_explorer = true
+        dependencies = {
+            "nvim-mini/mini.nvim"
         },
         keys = {
             {
@@ -17,6 +16,14 @@ return {
                 desc = "Fyler(Explorer)"
             },
         },
+        config = function()
+            require("fyler").setup({
+                default_explorer = true,
+                integrations = {
+                    icon = 'nvim_web_devicons'
+                }
+            })
+        end,
     },
     {
         "HiPhish/rainbow-delimiters.nvim",
