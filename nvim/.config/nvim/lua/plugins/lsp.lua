@@ -66,12 +66,12 @@ return {
         lazy = false, -- This plugin is already lazy
 
     },
-    {
-        "pmizio/typescript-tools.nvim",
-        dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-        ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
-        opts = {},
-    },
+    -- {
+    --     "pmizio/typescript-tools.nvim",
+    --     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    --     ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+    --     opts = {},
+    -- },
     {
         'nvim-java/nvim-java',
         ft = { 'java' },
