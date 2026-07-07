@@ -50,7 +50,9 @@ The plan must include:
 **Implement the minimum change that solves the requested problem.**
 
 - No features beyond the request.
-- No abstractions for single-use code.
+- Do not extract abstractions or helper functions for single-use or near-single-use code unless they clearly improve naming, isolation, testability, or readability.
+- Avoid extracting very short logic into a helper only to reduce line count.
+- If logic is used only 1-2 times and the helper call obscures more than it clarifies, keeping it inline is acceptable.
 - No speculative flexibility/configurability.
 - No unnecessary error handling for impossible scenarios.
 
@@ -75,10 +77,11 @@ Every changed line must be traceable to the approved plan.
 
 ## 6. Readable Code Layout
 
-**Use blank lines to separate meaningful code groups. Compact code is not the same as readable code.**
+**Use blank lines intentionally to separate meaningful code groups. Readable spacing is encouraged; compact code is not inherently better.**
 
 When writing or modifying code:
 - Group related statements together.
+- Prefer inserting blank lines between logical steps when they make the flow easier to scan.
 - Insert blank lines between distinct responsibilities, phases, or validation branches.
 - Keep setup, validation, transformation, side effects, and return logic visually distinguishable when they are meaningfully separate.
 - Do not remove useful blank lines just to make code shorter.
