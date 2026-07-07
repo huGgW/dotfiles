@@ -1,0 +1,160 @@
+[
+  {
+    "plugin_id": "mikevalstar.machine-title",
+    "name": "Machine Title",
+    "version": "0.1.0",
+    "min_herdr_version": "0.7.0",
+    "description": "Pin the outer terminal title to herdr@<hostname> · <workspace>.",
+    "manifest_path": "/Users/logan/.config/herdr/plugins/github/mikevalstar.machine-title-c68a776a4c9a/herdr-plugin.toml",
+    "plugin_root": "/Users/logan/.config/herdr/plugins/github/mikevalstar.machine-title-c68a776a4c9a",
+    "enabled": true,
+    "platforms": [
+      "macos",
+      "linux"
+    ],
+    "actions": [
+      {
+        "id": "refresh",
+        "title": "Refresh machine title",
+        "contexts": [
+          "workspace",
+          "tab",
+          "pane"
+        ],
+        "command": [
+          "sh",
+          "set-title.sh"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "on": "pane.agent_status_changed",
+        "command": [
+          "sh",
+          "set-title.sh"
+        ]
+      },
+      {
+        "on": "pane.closed",
+        "command": [
+          "sh",
+          "set-title.sh"
+        ]
+      },
+      {
+        "on": "pane.created",
+        "command": [
+          "sh",
+          "set-title.sh"
+        ]
+      },
+      {
+        "on": "pane.focused",
+        "command": [
+          "sh",
+          "set-title.sh"
+        ]
+      },
+      {
+        "on": "tab.focused",
+        "command": [
+          "sh",
+          "set-title.sh"
+        ]
+      },
+      {
+        "on": "workspace.focused",
+        "command": [
+          "sh",
+          "set-title.sh"
+        ]
+      },
+      {
+        "on": "workspace.renamed",
+        "command": [
+          "sh",
+          "set-title.sh"
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "mikevalstar",
+      "repo": "herdr-machine-title",
+      "resolved_commit": "fb5ce997f2a0d2c3d7fb2e640a7eebe44743d51a",
+      "managed_path": "/Users/logan/.config/herdr/plugins/github/mikevalstar.machine-title-c68a776a4c9a",
+      "installed_unix_ms": 1783325462363
+    }
+  },
+  {
+    "plugin_id": "smart-workspace",
+    "name": "Smart Workspace",
+    "version": "0.1.0",
+    "min_herdr_version": "0.7.0",
+    "description": "Switch Herdr workspaces with fzf and zoxide.",
+    "manifest_path": "/Users/logan/.config/herdr/plugins/github/smart-workspace-f6b92f176fec/herdr-plugin.toml",
+    "plugin_root": "/Users/logan/.config/herdr/plugins/github/smart-workspace-f6b92f176fec",
+    "enabled": true,
+    "platforms": [
+      "linux",
+      "macos"
+    ],
+    "actions": [
+      {
+        "id": "switch",
+        "title": "Switch workspace",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "python3",
+          "-m",
+          "smart_workspace.open_pane"
+        ]
+      },
+      {
+        "id": "switch-previous",
+        "title": "Switch to previous workspace",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "python3",
+          "-m",
+          "smart_workspace.previous"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "on": "workspace.focused",
+        "command": [
+          "python3",
+          "-m",
+          "smart_workspace.track"
+        ]
+      }
+    ],
+    "panes": [
+      {
+        "id": "picker",
+        "title": "Smart Workspace",
+        "placement": "overlay",
+        "command": [
+          "python3",
+          "-m",
+          "smart_workspace.picker"
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "nicolasvasquez",
+      "repo": "herdr-smart-workspace",
+      "resolved_commit": "8a180792d1a6043d84c942551e6f58d96d872b77",
+      "managed_path": "/Users/logan/.config/herdr/plugins/github/smart-workspace-f6b92f176fec",
+      "installed_unix_ms": 1783325339671
+    }
+  }
+]

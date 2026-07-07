@@ -6,6 +6,7 @@ StowOnHome="stow -v --target $HOME"
 stow_common() {
     mkdir -p "$HOME/.agents/skills"
     mkdir -p "$HOME/.config/opencode"
+    mkdir -p "$HOME/.config/herdr"
     mkdir -p "$HOME/.pi/agent"
 
     $StowOnHome \
@@ -14,6 +15,7 @@ stow_common() {
         nvim \
         starship \
         tmux \
+        herdr \
         yazi \
         zsh \
         zed \
