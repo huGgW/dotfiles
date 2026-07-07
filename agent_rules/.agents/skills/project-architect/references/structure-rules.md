@@ -17,10 +17,13 @@ Rules for naming, organizing, and managing the design directory tree.
 
 | Type | Convention | Examples |
 |------|-----------|----------|
-| Meta files | `_` prefix + kebab-case | `_plan.md`, `_overview.md`, `_decisions.md`, `_changelog.md` |
+| Reserved files | Fixed names | `index.md`, `log.md` |
+| Operational concept files | Fixed names | `plan.md`, `decisions.md` |
 | Content files | kebab-case | `problem-statement.md`, `goals.md`, `concept.md`, `operating-model.md`, `architecture-overview.md`, `domain-model.md`, `design.md` |
 | Option files | `option-{letter}-{short-name}.md` | `option-a-event-driven.md`, `option-b-rest.md` |
 | Research files | Topic name | `event-sourcing.md`, `database-per-service.md` |
+
+`index.md` and `log.md` are OKF reserved navigation/update files and do not need ordinary concept frontmatter. `plan.md`, `decisions.md`, and all other non-reserved Markdown artifacts are OKF concept documents and should include YAML frontmatter.
 
 ---
 
@@ -32,13 +35,13 @@ Phase 3 (Solution Concept) is intentionally lighter than the structural phases. 
 
 ```
 3-solution-concept/
-├── _overview.md
+├── index.md
 ├── concept.md
 ├── operating-model.md
 ├── principles.md
-└── options/                       # only when competing big-picture directions exist
-    ├── option-a-{name}.md
-    └── option-b-{name}.md
+├── options/                       # only when competing big-picture directions exist
+│   ├── option-a-{name}.md
+│   └── option-b-{name}.md
 └── decision.md                    # paired with options/
 ```
 
@@ -61,7 +64,7 @@ Do **not** create options for:
 The same general rules apply as in Phase 4 / Phase 5:
 - Discuss candidate directions in conversation before creating option files.
 - After the user agrees on the candidate set, create exactly one file per candidate direction under `options/`.
-- `_overview.md` should summarize purpose, children, and status; it may link to option files but must not replace them.
+- `index.md` should summarize purpose, children, and status; it may link to option files but must not replace them.
 - `decision.md` should reference option files and explain the final rationale; it should not duplicate full option analysis.
 
 ---
@@ -73,7 +76,7 @@ The same general rules apply as in Phase 4 / Phase 5:
 | Condition | Structure | Example |
 |-----------|----------|---------|
 | No skeleton-level decisions to make | Just `architecture-overview.md` + `domain-model.md` | Project where the concept is concrete enough that the structure follows naturally |
-| One dominant skeleton-level decision | Flat `_overview.md` + `options/` + `decision.md` alongside the overview/model | Project where one structural choice dominates |
+| One dominant skeleton-level decision | Flat `index.md` + `options/` + `decision.md` alongside the overview/model | Project where one structural choice dominates |
 | 2+ independent skeleton-level decisions | Multi (decision area subdirectories) | Microservices platform with communication, data, deployment choices |
 
 ### Skeleton-Level Decision Test
@@ -90,7 +93,7 @@ If the question stays inside a single component, push it to Phase 5.
 
 ### Multi-Decision Guidelines
 
-- Each decision area gets its own subdirectory with `_overview.md`, `options/`, and `decision.md`
+- Each decision area gets its own subdirectory with `index.md`, `options/`, and `decision.md`
 - `architecture-overview.md` and `domain-model.md` at Phase 4 root are always required, regardless of whether decision-area subdirectories exist
 - Decision areas should be **independent** — if two decisions are tightly coupled, merge them into one area
 
@@ -98,8 +101,8 @@ If the question stays inside a single component, push it to Phase 5.
 
 - Discuss candidate directions in conversation before creating option files.
 - After the user agrees on the candidate set, create exactly one file per candidate direction under `options/`.
-- Do not store full option descriptions only in `_overview.md`, `architecture-overview.md`, `domain-model.md`, or `decision.md`.
-- `_overview.md` should summarize purpose, children, and status; it may link to option files but must not replace them.
+- Do not store full option descriptions only in `index.md`, `architecture-overview.md`, `domain-model.md`, or `decision.md`.
+- `index.md` should summarize purpose, children, and status; it may link to option files but must not replace them.
 - `decision.md` should reference option files and explain the final rationale; it should not duplicate full option analysis.
 - If the user introduces a new option later, add the next lettered option file (for example, `option-d-workflow-engine.md`) and re-evaluate it alongside the existing options.
 
@@ -107,7 +110,7 @@ Required structure for a decision area:
 
 ```
 {decision-area}/
-├── _overview.md
+├── index.md
 ├── options/
 │   ├── option-a-{name}.md
 │   ├── option-b-{name}.md
@@ -130,10 +133,10 @@ If the alternatives are genuinely interchangeable from a work-planning perspecti
 
 ```
 {component}/
-├── _overview.md
+├── index.md
 ├── design.md
 └── {sub-decision}/
-    ├── _overview.md
+    ├── index.md
     ├── options/
     │   ├── option-a-{name}.md
     │   └── option-b-{name}.md
@@ -219,7 +222,7 @@ When a Phase is revisited and changes are made:
 
 ### Recording Changes
 
-Add an entry to `_changelog.md` only for design-impacting changes with:
+Add an entry to `log.md` only for design-impacting changes with:
 - Date of change
 - Which Phase was revisited
 - What changed
@@ -227,14 +230,17 @@ Add an entry to `_changelog.md` only for design-impacting changes with:
 - Source: `Internal discovery` or `External feedback` (with meeting/review details)
 - List of affected artifacts in downstream Phases
 
-Do not add changelog entries for typo fixes, formatting-only edits, link cleanup, or wording changes that do not alter meaning.
+Do not add log entries for typo fixes, formatting-only edits, link cleanup, or wording changes that do not alter meaning.
 
 ### Marking Affected Documents
 
-Before updating an affected document, add this marker at the top:
+Before updating an affected document, add this marker without displacing required frontmatter:
+
+- For non-reserved concept documents, place the marker immediately after the closing frontmatter delimiter `---`.
+- For reserved `index.md` and `log.md`, place the marker under the title or at the top of the body.
 
 ```markdown
-> ⚠️ This document needs update due to: {change description} (see _changelog.md YYYY-MM-DD)
+> ⚠️ This document needs update due to: {change description} (see log.md YYYY-MM-DD)
 ```
 
 After the document has been updated, remove the marker.
@@ -248,16 +254,16 @@ After modifying a document, check whether downstream documents are affected:
 - Phase 4 change → may affect Phase 5
 - Phase 5 component change → may affect `interfaces/`, other dependent components
 
-Document all affected artifacts in `_changelog.md` before starting updates.
+Document all affected artifacts in `log.md` before starting updates.
 
-### Changelog Compaction
+### Log Compaction
 
-Periodically compact `_changelog.md` after major phase transitions, long sessions, or after all affected artifacts from older changes have been updated.
+Periodically compact `log.md` after major phase transitions, long sessions, or after all affected artifacts from older changes have been updated.
 
 Use these rules:
 - Keep entries that still affect open decisions, unresolved cascade checks, downstream artifacts, or stakeholder accountability.
 - Summarize related old entries into one line when their detailed sequence no longer matters.
-- Move detailed historical entries to `archive/changelog-YYYY-MM.md` only when the user agrees or the project already uses archives.
+- Move detailed historical entries to `archive/log-YYYY-MM.md` only when the user agrees or the project already uses archives.
 - Remove trivial entries for typo, formatting, link cleanup, or wording-only changes unless meaning changed.
 - Never remove entries that explain why a major direction changed, why an option was rejected, or which external feedback caused a revisit.
 - Before adding or keeping a meta entry, ask: “Will this help a future session resume, revisit, or validate the design?” If not, omit or compact it.

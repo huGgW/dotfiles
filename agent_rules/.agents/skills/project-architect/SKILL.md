@@ -44,18 +44,30 @@ Each phase has a clear purpose and produces artifacts that feed the next phase, 
 |---|---|---|
 | Central topic | `design/` root | Project-level container |
 | Branch | Directory | Phase: number prefix, component: descriptive name |
-| Node label | `_overview.md` | Required in every directory |
-| Leaf | `.md` file | Detailed content |
-| Meta info | `_` prefix files | `_plan.md`, `_decisions.md`, `_changelog.md` |
+| Node label | `index.md` | Reserved navigation file required in every directory |
+| Leaf | `.md` file | OKF concept document, except reserved `index.md` and `log.md` |
+| Operational info | Root files | `index.md`, `plan.md`, `decisions.md`, `log.md` |
 
-### Meta Files
+### Artifact Files
 
-| File | Role | When to Read |
-|------|------|-------------|
-| `_plan.md` | Current operational checkpoint: phase, active agenda, unresolved discussion, pending candidate set, and next confirmation; not a history log | Every session start |
-| `_decisions.md` | All design decisions log | When referencing prior decisions |
-| `_changelog.md` | Design-impacting revisit/change history with affected artifacts; compact or archive stale entries | When checking change history |
-| `_overview.md` | Directory summary: purpose, key decisions, children | When exploring a branch |
+| File | OKF Treatment | Role | When to Read |
+|------|---------------|------|-------------|
+| `plan.md` | Concept document | Current operational checkpoint: phase, active agenda, unresolved discussion, pending candidate set, and next confirmation; not a history log | Every session start |
+| `decisions.md` | Concept document | Central decision log entries that point to local decision artifacts | When referencing prior decisions |
+| `log.md` | Reserved update file | Design-impacting revisit/change history with affected artifacts; compact or archive stale entries | When checking change history |
+| `index.md` | Reserved navigation file | Directory summary: purpose, key decisions, children | When exploring a branch |
+
+### OKF-Compatible Artifact Rules
+
+Project Architect artifacts follow an OKF-compatible Markdown structure without turning this skill into an OKF specification copy.
+
+- Consult current OKF / Open Knowledge Format authoring guidance before creating a new artifact set, changing artifact templates, or making non-trivial structural edits. When available, use the `open-knowledge-format` skill and its authoring checklist.
+- Treat `index.md` and `log.md` as reserved navigation/update files. They do not need ordinary concept frontmatter.
+- Treat `plan.md`, `decisions.md`, and all other non-reserved artifact documents as OKF concept documents with YAML frontmatter.
+- For hard OKF conformance, `type` is the only required frontmatter key. Project Architect defaults should also include `title`, `description`, `tags`, and ISO 8601 `timestamp` for practical compatibility and agent navigation.
+- Preserve existing frontmatter keys when editing artifacts created by another producer.
+- When presenting an OKF-compatible template set, include a short authoring note that tells future maintainers to consult current OKF / Open Knowledge Format guidance instead of copying the full OKF specification into Project Architect docs.
+- When creating or presenting OKF-compatible artifact templates, include the invalidation marker placement rule: concept documents keep YAML frontmatter first and put the marker immediately after the closing `---`; reserved `index.md` and `log.md` put the marker under the title or at the body top.
 
 ### Discussion → Artifact Mapping
 
@@ -63,8 +75,9 @@ Each phase has a clear purpose and produces artifacts that feed the next phase, 
 |---|---|---|
 | Open exploration | Conversation | Discuss agendas, candidate research topics, factual inputs, candidate directions, tradeoffs, and user-added options before writing final artifacts |
 | Agreed candidate set | `options/*.md` for Phase 3, Phase 4, and recursive Phase 5; relevant Phase file only for non-option agendas | Document only after the user agrees which candidates/topics/goals should be recorded |
-| Final decision | `decision.md`, `_decisions.md`, or Phase artifact | Write only after explicit user consensus on the direction |
-| Summary | `_overview.md` | Summarize status and links; do not use `_overview.md` as the only place where option details live |
+| Final local decision | Relevant `decision.md` or Phase artifact | Write only after explicit user consensus on the direction; this records the agreed outcome and rationale where it belongs |
+| Central decision log | `decisions.md` | Add a compact decision-log entry that points to the local decision artifact; this complements the local final decision and is not interchangeable with it |
+| Summary | `index.md` | Summarize status and links; do not use `index.md` as the only place where option details live |
 
 ## Phase Flow
 
@@ -102,14 +115,14 @@ Phases are **not strictly sequential**:
 
 - **Phase 1, 2 are revisitable.** New findings or external feedback may require returning to redefine scope or conduct additional research.
 - **Phase 3 → 4 → 5 is recursive at each step.** A wrong concept-level direction triggers a Phase 3 revisit; a wrong high-level skeleton triggers a Phase 4 revisit; component decomposition in Phase 5 may spawn its own discussion → option files → decision → sub-design cycle.
-- **Mark active revisits** in `_plan.md` with 🔁 status while they are being worked, and record only design-impacting revisit history in `_changelog.md`.
+- **Mark active revisits** in `plan.md` with 🔁 status while they are being worked, and record only design-impacting revisit history in `log.md`.
 
 ### Phase Transition Protocol
 
 At every Phase transition (forward or backward):
-1. Summarize current Phase results in its `_overview.md`
-2. Update and compact `_plan.md` with completion status, current unresolved items, and the next required confirmation
-3. Record only design-impacting changes in `_changelog.md`; skip trivial wording, formatting, or typo-only edits
+1. Summarize current Phase results in its `index.md`
+2. Update and compact `plan.md` with completion status, current unresolved items, and the next required confirmation
+3. Record only design-impacting changes in `log.md`; skip trivial wording, formatting, or typo-only edits
 4. Present summary to user and get confirmation before proceeding
 
 ### Phase 3: Solution Concept Structure
@@ -132,7 +145,7 @@ Required artifacts:
 - `architecture-overview.md` — high-level flow diagram + component roles + key interactions
 - `domain-model.md` (or `data-model.md`) — primary entities, relationships, and ownership at the system level
 
-Optional: when multiple **system-skeleton decisions** are independent (e.g., synchronous vs asynchronous communication, monolithic vs distributed data, deployment model), organize Phase 4 into decision-area subdirectories, each with its own `_overview.md`, `options/`, and `decision.md`. For simple projects with no skeleton-level decisions to make, omit the decision-area subdirectories entirely.
+Optional: when multiple **system-skeleton decisions** are independent (e.g., synchronous vs asynchronous communication, monolithic vs distributed data, deployment model), organize Phase 4 into decision-area subdirectories, each with its own `index.md`, `options/`, and `decision.md`. For simple projects with no skeleton-level decisions to make, omit the decision-area subdirectories entirely.
 
 **Scope guard**: Treat a question as a Phase 4 decision only if it shapes the system skeleton. Component-internal questions belong in Phase 5.
 
@@ -158,24 +171,25 @@ The following are **out of scope** for Phase 5 — they belong to the actual wor
 - Micro-optimizations and implementation-time tradeoffs
 
 Workflow:
-1. All components from Phase 4 have at least `_overview.md` + `design.md` meeting the checklist
+1. All components from Phase 4 have at least `index.md` + `design.md` meeting the checklist
 2. `interfaces/` and `cross-cutting/` documented (if applicable)
 3. → Present to user: "First pass complete. Which components need deeper design?"
 4. → Extend recursively **only on user request**
 
 ## Working Principles
 
-1. **Plan first, always** — Read `_plan.md` before any work. Update it at every milestone and agenda boundary, but keep only what helps resume the current work: the last consensus gate, unresolved discussion, pending candidate set, and next required user confirmation.
-2. **Keep meta files operational** — Treat `_plan.md` and `_changelog.md` as working memory, not exhaustive history. `_plan.md` should answer “where are we and what must happen next?”; `_changelog.md` should answer “what design-impacting changes might matter later?”. Remove, summarize, or archive entries once they no longer help resume, revisit, or validate the design.
+1. **Plan first, always** — Read `plan.md` before any work. Update it at every milestone and agenda boundary, but keep only what helps resume the current work: the last consensus gate, unresolved discussion, pending candidate set, and next required user confirmation.
+2. **Keep operational files focused** — Treat `plan.md` and `log.md` as working memory, not exhaustive history. `plan.md` should answer “where are we and what must happen next?”; `log.md` should answer “what design-impacting changes might matter later?”. Remove, summarize, or archive entries once they no longer help resume, revisit, or validate the design.
 3. **Discussion before documentation** — For each agenda (problem framing, research topics, solution concept, decision areas, component designs), discuss the relevant candidates in conversation before creating or updating final artifacts: research topics and information needs in Phase 2, design directions in later design phases. This applies to **all phases including Phase 1**.
 4. **User gates at phase and agenda boundaries** — Confirm with the user before advancing between Phases and before finalizing each agenda. Work autonomously only after the user agrees on the local direction or scope.
-5. **Every directory tells its story** — Every directory must have `_overview.md` answering: what is this, what was decided, what are its children?
+5. **Every directory tells its story** — Every directory, including the `design/` root, must have `index.md` answering: what is this, what was decided, what are its children?
 6. **Options before decisions** — Present 2+ options with tradeoff analysis in conversation before offering a provisional fit assessment. Do not use final-sounding labels like "recommended" or "selected" until the user explicitly decides.
-7. **Option artifacts are first-class documents** — For Phase 3, Phase 4, and recursive Phase 5 decisions, each candidate direction must be documented as a separate file under `options/`. Do not collapse full option details into `_overview.md`, `architecture-overview.md`, `design.md`, or `decision.md`.
+7. **Option artifacts are first-class documents** — For Phase 3, Phase 4, and recursive Phase 5 decisions, each candidate direction must be documented as a separate file under `options/`. Do not collapse full option details into `index.md`, `architecture-overview.md`, `design.md`, or `decision.md`.
 8. **Research as decision preparation** — Treat each research topic as a thorough, independent investigation that gathers facts, codebase observations, constraints, risks, alternatives, and open questions needed by later design phases. Phase 2 must not recommend, select, or finalize a design direction; design opinions and decisions belong to Phase 3, 4, or 5 after user discussion. Each research document must be self-sufficient (fully understandable on its own) and include verifiable references. See `references/phase-guide.md` Phase 2 for the full research protocol.
 9. **Defer to the next phase or to the work itself** — If a question can be answered just as well by the next phase or during actual implementation, defer it. Phase 3 should not draw the architecture; Phase 4 should not design component internals; Phase 5 should not micro-design implementation details.
 10. **Depth-aware structure** — No depth limit, but at 4+ depth, review the tree and propose compression to user if possible. See `references/structure-rules.md` for compression strategies.
 11. **Documentation after consensus** — Write design documents as work progresses, but only after local consensus. Capture the discussion summary, criteria, alternatives, and rationale when documenting the agreed outcome.
+12. **OKF compatibility without spec drift** — Use current OKF guidance for artifact authoring details. Do not restate the full OKF spec here; keep this skill focused on architecture workflow.
 
 ## Output Directory
 
@@ -183,26 +197,27 @@ Default: `design/` at the project root. User may specify a different path.
 
 ```
 design/
-├── _plan.md
-├── _decisions.md
-├── _changelog.md
+├── index.md
+├── plan.md
+├── decisions.md
+├── log.md
 │
 ├── 1-problem-definition/
-│   ├── _overview.md
+│   ├── index.md
 │   ├── problem-statement.md
 │   ├── goals.md
 │   ├── constraints.md                 # when applicable
 │   └── as-is-analysis.md              # non-greenfield only
 │
 ├── 2-research/
-│   ├── _overview.md
+│   ├── index.md
 │   ├── research-plan.md
 │   ├── codebase-analysis.md          # when an existing codebase must inform design
 │   ├── {topic}.md
 │   └── findings-summary.md
 │
 ├── 3-solution-concept/
-│   ├── _overview.md
+│   ├── index.md
 │   ├── concept.md
 │   ├── operating-model.md
 │   ├── principles.md
@@ -212,25 +227,25 @@ design/
 │   └── decision.md                    # paired with options/
 │
 ├── 4-high-level-design/
-│   ├── _overview.md
+│   ├── index.md
 │   ├── architecture-overview.md
 │   ├── domain-model.md
 │   └── {decision-area}/               # optional: skeleton-level decisions only
-│       ├── _overview.md
+│       ├── index.md
 │       ├── options/
 │       │   ├── option-a-{name}.md
 │       │   └── option-b-{name}.md
 │       └── decision.md
 │
 └── 5-detailed-design/
-    ├── _overview.md
+    ├── index.md
     ├── cross-cutting/                 # optional
     ├── interfaces/                    # optional
     ├── {component}/
-    │   ├── _overview.md
+    │   ├── index.md
     │   ├── design.md
     │   ├── {sub-decision}/            # only when blocking work-issue split
-    │   │   ├── _overview.md
+    │   │   ├── index.md
     │   │   ├── options/
     │   │   │   ├── option-a-{name}.md
     │   │   │   └── option-b-{name}.md
@@ -248,14 +263,14 @@ See `references/templates.md` for file templates and `references/structure-rules
 1. Confirm with user: project name, output directory (default `design/`), known constraints/context
 2. Determine project type: **Greenfield** or **Non-greenfield** (migration/evolution)
    - Non-greenfield: include `as-is-analysis.md` in Phase 1 deliverables
-3. Create only root meta files (`_plan.md`, `_decisions.md`, `_changelog.md`) after the user agrees on the output location
+3. Create only root navigation/operational files (`index.md`, `plan.md`, `decisions.md`, `log.md`) after the user agrees on the output location
 4. Begin Phase 1 by discussing the agenda in conversation. Do not create Phase 1 artifacts until the user agrees on problem framing, goals, and (if relevant) constraints. Keep Phase 1 light — write only the artifacts the project actually needs.
 
 ### Resume (Continuing a Previous Session)
 
-1. Read `_plan.md` → identify current Phase, active agenda, unresolved discussion, and next required confirmation
-2. If `_plan.md` contains stale completed agenda notes or history-like detail, compact it after confirming the useful resume state
-3. Read current Phase's `_overview.md` → restore working context
+1. Read `plan.md` → identify current Phase, active agenda, unresolved discussion, and next required confirmation
+2. If `plan.md` contains stale completed agenda notes or history-like detail, compact it after confirming the useful resume state
+3. Read current Phase's `index.md` → restore working context
 4. Identify the last consensus gate: what is already documented as agreed, what remains unresolved, and whether any candidate set was discussed but not yet recorded in option files
 5. Summarize current state to user and confirm continuation
 6. If consensus is unclear or not recorded, ask the user to restate or confirm the candidate set / direction before creating or updating artifacts
@@ -274,11 +289,11 @@ When the user returns with feedback from team reviews or stakeholder meetings:
    - Component-level feedback → Phase 5 modification
 3. **Propose changes**: Present affected artifacts + modification plan to user for confirmation
 4. **Restart local discussion cycles when needed**: If feedback introduces, removes, or changes alternatives, reopen the relevant discussion → option files → explicit decision cycle. Add new alternatives as the next `option-{letter}-*.md` file before changing `decision.md` or `design.md`
-5. **Execute**: Record the design-impacting change in `_changelog.md` with feedback source, mark affected documents with `⚠️ update needed`, revisit relevant Phases (🔁), remove markers after update, and avoid logging trivial wording/format edits
+5. **Execute**: Record the design-impacting change in `log.md` with feedback source, mark affected documents with `⚠️ update needed`, revisit relevant Phases (🔁), remove markers after update, and avoid logging trivial wording/format edits
 6. **Check cascade**: Verify whether changes propagate to downstream Phases
 
 ## Additional Resources
 
 - **`references/phase-guide.md`** — Detailed per-Phase guidance: purpose, key questions, activities, deliverables, completion criteria, revisit conditions
-- **`references/templates.md`** — File templates for all design artifacts (`_plan.md`, `_overview.md`, `_decisions.md`, `_changelog.md`, `concept.md`, `operating-model.md`, `principles.md`, `decision.md`, etc.)
+- **`references/templates.md`** — File templates for all design artifacts (`plan.md`, `index.md`, `decisions.md`, `log.md`, `concept.md`, `operating-model.md`, `principles.md`, `decision.md`, etc.)
 - **`references/structure-rules.md`** — Directory/file naming conventions, Phase 4 multi-decision rules, special directories (`cross-cutting/`, `interfaces/`), depth management, non-greenfield guidance, invalidation tracking

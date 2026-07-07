@@ -29,7 +29,7 @@ specify guardrails or pre-commit to a solution direction.
    b. `goals.md` — numbered goals with measurable success criteria and priority (always)
    c. `constraints.md` — external limitations only when there are non-trivial ones to document (often skipped for greenfield projects with no hard constraints)
    d. `[Non-greenfield] as-is-analysis.md` — current architecture, components, technology, and pain points
-5. Write `_overview.md` — summarize Phase 1 deliverables, discussion outcomes, and key takeaways
+5. Write `index.md` — summarize Phase 1 deliverables, discussion outcomes, and key takeaways
 
 > **Where did `principles.md` go?** Architecture principles are now established in Phase 3 (Solution Concept), after the project's identity and operating direction are agreed. Establishing principles before the concept is decided tends to either be too generic to guide decisions, or to over-constrain the concept exploration.
 
@@ -38,7 +38,7 @@ Do not create final Phase 1 artifacts before the user agrees on the relevant age
 ### Deliverables
 | File | Required | Notes |
 |------|----------|-------|
-| `_overview.md` | Always | |
+| `index.md` | Always | |
 | `problem-statement.md` | Always | |
 | `goals.md` | Always | |
 | `constraints.md` | When applicable | Skip if there are no non-trivial external constraints |
@@ -193,12 +193,12 @@ Document broad findings in `codebase-analysis.md` when the whole codebase matter
    e. Map findings to project context (goals, constraints, current codebase) without recommending a design direction
    f. Document everything in `{topic}.md` using the template from `references/templates.md`
 5. **Synthesize findings** — Compile cross-topic patterns, facts, constraints, risks, open questions, and later-phase decision inputs into `findings-summary.md`. Do not treat these as recommendations or final design decisions.
-6. **Write `_overview.md`** — Summarize Phase 2 scope, topics covered, and key takeaways
+6. **Write `index.md`** — Summarize Phase 2 scope, topics covered, and key takeaways
 
 ### Deliverables
 | File | Required | Notes |
 |------|----------|-------|
-| `_overview.md` | Always | |
+| `index.md` | Always | |
 | `research-plan.md` | Always | Agreed topic list, priority, depth, scope, and later-phase question/artifact mapping |
 | `codebase-analysis.md` | When applicable | Current-codebase findings needed by later design phases |
 | `{topic}.md` | Per topic | One file per research area — must follow the topic template |
@@ -253,12 +253,12 @@ This phase is intentionally lighter than the structural phases that follow. It e
    b. `operating-model.md` — outside view of how the system behaves: key scenarios, mode of operation, lifecycle
    c. `principles.md` — architecture principles with concrete examples
    d. `options/option-*.md` + `decision.md` — only if competing big-picture directions were identified
-6. **Write `_overview.md`** — Summarize Phase 3 outcomes and any deferred questions for Phase 4
+6. **Write `index.md`** — Summarize Phase 3 outcomes and any deferred questions for Phase 4
 
 ### Deliverables
 | File | Required | Notes |
 |------|----------|-------|
-| `_overview.md` | Always | |
+| `index.md` | Always | |
 | `concept.md` | Always | One-paragraph system definition + boundaries |
 | `operating-model.md` | Always | Outside view: key scenarios, mode of operation |
 | `principles.md` | Always | At least 2-3 specific architecture principles |
@@ -280,7 +280,7 @@ Phase 3 should **not** include:
 - Decisions like "REST vs gRPC", "Postgres vs DynamoDB", "monolith vs microservices" → Phase 4 (skeleton-level)
 - Component-internal design → Phase 5
 
-If a concept-level discussion drifts into structural specifics, capture the drift as input to Phase 4 (e.g., in `_overview.md` under "Inputs to Phase 4") and stay at the concept level.
+If a concept-level discussion drifts into structural specifics, capture the drift as input to Phase 4 (e.g., in `index.md` under "Inputs to Phase 4") and stay at the concept level.
 
 ### Revisit Conditions
 - Phase 4 or Phase 5 reveals the concept-level direction does not actually fit
@@ -314,9 +314,9 @@ Phase 4 is the structural phase: it answers "what does the system look like at t
    e. If the user adds a new option during comparison, reopen the candidate comparison, confirm the full candidate set, then write or update one option file per agreed candidate
 4. **Document the agreed candidate set** — after the user agrees which options should be considered, create one file per option under `options/` using the option template.
 5. **Confirm the final decision explicitly** — ask the user to choose or confirm the direction. Do not write `decision.md` before this point.
-6. **Document the decision** — write `decision.md`, record the entry in `_decisions.md`, and summarize the discussion rationale and rejected alternatives.
+6. **Document the decision** — write `decision.md`, record the entry in `decisions.md`, and summarize the discussion rationale and rejected alternatives.
 7. **Draft `architecture-overview.md` and `domain-model.md`** — these capture the system-level view and primary model. They are required.
-8. Write `_overview.md`
+8. Write `index.md`
 
 ### Scope Discipline
 
@@ -332,7 +332,7 @@ A useful test: *"If we change this decision later, would it ripple across multip
 **No skeleton-level decisions** (concept is concrete enough that the structure follows naturally):
 ```
 4-high-level-design/
-├── _overview.md
+├── index.md
 ├── architecture-overview.md
 └── domain-model.md
 ```
@@ -340,17 +340,17 @@ A useful test: *"If we change this decision later, would it ripple across multip
 **Multiple skeleton-level decisions** (independent decisions like communication style, data strategy, deployment model):
 ```
 4-high-level-design/
-├── _overview.md
+├── index.md
 ├── architecture-overview.md
 ├── domain-model.md
 ├── {decision-area-1}/
-│   ├── _overview.md
+│   ├── index.md
 │   ├── options/
 │   │   ├── option-a-{name}.md
 │   │   └── option-b-{name}.md
 │   └── decision.md
 ├── {decision-area-2}/
-│   ├── _overview.md
+│   ├── index.md
 │   ├── options/
 │   │   ├── option-a-{name}.md
 │   │   └── option-b-{name}.md
@@ -362,7 +362,7 @@ Use the multi-decision structure when 2+ decisions are orthogonal (can be made i
 ### Deliverables
 | File | Required | Notes |
 |------|----------|-------|
-| `_overview.md` | Always | |
+| `index.md` | Always | |
 | `architecture-overview.md` | Always | System diagram + flow + component roles |
 | `domain-model.md` | Always | Primary entities, relationships, ownership at system level (may be named `data-model.md` if more appropriate) |
 | `options/*.md` | Per skeleton-level decision area | 2+ options per decision; each option must have its own file |
@@ -400,13 +400,13 @@ The phase exists for one reason: **a developer (or planning agent) should be abl
    c. Confirm the agreed component direction and any unresolved decisions
    d. Treat a component-level alternative as a local sub-decision only when it has substantive tradeoffs **and** would block work-issue creation if left unresolved. Document each such candidate in `options/option-*.md` before finalizing `design.md`.
 4. **Write component artifacts after consensus**:
-   a. Create component directory with `_overview.md`
+   a. Create component directory with `index.md`
    b. Write `design.md` to satisfy the completion checklist (see below) — no more, no less
    c. If a component contains unresolved recursive sub-decisions, `design.md` may only record them under `Open Decisions`; do not finalize the selected internal design direction until the local `decision.md` exists
 5. **Create `cross-cutting/` if agreed** — only when concerns span multiple components (security, observability, error handling, data flow)
 6. **Create `interfaces/` if agreed** — only when component-to-component contracts need explicit documentation (API specs, event schemas)
 7. **If a sub-component or sub-decision needs its own design cycle**, use the Recursive Mini Design Cycle below
-8. Write Phase 5 `_overview.md`
+8. Write Phase 5 `index.md`
 
 ### Substantive Tradeoff Rule (Refined)
 
@@ -422,7 +422,7 @@ When a component is complex enough to require further decomposition:
 
 1. Within the component directory, identify sub-components or sub-decisions in conversation.
 2. Discuss candidate directions and evaluation criteria before writing artifacts.
-3. After the user agrees on the candidate set, create a sub-decision directory with `_overview.md` and `options/`.
+3. After the user agrees on the candidate set, create a sub-decision directory with `index.md` and `options/`.
 4. Create one file per candidate direction under `options/`.
 5. If the user asks to defer option files until after the final decision, clarify that option files are pre-decision artifacts created after candidate set agreement, while `decision.md` is post-decision.
 6. Ask the user to explicitly confirm the final direction.
@@ -443,7 +443,7 @@ Both directories are **optional**. Create them only when needed.
 ### Deliverables
 | File | Required | Notes |
 |------|----------|-------|
-| `_overview.md` | Every directory | Including Phase 5 root and each component |
+| `index.md` | Every directory | Including Phase 5 root and each component |
 | `design.md` | Per component | Must satisfy the completion checklist below |
 | `options/*.md` | Per recursive sub-decision | One file per candidate option |
 | `decision.md` | Per recursive sub-decision | Selected option with rationale |
@@ -469,7 +469,7 @@ The following are **out of scope** for Phase 5 — they belong to the actual wor
 - Micro-optimizations and implementation-time tradeoffs
 
 Phase 5 first-pass workflow:
-1. All components from Phase 4 have at least `_overview.md` + `design.md` meeting the checklist → **1st pass complete**
+1. All components from Phase 4 have at least `index.md` + `design.md` meeting the checklist → **1st pass complete**
 2. `interfaces/` defined (if applicable)
 3. `cross-cutting/` documented (if applicable)
 4. → Present to user: "First pass of detailed design is complete. Which components need deeper exploration?"
