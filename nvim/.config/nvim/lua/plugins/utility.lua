@@ -179,7 +179,8 @@ return {
             { "gI",          function() Snacks.picker.lsp_implementations() end,   desc = "Goto Implementation" },
             { "gy",          function() Snacks.picker.lsp_type_definitions() end,  desc = "Goto T[y]pe Definition" },
             { "<leader>fd",  function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
-            { "<leader>o",   function() Snacks.picker.lsp_symbols() end,           desc = "LSP Symbols" },
+            { "<leader>o",   function() Snacks.picker.treesitter() end,           desc = "TreeSitter Symbols" },
+            { "<leader>O",   function() Snacks.picker.lsp_symbols() end,           desc = "LSP Symbols" },
 
             -- Git-related picker
             { "<leader>ghp", function() Snacks.picker.gh_pr() end,                 desc = "Github Pull Requests" },
