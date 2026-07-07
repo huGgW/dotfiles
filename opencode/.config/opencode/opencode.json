@@ -30,7 +30,7 @@
         "opencode-bettergrep",
         "opencode-betterread",
         ["@plannotator/opencode@latest",{
-            "workflow": "user-managed"}]
+            "workflow": "manual"}],
     ],
     "provider": {
         "openai": {
@@ -97,7 +97,7 @@
         },
         "prism": {
     "compaction": {
-        "auto": false,
+        "auto": true,
     },
     "experimental": {
         "batch_tool": true,
