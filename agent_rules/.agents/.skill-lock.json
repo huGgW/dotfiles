@@ -453,6 +453,15 @@
       "pluginName": "mattpocock-skills",
       "installedAt": "2026-07-06T04:04:58.500Z",
       "updatedAt": "2026-07-06T04:04:58.500Z"
+    },
+    "herdr": {
+      "source": "ogulcancelik/herdr",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ogulcancelik/herdr.git",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "9c4534276614653e51cfcff1fb4f9040129e8a11",
+      "installedAt": "2026-07-09T15:35:45.860Z",
+      "updatedAt": "2026-07-09T15:35:45.860Z"
     }
   },
   "dismissed": {
