@@ -1,0 +1,173 @@
+{
+    "$schema" : "https://opencode.ai/config.json",
+    "autoshare" : false,
+    "autoupdate" : true,
+    "compaction" : {
+        "auto" : true
+    },
+    "experimental" : {
+        "batch_tool" : true
+    },
+    "instructions" : [
+        "common_rules/*.md",
+        "AGENTS.local.md"
+    ],
+    "lsp" : {
+        "jdtls" : {
+            "command" : [
+                "jdtls",
+                "--jvm-arg=-Xmx16G",
+                "--jvm-arg=-Xms1G",
+                "--jvm-arg=-XX:+UseParallelGC",
+                "--jvm-arg=-XX:+UseStringDeduplication",
+                "--jvm-arg=-Dsun.zip.disableMemoryMapping",
+                "--jvm-arg=-XX:GCTimeRatio=4",
+                "--jvm-arg=-XX:AdaptiveSizePolicyWeight=90"
+            ],
+            "extensions" : [
+                ".java"
+            ],
+            "initialization" : {
+                "settings" : {
+                    "java" : {
+                        "compile" : {
+                            "nullAnalysis" : {
+                                "mode" : "automatic"
+                            }
+                        },
+                        "implementationsCodeLens" : {
+                            "enabled" : false
+                        },
+                        "jdt" : {
+                            "ls" : {
+                                "lombokSupport" : {
+                                    "enabled" : true
+                                }
+                            }
+                        },
+                        "referencesCodeLens" : {
+                            "enabled" : false
+                        },
+                        "signatureHelp" : {
+                            "enabled" : true
+                        }
+                    }
+                }
+            }
+        },
+        "pyright" : {
+            "disabled" : true
+        },
+        "ty" : {
+            "command" : [
+                "uvx",
+                "ty",
+                "server"
+            ],
+            "extensions" : [
+                ".py",
+                ".pyi"
+            ]
+        }
+    },
+    "mcp" : {
+        "datadog" : {
+            "enabled" : false,
+            "oauth" : {
+                "scope" : "tools:read"
+            },
+            "type" : "remote",
+            "url" : "https://mcp.datadoghq.com/api/unstable/mcp-server/mcp"
+        },
+        "deepwiki" : {
+            "enabled" : true,
+            "type" : "remote",
+            "url" : "https://mcp.deepwiki.com/mcp"
+        },
+        "grafana" : {
+            "command" : [
+                "uvx",
+                "mcp-grafana"
+            ],
+            "enabled" : false,
+            "environment" : {
+                "GRAFANA_SERVICE_ACCOUNT_TOKEN" : "{env:GRAFANA_SERVICE_ACCOUNT_TOKEN}",
+                "GRAFANA_URL" : "{env:GRAFANA_URL}"
+            },
+            "type" : "local"
+        },
+        "grep" : {
+            "enabled" : true,
+            "type" : "remote",
+            "url" : "https://mcp.grep.app"
+        },
+        "linear" : {
+            "enabled" : true,
+            "oauth" : {
+                "scope" : "tools:read"
+            },
+            "type" : "remote",
+            "url" : "https://mcp.linear.app/mcp"
+        },
+    },
+    "permission" : {
+        "*" : "allow",
+        "bash" : {
+            "git push * --force *" : "ask",
+            "git push * -f *" : "ask",
+            "git reset * --hard *" : "ask",
+            "git reset * -h *" : "ask",
+            "rm -rf" : "ask"
+        },
+        "external_directory" : {
+            "*" : "ask",
+            "/private/var/folders/**/opencode/**" : "allow",
+            "/var/folders/**/opencode/**" : "allow",
+            "~/.agents/**" : "allow",
+            "~/.gradle/**" : "allow",
+            "~/.plannotator/**" : "allow",
+            "~/github/**" : "allow",
+            "~/Library/Application Support/rtk/**" : "allow"
+        }
+    },
+    "plugin" : [
+        "@tarquinen/opencode-dcp@latest",
+        "@mohak34/opencode-notifier@latest",
+        "opencode-betterglob",
+        "opencode-bettergrep",
+        "opencode-betterread",
+        [
+            "@plannotator/opencode@latest",
+            {
+                "workflow" : "manual"
+            }
+        ],
+        "@slkiser/opencode-quota",
+    ],
+    "provider" : {
+        "openai" : {
+            "options" : {
+                "models": {
+                    "gpt-5.6-sol": {
+                        "limit": {
+                            "context": 272000,
+                            "output": 128000
+                        }
+                    },
+                    "gpt-5.6-terra": {
+                        "limit": {
+                            "context": 272000,
+                            "output": 128000
+                        }
+                    },
+                    "gpt-5.6-luna": {
+                        "limit": {
+                            "context": 272000,
+                            "output": 128000
+                        }
+                    },
+                }
+            }
+        },
+    }
+}
