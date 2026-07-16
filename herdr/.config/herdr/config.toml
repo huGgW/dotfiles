@@ -132,6 +132,11 @@ type = "plugin_action"
 command = "smart-workspace.switch"
 description = "switch workspace"
 
+[[keys.command]]
+key = "prefix+ctrl+p"
+type = "pane"
+command = "btop"
+
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
 # [keys.indexed]
