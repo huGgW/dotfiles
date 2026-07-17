@@ -9,8 +9,43 @@
         "batch_tool" : true
     },
     "instructions" : [
-        "common_rules/*.md",
+        "common-rules/*.md",
         "AGENTS.local.md"
+    ],
+    "permission" : {
+        "*" : "allow",
+        "bash" : {
+            "git push * --force *" : "ask",
+            "git push * -f *" : "ask",
+            "git reset * --hard *" : "ask",
+            "git reset * -h *" : "ask",
+            "rm -rf" : "ask"
+        },
+        "external_directory" : {
+            "*" : "ask",
+            "/private/var/folders/**/opencode/**" : "allow",
+            "/var/folders/**/opencode/**" : "allow",
+            "~/.agents/**" : "allow",
+            "~/.gradle/**" : "allow",
+            "~/.plannotator/**" : "allow",
+            "~/.querypie/**" : "allow",
+            "~/github/**" : "allow",
+            "~/Library/Application Support/rtk/**" : "allow"
+        }
+    },
+    "plugin" : [
+        "@tarquinen/opencode-dcp@latest",
+        "@mohak34/opencode-notifier@latest",
+        "opencode-betterglob",
+        "opencode-bettergrep",
+        "opencode-betterread",
+        [
+            "@plannotator/opencode@latest",
+            {
+                "workflow" : "manual"
+            }
+        ],
+        "@slkiser/opencode-quota",
     ],
     "lsp" : {
         "jdtls" : {
@@ -109,60 +144,30 @@
             "type" : "remote",
             "url" : "https://mcp.linear.app/mcp"
         },
-    },
-    "permission" : {
-        "*" : "allow",
-        "bash" : {
-            "git push * --force *" : "ask",
-            "git push * -f *" : "ask",
-            "git reset * --hard *" : "ask",
-            "git reset * -h *" : "ask",
-            "rm -rf" : "ask"
-        },
-        "external_directory" : {
-            "*" : "ask",
-            "/private/var/folders/**/opencode/**" : "allow",
-            "/var/folders/**/opencode/**" : "allow",
-            "~/.agents/**" : "allow",
-            "~/.gradle/**" : "allow",
-            "~/.plannotator/**" : "allow",
-            "~/github/**" : "allow",
-            "~/Library/Application Support/rtk/**" : "allow"
         }
     },
-    "plugin" : [
-        "@tarquinen/opencode-dcp@latest",
-        "@mohak34/opencode-notifier@latest",
-        "opencode-betterglob",
-        "opencode-bettergrep",
-        "opencode-betterread",
-        [
-            "@plannotator/opencode@latest",
-            {
-                "workflow" : "manual"
-            }
-        ],
-        "@slkiser/opencode-quota",
-    ],
     "provider" : {
         "openai" : {
             "options" : {
                 "models": {
                     "gpt-5.6-sol": {
                         "limit": {
-                            "context": 272000,
+                            "context": 400000,
+                            "input": 272000,
                             "output": 128000
                         }
                     },
                     "gpt-5.6-terra": {
                         "limit": {
-                            "context": 272000,
+                            "context": 400000,
+                            "input": 272000,
                             "output": 128000
                         }
                     },
                     "gpt-5.6-luna": {
                         "limit": {
-                            "context": 272000,
+                            "context": 400000,
+                            "input": 272000,
                             "output": 128000
                         }
                     },
