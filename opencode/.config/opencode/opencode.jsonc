@@ -9,7 +9,6 @@
         "batch_tool" : true
     },
     "instructions" : [
-        "common-rules/*.md",
         "AGENTS.local.md"
     ],
     "permission" : {
