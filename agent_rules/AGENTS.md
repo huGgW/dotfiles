@@ -42,6 +42,9 @@
 - @common-rules/cli-guide.md
 - @common-rules/mcp-tools-guide.md
 
+## Side-effect safety
+- @common-rules/side-effect-safety.md
+
 ## Code development policy (execution + precautions)
 - @common-rules/code-development-precautions.md
 

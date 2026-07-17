@@ -10,6 +10,8 @@ Before implementation:
 - If multiple interpretations exist, present options instead of silently picking one.
 - If a simpler approach exists, say so.
 - If something is unclear, ask a focused clarification.
+- Identify applicable project conventions and relevant language, framework, and project-type guidance before choosing an approach.
+- When a design decision depends on ecosystem-specific behavior, consult available specialist guidance rather than relying only on general principles.
 
 ## 2. Mandatory Plan Agreement Gate
 
@@ -50,11 +52,16 @@ The plan must include:
 **Implement the minimum change that solves the requested problem.**
 
 - No features beyond the request.
-- Do not extract abstractions or helper functions for single-use or near-single-use code unless they clearly improve naming, isolation, testability, or readability.
-- Avoid extracting very short logic into a helper only to reduce line count.
-- If logic is used only 1-2 times and the helper call obscures more than it clarifies, keeping it inline is acceptable.
+- Start with established project conventions, types, architecture, and recurring collaboration patterns. Treat a pattern as established when it is supported by project guidance, tests, or multiple comparable implementations rather than a single occurrence.
+- When project guidance is silent or ambiguous, prefer idiomatic language, framework, and project-type patterns and direct implementations using existing types, language features, or standard-library facilities.
+- Do not repeat a local pattern when it creates a concrete correctness, security, compatibility, or maintainability risk. Surface the tradeoff and choose the smallest safe change.
+- Introduce an abstraction when it owns a meaningful invariant, defines a reusable boundary, improves testability, or makes an important contract clearer.
+- Do not extract a helper, wrapper, or new type solely to name a one-off intermediate value or reduce line count.
 - No speculative flexibility/configurability.
 - No unnecessary error handling for impossible scenarios.
+- Use comments and code documentation to explain non-obvious intent, tradeoffs, invariants, constraints, or meaningful phases in complex logic.
+- Prefer clear naming and structure first. Add brief step-level comments when a complex sequence remains difficult to follow, but do not narrate obvious statements or repeat declarations.
+- Update or remove comments and code documentation when the behavior they describe changes.
 
 If 200 lines can be 50 with equal clarity and safety, simplify.
 
@@ -72,6 +79,13 @@ When editing existing code:
 When your changes create orphans:
 - Remove imports/variables/functions made unused by your change.
 - Do not remove pre-existing dead code unless requested.
+
+### Keep Invariants Close to Their Owner
+
+- Place rules that must remain true across a state transition close to the established owner of that state while following the project's architecture.
+- Prefer one intention-revealing atomic operation over requiring callers to coordinate several partial mutations.
+- Keep I/O and cross-component orchestration in established coordination boundaries. For rules spanning multiple owners, do not force the rule into one owner or duplicate it across callers.
+- Consider language and framework conventions for lifecycle, transactions, and immutability, but do not introduce a new abstraction merely to relocate trivial logic.
 
 Every changed line must be traceable to the approved plan.
 
@@ -95,6 +109,14 @@ Examples:
 - "Fix bug" -> reproduce with test/check, implement fix, confirm reproduction no longer fails.
 - "Add validation" -> add failing cases first (when applicable), then make them pass.
 - "Refactor" -> preserve behavior and confirm with relevant tests/checks.
+
+### Choose Precise Verification Targets
+
+- Start with the narrowest deterministic test or check that covers the changed behavior, using the project's standard verification tools.
+- Prefer a specific named test target or case over a broad wildcard when the affected target is known.
+- Broaden verification when the change has wider impact, the precise scope is uncertain, or a project final gate requires it.
+- Do not classify an unrelated failure from a broad verification scope as a patch defect until its relationship to the change is established.
+- Record required verification that could not run and explain the substitute evidence.
 
 At completion, provide:
 - What changed and why.
