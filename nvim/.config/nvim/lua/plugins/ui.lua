@@ -82,6 +82,20 @@ return {
                 transparent_background = true,
                 term_colors = true,
                 default_integrations = true,
+                custom_highlights = function(colors)
+                    local blend = require("catppuccin.utils.colors").blend
+                    local intensity = 0.35
+
+                    return {
+                        RainbowIndentRed = { fg = blend(colors.red, colors.base, intensity) },
+                        RainbowIndentYellow = { fg = blend(colors.yellow, colors.base, intensity) },
+                        RainbowIndentBlue = { fg = blend(colors.blue, colors.base, intensity) },
+                        RainbowIndentOrange = { fg = blend(colors.peach, colors.base, intensity) },
+                        RainbowIndentGreen = { fg = blend(colors.green, colors.base, intensity) },
+                        RainbowIndentViolet = { fg = blend(colors.mauve, colors.base, intensity) },
+                        RainbowIndentCyan = { fg = blend(colors.teal, colors.base, intensity) },
+                    }
+                end,
                 integrations = {
                     gitsigns = true,
                     mini = { enabled = true },

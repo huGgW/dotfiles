@@ -38,9 +38,17 @@ return {
         end,
     },
     {
-        "esmuellert/vscode-diff.nvim",
+        "esmuellert/codediff.nvim",
         dependencies = { "MunifTanjim/nui.nvim" },
         cmd = { "CodeDiff" },
+        config = function()
+            require("codediff").setup({
+                -- Diff view behavior
+                diff = {
+                    compute_moves = true,       -- Detect moved code blocks (opt-in, matches VSCode experimental.showMoves)
+                },
+            })
+        end,
     },
     {
         "christoomey/vim-tmux-navigator",

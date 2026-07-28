@@ -99,13 +99,32 @@ return {
                                     enabled = true
                                 },
                                 vmargs =
-                                "-Xmx16G -Xms1G -XX:+UseParallelGC -XX:+UseStringDeduplication -Dsun.zip.disableMemoryMapping -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true",
+                                "-Xmx8G -Xms1G -XX:+UseParallelGC -XX:+UseStringDeduplication -Dsun.zip.disableMemoryMapping -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true",
                             }
                         },
                         compile = {
-                            nullAnalysis = {
-                                mode = "automatic"
+                            mode = "automatic",
+                            nonnull = {
+                                "jakarta.annotation.Nonnull",
+                                "jakarta.validation.constraints.NotNull",
+                                "org.jspecify.annotations.NonNull",
+                                "org.springframework.lang.NonNull",
+                                "org.eclipse.jdt.annotation.NonNull",
                             },
+                            nullable = {
+                                "jakarta.annotation.Nullable",
+                                "org.jspecify.annotations.Nullable",
+                                "org.springframework.lang.Nullable",
+                                "org.eclipse.jdt.annotation.Nullable",
+                            },
+                            nonnullbydefault = {
+                                "org.jspecify.annotations.NullMarked",
+                                "org.springframework.lang.NonNullApi",
+                                "org.eclipse.jdt.annotation.NonNullByDefault",
+                            },
+                        },
+                        completion = {
+                            guessMethodArguments = "insertBestGuessedArguments",
                         },
                         referencesCodeLens = {
                             enabled = false,
@@ -118,6 +137,26 @@ return {
                         },
                         sharedIndexes = {
                             enabled = true,
+                        },
+                        inlayHints = {
+                            parameterNames = {
+                                enabled = "all",
+                                supppressWhenSameNameNumbered = true,
+                            },
+                            variableTypes = {
+                                enabled = true,
+                            },
+                            parameterTypes = {
+                                enabled = true,
+                            },
+                            formatParameters = {
+                                enabled = true,
+                            }
+                        },
+                        hover = {
+                            javadoc = {
+                                enabled = true,
+                            },
                         },
                     },
                 },
