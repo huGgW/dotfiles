@@ -204,6 +204,7 @@ command = "btop"
 
 # Background notification popup delivery
 agent_panel_sort = "spaces"
+show_agent_labels_on_pane_borders = false
 [ui.toast]
 # off = disable pop-up notifications
 # herdr = show in-app toasts
@@ -250,9 +251,11 @@ agent_panel_sort = "spaces"
 [experimental]
 # Allow launching herdr from inside a herdr-managed pane.
 # allow_nested = false
+
 # Experimental local Kitty graphics rendering for attached clients.
 # Requires a Kitty graphics-compatible outer terminal.
-# kitty_graphics = false
+kitty_graphics = true
+
 # Save recent pane screen history across full server restarts.
 pane_history = false
 # While prefix mode is active, temporarily switch the macOS host input
