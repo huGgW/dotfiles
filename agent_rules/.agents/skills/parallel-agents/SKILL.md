@@ -1,185 +1,186 @@
 ---
 name: parallel-agents
 description: >
-  This skill should be used when the user needs to orchestrate multiple agents
-  for complex multi-step tasks, or when discussing agent team coordination
-  patterns. Common requests include "에이전트 여러 개로 작업해줘", "병렬로 처리해줘",
-  "멀티 에이전트로 분석", "use multiple agents", "parallelize this task",
-  "orchestrate agents". It covers task decomposition, parallel/sequential
-  execution patterns, Agent Teams vs Subagents selection, and result synthesis.
+  Use this skill before planning or acting on any task with two or more
+  workstreams that can be owned and verified independently, even when the user
+  never mentions agents. Load it before proposing the execution plan; do not
+  defer orchestration decisions until implementation begins.
+  Always invoke it for multi-area repository analysis; multi-component
+  implementation, migration, or batch updates; multi-perspective review;
+  independent incident hypotheses; and any request to parallelize, use multiple
+  agents, split ownership, or reconcile independent findings into one result.
+  It decides whether to delegate to subagents, selects foreground, background,
+  or hybrid execution from the dependency graph, and governs orchestration,
+  synthesis, and final verification. Do not invoke it for async or parallel
+  programming explanations, parallel shell commands, one or two direct reads,
+  small single-file changes, tightly coupled work, or explicit no-agent requests.
 ---
 
-# Multi-Agent Orchestration Guide
+# Subagent Orchestration
 
-## Overview
+## Purpose
 
-Complex tasks benefit from orchestrating multiple agents rather than handling everything in a single agent. This guide provides patterns for task decomposition, agent coordination, and result synthesis. Choose the appropriate execution mode (Agent Teams or Subagents) based on task characteristics and platform capabilities.
+Use subagents only when decomposition creates a clear quality or latency benefit. Subagents are the only delegation mechanism in this workflow; do not introduce a second coordination model. The main agent owns the goal, dependency graph, coordination, synthesis, decisions, and final verification.
 
-## When to Use Orchestration
+Default to direct execution. Delegation is an optimization, not a requirement for every multi-step task.
 
-### Appropriate for Orchestration
-- Tasks requiring multiple expertise domains
-- Work decomposable into independent subtasks
-- Large-scale codebase analysis
-- Parallelizable operations
+## Delegation Gate
 
-### Single Agent Suffices
-- Single file modifications
-- Simple bug fixes
-- Clear, singular objectives
+Delegate only when all of these conditions hold:
+
+1. The user has not prohibited agents or constrained execution to the main agent.
+2. The task contains at least two substantive workstreams, or one specialized blocking investigation whose isolated result materially improves the next decision.
+3. Each delegated workstream has a distinct scope, clear deliverable, and independent verification method.
+4. Ownership boundaries avoid shared mutable state and likely file conflicts.
+5. Delegation and synthesis cost less than performing the work directly.
+
+Meaningful parallelism is structural. It exists when two or more ready workstreams can proceed without waiting for each other's result and can return independently useful evidence.
+
+## Main Agent Responsibility
+
+When subagents are active, act as the orchestration owner rather than another worker.
+
+- Do not duplicate delegated investigation, implementation, or verification.
+- Do not take a separate substantive parallel workstream while subagents run.
+- Perform only lightweight inspection needed to decompose work, clarify contracts, manage dependencies, resolve conflicts, synthesize results, make final decisions, and verify the integrated outcome.
+- Track which workstreams are ready, running, blocked, completed, or failed.
+- Keep responsibility for the user-facing answer and the correctness of the combined result.
+
+This boundary prevents wasted work and preserves a single source of coordination.
+
+## When Not to Use Subagents
+
+Work directly when any of these apply:
+
+- One or two direct reads or searches answer the question.
+- The change is small, local, and confined to one file.
+- A clear singular bug can be reproduced, fixed, and verified in one tight loop.
+- Workstreams depend heavily on shared context or frequent back-and-forth decisions.
+- Multiple writers would touch the same files or mutable state.
+- The deliverable is ambiguous, unbounded, or not independently verifiable.
+- The task only discusses asynchronous or parallel programming concepts.
+- The request only asks to run independent shell commands or tests concurrently.
+- Delegation overhead is likely to exceed its quality or latency benefit.
+- The user says not to use agents, subagents, delegation, or parallel execution.
+
+Do not manufacture extra perspectives solely to justify delegation.
 
 ## Execution Modes
 
-### Agent Teams (Preferred when available)
+Choose the mode from the dependency graph, not from task size alone.
 
-Multiple independent agent instances collaborate via shared task list and direct messaging (mailbox). Each teammate has its own context window and can communicate with other teammates directly — not just through the lead.
+When explaining an orchestration plan, name the selected mode explicitly as `foreground`, `background`, or `hybrid`. Words such as "parallel" and "sequential" describe scheduling but do not replace the mode decision.
 
-**Strengths:**
-- Cross-validation and adversarial review between teammates
-- Architecture debate from multiple perspectives
-- Higher quality output through collaborative refinement
-- Parallel implementation with real-time coordination
+### Foreground
 
-**When to use Teams:**
+Use foreground execution when a subagent's result blocks the next orchestration decision.
 
-| Scenario | Example |
-|---|---|
-| Multi-perspective analysis | Security + performance + quality review of a PR |
-| Architecture decisions | Design debate with different trade-off perspectives |
-| Hypothesis testing | Multiple investigators disproving each other's theories |
-| Large parallel implementation | Each teammate owns separate modules/files |
-| Adversarial review | Devil's advocate challenging proposed solutions |
+- Launch the blocking task without background execution.
+- Wait for its result before assigning dependent work.
+- Use the result to refine scope, select an approach, or construct the next task contract.
+- Prefer foreground for a single blocking dependency; a lone background task usually provides no concurrency benefit.
 
-### Subagents (Fallback / Single-focus tasks)
-
-Launch via Task/Agent tool calls. Each subagent runs independently and returns results to the orchestrator. Available on all platforms.
-
-**When to use Subagents:**
-- Single-focus tasks where only results matter (file search, code lookup)
-- Quick exploration or information gathering
-- Environments where Agent Teams are not available (e.g., OpenCode)
-- Simple sequential pipelines with no need for inter-agent discussion
-
-### Mode Selection Rule
-
-> **Prefer Agent Teams** for any task involving 2+ independent perspectives, cross-validation, or collaborative decision-making. Use Subagents only for single-focus tasks or when Teams are unavailable.
-
-## Task Decomposition Strategy
-
-### Decomposition Principles
-
-1. **Independence**: Each subtask should not depend on results from other subtasks (when parallel)
-2. **Clarity**: Each task must have clear objectives and expected deliverables
-3. **Right-sizing**: Neither too granular nor too broad
-
-### Decomposition Process
-
-1. Define the final goal
-2. Identify required expertise domains
-3. Break down into subtasks
-4. Map dependencies (sequential vs parallel)
-5. Determine execution mode and agent roles
-
-## Orchestration Patterns
-
-### Pattern 1: Parallel Analysis
-
-Use when analysis from multiple perspectives is needed simultaneously.
-
-```
-Subtasks (independent):
-├── Structure/architecture analysis
-├── Code quality review
-├── Security assessment
-└── Test coverage analysis
-
-Execution: Launch all subtasks in parallel
-Result: Synthesize findings after all tasks complete
+```text
+Investigate root cause
+        |
+        v
+Choose fix and assign implementation
 ```
 
-> **Teams strongly recommended** — each teammate takes a distinct analytical perspective and cross-validates findings with others before synthesis. Fallback: parallel subagents.
+### Background
 
-### Pattern 2: Sequential Pipeline
+Use background execution when two or more ready workstreams are independent or when staggered results can advance different parts of the dependency graph.
 
-Use when each stage depends on previous results.
+- Launch all currently ready independent tasks in the same turn with background execution enabled.
+- Keep the main agent focused on coordination rather than starting another implementation task.
+- Process completion notifications as they arrive and unlock dependent workstreams.
+- Do not poll, sleep, or duplicate a running task.
+- Wait for every required result before synthesis and final verification.
 
-```
-Task 1: Exploration/Analysis → Pass findings
-    ↓
-Task 2: Planning → Pass plan
-    ↓
-Task 3: Implementation → Pass result
-    ↓
-Task 4: Verification
-
-Key: Use task_id to maintain context between stages
+```text
+Explore API area -------+
+Explore storage area ---+--> Synthesize --> Decide
+Review tests -----------+
 ```
 
-> Subagents work well here. Consider Teams for the design/planning stage when architectural debate would improve the plan.
+A single background task is justified only when other real orchestration work can proceed while it runs. Otherwise use foreground.
 
-### Pattern 3: Hybrid
+### Hybrid
 
-Use for complex tasks with mixed parallel/sequential phases.
+Use a hybrid graph when some workstreams are parallel and later work depends on their results.
 
-```
-Phase 1: Parallel Exploration
-├── Explore area A
-├── Explore area B
-└── Explore area C
-        ↓
-Phase 2: Parallel Implementation (based on Phase 1 findings)
-├── Implement component X
-├── Implement component Y
-└── Cross-review and verify
+```text
+Explore area A --+
+Explore area B --+--> Synthesize constraints --> Implement X --+
+Explore area C --+                         Implement Y --+--> Verify
 ```
 
-> Use subagents for the exploration phase. For implementation/review, **use Teams for parallel implementation with mutual cross-review**.
+Run each ready parallel wave in the background. Use foreground for a single blocking edge between waves when no other work is ready.
 
-## Context Management
+## Orchestration Workflow
 
-### Parallel Execution (Subagents)
-- Each Task runs independently
-- Collect and synthesize results after completion
-- No context sharing between parallel tasks
+1. **Define the outcome**: State the final deliverable and success criteria.
+2. **Build the dependency graph**: Separate ready independent work from blocked work.
+3. **Apply the delegation gate**: Keep direct work direct; delegate only bounded, valuable units.
+4. **Assign ownership**: Give each workstream exclusive scope and avoid overlapping writes.
+5. **Choose execution mode**: Foreground for a blocking result; background for independent ready work; hybrid for mixed graphs.
+6. **Launch efficiently**: Start independent background tasks together. Start dependent tasks only after prerequisites complete.
+7. **Advance the graph**: Record results, handle failures, and unlock the next work without duplicating active tasks.
+8. **Synthesize**: Reconcile overlap, contradictions, assumptions, and confidence into one coherent result.
+9. **Verify**: Run the narrowest reliable integrated checks and confirm the user's original success criteria.
 
-### Sequential Execution
-- Use task_id to resume previous work
-- Pass essential context explicitly in prompt
-- Minimize context to necessary information only
+## Subagent Task Contract
 
-### Team Communication (Agent Teams)
-- Teammates share context via mailbox messages directly
-- Use shared task list to coordinate work allocation and track progress
-- Team Lead synthesizes final output; teammates cross-validate each other's work
-- Assign each teammate a clear role/perspective in the task description
+Every delegated prompt should include:
 
-## Skill Loading Strategy
+- The exact objective and why the result is needed.
+- Owned files, component, perspective, or question.
+- Explicit exclusions and work owned by other agents.
+- Whether the task is research-only or may edit files.
+- Required deliverables, evidence, and verification commands.
+- For a blocking investigation, the recommended next orchestration decision.
+- Relevant constraints, project conventions, and specialized skills to load.
+- A request to report blockers, uncertainty, and changed files.
 
-### When to Load Skills
-- Specialized expertise is required
-- Standardized process guidance is needed
-- Domain-specific best practices apply
+Choose the narrowest capable subagent type. Resume an existing task only when continuity is valuable; otherwise provide a fresh, self-contained contract.
 
-### How to Load
-Include skill loading instruction in the task prompt when domain expertise would benefit the task.
+## Common Patterns
 
-## Synthesis Protocol
+### Multi-Area Analysis
 
-After all tasks complete:
+Assign separate repository areas or review perspectives to background subagents. Require file and line evidence. The main agent deduplicates and prioritizes findings, resolves contradictions, and verifies material claims.
 
-1. **Collect Results**: Gather key findings from each task/teammate
-2. **Identify Patterns**: Remove duplicates, find common themes
-3. **Prioritize**: Sort by importance/urgency
-4. **Define Actions**: Specify concrete follow-up work
-5. **Consolidate**: Produce unified report or output
+### Parallel Implementation
 
-## Best Practices
+Use only when each subagent owns disjoint files or components with stable interfaces. Define integration constraints before launch. The main agent reviews diffs, resolves integration issues, and runs combined verification after all work completes.
 
-1. **Plan Before Execution**: Identify required tasks and execution mode upfront
-2. **Teams First**: When Agent Teams are available, prefer teams for multi-perspective tasks. Fall back to subagents for single-focus tasks or unsupported environments
-3. **Assign Clear Roles**: Give each teammate a distinct perspective or domain (e.g., security, performance, UX)
-4. **Minimize File Conflicts**: When using Teams for parallel implementation, ensure each teammate owns separate files
-5. **Avoid Over-decomposition**: Too many small tasks creates overhead
-6. **Always Synthesize**: Don't end with scattered individual results
-7. **Minimize Context**: Pass only necessary information to each task
-8. **Leverage Skills**: Load relevant skills for specialized work
+### Independent Verification
+
+Separate implementation from an independent verification workstream only when their scopes do not cause duplicate implementation. The verifier should inspect outcomes, tests, or evidence rather than redo the implementation.
+
+### Blocking Investigation
+
+Use one foreground subagent when a specialized investigation determines whether or how later work should proceed. Do not pre-assign downstream implementation before the result is known.
+
+## Synthesis and Failure Handling
+
+For each result:
+
+1. Check that the agent stayed within scope and supplied the requested evidence.
+2. Distinguish verified facts from assumptions and recommendations.
+3. Resolve conflicting findings against source code, tests, or authoritative documentation.
+4. Reassign only missing or failed work; do not rerun successful work without cause.
+5. Inspect all edits before integration and protect unrelated user changes.
+6. Verify the combined result rather than treating individual success as integration success.
+
+If a subagent fails, determine whether the task is still needed, whether it partially changed state, and whether retrying is safe. Narrow or clarify the contract before retrying. Escalate to the user only when scope, risk, or required information materially changes.
+
+## Anti-Patterns
+
+- Delegating tiny tasks that the main agent could complete faster than describing them.
+- Launching a single background task while the main agent performs the same kind of work.
+- Assigning overlapping file ownership without a conflict plan.
+- Treating sequential dependencies as parallel work.
+- Creating vague roles such as "review everything" without evidence requirements.
+- Returning a list of subagent outputs without synthesis.
+- Trusting subagent completion as a substitute for final integrated verification.

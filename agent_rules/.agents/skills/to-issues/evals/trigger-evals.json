@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Turn our account recovery specification into reviewable GitHub issues. I want thin end-to-end slices, explicit blockers, and a chance to approve the breakdown before anything is published.",
+    "should_trigger": true
+  },
+  {
+    "query": "이 Linear 프로젝트의 결제 실패 복구 계획을 사람이 리뷰하기 좋은 하위 이슈로 나눠줘. 각 이슈의 검증 방법과 선행 관계도 보여주고 실제 생성은 내가 승인한 뒤에 해줘.",
+    "should_trigger": true
+  },
+  {
+    "query": "Break epic ENG-482 into agent-ready sub-issues, but optimize the boundaries for human code review rather than agent context size. Include rollout risk and expected PR ordering.",
+    "should_trigger": true
+  },
+  {
+    "query": "We have a broad spec for customer data export covering permissions, audit logs, CSV generation, and large-job processing. Propose a dependency graph of outcome-focused implementation issues; draft only for now.",
+    "should_trigger": true
+  },
+  {
+    "query": "Please split this repository-wide identifier migration into safe issues. Every merge must stay green, old clients need a compatibility window, and the cleanup cannot start until all callers move.",
+    "should_trigger": true
+  },
+  {
+    "query": "대화에서 합의한 웹훅 재시도 기능을 로컬 .scratch 디렉터리 아래 이슈 파일들로 만들어줘. 먼저 분할안과 blocker를 검토받아야 해.",
+    "should_trigger": true
+  },
+  {
+    "query": "Convert docs/checkout-redesign.md into a set of tracer-bullet work items. Each item should have one observable result, acceptance criteria, verification evidence, non-goals, and minimal dependencies.",
+    "should_trigger": true
+  },
+  {
+    "query": "Create a reviewable issue breakdown for adding regional retention policies. Security, deletion integrity, staged rollout, and rollback cannot be left as follow-up hardening tasks.",
+    "should_trigger": true
+  },
+  {
+    "query": "Our roadmap item says 'support imports from three providers'. Split it by useful user outcomes rather than frontend/backend/database tasks and tell me which issues can start in parallel.",
+    "should_trigger": true
+  },
+  {
+    "query": "Take parent issue #913 and prepare tracker-ready child issue drafts with native blocking relationships where possible. Do not touch GitHub until I approve the exact titles and target repository.",
+    "should_trigger": true
+  },
+  {
+    "query": "Implement issue ENG-482 exactly as written, update the code and tests, and run the focused test suite. Do not create any new issues.",
+    "should_trigger": false
+  },
+  {
+    "query": "Review pull request #731 for correctness, security regressions, performance problems, and missing tests. Return findings with file and line references.",
+    "should_trigger": false
+  },
+  {
+    "query": "Split my current staged changes into three atomic Conventional Commits and write the commit messages, but do not push them.",
+    "should_trigger": false
+  },
+  {
+    "query": "Write one concise GitHub bug report for the null pointer exception in checkout. Include reproduction steps, expected behavior, actual behavior, and environment details.",
+    "should_trigger": false
+  },
+  {
+    "query": "List all open Linear issues assigned to me in the current cycle and summarize which ones are blocked.",
+    "should_trigger": false
+  },
+  {
+    "query": "Explain INVEST and vertical story slicing to a new product manager. Use examples, but do not create a project plan or any issues.",
+    "should_trigger": false
+  },
+  {
+    "query": "코드베이스를 분석해서 새로운 멀티테넌트 시스템의 전체 아키텍처와 설계 문서 트리를 만들어줘. 아직 이슈 분할은 하지 말자.",
+    "should_trigger": false
+  },
+  {
+    "query": "Use the to-tickets skill exactly as installed to publish the approved ticket list. Do not substitute another issue-splitting workflow.",
+    "should_trigger": false
+  },
+  {
+    "query": "Turn my conference preparation notes into a personal checklist for booking travel, finishing slides, and rehearsing. This is not software work and there is no issue tracker.",
+    "should_trigger": false
+  },
+  {
+    "query": "Triage this production incident now: inspect logs, identify the failing dependency, mitigate customer impact, and report the root cause. Do not stop to create planning issues.",
+    "should_trigger": false
+  }
+]

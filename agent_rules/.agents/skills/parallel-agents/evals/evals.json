@@ -1,0 +1,96 @@
+{
+  "skill_name": "parallel-agents",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Plan how you would audit a monorepo before a release. The authentication, billing, and notification services are owned by different teams and have separate source trees and test suites. I need one prioritized readiness report with evidence from each area. Explain the execution approach, task ownership, and verification strategy; do not perform the audit.",
+      "expected_output": "A background subagent plan with disjoint service ownership, explicit evidence requirements, main-agent synthesis, and integrated final verification.",
+      "files": [],
+      "expectations": [
+        "The response delegates the three independent service audits to subagents.",
+        "The response selects background execution for the independent audit workstreams.",
+        "The response uses subagents as the only delegation mechanism and does not propose another coordination model.",
+        "Each delegated workstream has distinct scope and a concrete evidence or verification deliverable.",
+        "The main agent remains responsible for coordination and does not claim a separate service audit.",
+        "The plan ends with synthesis, prioritization, and integrated readiness verification."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Use multiple agents and parallelize a dependency cleanup across six independent command-line tools under cmd/. Each tool has its own module and tests, and no files are shared. Describe exactly how you would organize the work and combine the result without making changes yet.",
+      "expected_output": "Parallel background delegation with one or more clearly partitioned tool groups, no duplicated main-agent implementation, and combined verification after synthesis.",
+      "files": [],
+      "expectations": [
+        "The response honors the explicit request to use subagents.",
+        "The response selects background execution and launches independent ready work as one parallel wave.",
+        "The response uses subagents as the only delegation mechanism and does not propose another coordination model.",
+        "Subagent ownership is partitioned so that no command-line tool or file is assigned twice.",
+        "The main agent is limited to orchestration, integration review, and final decisions while subagents run.",
+        "The plan includes both per-tool checks and combined repository verification."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We have an intermittent checkout failure, but nobody knows whether the defect is in the API, database transaction, or payment provider. A specialist must identify the root cause before anyone can choose a fix. Explain whether you would use a subagent, which execution mode you would choose, and what happens after the investigation.",
+      "expected_output": "One foreground blocking investigation followed by a decision and only then assignment of dependent implementation and verification.",
+      "files": [],
+      "expectations": [
+        "The response delegates a bounded root-cause investigation to a subagent.",
+        "The initial investigation uses foreground execution because its result blocks the next decision.",
+        "The response does not pre-assign or launch a speculative implementation before the root cause is known.",
+        "The investigation contract asks for evidence, uncertainty, and a recommended next decision.",
+        "The main agent uses the result to choose and verify the subsequent fix."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Design an execution plan for replacing a shared legacy client. First we need independent inventories from the web app, worker, and admin CLI. After those findings are reconciled, the web app and worker can be migrated in separate files, but the admin CLI depends on the new worker interface. Explain the dependency graph and subagent modes without editing code.",
+      "expected_output": "A hybrid plan: parallel background inventories, synthesis, parallel ready migrations, then the blocked CLI migration, with main-agent coordination and final integration checks.",
+      "files": [],
+      "expectations": [
+        "The three independent inventories run as a background parallel wave.",
+        "The response uses subagents as the only delegation mechanism and does not propose another coordination model.",
+        "The main agent synthesizes the inventories before assigning migration work.",
+        "The web app and worker migrations are treated as independent ready workstreams after synthesis.",
+        "The admin CLI migration remains blocked until the worker interface is available.",
+        "The plan includes ownership boundaries and final integrated verification."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "There is a typo in the error message returned by parseConfig in internal/config/parser.go. The expected wording is already in its adjacent unit test. Explain how you would handle this change and whether you would delegate it.",
+      "expected_output": "Direct main-agent execution with no subagent because the fix is small, local, and has an obvious focused test.",
+      "files": [],
+      "expectations": [
+        "The response explicitly chooses not to use a subagent.",
+        "The reason cites the small single-file scope and low delegation benefit.",
+        "The response proposes the direct edit and focused adjacent unit test.",
+        "The response does not invent additional parallel review or analysis workstreams."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "I want to simplify one 180-line function in renderer.ts. Parsing, validation, layout, and output are interleaved, and every proposed change would touch the same function while the desired behavior is not fully documented. Should you split this among subagents? Explain the safest execution approach.",
+      "expected_output": "No parallel delegation because the work is tightly coupled, shares one file and function, and lacks a bounded independently verifiable contract.",
+      "files": [],
+      "expectations": [
+        "The response rejects splitting the implementation among subagents.",
+        "The reason identifies shared-file conflict risk and tightly coupled context.",
+        "The reason also identifies ambiguity or insufficient independent verification boundaries.",
+        "The response recommends one coherent direct workflow before considering any bounded independent review."
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Do not use agents or delegate anything. Review README.md and CONTRIBUTING.md for inconsistent setup commands and give me a short correction plan. Explain how you will execute the request.",
+      "expected_output": "Direct execution that honors the explicit no-agent constraint despite two documents being present.",
+      "files": [],
+      "expectations": [
+        "The response explicitly honors the instruction not to use subagents.",
+        "The response proposes direct inspection of both documents.",
+        "The response does not reinterpret the two files as parallel workstreams.",
+        "The plan remains bounded to identifying inconsistent setup commands and proposing corrections."
+      ]
+    }
+  ]
+}

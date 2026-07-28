@@ -31,7 +31,7 @@ With backpressure, the flow becomes:
 ```text
 Goal
 -> Contract
--> Plan reviewed by independent feedback
+-> Plan reviewed by independent feedback when risk or uncertainty requires it
 -> Work subagent writes a patch
 -> Mechanical checks reject bad patches first
 -> Feedback subagents reject design, correctness, or test-quality issues

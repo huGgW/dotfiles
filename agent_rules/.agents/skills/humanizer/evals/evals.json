@@ -1,0 +1,149 @@
+{
+  "skill_name": "humanizer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "아래 문장은 맞춤법과 띄어쓰기만 고쳐 주세요. 표현이나 어조는 바꾸지 말고, 백틱 안 브랜드와 큰따옴표 안 제품 표기는 그대로 두세요. 수정된 문장만 출력해 주세요.\n\n이 도구에요. 몇일 뒤 카드로 결재하면 돼요. 홍길동씨가 한개씩 확인 할께요. `ContentsLab`의 제품 표기는 \"컨텐츠\"입니다.",
+      "expected_output": "명백한 맞춤법과 띄어쓰기만 고치고 보호된 브랜드 및 인용 표기는 그대로 둔 문장.",
+      "files": [],
+      "expectations": [
+        "The output corrects '도구에요' to '도구예요' and '몇일' to '며칠'.",
+        "The output corrects the payment term '결재' to '결제' without changing '돼요'.",
+        "The output uses '홍길동 씨', '한 개씩', and '확인할게요'.",
+        "The output preserves `ContentsLab` and the quoted product spelling \"컨텐츠\" exactly.",
+        "The output contains only the corrected passage and does not perform stylistic rewriting or add facts."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "다음 고객 응대 문장에서 사물존칭만 바로잡고, 사람에 대한 간접높임은 유지해 주세요. 문체와 내용은 바꾸지 말고 수정문만 출력해 주세요.\n\n고객님, 주문하신 커피 나오셨습니다. 가격은 만 원이십니다. 선생님은 따님이 있으십니다.",
+      "expected_output": "커피와 가격의 사물존칭은 제거하지만 선생님에 대한 간접높임은 유지한 문장.",
+      "files": [],
+      "expectations": [
+        "The output changes '커피 나오셨습니다' to '커피 나왔습니다'.",
+        "The output changes '만 원이십니다' to '만 원입니다'.",
+        "The output preserves the indirect honorific '선생님은 따님이 있으십니다'.",
+        "The output does not alter the customer-service register or add an explanation."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "아래 기술 보고 문장을 자연스러운 한국어로 다듬어 주세요. 불확실성, 가능성, 부정, 시점, 책임 주체는 절대 바꾸지 마세요. 수정문만 출력해 주세요.\n\n현 단계에서는 이 변경이 장애의 원인일 수 있다고 볼 수 있습니다. 따라서 롤백을 통해 문제를 해결할 수 있습니다. 다만 데이터가 손실되지 않는다는 보장은 없습니다. 배포는 운영팀에 의해 내일 진행될 예정입니다.",
+      "expected_output": "번역투와 명사화를 줄이되 원인 가능성, 롤백 가능성, 데이터 손실에 대한 보장 부재, 내일 배포할 운영팀을 모두 보존한 기술 문장.",
+      "files": [],
+      "expectations": [
+        "The output keeps the change as only a possible cause and does not state that it caused the incident.",
+        "The output preserves that rollback may solve the problem rather than guaranteeing a solution.",
+        "The output preserves the absence of a guarantee against data loss.",
+        "The output preserves both '운영팀' as the deployment actor and '내일' as the time.",
+        "The output reduces translationese such as '장애의 원인', '롤백을 통해', or '운영팀에 의해' without adding facts."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "다음 서비스 점검 공지를 쉬운 공공언어로 교정해 주세요. 가능성의 강도는 유지하고, 백틱 안 API 경로와 SLA 수치는 정확히 보존하세요. 공지문만 출력해 주세요.\n\n금번 점검은 익일 오전 2시에 진행될 예정입니다. 점검에 의하여 서비스 이용이 제한될 수 있습니다. 상기 내용을 숙지하시기 바랍니다. API 엔드포인트 `/v1/payments`와 SLA 99.9%는 변경되지 않습니다.",
+      "expected_output": "행정어를 쉬운 표현으로 바꾸면서 제한 가능성, API 경로, SLA 수치와 불변 상태를 보존한 공식 공지.",
+      "files": [],
+      "expectations": [
+        "The output replaces administrative wording such as '금번', '익일', and '상기' with reader-friendly Korean.",
+        "The output keeps service restriction as a possibility and does not turn it into a definite outage.",
+        "The output preserves `/v1/payments` exactly.",
+        "The output preserves 'SLA 99.9%' and that it does not change.",
+        "The output remains a formal public notice and adds no operational details."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "다음 문장은 이미 자연스러우면 고치지 마세요. 맞춤법, 띄어쓰기, 문체만 점검하고 수정이 필요 없으면 원문만 그대로 출력해 주세요.\n\n이번 배포는 내일 오전 10시에 시작될 수 있습니다. 운영팀이 최종 점검을 마쳐야 배포 여부를 확정합니다. `dry-run` 결과는 아직 공유되지 않았습니다.",
+      "expected_output": "이미 자연스럽고 정확한 원문을 불필요하게 바꾸지 않은 결과.",
+      "files": [],
+      "expectations": [
+        "The output preserves the original three sentences without stylistic paraphrasing.",
+        "The output preserves the deployment possibility, the 10 a.m. time, and the final-check condition.",
+        "The output preserves `dry-run` exactly and keeps the result as not yet shared.",
+        "The output does not add commentary, headings, or a change summary."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "아래 문장에서 AI 티를 빼 주세요. 원문에 있는 기능 외에는 사실, 수치, 사용자 반응, 출처를 새로 만들지 마세요. 수정문만 출력해 주세요.\n\n이번 업데이트는 혁신을 향한 중요한 이정표입니다. 또한 빠르고 직관적이며 강력한 사용자 경험을 제공합니다. 배치 처리와 오프라인 모드를 추가했습니다. 업계 전문가들은 이 변화가 산업 전반에 지속적인 영향을 줄 것이라고 봅니다.",
+      "expected_output": "과장과 상투어를 줄이고 배치 처리와 오프라인 모드만 구체적 사실로 유지하며, 익명 전문가 주장에 새 출처나 결과를 붙이지 않은 문장.",
+      "files": [],
+      "expectations": [
+        "The output preserves the two stated features: batch processing and offline mode.",
+        "The output removes or neutralizes inflated phrases such as '중요한 이정표' and the generic adjective cluster.",
+        "The output does not invent features, metrics, user feedback, dates, or named experts.",
+        "The output either removes the vague expert claim or explicitly identifies it as unsupported without inventing a source.",
+        "The output contains only the revised passage."
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "영어 원문을 의미 기준으로 삼아 한국어 번역문의 번역투를 자연스럽게 다듬어 주세요. 불확실성, 인과관계, 수치, 시각, 책임 주체, 백틱 안 식별자를 바꾸지 마세요. 영문은 출력하지 말고 수정한 한국어 문단만 출력해 주세요.\n\nEnglish source:\nAlthough the `cache_invalidator` change may have contributed to the error rate rising to 3.8%, the team has not established a causal link. Rolling it back could reduce load, but it would not guarantee recovery, and the deployment scheduled for 10:30 UTC should remain paused until the database snapshot is verified.\n\nKorean translation:\n`cache_invalidator` 변경은 오류율이 3.8%로 상승하는 것에 기여했을 수도 있지만, 팀은 인과 링크를 수립하지 않았습니다. 그것을 롤백하는 것은 부하를 감소시킬 수 있지만 복구를 보장하지 않을 것이며, 데이터베이스 스냅샷이 검증될 때까지 10:30 UTC를 위해 예정된 배포는 일시 정지된 상태로 남아야 합니다.",
+      "expected_output": "기술 보고서의 불확실성과 조건을 보존하면서 영어식 명사화, 대명사, 부자연스러운 피동 표현을 줄인 한국어 문단.",
+      "files": [],
+      "expectations": [
+        "The output preserves `cache_invalidator`, the 3.8% error rate, and that the change only may have contributed to the increase.",
+        "The output states that the team has not established a causal link and does not turn correlation into established causation.",
+        "The output preserves that rollback could reduce load but would not guarantee recovery.",
+        "The output keeps the 10:30 UTC deployment paused until the database snapshot is verified.",
+        "The output removes or naturalizes calques such as '인과 링크를 수립', '그것을 롤백하는 것은', '10:30 UTC를 위해 예정된', and '상태로 남아야'.",
+        "The output contains only the revised Korean passage and adds no facts."
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "영어 원문과 대조해 다음 API 문서 번역을 정확하고 자연스러운 한국어로 교정해 주세요. 설정값, 조건, 오류 코드, 제한 시간은 그대로 보존하세요. 영문은 출력하지 말고 수정한 한국어 문단만 출력해 주세요.\n\nEnglish source:\nWhen `retry_policy.max_attempts` is set to 1, the client sends the request only once and does not retry it after a timeout. A value greater than 1 enables retries, but the client may still return `DEADLINE_EXCEEDED` if the overall 30-second deadline expires before a response arrives.\n\nKorean translation:\n`retry_policy.max_attempts`가 1로 설정되어질 때, 클라이언트는 요청을 단 한 번 보내는 것을 수행하며 타임아웃 후 그것을 재시도하지 않습니다. 1보다 큰 값은 재시도를 가능하게 만들지만 응답이 도착하기 전에 전체 30초의 데드라인이 만료되는 경우 클라이언트는 여전히 `DEADLINE_EXCEEDED`를 반환할 수도 있습니다.",
+      "expected_output": "API 식별자와 실행 조건을 정확히 유지하면서 이중 피동, 대명사, 명사화 번역투를 제거한 기술 문서.",
+      "files": [],
+      "expectations": [
+        "The output preserves `retry_policy.max_attempts` and states that a value of 1 sends the request exactly once with no retry after a timeout.",
+        "The output preserves that values greater than 1 enable retries without implying that retries guarantee success.",
+        "The output preserves `DEADLINE_EXCEEDED` and the condition that it may still occur when the overall 30-second deadline expires before a response arrives.",
+        "The output naturalizes constructions such as '설정되어질 때', '보내는 것을 수행하며', '그것을 재시도', and '재시도를 가능하게 만들지만'.",
+        "The output contains only the revised Korean passage and introduces no new configuration behavior."
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "영어 원문을 기준으로 공공 안내문 번역을 쉬운 한국어로 교정해 주세요. 대상 집단, 의무, 두 날짜, 조건부 결과를 정확히 유지하세요. 영문은 출력하지 말고 수정한 한국어 안내문만 출력해 주세요.\n\nEnglish source:\nApplicants who submitted the form by March 15 do not need to apply again. Those who were asked for supplementary documents must upload them by April 2; otherwise, their applications may be reviewed in the next cycle rather than the current one.\n\nKorean translation:\n3월 15일까지 양식을 제출했던 신청자들은 다시 신청하는 것이 요구되지 않습니다. 추가적인 문서들을 요청받았던 사람들은 4월 2일까지 그것들을 업로드해야만 하며, 그렇지 않을 경우 그들의 신청은 현재의 차수보다는 다음 차수에서 검토되어질 수 있습니다.",
+      "expected_output": "재신청 불필요, 보완 서류 제출 의무와 기한, 다음 차수 검토 가능성을 보존하며 관사식 표현과 이중 피동을 줄인 공공 안내문.",
+      "files": [],
+      "expectations": [
+        "The output preserves that applicants who submitted by March 15 do not need to apply again.",
+        "The output preserves that only applicants asked for supplementary documents must upload them by April 2.",
+        "The output keeps the consequence conditional: missing the deadline may move review to the next cycle rather than the current cycle.",
+        "The output naturalizes unnecessary plural markers, repeated pronouns, and double-passive wording such as '검토되어질 수 있습니다'.",
+        "The output remains a formal, reader-friendly public notice and contains only the revised Korean text."
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "영어 원문과 대조해 연구 요약의 한국어 번역을 자연스럽게 다듬어 주세요. 표본 수, 연구 설계, 상관관계와 인과관계의 차이, 보정 변수, 통계적 유의성을 절대 바꾸지 마세요. 영문은 출력하지 말고 수정한 한국어 문단만 출력해 주세요.\n\nEnglish source:\nIn a sample of 842 adults, sleep duration was associated with self-reported concentration, but the observational design does not show that longer sleep caused better concentration. After adjusting for age and shift work, the association became smaller and was no longer statistically significant.\n\nKorean translation:\n842명의 성인들로 이루어진 한 표본에서, 수면 시간은 자기 보고된 집중력과 연관성을 가지고 있었습니다. 그러나 관찰적인 설계는 더 긴 수면이 더 좋은 집중력을 야기했다는 것을 보여주지 않습니다. 나이와 교대 근무를 위해 조정한 후, 그 연관성은 더 작아졌고 더 이상 통계적으로 유의미하지 않았습니다.",
+      "expected_output": "842명 표본의 연관성 결과와 비인과적 관찰 연구라는 한계, 보정 후 효과 감소와 유의성 소실을 정확히 유지한 연구 문장.",
+      "files": [],
+      "expectations": [
+        "The output preserves the sample size of 842 adults and the association between sleep duration and self-reported concentration.",
+        "The output explicitly preserves that the observational design does not establish that longer sleep caused better concentration.",
+        "The output preserves adjustment for both age and shift work.",
+        "The output preserves that the association became smaller and was no longer statistically significant after adjustment.",
+        "The output uses natural research terminology instead of calques such as '연관성을 가지고', '관찰적인 설계', and '나이와 교대 근무를 위해 조정'.",
+        "The output contains only the revised Korean passage and adds no interpretation or recommendation."
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "영어 원문을 기준으로 제품 소개 번역을 간결하고 자연스럽게 교정해 주세요. 기능, 측정 수치와 조건, 변동 가능성, 포함되지 않은 기능을 모두 보존하고 홍보성 사실을 새로 만들지 마세요. 영문은 출력하지 말고 수정한 한국어 문단만 출력해 주세요.\n\nEnglish source:\nThe April release adds bulk export and an offline queue for field teams. In internal testing, exporting 10,000 records took a median of 42 seconds on the reference device; results may vary with network conditions and account size. The release does not include real-time collaboration.\n\nKorean translation:\n4월 릴리스는 현장 팀들을 위한 대량 내보내기와 오프라인 큐를 추가합니다. 내부적인 테스트에서, 10,000개 레코드들을 내보내는 것은 기준 장치 상에서 42초의 중앙값을 소요했으며, 결과들은 네트워크 조건들과 계정 크기에 기반하여 다를 수 있습니다. 해당 릴리스는 실시간 협업을 포함하지 않습니다.",
+      "expected_output": "기능 두 가지, 내부 테스트의 중앙값과 측정 조건, 결과 변동 요인, 실시간 협업 미포함을 그대로 보존한 제품 소개 문장.",
+      "files": [],
+      "expectations": [
+        "The output preserves that the April release adds both bulk export and an offline queue for field teams.",
+        "The output preserves the internal-test result: exporting 10,000 records took a median of 42 seconds on the reference device.",
+        "The output preserves that results may vary with both network conditions and account size.",
+        "The output explicitly preserves that real-time collaboration is not included.",
+        "The output naturalizes unnecessary plural markers and calques such as '내부적인 테스트', '42초의 중앙값을 소요', and '조건들에 기반하여'.",
+        "The output contains only the revised Korean passage and invents no performance claim, feature, or user response."
+      ]
+    }
+  ]
+}

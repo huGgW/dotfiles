@@ -1,116 +1,266 @@
 # BACKPRESSURE.md Contract Template
 
-Create or update `BACKPRESSURE.md` at the project root by default whenever this
-skill starts a backpressure run. Use the file as the shared contract for the
-current project or run. Preserve existing user-approved content when editing.
-
-Do not record secrets. Record where secrets come from, not their values.
+`BACKPRESSURE.md` contains one active contract and concise current state. Keep
+only decision context needed to validate the active run; archive broader history
+outside the active file. Do not record secrets; record only their source and
+required access.
 
 ## Template
 
 ```markdown
 # Backpressure Contract
 
+## Run
+
+- Run ID: <stable ID>
+- Profile: <lite | standard | critical>
+- Activated at: <ISO-8601 timestamp>
+- Owner: <user or approved authority>
+
+## Decision Sources
+
+| Source ID | Short excerpt or stable reference | Authority | Notes |
+|---|---|---|---|
+| SRC-1 | <concise user excerpt, message reference, issue, or document anchor> | <user | approved authority> | <why this source matters> |
+
+Keep excerpts short and preserve their original meaning. Do not copy the full
+transcript. A wording-only source correction is context; a change in meaning or
+authority requires a replacement decision and specification update.
+
+<!-- validation-spec:start -->
+## Active Decisions
+
+| Decision ID | Source ID | Normative targets | Supersedes |
+|---|---|---|---|
+| D-1 | SRC-1 | <GOAL, OOS-1, OWN-1, API-1, P-1, AC-1, check or review ID> | <decision ID | none> |
+
+Only current decisions appear here. Normative wording lives in the linked
+contract targets below; do not create a second decision ledger in child output.
+The latest explicit user feedback outranks earlier plans, agent-authored
+specifications, and reviewer assumptions.
+
+## Repository
+
+- Root: <canonical path>
+- Base: <full commit SHA | immutable reference | unresolved>
+- Candidate state ID implementation: <shared helper or exact read-only commands>
+- Isolated base: <read-only path | immutable snapshot | unresolved>
+
+Exclude `BACKPRESSURE.md` and `.backpressure/**` from state identity. Use the same
+state implementation for the complete run.
+
 ## Goal
 
-- Objective: <what the run is trying to accomplish>
-- Scope: <files, modules, feature area, or issue links>
-- Out of scope: <what this run must not do>
+- Objective: <observable result>
+- Scope: <files, modules, behavior, or issue links>
+- Out of scope:
+  - OOS-1: <explicit forbidden change or non-goal>
+
+## Ownership And Public API
+
+- OWN-1: <required ownership boundary | not constrained>
+- API-1: <required public API shape | not constrained>
+
+## Agreed Plan
+
+- Source: <source IDs, approved plan reference, or reviewed plan reference>
+- P-1: <faithful plan step>
+- P-2: <faithful plan step>
+
+Preserve the final agreed plan's terminology, sequence, conditions, boundaries,
+ownership, public API shape, and non-goals as faithfully as practical. Normalize
+formatting and add stable IDs, but do not broaden, narrow, generalize, or silently
+replace its meaning. Omit rejected alternatives, intermediate drafts, and full
+transcript history. Put a materially ambiguous axis in Unresolved Decisions
+instead of choosing an interpretation.
 
 ## Acceptance Criteria
 
-- [ ] <observable criterion 1>
-- [ ] <observable criterion 2>
-- [ ] <observable criterion 3>
-
-## Iteration Budget
-
-- Default failed-attempt budget: 3 per gate
-- Override for this run: <none | number and reason>
-- Stop early when the same failure repeats without new evidence.
+- AC-1: <observable criterion>
+- AC-2: <observable criterion>
 
 ## Mechanical Checks
 
-| Check | Command | Stage | Scope | Required | Notes |
-|---|---|---|---|---:|---|
-| compile/build | <command or unknown> | each-iteration, final | targeted/full | yes | <notes> |
-| typecheck | <command or unknown> | each-iteration, final | full if cheap | yes | <notes> |
-| lint | <command or unknown> | each-iteration, final | changed files/full | yes | <notes> |
-| tests-targeted | <command or unknown> | each-iteration | touched behavior | yes | <notes> |
-| tests-full | <command or unknown> | final | full | yes | <notes> |
-| coverage | <command or unknown> | final when behavior changes | full | conditional | <notes> |
-| project-specific | <command or unknown> | <stage> | <scope> | <yes/no> | <notes> |
+| Check ID | Command | Stage | Required | Identity | Side effects |
+|---|---|---|---:|---|---|
+| targeted-tests | <command or unresolved> | implementation | yes | content | read_only |
+| full-tests | <command or unresolved> | final | yes | content | read_only |
+| project-check | <command or not required> | <implementation | final | post_commit> | <yes/no> | <content | commit> | <read_only | sandboxed_local> |
 
-## Feedback Lenses
+Required unresolved checks block the gate that needs them. Source-changing or
+external-side-effect commands are work, not mechanical verification.
 
-| Lens | Stage | Required | Routing Trigger | Notes |
+## Review Requirements
+
+- Plan review: <required | conditional | not required>
+- Final whole-changeset review: required
+- Conditional lenses: <security, type design, performance, integration, none>
+- Required specialist: <role | none>
+
+## Specialized Validation
+
+- Browser: <owner | not required | unresolved>
+- Benchmark: <owner | not required | unresolved>
+- Migration dry-run: <owner | not required | unresolved>
+- Runtime integration: <owner | not required | unresolved>
+
+<!-- validation-spec:end -->
+
+## Superseded Decisions
+
+| Decision ID | Historical decision summary | Source ID | Replaced by |
+|---|---|---|---|
+| <D-old> | <concise former meaning> | <SRC-ID> | <active decision ID> |
+
+These rows are context for detecting accidental reintroduction, not active
+requirements. Keep only the concise history needed by the current run.
+
+## Unresolved Decisions
+
+| Decision ID | Focused question | Material effect | Source or status |
+|---|---|---|---|
+| <UD-1> | <one decision needed> | <diff | ownership | public API | other> | <source ID | awaiting user> |
+
+If plausible interpretations materially change the diff, ownership boundary, or
+public API, ask one focused question before contract freeze. Do not begin planning
+or implementation while that axis remains unresolved. Use Open Items for missing
+commands, environments, or authority that are not decision semantics.
+
+<!-- publication-spec:start -->
+## Publication Requirements
+
+- Required: <true | false>
+- Judgment review: <required | not required>
+
+| Item | Command or artifact rule | Required | Identity | Side effects |
 |---|---|---:|---|---|
-| plan | before implementation | yes | always | approach and load-bearing decisions |
-| correctness-test | each mechanically green patch, final | yes | always | behavior, edge cases, test quality |
-| type-design | each relevant patch, final if touched | conditional | models, APIs, schemas, type signatures, casts | <notes> |
-| security | each relevant patch, final if touched | conditional | auth, permissions, input, secrets, fs, network, commands | <notes> |
-| performance | each relevant patch, final if touched | conditional | hot paths, DB, concurrency, large data | <notes> |
-| integration-runtime | final or wiring-heavy iterations | conditional | runnable behavior, env, service boundaries | <notes> |
+| <lockfile, generated artifact, changelog, migration package, check> | <rule or command> | <yes/no> | <content | commit> | <read_only | sandboxed_local> |
+<!-- publication-spec:end -->
 
-Across code review lenses, compare patches against discoverable patterns in the
-touched area: architecture boundaries, naming, error handling, test style,
-dependency usage, and comparable implementation shapes. Treat unnecessary
-divergence as review feedback when it creates maintainability, integration, or
-reviewability risk; do not block solely on harmless style preference.
+## Validation Identity
 
-## Subagent Roles And Boundaries
+- Validation spec hash: <sha256 of the exact UTF-8 bytes between validation-spec markers after LF line-ending normalization>
+- Publication spec hash: <sha256 of the publication-spec block | not required>
+- HEAD: <full commit SHA | UNAVAILABLE>
+- Current state ID: <opaque digest>
 
-- Manager: main agent. Owns routing, gates, budget, synthesis, and human handoff.
-  Does not write implementation patches, run mechanical checks, or perform code
-  review directly during the backpressure run.
-- Worker: subagent that writes the next patch or plan. Does not approve own work.
-- Verifier: subagent that runs mechanical checks. Does not edit files.
-- Reviewer: independent feedback subagent. Does not edit files.
+## Run Control
 
-## Evidence Requirements
+- Stop after: <contract | plan | implementation | correctness | publication | commit | push | pr>
 
-- Mechanical check evidence: command, exit status, and relevant output.
-- Review evidence: lens, reviewer role, findings, and approval/blocker status.
-- Role-boundary evidence: work, checks, and review came from the assigned
-  worker, verifier, and reviewer roles rather than the manager.
-- Acceptance evidence: how each criterion was observed or verified.
-- Skip evidence: explicit skip reason from this file or the user.
+| Action | Authorized | Exact target | Operation mode | Source | Expires |
+|---|---:|---|---|---|---|
+| commit | <true/false> | <worktree, branch, paths> | <create only; amend requires explicit permission> | <current instruction> | <condition> |
+| push | <true/false> | <remote and refspec> | <non-force; force requires explicit permission> | <current instruction> | <condition> |
+| pr | <true/false> | <repository, base, head, or exact PR> | <create or exact fields to update> | <current instruction> | <condition> |
 
-## Runtime And Specialized Gates
+Authorization permits an action but does not require it or extend `stop_after`.
+Human handoff is always allowed.
 
-- Browser testing: <delegate to existing skill/tool/subagent | not required | unknown>
-- Benchmarking: <delegate to existing skill/tool/subagent | not required | unknown>
-- PR monitoring: <delegate to existing skill/tool/subagent | not required | unknown>
-- Deployment or release: <delegate to existing skill/tool/subagent | not required | unknown>
+## Budget
 
-## Human Handoff
+| Budget | Value | Used |
+|---|---:|---:|
+| Child calls | <profile default or override> | 0 |
+| Repair rounds per gate | <profile default or override> | <gate -> count> |
+| Final-call floor | <profile default or route-adjusted value> | not applicable |
 
-- Human reviews after required gates pass or a blocker is reached.
-- Human should decide product/design tradeoffs, unresolved blockers, or final approval.
-- Human should not be asked to catch missing compile, lint, test, or routine review failures.
+- Budget override: <none | value, reason, approver>
+- Remaining route fits final calls: <true | false>
 
-## Skips
+## Publication Readiness
 
-- <gate>: <reason and who approved it>
+- Status: <not_required | pending | pass | blocked>
+
+| Item | Evidence or blocker |
+|---|---|
+| <required item from publication specification> | <reference> |
 
 ## Open Items
 
-- [ ] <missing command, credential source, environment requirement, or decision>
+- [ ] OI-1: <missing requirement, command, environment, or authority>
+
+## Current State
+
+- Phase: <contract | plan | implementation | correctness | publication | commit | push | pr>
+- Current gate: <gate name>
+- Current state ID: <opaque digest>
+- Open blocker IDs: <IDs or none>
+- Plan review: <not_required | pending | pass | blocked, evidence reference>
+- Correctness: <pending | pass | blocked>
+- Action results: <action -> not attempted | blocked | succeeded with evidence>
+
+| Active decision | Status | Current evidence or blocker |
+|---|---|---|
+| D-1 | <pending/pass/blocked> | <reference> |
+
+| Acceptance criterion | Status | Current evidence or blocker |
+|---|---|---|
+| AC-1 | <pending/pass/blocked> | <reference> |
+| AC-2 | <pending/pass/blocked> | <reference> |
 ```
 
-## Creation Rules
+## Update Rules
 
-When creating the file:
+1. Hash each marked specification block as raw text after normalizing line
+   endings to LF. Whitespace-only changes may conservatively invalidate evidence;
+   do not add a custom semantic canonicalization layer.
+2. Changes inside the validation-spec block invalidate dependent correctness
+   evidence. Bind evidence to the decision, plan, criterion, check, and review IDs
+   it covers. Final semantic review becomes stale after every
+   correctness-affecting decision change; unaffected evidence may carry forward
+   only with an explicit dependency-based reason.
+3. The manager creates, resolves, or replaces a correctness decision atomically:
+   add the active decision, move any prior decision to Superseded Decisions,
+   update all linked normative targets and affected Agreed Plan steps, and then
+   recompute the validation hash. Removing an unresolved row alone cannot unblock
+   correctness work. An Active Decisions row that disagrees with its linked
+   targets blocks the contract.
+4. Before each plan review, write the exact plan under review into Agreed Plan and
+   recompute the validation hash. Bind the review to that hash. Store mutable plan
+   review status and evidence in Current State, outside the hash. A plan revision
+   stales prior plan-review evidence.
+5. Wording-only edits to Decision Sources, Superseded Decisions, or unresolved
+   context do not invalidate correctness evidence because those sections are
+   outside the hash. If source meaning or authority changes, treat it as a new
+   decision under rule 3 rather than a context edit.
+6. Changes inside the publication-spec block invalidate only
+   publication-readiness evidence unless they also change candidate content.
+7. Changes only to authorization, counters, findings, or current status do not
+   invalidate correctness evidence. Recheck action policy immediately before an
+   action.
+8. Recompute `state_id` after every candidate-content-changing work slice and
+   before and after each authoritative check set or review.
+9. A changed candidate makes previous content-bound evidence stale.
+10. Keep manager-owned child IDs outside the normative contract. Children do not
+   create separate decision, evidence, or invocation ledgers.
+11. When history is useful, write one concise
+   `.backpressure/runs/<run_id>/run.md` containing the final contract, gate
+   decisions, evidence references, action results, and handoff. Historical state
+   is never current authority.
 
-1. Fill in what can be discovered safely.
-2. Mark unknowns explicitly instead of inventing answers.
-3. Ask the user for required unknowns before the run depends on them.
-4. Keep the file concise enough to remain useful as a tracking artifact.
-5. Update the file as the run discovers gates, skips, or blockers.
+## Repository State Requirements
 
-When editing an existing file:
+The state record must include:
 
-1. Preserve existing decisions and project-specific guidance.
-2. Add run-specific information under the relevant headings.
-3. Do not delete skips, commands, or constraints unless the user asks.
-4. Record budget overrides and human-approved exceptions.
+- Base and current `HEAD`, recorded separately
+- Base-to-index changes
+- Index-to-worktree changes
+- Relevant untracked paths, modes, symlink targets, and content
+
+Derive `state_id` from the base and candidate content, not from current
+commit-object identity. The implementation must be read-only and deterministic.
+Store detailed components and `HEAD` once in the run record and use the opaque
+`state_id` in handoffs and evidence. For non-Git work, use an immutable base
+snapshot and a deterministic manifest. If no trustworthy base exists,
+whole-changeset correctness is unresolved.
+
+After commit, compare the committed tree or publication manifest with the frozen
+candidate. Preserve content-bound evidence when they are identical. Revalidate
+when content differs or a check explicitly depends on commit identity.
+
+Commit-dependent check evidence records the exact `HEAD` before and after the
+check. A `HEAD`-only change does not invalidate content-bound evidence.
+
+For PR updates, list every authorized mutation. Permission to update one field
+does not authorize changing another field, closing, or merging the PR.

@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Audit our monorepo for release readiness. Auth lives in services/auth, invoicing is in services/billing, and email delivery is in services/notify; each has separate owners and tests. I need one prioritized report with file-level evidence and a final cross-service risk summary.",
+    "should_trigger": true
+  },
+  {
+    "query": "We need to migrate the GitHub, Slack, and Jira adapters from the old HTTP client. They are in separate packages with no shared files, and each package has its own contract tests. Make the changes and verify the whole integration.",
+    "should_trigger": true
+  },
+  {
+    "query": "Review PR #482 from three independent angles: authentication security, query performance, and missing regression tests. Reconcile duplicate findings and give me one severity-ranked review with file and line references.",
+    "should_trigger": true
+  },
+  {
+    "query": "A production incident started after yesterday's deploy. Check application logs, database lock behavior, and deployment configuration as separate hypotheses, then combine the evidence into the most likely root cause and next action.",
+    "should_trigger": true
+  },
+  {
+    "query": "Implement the new export flow across web/, api/, and worker/. Their interfaces are already agreed and each area has separate files and test targets. Keep ownership disjoint, integrate the results, and run end-to-end verification.",
+    "should_trigger": true
+  },
+  {
+    "query": "There are 14 independent Terraform modules under infra/modules that need the same provider upgrade. Batch the work safely, keep module ownership separate, and report which module checks pass or fail before running the root validation.",
+    "should_trigger": true
+  },
+  {
+    "query": "Inventory duplicated feature-flag configuration across the mobile app, web app, backend, and admin console. Each codebase is in a different top-level directory. Produce one deduplicated migration matrix with source references.",
+    "should_trigger": true
+  },
+  {
+    "query": "Please parallelize this: compare the public API docs against the TypeScript SDK, Python SDK, and server routes. Assign clear areas, find mismatches with evidence, and synthesize one compatibility report.",
+    "should_trigger": true
+  },
+  {
+    "query": "Before we replace the shared cache client, independently map usage in the API, scheduled jobs, and CLI. Once those findings are reconciled, create separate implementation tracks for components that do not share files and verify the combined migration.",
+    "should_trigger": true
+  },
+  {
+    "query": "Prepare a release-readiness assessment covering changelog completeness, CI reliability, dependency risk, and deployment rollback documentation. These checks can be investigated independently, but I need one go/no-go decision with supporting evidence.",
+    "should_trigger": true
+  },
+  {
+    "query": "Explain how to implement a bounded worker pool in Go with goroutines, channels, context cancellation, and backpressure. Include a small code example and discuss how many workers to start.",
+    "should_trigger": false
+  },
+  {
+    "query": "Our pytest suite is slow. Show me how to run tests in parallel with pytest-xdist and how to choose the -n value in CI. Do not modify the repository.",
+    "should_trigger": false
+  },
+  {
+    "query": "Fix the mobile menu focus trap in src/components/NavMenu.tsx. The bug is isolated to this component and the existing NavMenu.test.tsx already reproduces it.",
+    "should_trigger": false
+  },
+  {
+    "query": "parseConfig returns ErrInvalidPath instead of ErrMissingFile for one input. The failing unit test names the expected sentinel and the implementation is in a single Go file. Fix it and run that test.",
+    "should_trigger": false
+  },
+  {
+    "query": "Refactor the parse, validate, render, and serialize phases inside the same 220-line buildDocument function. All state is local to that function and the behavior is only partially covered. Keep the change coherent and avoid broad redesign.",
+    "should_trigger": false
+  },
+  {
+    "query": "Don't use subagents for this. Read docs/setup.md and scripts/bootstrap.sh, identify why their install commands differ, and suggest the smallest documentation fix.",
+    "should_trigger": false
+  },
+  {
+    "query": "Compare package.json and package-lock.json and tell me whether lodash is pinned consistently. This should only require reading those two files; don't change anything.",
+    "should_trigger": false
+  },
+  {
+    "query": "What's the practical difference between asynchronous execution, parallel execution, and concurrency? Use a restaurant analogy and one JavaScript example.",
+    "should_trigger": false
+  },
+  {
+    "query": "make this repo better. use whatever approach you want and check everything that might be wrong, then clean it all up.",
+    "should_trigger": false
+  },
+  {
+    "query": "Change the users table primary key type and update every caller in the application in the same deployment. The migration and code rollout are tightly coupled and must be designed as one transaction-safe sequence. Give me the sequence, not parallel implementation.",
+    "should_trigger": false
+  }
+]

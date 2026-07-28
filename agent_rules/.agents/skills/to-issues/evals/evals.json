@@ -1,0 +1,92 @@
+{
+  "skill_name": "to-issues",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Break this product request into reviewable implementation issues. Workspace admins first need a self-service CSV export covering the last 30 days; custom date ranges are the next useful variation. Non-admins must never export data, every export must be recorded in the audit log, and large exports eventually need background processing. Show the numbered breakdown proposal only, including blockers, verification evidence, and expected PR shape. Do not materialize full issue bodies, create files, or publish anything.",
+      "expected_output": "A proposal-only vertical breakdown that delivers the bounded 30-day export first, includes authorization and audit integrity in every relevant usable slice, separates custom-range and large-export variations, and does not split work into schema/API/UI/testing layers.",
+      "files": [],
+      "expectations": [
+        "The response stays at the numbered proposal stage and does not materialize full issue-template bodies or publish issues.",
+        "Each proposed issue states an observable outcome, principal intent or risk, genuine blockers, verification evidence, and delivery shape.",
+        "The simplest usable export is a complete vertical slice rather than separate schema, API, UI, and test issues.",
+        "Authorization and audit-log integrity are included in every relevant usable export slice rather than deferred to later hardening work.",
+        "Custom date ranges and large-export background processing are separated as meaningful variations with safe dependency edges.",
+        "Tests and verification remain with the behavior they validate rather than becoming a separate issue.",
+        "The response asks the user to approve or adjust granularity, blockers, and PR boundaries before materialization.",
+        "The transcript shows that neither issue template was read for this proposal-only request."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Prepare tracker-ready issue drafts, but do not create or update any real tracker objects. We must replace the public account_id UUID with workspace_id ULID across the database schema, HTTP API, event contracts, generated SDK, and six independently owned packages. Existing clients cannot break during rollout, and every merge to main must remain green. Release governance requires the generated SDK migration to remain in the same tracker issue as its public contract migration, while reviewers require handwritten contract changes and generated output to use an explicitly ordered, independently green PR stack. For this evaluation, choose the dependency graph and issue boundaries and treat the resulting breakdown as approved for draft materialization only; this is not authorization to publish. Write complete tracker issue bodies.",
+      "expected_output": "Complete tracker-ready issues using an expand-migrate-contract sequence, compatibility-preserving migration batches, explicit blockers, independently green verification, and rollout and rollback details without performing external writes.",
+      "files": [],
+      "expectations": [
+        "The response uses an expand, migrate-in-batches, and contract sequence rather than forcing fake feature slices.",
+        "The expand issue preserves compatibility for existing clients and keeps main green.",
+        "Migration batches are divided by reviewable blast radius or ownership and depend on expand without unnecessary dependencies on one another.",
+        "The contract issue is blocked by every required migration and compatibility verification.",
+        "Every issue body includes Outcome, Context / Why, Acceptance criteria, Non-goals, Verification, Risks and rollout, and Blocked by.",
+        "The public contract and generated SDK migration issue has an ordered multi-PR Review plan with an explicit independently green guarantee.",
+        "The response does not perform or claim any real tracker write.",
+        "The transcript shows that the tracker template was read and the local template was not read."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Create local Markdown issue drafts for improving our webhook delivery service. It needs bounded exponential retries, idempotent delivery, a dead-letter path, delivery metrics, and a safe manual replay mechanism restricted to workspace operators with the webhook:replay permission. There is no user interface and none is planned. For this evaluation, split the work for human review and treat the resulting breakdown as approved for local draft materialization only. Include dependency edges and rollout safety, provide one complete local issue file per slice, and do not publish to a real tracker.",
+      "expected_output": "Local issue files for independently verifiable operational outcomes, using only required backend and operational layers, with idempotency and integrity preserved, tests included with behavior, explicit blockers, and safe rollout and rollback guidance.",
+      "files": [],
+      "expectations": [
+        "The breakdown does not invent UI work or any other layer that the operational outcomes do not require.",
+        "Each local issue file follows the local template with Status, Outcome, Context / Why, Acceptance criteria, Non-goals, Verification, Risks and rollout, and Blocked by.",
+        "Retry behavior includes bounded failure handling and idempotency rather than deferring delivery integrity.",
+        "Dead-letter handling and manual replay enforce the webhook:replay permission and include duplicate-delivery verification.",
+        "Metrics are tied to an observable operational outcome rather than created as an isolated technical layer with no use.",
+        "Tests and runtime evidence are included with the behavior they verify.",
+        "Dependency edges are minimal and every intermediate issue can land green.",
+        "The transcript shows that the local template was read and the tracker template was not read."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Break this oversized parent request into issues that are appropriately sized for human review. Workspace administrators need a lifecycle system that can suspend and reinstate a workspace, schedule permanent deletion with a 30-day cancellation window, and irreversibly purge expired workspaces. Suspension must revoke active sessions and reject writes while preserving permitted reads. Deletion and purge must preserve audit evidence and satisfy retention policy. The current model is an archived boolean used by 12 independently owned packages and must migrate to a lifecycle enum without breaking any merge to main. Public API and event contract changes regenerate an 18,000-line SDK; release governance requires handwritten contract changes and generated SDK output to stay in the same issue, but reviewers must inspect them as explicitly ordered, independently green PRs. Identity/security, data-lifecycle/compliance, and SDK maintainers are separate reviewer groups. Show a numbered proposal only. For each issue, explain why one reviewer can follow its main intent and risk without unrelated changes. Include blockers, verification, and delivery shape, then ask for approval before materialization. Do not create files or publish anything.",
+      "expected_output": "A proposal-only breakdown that separates distinct lifecycle outcomes and irreversible risks, handles the boolean-to-enum migration with compatibility-safe review batches, isolates generated churn through an ordered green PR stack, and justifies review size using conceptual breadth and reviewer domains rather than a line-count quota.",
+      "files": [],
+      "expectations": [
+        "The response remains a numbered proposal and asks for approval before materializing issue bodies or publishing anything.",
+        "Suspension and reinstatement, reversible deletion scheduling and cancellation, and irreversible purge are not collapsed into one oversized issue with multiple principal behaviors or risks.",
+        "Every proposed issue has one observable outcome and one principal intent or risk, with an explicit explanation of why a reviewer can follow it without unrelated changes.",
+        "Review-size explanations use conceptual breadth, reviewer domains, risk, or generated noise rather than a fixed LOC quota or agent context-window limit.",
+        "The archived-boolean migration uses a compatibility-safe expand, ownership-sized migrate, and contract sequence, and does not put all 12 package migrations into one review package.",
+        "The public contract and generated SDK remain in the same issue but use an explicitly ordered PR stack that lets reviewers inspect handwritten changes before generated output while every PR stays green.",
+        "Identity and authorization safeguards stay with suspension behavior, while audit, retention, and irreversibility safeguards stay with deletion and purge behavior rather than being deferred to separate hardening issues.",
+        "The breakdown does not create standalone schema, API, generated-code, or testing issues solely by technical layer; tests and verification stay with the behavior or migration they validate.",
+        "Blocking edges are genuine and minimal, and every proposed landing state remains buildable and testable.",
+        "The transcript shows that neither issue template was read for this proposal-only request."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Use the attached component and ownership fixture to break the workspace lifecycle outcome into implementation issues sized for human review. Treat the fixture as authoritative, but derive issue boundaries from its ownership, co-change, risk, and landing facts rather than mechanically creating one issue per table row. The evaluation rejects both under-splitting and over-splitting. Show a numbered proposal only. For every issue include its observable outcome, principal intent or risk, blockers, verification, delivery shape, and a concise review-size rationale. Ask for approval before materialization. Do not create issue files or publish anything.",
+      "expected_output": "Exactly nine reviewable proposal issues: one compatibility expansion, three ownership-sized legacy migration batches, one suspend/reinstate slice, one schedule/cancel slice, one separate purge slice, one public-contract/generated-SDK issue with two ordered green PRs, and one compatibility cleanup issue. The public delivery directly depends on suspend/reinstate and purge, reaching schedule/cancel transitively through purge.",
+      "files": [
+        "evals/fixtures/workspace-lifecycle-map.md"
+      ],
+      "expectations": [
+        "The proposal contains exactly nine issues and asks for approval before materializing files or publishing anything.",
+        "The proposal does not under-split reviewer domains: suspend/reinstate is separate from deletion work, reversible schedule/cancel is separate from irreversible purge, and the three differently owned migration groups are not merged together.",
+        "The proposal does not over-split lockstep work: suspend and reinstate stay in one issue, schedule and cancel stay in one issue, and each pair of components in a legacy ownership group stays in one migration issue.",
+        "The nine boundaries comprise one compatibility expansion, three owner-sized migrations, three behavior issues, one public contract and SDK issue, and one compatibility cleanup without standalone schema, API, audit, generated-code, or testing issues.",
+        "Every issue states one observable outcome and one principal intent or risk, and its review-size rationale cites the fixture's ownership, invariant, reviewer, risk, or generated-noise evidence rather than a fixed LOC quota.",
+        "The dependency graph matches the fixture and contains only direct edges: expansion gates migrations and the two reversible behavior slices; purge waits only for schedule/cancel; public delivery directly waits for suspend/reinstate and purge and reaches schedule/cancel transitively; cleanup directly waits for the three migrations and public delivery without redundant behavior blockers.",
+        "The public contract and generated SDK remain in one issue with handwritten semantics reviewed in the first independently green PR and generated output reviewed in the second independently green PR.",
+        "Authorization and session safeguards stay with suspend/reinstate, reversible audit and race safeguards stay with schedule/cancel, and destructive retention, dry-run, and audit safeguards stay with purge.",
+        "Behavior tests and migration parity tests remain in the issues they verify, and the stable audit-evidence API does not become a standalone implementation issue.",
+        "Every proposed landing state is buildable and testable, and the response does not invent blockers contrary to the compatibility projection or independent ownership groups.",
+        "The transcript shows that the component and ownership fixture was read and neither issue template was read for this proposal-only request."
+      ]
+    }
+  ]
+}

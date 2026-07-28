@@ -12,7 +12,8 @@ description: >
   of design documents through a five-phase workflow
   (problem → research → solution concept → high-level design → detailed design)
   with discussion-first agenda gates, non-linear phase navigation,
-  recursive depth expansion, and continuous progress tracking.
+  recursive depth expansion, continuous progress tracking, and standalone
+  publication documents derived from agreed design artifacts when requested.
 ---
 
 # Project Architect
@@ -30,6 +31,7 @@ Each phase has a clear purpose and produces artifacts that feed the next phase, 
 - Multiple dimensions need parallel exploration (architecture, data model, API, infrastructure, etc.)
 - Design decisions branch into sub-decisions recursively
 - A persistent, trackable design artifact is needed across sessions
+- An external-facing document must be derived from an existing Project Architect design tree
 
 **Do not use when:**
 - Simple feature addition or bug fix
@@ -56,6 +58,13 @@ Each phase has a clear purpose and produces artifacts that feed the next phase, 
 | `decisions.md` | Concept document | Central decision log entries that point to local decision artifacts | When referencing prior decisions |
 | `log.md` | Reserved update file | Design-impacting revisit/change history with affected artifacts; compact or archive stale entries | When checking change history |
 | `index.md` | Reserved navigation file | Directory summary: purpose, key decisions, children | When exploring a branch |
+
+### Internal Design vs Publication
+
+- `design/` is the authoritative internal design workspace and follows the five-phase, OKF-compatible structure.
+- `output/` contains external-facing publication views derived from agreed design artifacts only when the user requests them.
+- A publication document is not a sixth design phase and never becomes the source of truth for a design decision.
+- When publication feedback changes the design itself, update the relevant internal design artifacts through the normal consensus workflow before refreshing the publication document.
 
 ### OKF-Compatible Artifact Rules
 
@@ -190,10 +199,11 @@ Workflow:
 10. **Depth-aware structure** — No depth limit, but at 4+ depth, review the tree and propose compression to user if possible. See `references/structure-rules.md` for compression strategies.
 11. **Documentation after consensus** — Write design documents as work progresses, but only after local consensus. Capture the discussion summary, criteria, alternatives, and rationale when documenting the agreed outcome.
 12. **OKF compatibility without spec drift** — Use current OKF guidance for artifact authoring details. Do not restate the full OKF spec here; keep this skill focused on architecture workflow.
+13. **Publication is a derived view** — Create external-facing documents only on request, from agreed design content. Keep internal traceability outside the shareable document and never let publication edits silently change the authoritative design.
 
-## Output Directory
+## Internal Design Directory
 
-Default: `design/` at the project root. User may specify a different path.
+Default internal design directory: `design/` at the project root. User may specify a different path.
 
 ```
 design/
@@ -256,14 +266,40 @@ design/
 
 See `references/templates.md` for file templates and `references/structure-rules.md` for naming conventions.
 
+## External Publication Output
+
+When the user requests an externally shareable standalone document, derive it from agreed design artifacts and write it under the project-root `output/{document-slug}/` directory.
+
+Each document directory contains:
+
+```text
+output/{document-slug}/
+├── {document-slug}.md
+├── internal-source-map.md
+└── assets/                         # optional; public-safe assets only
+```
+
+The primary `{document-slug}.md` file is the shareable artifact. It must explain all essential context directly and must not link to, name, cite, or require internal design artifacts or `internal-source-map.md`. Public external references may be cited when useful.
+
+For every creation or content revision of the primary document:
+
+1. Apply the `document-writer` skill to define the audience, use moment, document mode, structure, information density, and purposeful visual material.
+2. Verify technical meaning against eligible design sources.
+3. Apply the `humanizer` skill to the complete draft without changing facts, decisions, uncertainty, obligations, terminology, or metrics.
+4. Run the standalone, leakage, readability, visual, link, and freshness checks from `references/publication-guide.md`.
+
+Keep `internal-source-map.md` in the same directory for internal traceability, but never link it from the primary document or include it in the shareable file allowlist. Publication documents are not OKF concept artifacts unless the user explicitly requests OKF output.
+
+Read `references/publication-guide.md` before creating, updating, or validating any publication document.
+
 ## Initialization & Resume
 
 ### New Project
 
-1. Confirm with user: project name, output directory (default `design/`), known constraints/context
+1. Confirm with user: project name, internal design directory (default `design/`), known constraints/context
 2. Determine project type: **Greenfield** or **Non-greenfield** (migration/evolution)
    - Non-greenfield: include `as-is-analysis.md` in Phase 1 deliverables
-3. Create only root navigation/operational files (`index.md`, `plan.md`, `decisions.md`, `log.md`) after the user agrees on the output location
+3. Create only root navigation/operational files (`index.md`, `plan.md`, `decisions.md`, `log.md`) after the user agrees on the internal design location
 4. Begin Phase 1 by discussing the agenda in conversation. Do not create Phase 1 artifacts until the user agrees on problem framing, goals, and (if relevant) constraints. Keep Phase 1 light — write only the artifacts the project actually needs.
 
 ### Resume (Continuing a Previous Session)
@@ -290,10 +326,11 @@ When the user returns with feedback from team reviews or stakeholder meetings:
 3. **Propose changes**: Present affected artifacts + modification plan to user for confirmation
 4. **Restart local discussion cycles when needed**: If feedback introduces, removes, or changes alternatives, reopen the relevant discussion → option files → explicit decision cycle. Add new alternatives as the next `option-{letter}-*.md` file before changing `decision.md` or `design.md`
 5. **Execute**: Record the design-impacting change in `log.md` with feedback source, mark affected documents with `⚠️ update needed`, revisit relevant Phases (🔁), remove markers after update, and avoid logging trivial wording/format edits
-6. **Check cascade**: Verify whether changes propagate to downstream Phases
+6. **Check cascade**: Verify whether changes propagate to downstream Phases and to any publication document mapped to the affected artifacts
 
 ## Additional Resources
 
 - **`references/phase-guide.md`** — Detailed per-Phase guidance: purpose, key questions, activities, deliverables, completion criteria, revisit conditions
 - **`references/templates.md`** — File templates for all design artifacts (`plan.md`, `index.md`, `decisions.md`, `log.md`, `concept.md`, `operating-model.md`, `principles.md`, `decision.md`, etc.)
 - **`references/structure-rules.md`** — Directory/file naming conventions, Phase 4 multi-decision rules, special directories (`cross-cutting/`, `interfaces/`), depth management, non-greenfield guidance, invalidation tracking
+- **`references/publication-guide.md`** — External publication structure, writing workflow, source tracking, leakage prevention, invalidation, and verification

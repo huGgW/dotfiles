@@ -1,0 +1,62 @@
+{
+  "skill_name": "project-architect",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Treat the supplied fixture root as the project root. The architecture decisions are approved and the publication audience and scope are confirmed. Publish a standalone, externally shareable Markdown architecture brief titled \"Merchant Alerting Architecture\" with document slug `merchant-alerting-architecture`. The audience is partner engineers integrating notification providers. Work autonomously without reopening design phases or asking follow-up questions.",
+      "expected_output": "A compact external architecture brief at the slug-based output path, backed by a separate internal source map, with a useful delivery-flow diagram and no references to internal design artifacts.",
+      "files": [
+        "evals/fixtures/architecture-brief/design/4-high-level-design/architecture-overview.md",
+        "evals/fixtures/architecture-brief/design/5-detailed-design/delivery-worker/design.md"
+      ],
+      "expectations": [
+        "The run creates `output/merchant-alerting-architecture/merchant-alerting-architecture.md` and `output/merchant-alerting-architecture/internal-source-map.md` as the only Markdown files under that output document directory.",
+        "The primary document states the Ingest API, transactional outbox, Dispatcher, provider adapters, at-least-once delivery, and `merchant_id + alert_id` idempotency key.",
+        "The primary document states the five-attempt retry policy, all four retry delays, dead-letter handling, and the `alerts:replay` permission.",
+        "The internal source map names the primary document and both exact source paths supplied by the fixture.",
+        "The primary document contains no internal `.md` file reference, `design/` path, phase label, decision ID, source-map reference, or fixture-specific internal path segment.",
+        "The primary document contains exactly one Mermaid block showing a flow through Ingest API, Outbox, Dispatcher, and a provider adapter.",
+        "The primary document contains no more than 550 words and no more than six level-two headings.",
+        "The execution transcript records successful loading of both the `document-writer` and `humanizer` skills."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Treat the supplied fixture root as the project root. The decision is final and publication scope is confirmed. Publish a standalone, externally shareable decision brief titled \"Order Status Integration Decision\" with document slug `order-status-integration-decision`. Write for partner engineering leads who need to understand the selected integration model, rejected alternatives, operational consequences, and first-release boundary. Do not ask follow-up questions.",
+      "expected_output": "A concise external decision brief at the slug-based path with a private source map and a compact comparison table, without leaking internal decision metadata.",
+      "files": [
+        "evals/fixtures/decision-brief/design/4-high-level-design/communication/decision.md"
+      ],
+      "expectations": [
+        "The run creates `output/order-status-integration-decision/order-status-integration-decision.md` and `output/order-status-integration-decision/internal-source-map.md` as the only Markdown files under that output document directory.",
+        "The primary document identifies asynchronous domain events as selected and accurately explains burst absorption, replay, and partner-outage isolation.",
+        "The primary document identifies synchronous callbacks and nightly polling files as rejected and preserves their stated rejection reasons.",
+        "The primary document preserves the 2,000-changes-per-minute peak, two-minute delivery objective, `order_id + status_version` deduplication rule, eventual consistency, and first-release cross-region boundary.",
+        "The internal source map names the primary document and the exact `design/4-high-level-design/communication/decision.md` source path.",
+        "The primary document contains no internal `.md` file reference, `design/` path, phase label, `D-17`, source-map reference, or fixture-specific internal path segment.",
+        "The primary document contains exactly one Markdown comparison table covering all three options and contains no Mermaid block or additional table.",
+        "The primary document contains no more than 450 words, and the execution transcript records successful loading of both the `document-writer` and `humanizer` skills."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Treat the supplied fixture root as the project root. The internal Order Event Architecture has changed and its existing external document is stale. Refresh the existing externally shareable document in place, retaining the title, slug `order-event-architecture`, and partner-engineer audience. The updated internal decision is approved. Do not create a replacement slug, reopen design discussion, or ask follow-up questions.",
+      "expected_output": "The existing primary document and its internal source map updated in place to reflect Kafka, the v2 topic, seven-day retention, and current consumer behavior, with all stale RabbitMQ facts removed.",
+      "files": [
+        "evals/fixtures/stale-refresh/design/4-high-level-design/architecture-overview.md",
+        "evals/fixtures/stale-refresh/output/order-event-architecture/order-event-architecture.md",
+        "evals/fixtures/stale-refresh/output/order-event-architecture/internal-source-map.md"
+      ],
+      "expectations": [
+        "The run updates the existing `output/order-event-architecture/order-event-architecture.md` and `output/order-event-architecture/internal-source-map.md` files and creates no alternate output slug.",
+        "The refreshed primary document states transactional outbox publication, managed Kafka, `order.status.v2`, seven-day retention, and offset commit after idempotent application.",
+        "The refreshed primary document contains none of the stale terms `RabbitMQ`, `order.status.v1`, `24 hours`, or `24-hour` in any casing.",
+        "The refreshed primary document contains exactly one Mermaid block whose nodes or labels include the Order API, outbox relay, Kafka, and partner consumer, with no RabbitMQ node.",
+        "The internal source map names the primary document, the exact source path, and current source revision `2026-07-25-v2`; it no longer reports revision `2026-07-01-v1` or a stale status.",
+        "The primary document contains no internal `.md` file reference, `design/` path, phase label, `D-23`, source revision, source-map reference, or fixture-specific internal path segment.",
+        "The primary document contains no more than 450 words and no more than six level-two headings.",
+        "The execution transcript records successful loading of both the `document-writer` and `humanizer` skills."
+      ]
+    }
+  ]
+}

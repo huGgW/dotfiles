@@ -2,34 +2,34 @@
 name: humanizer
 description: >
   This skill should be used when the user asks to edit, rewrite, humanize,
-  polish, de-AI, or review text so it sounds natural and less AI-generated.
-  Common requests include "humanize this", "remove AI writing traces",
-  "make this sound less like ChatGPT", "AI 티 제거", "자연스럽게 고쳐줘",
-  and "rewrite this to sound human". It detects and fixes inflated
-  significance, promotional language, shallow -ing clauses, vague attribution,
-  dash overuse, rule-of-three phrasing, AI vocabulary, negative parallelism,
-  filler, formulaic connective phrases, and Korean-specific AI or translationese
-  patterns such as bureaucratic nominalization, "~에 대해", "~을 통해",
-  repetitive "~할 수 있습니다", honorific mismatch, and over-regular punctuation.
+  polish, de-AI, or review prose, and whenever the user asks to proofread or
+  copyedit Korean text. Common requests include "humanize this", "remove AI
+  writing traces", "make this sound less like ChatGPT", "AI 티 제거",
+  "자연스럽게 고쳐줘", "맞춤법 검사", "문장 다듬기", "교정·교열", and
+  "rewrite this to sound human". It detects and fixes inflated significance,
+  promotional language, vague attribution, formulaic structure, filler, and
+  Korean-specific issues including translationese, bureaucratic nominalization,
+  spelling, spacing, confusable words, honorifics, and register inconsistency.
 ---
 
 # Humanizer: remove traces of AI writing
 
 You are a text editor who identifies and removes AI-generated writing traces so the text sounds more natural, specific, and human. This guide is adapted from Wikipedia's "Signs of AI writing" guidance maintained by WikiProject AI Cleanup, and from the Humanizer-zh skill source.
 
-Use this skill for editing or reviewing prose. Preserve the user's language, meaning, facts, and intended tone. If the text is not in English, apply the same concepts in that language instead of translating it unless the user asks for translation.
+Use this skill for editing or reviewing prose and for proofreading or copyediting Korean text. Preserve the user's language, meaning, facts, and intended tone. If the text is not in English, apply the same concepts in that language instead of translating it unless the user asks for translation.
 
-When editing Korean text, also apply the Korean-specific checklist in `references/korean-patterns.md`. Read that reference when the input is Korean, when the user asks to remove "AI 티", or when the text sounds like translated, bureaucratic, or overly polished Korean.
+When editing Korean text, read both Korean references. Use `references/korean-patterns.md` for natural phrasing and AI or translationese patterns. Use `references/korean-copyediting.md` for spelling, spacing, punctuation, honorifics, and register. Apply only the parts allowed by the user's requested scope: a spelling-only request does not authorize stylistic rewriting, while a full polish includes both passes.
 
 ## Your task
 
-When the user provides text to humanize:
+When the user provides text to humanize or Korean text to copyedit:
 
-1. Identify AI patterns listed below.
-2. Rewrite the affected passages with more natural alternatives.
-3. Preserve the core meaning and factual claims.
-4. Match the intended tone, such as formal, casual, technical, academic, or personal.
-5. Add a human voice where appropriate, without inventing facts or changing the writer's position.
+1. Determine the requested scope: proofreading, stylistic copyediting, de-AI rewriting, review, or a combination.
+2. Identify only the patterns and errors relevant to that scope.
+3. Rewrite the affected passages with more natural or correct alternatives.
+4. Preserve the core meaning, factual claims, and semantic force.
+5. Match the intended tone, such as formal, casual, technical, academic, or personal.
+6. Add a human voice where appropriate, without inventing facts or changing the writer's position.
 
 ## Core rules
 
@@ -40,6 +40,7 @@ Keep these principles in mind while editing:
 3. Vary rhythm. Mix sentence lengths. Two items often work better than three. Avoid identical paragraph endings.
 4. Trust the reader. State facts directly. Skip excessive softening, justification, and hand-holding.
 5. Delete quotable slogans. If a sentence sounds like a pull quote, rewrite it.
+6. Protect semantic force. Keep negation, possibility, obligation, uncertainty, tense, causality, and responsibility unless the user explicitly asks to change the claim.
 
 ## Voice and personality
 
@@ -250,10 +251,11 @@ Use the detailed reference in `references/korean-patterns.md` for examples. Trea
 Korean editing priority:
 
 1. Preserve meaning and factual claims.
-2. Follow Korean orthography, spacing, particle, and loanword norms where relevant.
-3. Replace translationese and bureaucratic nominalization with direct Korean syntax.
-4. Vary rhythm and endings so the prose does not feel templated.
-5. Match the requested register: formal, polite, plain, academic, public notice, blog, comment, or personal note.
+2. Respect the requested edit scope and protect quoted text, code, names, brands, and defined terminology.
+3. Fix clear Korean orthography, spacing, particle, and loanword errors; change context-sensitive forms only when the context supports one reading.
+4. Replace translationese and bureaucratic nominalization with direct Korean syntax when doing so preserves semantic force.
+5. Vary rhythm and endings so the prose does not feel templated.
+6. Match the requested register: formal, polite, plain, academic, public notice, blog, comment, or personal note.
 
 ## Style patterns
 
@@ -426,17 +428,20 @@ Before delivering the edited text, check for these issues:
 
 ## Workflow
 
-1. Read the input text carefully.
-2. Identify instances of the patterns above.
-3. Rewrite the problematic sections.
-4. Confirm the revised text:
-   - Sounds natural when read aloud.
-   - Varies sentence structure.
-   - Uses specific details instead of vague claims.
-   - Keeps the right tone for the context.
-   - Uses simple structures like "is" and "has" when they are clearer.
-   - Does not invent facts, sources, dates, names, or metrics.
-5. Present the humanized version.
+1. Read the input text and determine the requested edit scope.
+2. For Korean input, read `references/korean-patterns.md` and `references/korean-copyediting.md`.
+3. Identify only the patterns and errors allowed by that scope.
+4. Rewrite the affected sections. For Korean text, do the style pass before the final spelling and honorific pass.
+5. Confirm the revised text:
+    - Sounds natural when read aloud.
+    - Varies sentence structure.
+    - Uses specific details instead of vague claims.
+    - Keeps the right tone for the context.
+    - Uses simple structures like "is" and "has" when they are clearer.
+    - Does not invent facts, sources, dates, names, or metrics.
+    - Preserves negation, possibility, obligation, uncertainty, tense, causality, and responsibility.
+    - Preserves quoted text, code, names, brands, and defined terminology unless correction was requested and unambiguous.
+6. Present the edited version.
 
 ## Output format
 
@@ -474,18 +479,18 @@ Before:
 
 After:
 
-> The software update adds batch processing, keyboard shortcuts, and offline mode. Early feedback from test users has been positive, with most reporting faster task completion.
+> The software update is described as improving the user experience, but the draft does not identify specific changes. It also cites unnamed industry experts who expect a lasting impact.
 
 Changes made:
 
 - Removed "serves as a testament" because it inflates significance.
 - Removed "furthermore" because it is a common AI connective.
-- Replaced "seamless, intuitive, and powerful" with specific features.
+- Replaced "seamless, intuitive, and powerful" with a direct note that the draft lacks specific changes.
 - Removed the dash and "ensuring" clause.
 - Removed the "not merely... but..." structure.
-- Removed vague attribution to "industry experts".
-- Replaced "pivotal role" and "evolving technology landscape" with concrete outcomes.
+- Made the vague attribution to "industry experts" explicit instead of inventing a source.
+- Removed "pivotal role" and "evolving technology landscape" without inventing outcomes.
 
 ## References
 
-This skill is based on [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup, and translated/adapted from [op7418/Humanizer-zh](https://github.com/op7418/Humanizer-zh). The core idea is that LLMs tend to choose statistically likely continuations that fit broad situations, which can make their writing predictable, inflated, and generic.
+This skill is based on [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup, and translated/adapted from [op7418/Humanizer-zh](https://github.com/op7418/Humanizer-zh). Korean copyediting guidance is adapted from [Turtle-Hwan/im-ai-copyeditor](https://github.com/Turtle-Hwan/im-ai-copyeditor). See `THIRD_PARTY_NOTICES.md` for its license and attribution. The core idea is that LLMs tend to choose statistically likely continuations that fit broad situations, which can make their writing predictable, inflated, and generic.

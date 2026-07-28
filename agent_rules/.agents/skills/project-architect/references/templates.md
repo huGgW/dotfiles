@@ -39,7 +39,7 @@ timestamp: YYYY-MM-DDTHH:MM:SSZ
 - **Description**: {One-line project description}
 - **Type**: Greenfield / Migration / Evolution
 - **Started**: YYYY-MM-DD
-- **Output Directory**: design/
+- **Design Directory**: design/
 
 ## Current Status
 > Phase {N} — {Phase Name} 🔄

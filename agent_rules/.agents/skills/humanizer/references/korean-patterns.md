@@ -22,6 +22,19 @@ These rules are editing heuristics, not AI-detection proof. A single phrase such
 4. Genre decides. A legal clause, product notice, blog post, academic abstract, and comment all need different levels of formality.
 5. Do not fake humanity. Do not add slang, "ㅋㅋ", "ㅠㅠ", emoji, typos, or extra punctuation unless the user explicitly asks for that register.
 
+## Semantic force and protected wording
+
+Natural phrasing is not an excuse to strengthen, weaken, or redirect a claim. Compare the draft and revision for these invariants:
+
+- Negation: `않다`, `못하다`, `없다`, and prohibitions remain negative.
+- Modality: possibility, recommendation, obligation, permission, and uncertainty keep the same strength.
+- Time and aspect: completed, ongoing, planned, and habitual events remain distinct.
+- Causality and conditions: causes, purposes, exceptions, and prerequisites do not become simple sequence.
+- Responsibility: do not supply a person, team, institution, or system that the draft does not identify.
+- Protected spans: preserve quotations, code, commands, URLs, names, brands, product labels, and defined legal or technical terms unless correction is explicitly requested and unambiguous.
+
+Treat expressions such as `~할 수 있다`, `~해야 한다`, `~일 수 있다`, `~로 보인다`, passive voice, and tense markers as meaningful by default. Remove or simplify them only when they are redundant in context.
+
 ## Translationese and English-style phrasing
 
 Watch for these patterns:
@@ -33,6 +46,10 @@ Watch for these patterns:
 - "~을/를 통해" used as a vague all-purpose bridge.
 - "~을/를 가지다", "가지고 있다" used mechanically for "have".
 - "~하는 중이다" used mechanically for the English progressive.
+- "~기 시작하다" attached mechanically to a state or instantaneous change.
+- Repeated `그`, `그녀`, `그것`, or explicit subjects where Korean would omit them.
+- `어떤`, `어느`, `하나의` used mechanically like English articles.
+- Embedded questions ending in `-는가/-인가` where `-는지` is natural.
 
 Rewrite by choosing the natural Korean relation or verb.
 
@@ -60,6 +77,35 @@ After:
 
 > 사용자가 이 기능을 설정할 수 있습니다.
 
+Before:
+
+> 민지는 피곤했다. 그녀는 의자에 앉았고 그녀는 한숨을 쉬었다.
+
+After:
+
+> 민지는 피곤했다. 의자에 앉아 한숨을 쉬었다.
+
+## Causative, passive, and aspect clutter
+
+Remove grammatical layers that add no meaning, but retain real agency, possibility, and time relations.
+
+Watch for:
+
+- Unnecessary `-시키다` where the base verb already carries the intended action.
+- Double passive forms such as `쓰여진`, `보여지는`, and `끊겨진`.
+- Progressive or perfect forms copied mechanically from English.
+- `~기 시작하다` attached to a momentary feeling or state when a simple tense says the same thing.
+
+Before:
+
+> 담당자가 환경을 개선시켰고 그 결과가 보고서에 쓰여졌다.
+
+After:
+
+> 담당자가 환경을 개선했고 그 결과가 보고서에 쓰였다.
+
+Do not flatten a genuine process into a completed event. For example, keep `가격이 오르기 시작했다` when the onset itself matters.
+
 ## Bureaucratic nominalization
 
 Korean AI prose often sounds like a public notice because it turns verbs into noun phrases.
@@ -85,7 +131,7 @@ If the sentence hides the actor, restore it when the context provides one.
 
 Before:
 
-> 관련 자료에 대한 분석이 수행되었습니다.
+> 연구팀에 의해 관련 자료에 대한 분석이 수행되었습니다.
 
 After:
 
@@ -106,11 +152,11 @@ These are not wrong, but repeated use makes Korean prose feel templated. Replace
 
 Before:
 
-> 이 기능을 사용하면 업무 효율성을 높일 수 있습니다.
+> 이 기능은 반복 작업을 자동화하여 업무 효율성을 높이는 데 도움을 줍니다.
 
 After:
 
-> 이 기능을 쓰면 업무가 빨라집니다.
+> 이 기능은 반복 작업을 자동화해 업무 효율을 높입니다.
 
 Before:
 
@@ -141,7 +187,7 @@ Before:
 
 After:
 
-> 이 기능은 설정 시간을 줄이고 반복 작업을 자동화합니다. 그래서 같은 일을 더 빨리 끝낼 수 있습니다.
+> 이 기능은 설정 시간을 줄이고 반복 작업을 자동화해 생산성을 높일 수 있습니다.
 
 ## Overuse of "의" and unnecessary plural "들"
 
@@ -179,11 +225,11 @@ After:
 
 Before:
 
-> 정책이 추진되었습니다.
+> 담당 부서에 의해 정책이 추진되었습니다.
 
 After:
 
-> 정부가 정책을 추진했습니다.
+> 담당 부서가 정책을 추진했습니다.
 
 If the actor is unknown or intentionally hidden, keep the passive or flag the missing actor instead of inventing one.
 
@@ -200,11 +246,25 @@ Choose one register unless the genre naturally mixes them.
 
 Before:
 
-> 이 기능은 매우 유용합니다. 한번 써보면 좋아요.
+> 이 기능은 매우 유용합니다. 한 번 써 보면 좋아요.
 
 After:
 
-> 이 기능은 유용합니다. 한번 써 보면 차이를 알 수 있습니다.
+> 이 기능은 매우 유용해요. 한 번 써 보면 좋아요.
+
+Use `references/korean-copyediting.md` for direct, indirect, object, and object-misapplied honorifics. Do not remove `-시-` merely because a body part, possession, thought, or speech is the grammatical subject; it may indirectly honor the person connected to it.
+
+## Japanese-style and administrative phrasing
+
+For public notices and administrative prose, prefer familiar words and explicit predicates when legal or domain meaning stays intact.
+
+- `규정에 의거하여` -> `규정에 따라`
+- `금번 회의` -> `이번 회의`
+- `검토를 요한다` -> `검토해야 한다`
+- `익일 재안내 예정입니다` -> `내일 다시 안내하겠습니다`
+- `상기 내용을 참고 바랍니다` -> `위 내용을 참고해 주세요`
+
+Do not simplify statutes, contracts, policy terms, or specialized terminology when the exact wording carries a defined meaning. Use noun labels for headings, table headers, buttons, and navigation only when those elements function as labels; do not force ordinary sentences into noun endings.
 
 ## Korean comments and casual community voice
 
@@ -220,5 +280,8 @@ Do not make formal prose casual just to hide AI traces. For a public notice, rep
 - Does the text use too many connectors at paragraph starts?
 - Are there stacked "의" phrases or unnecessary plural "들"?
 - Is the actor hidden behind passive voice?
+- Does the revision preserve negation, modality, tense, causality, and responsibility?
+- Are repeated pronouns, article-like modifiers, or translated embedded questions making the Korean unnatural?
+- Are causative, passive, progressive, or onset markers adding meaning, or only grammatical weight?
 - Do endings and honorifics stay consistent?
 - Does the revision still fit the genre and reader?

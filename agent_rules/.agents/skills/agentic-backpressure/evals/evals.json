@@ -1,0 +1,195 @@
+{
+  "skill_name": "agentic-backpressure",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use agentic backpressure for a localized CLI bug: --dry-run still writes an output file. A worker's first patch fails the targeted test. A focused repair produces a new repository state where targeted and full tests pass. Describe the child routing and final decision. Do not commit, push, or open a PR.",
+      "expected_output": "Use a bounded Lite flow, treat worker commands as diagnostic, obtain independent mechanical and final review evidence on the repaired state, avoid unchanged-state retries, and stop at handoff without external actions.",
+      "files": [],
+      "expectations": [
+        "The response uses separate worker, verifier, and final reviewer responsibilities.",
+        "The failed targeted test causes a bounded repair rather than a pass or unchanged retry.",
+        "Final approval depends on full checks and whole-changeset review for the repaired state.",
+        "No commit, push, or PR is attempted."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Manage a backpressure gate where targeted tests passed for repository state A, but an external edit changes the candidate to state B before gate synthesis. The old green result is presented as evidence. Explain the gate outcome and next action.",
+      "expected_output": "Reject state-A evidence as stale, do not pass the gate, and verify the affected checks against state B.",
+      "files": [],
+      "expectations": [
+        "The old evidence is rejected as STALE rather than accepted as PASS.",
+        "Only affected verification is rerun against state B.",
+        "Session identity is not treated as a substitute for repository-state identity."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Run backpressure for a migration plan. The first independent plan review blocks because rollback ownership is missing. The revised plan receives a second blocker because it still cannot preserve existing data. No implementation has started. Decide what happens next.",
+      "expected_output": "Escalate to the human after the second blocked review and do not launch a third reviewer or patch worker.",
+      "files": [],
+      "expectations": [
+        "The second unresolved review causes human escalation.",
+        "No third plan review is proposed.",
+        "Implementation does not begin with an unresolved blocker."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Use backpressure for an authorization change spanning policy evaluation, an HTTP handler, and integration wiring. Mechanical checks pass, but an independent security review finds that service tokens bypass policy. A worker repairs the blocker. Explain the repair review and final correctness route.",
+      "expected_output": "Route a focused blocker repair, reverify the changed state, then use a fresh independent whole-changeset reviewer with security coverage before passing correctness.",
+      "files": [],
+      "expectations": [
+        "The security finding is sent back for repair rather than ignored because tests passed.",
+        "The repaired repository state is mechanically reverified.",
+        "A fresh final reviewer examines the entire changeset with the security lens.",
+        "Focused repair review is not treated as final approval."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "The user requests a backpressure run with stop_after=plan. The contract separately records exact authorization for commit, push, and PR. The plan review passes. Decide the terminal route and actions.",
+      "expected_output": "Stop after the approved plan, hand off, and perform no implementation or external action despite authorization.",
+      "files": [],
+      "expectations": [
+        "The run stops after plan and does not start implementation.",
+        "Authorization is treated as permission rather than obligation.",
+        "No commit, push, or PR is attempted."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "A Standard backpressure run has only enough child calls left for the required final verifier and fresh final reviewer. The same repair blocker has appeared twice without a repository change or new evidence. Decide whether to launch another worker and how to hand off.",
+      "expected_output": "Do not spend final verification capacity on another unchanged repair. Escalate with the repeated blocker, budget state, and one focused human decision.",
+      "files": [],
+      "expectations": [
+        "No additional repair worker is launched.",
+        "The minimum final-call capacity is preserved.",
+        "The repeated unchanged failure causes escalation.",
+        "The handoff identifies one focused human decision."
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "A verifier completed one current check for repository state S, then its session became unavailable before the remaining checks. Budget allows one replacement. Decide what evidence remains usable, what the replacement runs, and how budget is handled.",
+      "expected_output": "Keep completed evidence that is still bound to state S, replace the verifier without resetting cumulative budget, and run only incomplete checks unless state changed.",
+      "files": [],
+      "expectations": [
+        "Current completed evidence is not invalidated solely because the session ended.",
+        "The replacement does not reset child-call or repair budgets.",
+        "Only incomplete or state-invalidated checks are rerun.",
+        "Repository state, not session continuity, determines evidence validity."
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Final mechanical checks and whole-changeset review pass for a frozen candidate. Publication readiness then finds a missing lockfile and changelog. No commit, push, or PR is authorized. Explain correctness, publication status, and the repair consequence.",
+      "expected_output": "Keep correctness pass separate from blocked publication readiness, perform no external action, and reopen final correctness only if repairing publication artifacts changes candidate content.",
+      "files": [],
+      "expectations": [
+        "Correctness and publication readiness are reported separately.",
+        "Publication remains blocked while required artifacts are missing.",
+        "No external action is attempted without authorization.",
+        "A content-changing artifact repair reopens final correctness."
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "A validated frozen candidate is committed with hooks enabled. The committed tree is byte-for-byte equivalent to the approved publication manifest. No required check depends on the commit SHA. Decide whether to rerun the complete final verification and review.",
+      "expected_output": "Carry content-bound evidence forward after confirming equivalence and avoid a redundant complete rerun.",
+      "files": [],
+      "expectations": [
+        "Committed content is compared with the frozen candidate before reuse.",
+        "Equivalent content retains existing content-bound evidence.",
+        "The complete final gate is not rerun without a content or commit-dependent reason."
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "A required final test fails on the candidate and reproduces unchanged in an isolated read-only base snapshot. No requirement or authorization permits skipping the test. Decide the gate outcome and next action without modifying the active worktree during diagnosis.",
+      "expected_output": "Treat the required baseline failure as blocked rather than pass or skip, preserve the active worktree, and escalate when the acceptance criterion cannot be established.",
+      "files": [],
+      "expectations": [
+        "The required failing check is not waived or treated as PASS.",
+        "Baseline diagnosis does not reset or overwrite the active worktree.",
+        "The blocked acceptance criterion is escalated for a focused human decision."
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "Correctness and publication readiness pass, stop_after is pr, and authorization permits only updating the body of exact PR #123. A request asks to update the body, change the base branch, and close the PR. Decide which mutations are allowed.",
+      "expected_output": "Allow only the explicitly authorized body update and reject changing the base or closing the PR without separate exact authorization.",
+      "files": [],
+      "expectations": [
+        "Updating the body of exact PR #123 is the only allowed mutation.",
+        "Changing the base branch is not inferred from body-update authorization.",
+        "Closing the PR is not inferred from body-update authorization."
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "Publication readiness passed for the current candidate. Before an authorized action, the validation specification changes to require an SBOM that was not in the prior checklist. Candidate content is unchanged. Decide which evidence remains usable and what must happen before the action.",
+      "expected_output": "Invalidate the old publication-readiness pass, retain unaffected content-bound correctness evidence, verify the new SBOM requirement, and block the action until current publication evidence passes.",
+      "files": [],
+      "expectations": [
+        "The old publication-readiness PASS becomes stale when the required checklist changes.",
+        "Unchanged content-bound correctness evidence is not invalidated without a correctness-affecting change.",
+        "The SBOM requirement must receive current verifier evidence before the action.",
+        "The external action remains blocked until current publication readiness passes."
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "Use agentic backpressure for an architecture change. An independent plan review has passed under an earlier decision to replace one public service boundary with subtype-specific public methods. The user then explicitly changes the decision: preserve existing behavior as much as possible and keep one service-level public boundary. The approved plan still reflects the earlier decision. Decide how the manager updates the contract, specification identity, evidence, and implementation route.",
+      "expected_output": "Record the earlier decision as superseded and the latest explicit user decision as active, faithfully update the linked normative contract fields and agreed plan, recompute the validation specification hash, mark related evidence and final semantic review stale, and do not continue implementation from the old plan.",
+      "files": [],
+      "expectations": [
+        "The single manager-owned decision record marks the earlier decision as superseded and links it to the active replacement decision.",
+        "The active contract and agreed plan preserve the latest user's behavior-preservation and public-boundary constraints instead of broadly paraphrasing or weakening them.",
+        "The correctness-affecting decision change recomputes the validation specification hash and makes related evidence, including final semantic review, stale.",
+        "Implementation does not continue against the previously approved plan.",
+        "No child-specific decision ledger is created."
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "Final build, lint, and tests pass for a frozen candidate. Concise decision source SRC-21 binds active decision D-21 to a prohibition on changing src/legacy_adapter.go. Source SRC-22 binds active decision D-22 to Service.Execute as the single service-level public entry point. The diff modifies src/legacy_adapter.go and adds public SubtypeA.Execute and SubtypeB.Execute entry points. Agent-authored acceptance criteria mention only successful behavior and all of them pass. Decide the final whole-changeset review outcome and required evidence.",
+      "expected_output": "The final reviewer sends the candidate back despite the mechanical pass, cites SRC-21/D-21 and SRC-22/D-22, identifies the forbidden-file violation and the competing public entry points with file and symbol evidence, and does not approve from acceptance criteria alone.",
+      "files": [],
+      "expectations": [
+        "The final reviewer returns SEND_BACK regardless of successful build, lint, tests, and acceptance criteria.",
+        "The findings cite the concise user decision source and active decision IDs rather than relying only on agent-authored acceptance criteria.",
+        "The forbidden file modification is reported with file-level evidence.",
+        "The required single public entry point violation is reported with source-level API evidence.",
+        "Mechanical success is not treated as proof of semantic correctness."
+      ]
+    },
+    {
+      "id": 15,
+      "prompt": "One rollback test fails against a seeded fixture. A worker proposes immediately widening the production transaction scope, but the authoritative fixture precondition and exception propagation path have not been verified. Fixture-versus-production attribution is unresolved, and a fixture or tooling owner is available for investigation. Decide the backpressure route before any production patch.",
+      "expected_output": "Do not change production transaction scope yet. Record the suspected cause as a hypothesis and route a focused investigation to the available owner for the authoritative precondition, clean fixture reproduction, isolating control case, transaction ownership, and exception propagation evidence.",
+      "files": [],
+      "expectations": [
+        "The failing rollback test does not immediately justify a production transaction-scope change.",
+        "The suspected root cause is recorded as a hypothesis rather than a verified conclusion.",
+        "The route requires an authoritative precondition, clean fixture reproduction, and a control case before production repair.",
+        "Transaction ownership and exception propagation are required before changing the transaction boundary.",
+        "The available fixture or tooling owner receives a focused investigation route instead of an immediate production patch or PASS."
+      ]
+    },
+    {
+      "id": 16,
+      "prompt": "Before contract freeze, the user says: split behavior. One plausible interpretation splits public methods while keeping the current type; another extracts a separate type and transfers ownership. The alternatives would materially change the diff, ownership boundary, and public API. Decide the next backpressure action without choosing an interpretation for the user.",
+      "expected_output": "Identify the material structural-axis ambiguity, ask one focused question that distinguishes method-level separation from type and ownership extraction, and do not freeze the contract or begin implementation until the user resolves it.",
+      "files": [],
+      "expectations": [
+        "The request is recognized as materially ambiguous because the interpretations change the diff, ownership, and public API.",
+        "Exactly one focused clarification question is requested before contract freeze.",
+        "The question distinguishes method-level separation from type or ownership extraction.",
+        "The manager does not arbitrarily choose extraction or begin implementation.",
+        "The unresolved decision uses the existing ESCALATE_HUMAN route rather than a new workflow state."
+      ]
+    }
+  ]
+}
