@@ -1,26 +1,30 @@
 {
-  "mcpServers": {
-    "linear": {
-      "url": "https://mcp.linear.app/mcp",
-      "oauth": {
-        "scope": "tools:read"
+  "mcpServers" : {
+    "datadog" : {
+      "oauth" : {
+        "scope" : "tools:read"
+      },
+      "url" : "https://mcp.datadoghq.com/api/unstable/mcp-server/mcp"
+    },
+    "deepwiki" : {
+      "url" : "https://mcp.deepwiki.com/mcp"
+    },
+    "grafana" : {
+      "args" : [
+        "mcp-grafana"
+      ],
+      "command" : "uvx",
       }
     },
-    "datadog": {
-      "url": "https://mcp.datadoghq.com/api/unstable/mcp-server/mcp",
-      "oauth": {
-        "scope": "tools:read"
-      }
+    "grep" : {
+      "url" : "https://mcp.grep.app"
     },
-    "grep": {
-      "url": "https://mcp.grep.app"
+    "linear" : {
+      "oauth" : {
+        "scope" : "tools:read"
+      },
+      "url" : "https://mcp.linear.app/mcp"
     },
-    "deepwiki": {
-      "url": "https://mcp.deepwiki.com/mcp"
-    },
-    "grafana": {
-      "command": "uvx",
-      "args": ["mcp-grafana"],
     }
   }
 }
