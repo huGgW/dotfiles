@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.82.1",
+  "lastChangelogVersion": "0.83.0",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-sol",
   "defaultThinkingLevel": "high",
@@ -23,7 +23,6 @@
     "npm:@sherif-fanous/pi-theme-sync",
     "npm:@jmcombs/pi-notify",
     "npm:@plannotator/pi-extension",
-    "git:github.com/jonjonrankin/pi-caveman",
     "npm:@narumitw/pi-usage"
   ],
   "theme": "dark",

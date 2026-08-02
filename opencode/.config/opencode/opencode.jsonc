@@ -142,7 +142,6 @@
             },
             "type" : "remote",
             "url" : "https://mcp.linear.app/mcp"
-        },
         }
     },
     "provider" : {
