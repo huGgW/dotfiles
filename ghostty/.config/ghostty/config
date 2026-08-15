@@ -3,7 +3,7 @@ font-family = "Sarasa Term K Nerd Font"
 font-size = 13
 
 # Theme
-theme = dark:Catppuccin Mocha,light:Catppuccin Latte
+theme = dark:Atom One Dark,light:Atom One Light
 background-opacity=0.95
 background-blur=64
 
