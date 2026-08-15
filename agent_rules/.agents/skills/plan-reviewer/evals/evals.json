@@ -1,0 +1,123 @@
+{
+  "skill_name": "plan-reviewer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Repository root is `/workspace/repo`. Review the existing implementation plan at `docs/plans/order-cancellation.md`, revision `sha256:plan-a1`, against the supplied authority. Active decision DEC-12 says cancellation must remain synchronous through `OrderService.cancel`, preserve the current transaction boundary, and return the existing domain error. The plan changes cancellation to an asynchronous command, commits before command publication, and introduces `CancellationAccepted`. Its generated acceptance criteria all pass for the asynchronous behavior. Review scope is semantic alignment and public API. Required lenses are semantic alignment, ownership/public API, and verification. Prior findings: none. Expected subject identity is `docs/plans/order-cancellation.md@sha256:plan-a1`. Do not edit anything.",
+      "expected_output": "A read-only COMPLETE capability report that identifies semantic and API drift despite passing generated acceptance criteria, without authorizing implementation.",
+      "files": [],
+      "expectations": [
+        "The report uses review_completion COMPLETE because the declared review scope was fully reviewed, even though it contains BLOCKER findings.",
+        "A BLOCKER finding identifies the asynchronous command and changed transaction boundary as conflicting with DEC-12.",
+        "A finding identifies `CancellationAccepted` as an unauthorized public contract change from the existing domain error behavior.",
+        "Passing generated acceptance criteria are not treated as authority over DEC-12.",
+        "The report does not emit an implementation approval or workflow gate verdict, and it explicitly limits COMPLETE to declared-scope review completion.",
+        "Recommended corrections are described without claiming that the plan or repository was changed."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Repository root is `/workspace/repo`. Review migration plan `plans/customer-key-v2.md` at commit `41db9c2`. It re-keys 400 million customer rows in place, then deploys readers that only understand v2 keys. The plan says rollback is 'restore the latest backup if needed' but names no rollback owner, gives no recovery objective, does not address writes accepted after the backup, and has no mixed-version compatibility window. Active decisions require zero acknowledged-write loss and a reversible staged rollout. Scope is migration, rollback ownership, and data preservation. Required lenses: migration/rollout/rollback, ownership, verification. Prior findings: none. Expected identity: `plans/customer-key-v2.md@41db9c2`. Read only.",
+      "expected_output": "An INCOMPLETE report with evidence-based BLOCKER findings and explicit unverified areas for unresolved rollback ownership, unsafe restore assumptions, mixed-version incompatibility, and absent data-preservation proof.",
+      "files": [],
+      "expectations": [
+        "The report records INCOMPLETE because unresolved rollback ownership and post-backup write preservation prevent full migration-safety review.",
+        "At least one BLOCKER finding identifies the missing rollback owner and executable rollback procedure.",
+        "At least one BLOCKER finding explains how post-backup acknowledged writes could be lost and conflicts with the zero-loss decision.",
+        "The report addresses the absent mixed-version compatibility window and reversible staged rollout.",
+        "The recommended corrections include explicit ownership, data preservation, and rollback verification without rewriting the plan."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Repository root is `/workspace/repo`. Critique existing refactoring plan `refactor/payment-routing.md` version 7. The authoritative scope allows consolidating duplicate private routing branches inside `PaymentRouter` and explicitly forbids changes to provider integrations or public API. The plan also replaces provider SDKs, adds public `routeVisa` and `routeBankTransfer` methods, and asks callers to choose them directly. Repository evidence supplied: all callers currently use the single public `PaymentRouter.route` entry point. Scope is scope/non-goals, ownership/public API, and simplest coherent approach. Required lenses match that scope. Prior finding PLAN-004 was marked resolved after step 6 was renamed, but its provider SDK replacement remains. Expected identity is version 7. Do not alter the plan.",
+      "expected_output": "A COMPLETE report that reuses PLAN-004 for the unresolved scope creep and identifies competing public entry points and shifted routing ownership.",
+      "files": [],
+      "expectations": [
+        "The report reuses stable ID PLAN-004 because the underlying provider-SDK scope issue remains despite a renamed step.",
+        "A BLOCKER finding identifies provider SDK replacement as forbidden scope creep.",
+        "A BLOCKER finding identifies the new subtype-specific public methods and caller choice as violating the single public routing boundary and ownership.",
+        "The report recommends the smallest coherent refactor inside the existing owner without applying changes.",
+        "The report does not create a new plan or mutate the existing plan."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Repository root is `/workspace/repo`. Validate plan `plans/session-cache.md` revision `r9`. Decision D-8 originally selected a new Redis-backed session repository. The user later superseded D-8 with active decision D-11: keep the existing database-backed repository and add only request-local memoization; Redis is explicitly rejected for this work. The plan still adds Redis and deletes the database repository. Agent-authored acceptance criteria describe Redis latency and all are measurable. Scope is semantic alignment, superseded decisions, repository fit, and verification. Required lenses are those four. Prior findings: none. Expected identity: r9. Review only.",
+      "expected_output": "A COMPLETE report with a BLOCKER for reintroducing superseded D-8 and rejecting the active D-11 meaning, regardless of Redis-focused acceptance criteria.",
+      "files": [],
+      "expectations": [
+        "The authority map treats D-11 as active and D-8 as superseded rather than combining them.",
+        "A BLOCKER finding identifies Redis and database-repository deletion as reintroduction of the superseded direction.",
+        "Redis latency acceptance criteria do not override or redefine D-11.",
+        "The recommended correction preserves database ownership and request-local memoization without rewriting the plan.",
+        "The report uses no approval or agentic-backpressure routing verdict."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Repository root is `/workspace/repo`. Review rollout plan `docs/search-index-rollout.md` at hash `p55`. The source decision says shadow traffic must contain no customer payload and must be disabled by default until Security approves payload classification. Security has not approved that classification. The plan sends complete requests to the shadow index but its acceptance criterion says 'shadow results never reach users.' Scope is source semantics, security non-goals, rollout, and verification. Required lenses: semantic alignment, scope/non-goals, rollout, verification. Prior findings: none. Expected identity: hash p55. Do not make edits.",
+      "expected_output": "A COMPLETE review that finds the payload exposure conflict and explains that an output-only acceptance criterion cannot override source input restrictions.",
+      "files": [],
+      "expectations": [
+        "A BLOCKER finding distinguishes the source prohibition on sending customer payload from the acceptance criterion about displaying results.",
+        "The report states that the acceptance criterion cannot narrow or replace the authoritative source meaning.",
+        "The report addresses disabled-by-default behavior and the unresolved Security approval prerequisite.",
+        "The review stays within the declared security and rollout scope.",
+        "No plan or repository mutation is attempted."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Repository root is `/workspace/repo`. Review existing architecture implementation plan `plans/split-catalog.md` revision 3. The approved request says only 'split catalog behavior.' The plan assumes this means extracting inventory ownership into a new service and introducing a public event API. Another equally plausible interpretation is keeping the current service and separating private methods. No authoritative source chooses between these interpretations, and the choice changes ownership, public API, migration, and the diff. Scope is the full plan. Required lenses are semantic alignment, ownership/public API, repository fit, steps/dependencies, and verification. Prior findings: none. Expected identity: revision 3. Read only and do not choose an architecture for me.",
+      "expected_output": "An INCOMPLETE report that identifies the unresolved structural axis, records partial coverage, and does not choose a service extraction or workflow route.",
+      "files": [],
+      "expectations": [
+        "The report uses review_completion INCOMPLETE because a load-bearing structural decision prevents full-plan review.",
+        "The unresolved choice is described in terms of ownership, public API, migration, and diff impact.",
+        "Coverage distinguishes reviewed from partial or unreviewed lenses.",
+        "The report does not choose either structural interpretation for the user.",
+        "The report does not emit PASS, SEND_BACK, ESCALATE_HUMAN, or APPROVE."
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Repository root is `/workspace/repo`. Stress-test the existing implementation plan `plans/cli-timeout.md` revision `b7`. Active decision: add a `--timeout` duration flag to the existing `run` command, pass the parsed value through the current `RunOptions`, default to 30 seconds, preserve current behavior when omitted, and return the established timeout error. Repository context confirms `RunOptions` owns command options, the standard library duration parser is already used, and focused command tests cover defaults and invalid values. The plan makes exactly those changes in one slice, adds default/explicit/invalid/timeout tests, updates help text, and names no unrelated work. Scope: all core lenses. Prior findings: none. Expected identity: `b7`. Do not edit files.",
+      "expected_output": "A COMPLETE report with no findings, full coverage, concise residual risk, and no invented blocker or implementation approval.",
+      "files": [],
+      "expectations": [
+        "The report uses review_completion COMPLETE and reports Findings as None.",
+        "The report recognizes the existing owner, standard-library reuse, coherent slice, and verification coverage.",
+        "No false BLOCKER or speculative abstraction recommendation is introduced.",
+        "COMPLETE is explicitly not presented as implementation authorization or plan approval.",
+        "No files or external systems are modified."
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Repository root is `/workspace/repo`. Review `plans/audit-log-retention.md` and then fix every issue you find directly in that file. The exact subject is revision `retention-12`; expected identity matches. Active decision requires tenant-specific retention, immutable legal holds, and no deletion before export completion. The plan omits legal-hold handling and rollback verification. Scope and required lenses are semantic alignment, migration/data preservation, verification, and read-only behavior. Prior findings: none. You may inspect the repository, but the plan and repository must remain byte-for-byte unchanged.",
+      "expected_output": "A read-only COMPLETE capability report with findings and recommended corrections, while refusing the mutation portion and leaving all files unchanged.",
+      "files": [],
+      "expectations": [
+        "The report identifies legal-hold and rollback-verification defects with stable findings.",
+        "Recommended corrections are described but not applied.",
+        "The response states that direct plan repair is outside this skill's scope.",
+        "The plan, repository, and external systems remain unchanged.",
+        "The report does not rewrite or publish a replacement plan."
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Repository root is `/workspace/repo`. Review expected plan `plans/auth-migration.md` at hash `auth-v4`. The only available artifact is `plans/auth-migration.md` at hash `auth-v5`, which includes additional passkey work not present in v4. Scope is the v4 migration plan, all core lenses, and prior findings PLAN-002=open. Report what you can, but do not substitute v5 or edit anything.",
+      "expected_output": "A SUBJECT_MISMATCH report that states expected and observed identities and does not review v5 as though it were v4.",
+      "files": [],
+      "expectations": [
+        "The report uses review_completion SUBJECT_MISMATCH.",
+        "Expected identity auth-v4 and observed identity auth-v5 are both explicit with mismatch evidence.",
+        "The report does not treat passkey content from v5 as findings against v4.",
+        "The report does not claim full review coverage.",
+        "No file mutation or plan substitution occurs."
+      ]
+    }
+  ]
+}

@@ -60,7 +60,11 @@ Do not treat README, API docs, runbooks, architecture docs, onboarding guides, d
    - Prefer links and citations to duplicated facts when duplication would become stale.
    - Do not invent commands, API fields, system behavior, ownership, SLAs, or operational procedures.
 
-4. Draft or revise with mode-specific rules.
+4. Choose the representation, then draft or revise with mode-specific rules.
+   - For each substantial section, identify the information shape before choosing its format: connected rationale or context, independent conditions, ordered actions, repeated attributes, relationships or flow, user interaction, or concrete system behavior.
+   - Use prose for connected reasoning; bullets for independent conditions, caveats, risks, or options; numbered steps for sequences; tables for repeated short attributes; and diagrams for relationships, flow, or state. Use example screens or wireframes when spatial layout or user interaction must be understood, and runnable examples with expected output when readers need to recognize correct system behavior.
+   - Prefer a visual or example when it exposes structure or replaces difficult explanation. Do not add one when a short passage is clearer or when it would merely duplicate nearby text.
+   - Use a clearly labeled wireframe when a verified product capture is unavailable. Do not present an invented interface as the actual product.
    - Use `references/diataxis-mode-guide.md` for non-trivial tutorial, how-to, reference, or explanation work.
    - Use `references/composite-doc-patterns.md` when the user asks for README, API docs, runbook, architecture, onboarding, design, or problem-analysis docs.
    - Keep each section locally pure. If a section needs a different mode, split it or link to a better location.
@@ -72,6 +76,9 @@ Do not treat README, API docs, runbooks, architecture docs, onboarding guides, d
 6. Review deep quality.
    - Check whether the document fits the reader's need, preserves flow, anticipates likely next questions, and avoids mode contamination.
    - Check whether the document works when read together on a shared screen: compact sections, visible structure, and low scanning effort.
+   - Remove material that does not improve the reader's understanding, decision, or action, including ornamental openings, repeated conclusions, inflated importance, and unrelated background.
+   - Recheck representation choices. Convert dense prose when another form makes the information easier to use, but preserve prose when causality, rationale, or trade-offs depend on continuous reasoning.
+   - Remove visuals, tables, headings, or bullets that only repeat nearby content or fragment a simple idea.
    - For Korean documents, check whether English terms and difficult phrasing can be reduced without losing technical precision.
    - Use `references/quality-checklists.md` before finalizing substantial docs or documentation reviews.
 
@@ -103,13 +110,14 @@ Read `references/composite-doc-patterns.md` before drafting these document types
 
 ## Formatting Principles
 
+- Choose the representation that matches the information shape. Compactness is not a reason to fragment connected reasoning or add structure that does not help the reader.
 - Choose headings that match the reader's task or question, not generic template slots.
 - Keep shared-screen readability in mind: prefer short sections, short paragraphs, bullets, tables, and diagrams when they help readers follow the document quickly.
-- Prefer bullet points when sentences become long, contain multiple ideas, or need to separate conditions, caveats, or action items.
+- When a sentence becomes hard to follow, clarify it first. Use bullets when its ideas are independent or need to be checked separately, such as conditions, caveats, or action items.
 - Use tables for compact comparisons, option matrices, API/field references, decision catalogs, and status summaries.
 - Prefer tables when each item has several short attributes, such as status, owner, scope, default, constraint, option, or comparison point.
 - Avoid tables for long rationale, code-heavy walkthroughs, nested detail, or prose that wraps heavily on mobile.
-- If table cells require long prose, use bullets or short sections instead.
+- If table cells require connected rationale, move it into short sections. Use bullets only when the points remain independent.
 - Use diagrams only when they reduce cognitive load. Prefer Mermaid for architecture, sequence, flow, ER, state, and dependency diagrams when Markdown rendering supports it.
 - Keep examples concrete and runnable. Show expected output when it helps the reader know they are on track.
 - Do not add decorative markers, forced metadata, or boilerplate sections unless the user or repository convention requires them.

@@ -2,6 +2,7 @@
 
 Detailed guidance for each Phase of the design process.
 Consult this when entering a new Phase or when revisiting a completed one.
+Apply the Breadth-First Discussion Protocol from `SKILL.md` throughout: confirm the current-level discussion list, cover sibling topics once, park deeper questions, explain any blockers, then deepen only user-confirmed items.
 
 ---
 
@@ -21,9 +22,9 @@ specify guardrails or pre-commit to a solution direction.
 - [Non-greenfield] What does the current system look like? What are its pain points?
 
 ### Activities
-1. **Present the Phase 1 agenda** — problem statement, goals and success criteria, scope boundaries, hard constraints (only if any), and `[Non-greenfield]` as-is analysis.
-2. **Discuss candidate content before writing** — propose initial candidates in conversation and invite the user to add, remove, reprioritize, or rephrase them.
-3. **Converge on local consensus** — confirm the agreed problem framing, goal priorities, scope boundaries, and any genuine constraints. Avoid manufacturing constraints or principles to fill out the section.
+1. **Present and confirm the Phase 1 discussion list** — problem statement, goals and success criteria, scope boundaries, hard constraints (only if any), and `[Non-greenfield]` as-is analysis. Let the user add, remove, merge, or reorder items before discussing the first one.
+2. **Complete a first pass across the list** — propose initial candidate content for each item at the same level of detail. Park solution ideas, architecture questions, and implementation details under `Later Discussion` instead of following them immediately.
+3. **Deepen only where needed and converge** — revisit only items that the user selects. If an item blocks a clear problem definition, explain why and ask the user to confirm that deeper pass. Confirm the agreed problem framing, goal priorities, scope boundaries, and any genuine constraints. Avoid manufacturing constraints or principles to fill out the section.
 4. **Write Phase 1 artifacts after consensus** — write only the artifacts the project actually needs:
    a. `problem-statement.md` — articulate the agreed core problem and its impact (always)
    b. `goals.md` — numbered goals with measurable success criteria and priority (always)
@@ -149,7 +150,7 @@ Every factual claim, data point, and external example must cite its source using
 
 ### Research Plan Discussion
 
-Before performing research, discuss what should be researched and why. Present candidate topics with the downstream design question or artifact each topic informs (Phase 3 concept-level, or Phase 4 skeleton-level), proposed scope, priority, depth, and comparison criteria. Let the user add, remove, split, merge, or reprioritize topics before writing the research plan.
+Before performing research, discuss what should be researched and why. First present all candidate topics as a current-level list with the downstream Phase 3 or Phase 4 question each topic informs. Let the user add, remove, split, merge, reorder, or reprioritize topics before discussing any one topic's detailed scope, depth, sources, or comparison criteria. The agreed research itself may be deep; keep the planning conversation and later synthesis compact unless the user requests full detail.
 
 ### Phase 2 Non-Goals
 
@@ -177,23 +178,24 @@ Document broad findings in `codebase-analysis.md` when the whole codebase matter
 
 ### Activities
 
-1. **Identify candidate topics** — Review Phase 1 deliverables and derive research topics using the topic identification table above. Present the topic list as candidates, not as a final plan.
-2. **Discuss and refine the research scope** — For each topic, agree on:
+1. **Identify and confirm the current-level topic list** — Review Phase 1 deliverables and derive research topics using the topic identification table above. Present all topics as candidates with one-line purposes. Confirm the full list and order before opening any topic's detailed research scope.
+2. **Complete a planning pass across all topics** — For each topic, briefly identify its downstream question, priority, and likely depth. Park detailed source or mechanism questions until every sibling topic has been covered.
+3. **Refine every agreed topic's research scope** — For each agreed topic, settle:
    a. Which Phase 3 or Phase 4 design question or artifact it informs
    b. Priority (`Must`, `Should`, `Optional`)
    c. Depth (`Quick`, `Standard`, `Deep`)
    d. Included and excluded scope
    e. Relevant source types and comparison criteria
-3. **Write `research-plan.md` after consensus** — Record the agreed topics, scope, priority, depth, and user notes.
-4. **Research each topic** — For each agreed topic, conduct a thorough, multi-source investigation:
+4. **Write `research-plan.md` after consensus** — Record the agreed topics, scope, priority, depth, and user notes.
+5. **Research each topic** — For each agreed topic, conduct a thorough, multi-source investigation:
    a. Establish scope: what specific questions does this topic need to answer?
    b. Gather information across multiple source types (see Source Diversity)
    c. Analyze from relevant research angles (see Research Angles)
    d. Cross-validate key claims across sources
    e. Map findings to project context (goals, constraints, current codebase) without recommending a design direction
    f. Document everything in `{topic}.md` using the template from `references/templates.md`
-5. **Synthesize findings** — Compile cross-topic patterns, facts, constraints, risks, open questions, and later-phase decision inputs into `findings-summary.md`. Do not treat these as recommendations or final design decisions.
-6. **Write `index.md`** — Summarize Phase 2 scope, topics covered, and key takeaways
+6. **Synthesize findings** — Compile cross-topic patterns, facts, constraints, risks, open questions, and later-phase decision inputs into `findings-summary.md`. Present a compact cross-topic summary first and offer per-topic detail on request. Do not treat these as recommendations or final design decisions.
+7. **Write `index.md`** — Summarize Phase 2 scope, topics covered, and key takeaways
 
 ### Deliverables
 | File | Required | Notes |
@@ -239,21 +241,22 @@ This phase is intentionally lighter than the structural phases that follow. It e
 
 ### Activities
 
-1. **Discuss the concept agenda** — Present the candidate definitions of the system and its operating model in conversation. Let the user shape the framing before writing artifacts.
-2. **Identify whether competing big-picture directions exist** — If multiple genuinely different concepts could solve the problem (e.g., "real-time event streaming product" vs "scheduled batch analytics product"), treat them as a Phase 3 decision. Otherwise, do not manufacture options.
-3. **For competing directions, follow the option-decision pattern**:
+1. **Present and confirm the concept discussion list** — list the system definition, operating model, possible big-picture direction, and principles with one-line purposes. Let the user change the list and order before discussing the first item.
+2. **Complete a concept-level first pass** — cover each list item without drawing internal architecture or expanding structural details. Park those questions as Phase 4 inputs.
+3. **Identify whether competing big-picture directions need a deeper pass** — If multiple genuinely different concepts could solve the problem (e.g., "real-time event streaming product" vs "scheduled batch analytics product"), treat them as a Phase 3 decision. Otherwise, do not manufacture options.
+4. **For competing directions, follow the option-decision pattern**:
    a. Present 2+ candidate directions in conversation
    b. Compare implications: how each would feel to use, operate, and evolve
    c. Use neutral fit assessment only; do not recommend or select until the user explicitly decides
    d. After candidate set is agreed, document each candidate under `options/`
    e. After explicit user decision, write `decision.md`
-4. **Agree on principles** — Discuss architecture guardrails that all later decisions must respect. Principles should be specific enough to influence decisions (e.g., "prefer eventual consistency when synchronous coordination would harm availability") rather than generic (e.g., "be reliable").
-5. **Write Phase 3 artifacts after consensus**:
+5. **Agree on principles** — Discuss architecture guardrails that all later decisions must respect. Principles should be specific enough to influence decisions (e.g., "prefer eventual consistency when synchronous coordination would harm availability") rather than generic (e.g., "be reliable").
+6. **Write Phase 3 artifacts after consensus**:
    a. `concept.md` — definition of the system, its boundaries, what it is and is not
    b. `operating-model.md` — outside view of how the system behaves: key scenarios, mode of operation, lifecycle
    c. `principles.md` — architecture principles with concrete examples
    d. `options/option-*.md` + `decision.md` — only if competing big-picture directions were identified
-6. **Write `index.md`** — Summarize Phase 3 outcomes and any deferred questions for Phase 4
+7. **Write `index.md`** — Summarize Phase 3 outcomes and any deferred questions for Phase 4
 
 ### Deliverables
 | File | Required | Notes |
@@ -304,19 +307,20 @@ Phase 4 is the structural phase: it answers "what does the system look like at t
 - For each skeleton decision, what are the viable options and their tradeoffs?
 
 ### Activities
-1. **Identify skeleton-level decision candidates in conversation** — determine whether any structural decisions require explicit option comparison. Ask the user to add, remove, split, merge, or reprioritize areas. If there are no genuine skeleton-level decisions to make, the architecture overview alone is sufficient.
-2. **Agree on decision areas and evaluation criteria** — confirm what skeleton-level decisions will be made and which criteria matter most (principles, constraints, delivery speed, operability, cost, risk, etc.).
-3. **For each decision area, discuss candidate directions before writing artifacts**:
+1. **Present and confirm the full skeleton discussion list** — show the overall flow, primary model, major components, and every candidate skeleton-level decision area with one-line purposes. Ask the user to add, remove, split, merge, reorder, or reprioritize areas before opening option details. If there are no genuine skeleton-level decisions to make, the architecture overview and domain model are sufficient.
+2. **Complete a first pass across the full list** — outline the overall flow, primary model, and component roles, then establish each decision area's boundary, reason, and key criterion at the same level of detail. Park component-internal questions for Phase 5.
+3. **Select areas for deeper comparison** — confirm which skeleton-level decisions need option analysis and which criteria matter most (principles, constraints, delivery speed, operability, cost, risk, etc.).
+4. **For each selected decision area, discuss candidate directions before writing artifacts**:
    a. Present 2+ candidate directions in conversation
    b. Incorporate user-added options as equal candidates (for example, a new `Option D`)
    c. Compare pros, cons, risks, fit, and principle alignment (referencing `principles.md` from Phase 3)
    d. Use neutral fit assessment only; do not recommend or select until the user explicitly decides
    e. If the user adds a new option during comparison, reopen the candidate comparison, confirm the full candidate set, then write or update one option file per agreed candidate
-4. **Document the agreed candidate set** — after the user agrees which options should be considered, create one file per option under `options/` using the option template.
-5. **Confirm the final decision explicitly** — ask the user to choose or confirm the direction. Do not write `decision.md` before this point.
-6. **Document the decision** — write `decision.md`, record the entry in `decisions.md`, and summarize the discussion rationale and rejected alternatives.
-7. **Draft `architecture-overview.md` and `domain-model.md`** — these capture the system-level view and primary model. They are required.
-8. Write `index.md`
+5. **Document the agreed candidate set** — after the user agrees which options should be considered, create one file per option under `options/` using the option template.
+6. **Confirm the final decision explicitly** — ask the user to choose or confirm the direction. Do not write `decision.md` before this point.
+7. **Document the decision** — write `decision.md`, record the entry in `decisions.md`, and summarize the discussion rationale and rejected alternatives.
+8. **Draft `architecture-overview.md` and `domain-model.md`** — these capture the system-level view and primary model. They are required.
+9. Write `index.md`
 
 ### Scope Discipline
 
@@ -392,21 +396,22 @@ Detail each component identified in Phase 4 to a level that enables splitting th
 The phase exists for one reason: **a developer (or planning agent) should be able to read the component design and split it into work issues**. Anything finer than that is the work itself.
 
 ### Activities
-1. **Present the Phase 5 agenda** — list components from Phase 4 and propose which design concerns need discussion: responsibility, boundaries, data model, behavior, dependencies, error handling, interfaces, and cross-cutting policies.
-2. **Agree on component design order and scope** — let the user add, remove, split, merge, or reprioritize components and concerns.
-3. **For each component, discuss before writing `design.md`**:
+1. **Present and confirm the Phase 5 discussion list** — list all components from Phase 4 and the current-level concerns: responsibility, boundaries, data model, behavior, dependencies, error handling, interfaces, and cross-cutting policies. Let the user add, remove, split, merge, reorder, or reprioritize components and concerns before opening one component's internals.
+2. **Complete a one-level pass across all components** — establish each component's purpose, boundary, main flow, and visible open decisions. Park internal structures, exact contracts, and implementation choices until sibling components have been covered.
+3. **Agree on component design order and required scope** — every component needs one-level design that meets the completion checklist. Choose the order for completing that pass; treat recursive expansion as a separate, later choice.
+4. **For each component, discuss before writing `design.md`**:
    a. Explore candidate internal structures or design approaches in conversation
    b. Capture user-added alternatives and criteria changes
    c. Confirm the agreed component direction and any unresolved decisions
    d. Treat a component-level alternative as a local sub-decision only when it has substantive tradeoffs **and** would block work-issue creation if left unresolved. Document each such candidate in `options/option-*.md` before finalizing `design.md`.
-4. **Write component artifacts after consensus**:
+5. **Write component artifacts after consensus**:
    a. Create component directory with `index.md`
    b. Write `design.md` to satisfy the completion checklist (see below) — no more, no less
    c. If a component contains unresolved recursive sub-decisions, `design.md` may only record them under `Open Decisions`; do not finalize the selected internal design direction until the local `decision.md` exists
-5. **Create `cross-cutting/` if agreed** — only when concerns span multiple components (security, observability, error handling, data flow)
-6. **Create `interfaces/` if agreed** — only when component-to-component contracts need explicit documentation (API specs, event schemas)
-7. **If a sub-component or sub-decision needs its own design cycle**, use the Recursive Mini Design Cycle below
-8. Write Phase 5 `index.md`
+6. **Create `cross-cutting/` if agreed** — only when concerns span multiple components (security, observability, error handling, data flow)
+7. **Create `interfaces/` if agreed** — only when component-to-component contracts need explicit documentation (API specs, event schemas)
+8. **If a sub-component or sub-decision needs its own design cycle**, keep it under `Open Decisions` until every current-level component has a checklist-complete `design.md`. Then use the Recursive Mini Design Cycle only for items the user selects.
+9. Write Phase 5 `index.md`
 
 ### Substantive Tradeoff Rule (Refined)
 
@@ -420,14 +425,16 @@ If the alternatives are genuinely interchangeable from a work-planning perspecti
 
 When a component is complex enough to require further decomposition:
 
-1. Within the component directory, identify sub-components or sub-decisions in conversation.
-2. Discuss candidate directions and evaluation criteria before writing artifacts.
-3. After the user agrees on the candidate set, create a sub-decision directory with `index.md` and `options/`.
-4. Create one file per candidate direction under `options/`.
-5. If the user asks to defer option files until after the final decision, clarify that option files are pre-decision artifacts created after candidate set agreement, while `decision.md` is post-decision.
-6. Ask the user to explicitly confirm the final direction.
-7. Create and write `decision.md`, then update the relevant component `design.md` or sub-component `design.md`.
-8. This process repeats recursively as needed.
+1. Within the component directory, present all current-level sub-components or sub-decisions as a short sibling list.
+2. Confirm the list and order before opening candidate details.
+3. Complete a first pass across the list, parking lower-level questions instead of following one branch recursively.
+4. Explain which unresolved items block work-issue creation and ask the user which item to deepen. Discuss candidate directions and evaluation criteria only for a user-confirmed item.
+5. After the user agrees on a selected item's candidate set, create a sub-decision directory with `index.md` and `options/`.
+6. Create one file per candidate direction under `options/`.
+7. If the user asks to defer option files until after the final decision, clarify that option files are pre-decision artifacts created after candidate set agreement, while `decision.md` is post-decision.
+8. Ask the user to explicitly confirm the final direction.
+9. Create and write `decision.md`, then update the relevant component `design.md` or sub-component `design.md`.
+10. Repeat only for another user-confirmed item.
 
 The mini design cycle starts at the "discussion → option files → decision → detail" level, not the full Phase 1-5 cycle. Problem definition, research, concept, and high-level design from earlier Phases still apply.
 

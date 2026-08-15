@@ -1,0 +1,54 @@
+{
+  "skill_name": "code-development",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "The implementation plan is approved. In a Node.js 20 TypeScript service, add request IDs to outgoing audit events. A teammate suggested installing the `uuid` package, but the repository has no UUID dependency and already targets a runtime where `node:crypto` provides `randomUUID()`. Implement the change, update the focused tests, and do not alter unrelated package metadata.",
+      "expected_output": "A focused implementation that uses the runtime standard library, adds no dependency, preserves repository conventions, and verifies request ID behavior.",
+      "files": [],
+      "expectations": [
+        "The response selects `randomUUID` from `node:crypto` rather than adding or hand-rolling UUID generation.",
+        "The response explicitly avoids a new dependency and changes to package manifests or lockfiles for UUID support.",
+        "The proposed change remains limited to outgoing audit-event request IDs and directly relevant tests.",
+        "The verification plan checks that generated request IDs are present and valid for the affected event path."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "The implementation plan is approved. Fix a bug where whitespace-only customer reference values pass through `normalizeCustomerReference` and later fail inconsistently. The shared function in `src/customers/reference.ts` is used by the REST create endpoint, CSV importer, and retry worker. Do not patch only the REST endpoint named in the bug report. Inspect the relevant callers, fix the behavior at its correct owner, and add focused regression coverage without unrelated refactoring.",
+      "expected_output": "A root-cause fix in the shared behavior owner, informed by caller tracing, with regression evidence covering the shared contract rather than duplicated caller guards.",
+      "files": [],
+      "expectations": [
+        "The response identifies the REST endpoint, CSV importer, and retry worker as relevant callers before selecting the fix location.",
+        "The response places whitespace-only handling in `normalizeCustomerReference` or another demonstrated shared owner rather than in individual callers.",
+        "The proposed change rejects separate equivalent guards in each caller.",
+        "The focused regression plan checks the shared whitespace-only contract and preservation of valid customer references."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "The implementation plan is approved. Simplify the document-import path without weakening its safety guarantees. Uploaded bytes cross an untrusted HTTP boundary, so the current flow enforces size and content-type limits before parsing. Persisted output is written to a temporary file, flushed, atomically renamed to the final path, and the temporary file is cleaned up on failure so an interrupted import cannot replace a good document with partial data. Remove incidental duplication where safe, but preserve the trust-boundary validation and data-loss handling. Add or update focused checks.",
+      "expected_output": "A clearer import path that removes only incidental duplication while retaining pre-parse boundary validation, atomic persistence, failure cleanup, and evidence for both accepted and rejected flows.",
+      "files": [],
+      "expectations": [
+        "The proposed flow keeps size and content-type validation before untrusted bytes are parsed or persisted.",
+        "The proposed persistence flow keeps temporary output, flush or equivalent durability handling, and atomic replacement rather than direct writes to the final path.",
+        "The proposed failure handling removes temporary output and preserves the previously valid document.",
+        "The verification plan covers rejected boundary input and an interrupted or failed persistence path in addition to successful import behavior."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "The implementation plan is approved. Add `workspaceId` to the public order event while preserving the explicitly required architecture and migration sequence. Order changes and outbox rows must remain in one database transaction; direct broker publishing from the request handler is prohibited. Existing consumers require an expand-migrate-contract rollout: first publish both `accountId` and `workspaceId`, backfill and migrate consumers while both fields remain readable, verify adoption, and only then remove `accountId` in a separately approved contract step. Implement the current expand step and its focused verification without collapsing later migration phases into this change.",
+      "expected_output": "A bounded expand-phase implementation that preserves the transactional outbox architecture and dual-field compatibility while leaving backfill, consumer migration, verification, and contract removal as explicit later gates.",
+      "files": [],
+      "expectations": [
+        "The response keeps order and outbox persistence in the same database transaction and rejects direct publishing from the request handler.",
+        "The proposed expand step emits both `accountId` and `workspaceId` so existing consumers remain compatible.",
+        "The proposed change does not remove `accountId` or prematurely combine backfill, consumer migration, and contract cleanup into the expand step.",
+        "The verification plan covers the dual-field event contract and transactional outbox behavior required for the expand phase.",
+        "The response identifies consumer migration, adoption verification, and `accountId` removal as gated later phases rather than optional simplifications."
+      ]
+    }
+  ]
+}

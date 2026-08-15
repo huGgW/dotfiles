@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Review PR #842 at head 71dca92 against its recorded base. Focus on authorization regressions, transaction safety, and missing tests. I need findings with file and line evidence; do not edit or merge anything.",
+    "should_trigger": true
+  },
+  {
+    "query": "코드 리뷰해줘. 현재 staged 변경만 보고 결제 재시도 횟수의 off-by-one 오류와 회귀 테스트 누락을 확인해줘. 다른 working tree 파일은 범위 밖이고 수정은 하지 마.",
+    "should_trigger": true
+  },
+  {
+    "query": "Inspect all unstaged and untracked changes under services/webhooks for correctness and security. Treat HEAD 9c04e1a as the working-tree basis and return a read-only capability report with explicit coverage gaps.",
+    "should_trigger": true
+  },
+  {
+    "query": "Compare release/2.7 with candidate commit a83f109 from their merge base. Review only database migrations and their rollback scripts for data-loss and compatibility risks, with exact file evidence.",
+    "should_trigger": true
+  },
+  {
+    "query": "Review src/auth/authorize.ts as a static code subject. Trace its callers and policy tests, check for tenant-boundary bypasses, and don't ask me for branch names because there is no requested diff.",
+    "should_trigger": true
+  },
+  {
+    "query": "Run a simplicity review on the staged Node.js changes. Check whether the new ClockFactory and SystemClock wrappers own any real policy or whether the runtime API is sufficient, but preserve compatibility and test seams that are actually load-bearing.",
+    "should_trigger": true
+  },
+  {
+    "query": "The orchestrator supplied the full changeset and active ADR-19. Inspect whether the implementation violates the required transactional outbox. Return findings and completion metadata only; the orchestrator will map results to its final gate.",
+    "should_trigger": true
+  },
+  {
+    "query": "Re-check findings CR-SECURITY-001 and CR-TESTING-002 against commit b447aa0. Preserve stable IDs for issues that remain, verify the expected subject hash first, and report any missing evidence without changing code.",
+    "should_trigger": true
+  },
+  {
+    "query": "Review the complete working tree for this CLI, including new untracked command files. Use correctness, reliability, and testing lenses and state residual risk if tests cannot be run without generating snapshots.",
+    "should_trigger": true
+  },
+  {
+    "query": "Expected PR head is 4df218c, but I suspect my checkout points at an older revision. Verify identity before reviewing; if it differs, report the mismatch and do not review the wrong code.",
+    "should_trigger": true
+  },
+  {
+    "query": "Review docs/checkout-plan.md before implementation. Find missing acceptance criteria, unclear sequencing, and unresolved product decisions, then tell me whether the plan is ready for engineers.",
+    "should_trigger": false
+  },
+  {
+    "query": "The plan is approved. Implement the null-safe parser in src/config.ts, update its unit tests, run the focused test target, and make the edits directly in my working tree.",
+    "should_trigger": false
+  },
+  {
+    "query": "Our Go worker intermittently deadlocks in production. Reproduce the hang, inspect goroutine dumps, determine the root cause, patch it, and verify with the race detector.",
+    "should_trigger": false
+  },
+  {
+    "query": "Rewrite README.md so new contributors can install the tool, configure credentials, run tests, and understand the release process. Keep the tone concise and practical.",
+    "should_trigger": false
+  },
+  {
+    "query": "Design a multi-region event-processing architecture for our new product. Produce C4 diagrams, component boundaries, data ownership rules, failover strategy, and a phased delivery plan.",
+    "should_trigger": false
+  },
+  {
+    "query": "Explain what src/payments/reconcile.ts does line by line and draw the control flow. I am onboarding and do not want an issue-finding review.",
+    "should_trigger": false
+  },
+  {
+    "query": "Write regression tests for the staged retry fix and update the implementation if any test fails. Use the existing test framework and leave the working tree ready to commit.",
+    "should_trigger": false
+  },
+  {
+    "query": "Draft a pull request description for my current branch with a summary, testing section, rollout notes, and screenshots placeholder. Do not assess code quality.",
+    "should_trigger": false
+  },
+  {
+    "query": "Split the current changes into two atomic commits, stage the right files for each, and write Conventional Commit messages. Do not review the implementation.",
+    "should_trigger": false
+  },
+  {
+    "query": "A latency alert started firing after deployment 2026.08.15. Query traces and logs, compare endpoint percentiles, identify the runtime bottleneck, and recommend an incident mitigation.",
+    "should_trigger": false
+  }
+]

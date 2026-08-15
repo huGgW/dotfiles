@@ -29,7 +29,10 @@ Check:
 - Shared-screen fit: the document can be followed during live review without burying key points in long prose.
 - Flow: the next needed information appears before the reader has to hunt for it.
 - Cognitive load: the document avoids unnecessary branching, formatting, tables, diagrams, and digressions.
-- Scannability: long sentences or multi-idea paragraphs are split into bullets, while repeated short attributes are organized in tables.
+- Information density: each passage improves the reader's understanding, decision, or action rather than adding ornamental framing, repetition, inflated importance, or unrelated background.
+- Representation fit: prose, bullets, steps, tables, diagrams, screens, and examples match the shape of the information instead of following one default format.
+- Scannability: independent ideas are separated when that helps scanning, while connected causality, rationale, and trade-offs remain readable as continuous reasoning.
+- Visual utility: diagrams, screens, and examples expose useful structure or replace difficult explanation instead of duplicating nearby text.
 - Language fit: Korean documents minimize unnecessary English and difficult phrasing without losing technical precision.
 - Anticipation: likely next questions are answered or linked without derailing the current mode.
 - Confidence: the reader can tell when they are done, successful, or ready to continue elsewhere.
@@ -94,17 +97,26 @@ Use small, responsive improvements instead of defaulting to broad rewrites.
 2. Identify the reader and use moment.
 3. Classify the current and intended Diataxis mode.
 4. Find the most harmful mismatch or quality gap.
-5. Make one coherent improvement.
-6. Verify facts and examples.
-7. Repeat if the next improvement is still in scope.
+5. Decide whether content, order, representation, or wording causes the gap.
+6. Make one coherent improvement.
+7. Verify facts and examples.
+8. Repeat if the next improvement is still in scope.
 
-## Tables And Diagrams
+## Representation Choice
 
-Use bullets when they make long or multi-idea sentences easier to scan:
+Use prose when continuity carries meaning:
+
+- Causes, consequences, rationale, and trade-offs.
+- Background that must connect several concepts.
+- Explanations where isolated bullets would obscure the argument.
+
+Use numbered steps for ordered actions where sequence matters.
+
+Use bullets when ideas are independent or need to be checked separately:
 
 - Conditions, caveats, risks, and action items.
-- Short explanation fragments that would become hard to read in one sentence.
-- Ordered or unordered ideas where the reader needs to pause at each point.
+- Parallel alternatives, findings, statuses, or constraints.
+- Ideas where the reader needs to pause at each point rather than follow one connected argument.
 
 Use tables when they make comparison or lookup easier:
 
@@ -135,6 +147,14 @@ Avoid diagrams when:
 - A short paragraph or list is clearer.
 - The diagram duplicates nearby text without adding structure.
 - Maintaining it would be harder than maintaining the source facts.
+
+Use example screens or wireframes when spatial layout or user interaction is part of what the reader must understand:
+
+- Use verified captures when the actual product state matters.
+- Use clearly labeled wireframes for proposed, unavailable, or variable interfaces.
+- Do not present invented UI details as current product behavior.
+
+Use concrete examples and expected output when the reader needs to recognize correct system behavior. Avoid examples that add volume without clarifying use, constraints, or results.
 
 ## Korean Readability
 

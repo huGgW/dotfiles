@@ -4,12 +4,13 @@
     {
       "id": 1,
       "prompt": "Use agentic backpressure for a localized CLI bug: --dry-run still writes an output file. A worker's first patch fails the targeted test. A focused repair produces a new repository state where targeted and full tests pass. Describe the child routing and final decision. Do not commit, push, or open a PR.",
-      "expected_output": "Use a bounded Lite flow, treat worker commands as diagnostic, obtain independent mechanical and final review evidence on the repaired state, avoid unchanged-state retries, and stop at handoff without external actions.",
+      "expected_output": "Use a bounded Lite flow, route the repair to a fresh worker because it is a new action, obtain fresh mechanical and final review evidence on the repaired state, avoid unchanged-state retries, and stop at handoff without external actions.",
       "files": [],
       "expectations": [
         "The response uses separate worker, verifier, and final reviewer responsibilities.",
+        "The repair is assigned to a fresh worker rather than resuming the worker that returned the failed patch.",
         "The failed targeted test causes a bounded repair rather than a pass or unchanged retry.",
-        "Final approval depends on full checks and whole-changeset review for the repaired state.",
+        "Final Correctness depends on a fresh final verifier and a mapped whole-changeset capability report for the repaired state.",
         "No commit, push, or PR is attempted."
       ]
     },
@@ -21,41 +22,44 @@
       "expectations": [
         "The old evidence is rejected as STALE rather than accepted as PASS.",
         "Only affected verification is rerun against state B.",
-        "Session identity is not treated as a substitute for repository-state identity."
+        "The gate remains non-pass until current state-B evidence covers the affected checks."
       ]
     },
     {
       "id": 3,
-      "prompt": "Run backpressure for a migration plan. The first independent plan review blocks because rollback ownership is missing. The revised plan receives a second blocker because it still cannot preserve existing data. No implementation has started. Decide what happens next.",
-      "expected_output": "Escalate to the human after the second blocked review and do not launch a third reviewer or patch worker.",
+      "prompt": "Run backpressure for a migration plan. The first fresh plan-reviewer child returns a COMPLETE capability report with a BLOCKER because rollback ownership is missing, which the manager maps to SEND_BACK. State who reviews the revised plan and why. The second fresh child returns COMPLETE with a BLOCKER because the plan still cannot preserve existing data. No implementation has started. Decide what happens next.",
+      "expected_output": "Use a fresh plan-reviewer child for the revised plan, preserve the two-invocation limit across reviewer replacement, map the second blocking capability report to human escalation, and launch neither a third reviewer nor a patch worker.",
       "files": [],
       "expectations": [
         "The second unresolved review causes human escalation.",
+        "The revised plan is reviewed by a fresh reviewer because its validation specification changed.",
+        "The plan-reviewer returns a capability report while the manager owns SEND_BACK and ESCALATE_HUMAN mapping.",
         "No third plan review is proposed.",
         "Implementation does not begin with an unresolved blocker."
       ]
     },
     {
       "id": 4,
-      "prompt": "Use backpressure for an authorization change spanning policy evaluation, an HTTP handler, and integration wiring. Mechanical checks pass, but an independent security review finds that service tokens bypass policy. A worker repairs the blocker. Explain the repair review and final correctness route.",
-      "expected_output": "Route a focused blocker repair, reverify the changed state, then use a fresh independent whole-changeset reviewer with security coverage before passing correctness.",
+      "prompt": "Use backpressure for an authorization change spanning policy evaluation, an HTTP handler, and integration wiring. Mechanical checks pass, but a fresh code-reviewer child returns a COMPLETE scoped capability report with a security BLOCKER showing that service tokens bypass policy. A worker repairs the blocker. Explain the manager mapping, repair review, and final correctness route.",
+      "expected_output": "Map the scoped blocking report to SEND_BACK, route the repair and changed-state rechecks through fresh children, then use separate fresh final verifier and whole-changeset code-reviewer sessions with security coverage before passing correctness.",
       "files": [],
       "expectations": [
         "The security finding is sent back for repair rather than ignored because tests passed.",
-        "The repaired repository state is mechanically reverified.",
-        "A fresh final reviewer examines the entire changeset with the security lens.",
-        "Focused repair review is not treated as final approval."
+        "The code-reviewer capability does not emit SEND_BACK or approve the gate; the manager performs that mapping.",
+        "The repaired repository state is mechanically reverified by a fresh verifier rather than the verifier for the prior state.",
+        "A fresh final reviewer that did not perform the focused review examines the entire changeset with the security lens.",
+        "A mapped focused-review PASS is not used to pass Final Correctness."
       ]
     },
     {
       "id": 5,
-      "prompt": "The user requests a backpressure run with stop_after=plan. The contract separately records exact authorization for commit, push, and PR. The plan review passes. Decide the terminal route and actions.",
-      "expected_output": "Stop after the approved plan, hand off, and perform no implementation or external action despite authorization.",
+      "prompt": "The user requests a backpressure run with stop_after=plan. The contract configures required before_work action PRE-1 to record the reviewed plan in Linear and after_final action POST-1 to push an exact remote ref. Both actions have exact authorization. The plan review passes. Decide the terminal route and actions.",
+      "expected_output": "Stop after the approved plan, hand off, and perform neither PRE-1 nor later implementation or post-actions despite exact authorization.",
       "files": [],
       "expectations": [
-        "The run stops after plan and does not start implementation.",
-        "Authorization is treated as permission rather than obligation.",
-        "No commit, push, or PR is attempted."
+        "Current State ends at the plan handoff without entering implementation.",
+        "PRE-1 and POST-1 are both recorded as not attempted.",
+        "The exact action authorizations remain recorded but do not advance stop_after."
       ]
     },
     {
@@ -73,10 +77,11 @@
     {
       "id": 7,
       "prompt": "A verifier completed one current check for repository state S, then its session became unavailable before the remaining checks. Budget allows one replacement. Decide what evidence remains usable, what the replacement runs, and how budget is handled.",
-      "expected_output": "Keep completed evidence that is still bound to state S, replace the verifier without resetting cumulative budget, and run only incomplete checks unless state changed.",
+      "expected_output": "Keep completed evidence that is still bound to state S, launch a fresh replacement verifier without resetting cumulative budget, and run only incomplete checks unless state changed.",
       "files": [],
       "expectations": [
         "Current completed evidence is not invalidated solely because the session ended.",
+        "The unavailable verifier is replaced with a fresh verifier session.",
         "The replacement does not reset child-call or repair budgets.",
         "Only incomplete or state-invalidated checks are rerun.",
         "Repository state, not session continuity, determines evidence validity."
@@ -84,14 +89,18 @@
     },
     {
       "id": 8,
-      "prompt": "Final mechanical checks and whole-changeset review pass for a frozen candidate. Publication readiness then finds a missing lockfile and changelog. No commit, push, or PR is authorized. Explain correctness, publication status, and the repair consequence.",
-      "expected_output": "Keep correctness pass separate from blocked publication readiness, perform no external action, and reopen final correctness only if repairing publication artifacts changes candidate content.",
+      "prompt": "Final mechanical checks, whole-changeset review, and publication readiness pass for frozen candidate A. An exactly authorized sandboxed-local after_final action is expected to preserve content but instead generates a lockfile and changelog, producing candidate B. No external action is authorized. Explain correctness, publication status, and the consequence of the post-action mutation.",
+      "expected_output": "Detect that the after_final action changed the candidate, reclassify it as publication repair, mark A-bound correctness and publication evidence stale for B, recompute state, and require fresh final verification and whole-changeset review before publication can pass.",
       "files": [],
       "expectations": [
         "Correctness and publication readiness are reported separately.",
-        "Publication remains blocked while required artifacts are missing.",
+        "The candidate state change from A to B is detected and recorded.",
+        "The content-changing after_final action is reclassified as publication repair rather than accepted as harmless post-processing.",
+        "Correctness returns to pending and A-bound evidence is not used to pass B.",
+        "Publication readiness returns to pending because its evidence was bound to A.",
+        "Fresh final mechanical verification and fresh whole-changeset review are required for B.",
         "No external action is attempted without authorization.",
-        "A content-changing artifact repair reopens final correctness."
+        "Publication does not pass before B completes current correctness evidence."
       ]
     },
     {
@@ -142,23 +151,25 @@
     {
       "id": 13,
       "prompt": "Use agentic backpressure for an architecture change. An independent plan review has passed under an earlier decision to replace one public service boundary with subtype-specific public methods. The user then explicitly changes the decision: preserve existing behavior as much as possible and keep one service-level public boundary. The approved plan still reflects the earlier decision. Decide how the manager updates the contract, specification identity, evidence, and implementation route.",
-      "expected_output": "Record the earlier decision as superseded and the latest explicit user decision as active, faithfully update the linked normative contract fields and agreed plan, recompute the validation specification hash, mark related evidence and final semantic review stale, and do not continue implementation from the old plan.",
+      "expected_output": "Record the earlier decision as superseded and the latest explicit user decision as active, update the linked contract and plan, recompute the validation hash, mark related evidence stale, and continue only with fresh planner, reviewer, or worker sessions under the new specification.",
       "files": [],
       "expectations": [
         "The single manager-owned decision record marks the earlier decision as superseded and links it to the active replacement decision.",
         "The active contract and agreed plan preserve the latest user's behavior-preservation and public-boundary constraints instead of broadly paraphrasing or weakening them.",
         "The correctness-affecting decision change recomputes the validation specification hash and makes related evidence, including final semantic review, stale.",
         "Implementation does not continue against the previously approved plan.",
-        "No child-specific decision ledger is created."
+        "Children created under the superseded decision are not resumed after the new specification is activated.",
+        "The response does not assign decision-record or ledger maintenance to a child."
       ]
     },
     {
       "id": 14,
-      "prompt": "Final build, lint, and tests pass for a frozen candidate. Concise decision source SRC-21 binds active decision D-21 to a prohibition on changing src/legacy_adapter.go. Source SRC-22 binds active decision D-22 to Service.Execute as the single service-level public entry point. The diff modifies src/legacy_adapter.go and adds public SubtypeA.Execute and SubtypeB.Execute entry points. Agent-authored acceptance criteria mention only successful behavior and all of them pass. Decide the final whole-changeset review outcome and required evidence.",
-      "expected_output": "The final reviewer sends the candidate back despite the mechanical pass, cites SRC-21/D-21 and SRC-22/D-22, identifies the forbidden-file violation and the competing public entry points with file and symbol evidence, and does not approve from acceptance criteria alone.",
+      "prompt": "Final build, lint, and tests pass for a frozen candidate. Concise decision source SRC-21 binds active decision D-21 to a prohibition on changing src/legacy_adapter.go. Source SRC-22 binds active decision D-22 to Service.Execute as the single service-level public entry point. The diff modifies src/legacy_adapter.go and adds public SubtypeA.Execute and SubtypeB.Execute entry points. Agent-authored acceptance criteria mention only successful behavior and all of them pass. Explain the final code-reviewer capability report and the manager's gate mapping.",
+      "expected_output": "The final code-reviewer returns a COMPLETE whole-changeset capability report with BLOCKER findings citing SRC-21/D-21 and SRC-22/D-22 and file or symbol evidence; the manager maps those findings to SEND_BACK despite mechanical success.",
       "files": [],
       "expectations": [
-        "The final reviewer returns SEND_BACK regardless of successful build, lint, tests, and acceptance criteria.",
+        "The final code-reviewer returns a capability report rather than SEND_BACK or an approval verdict.",
+        "The manager maps the unresolved in-scope BLOCKER findings to SEND_BACK regardless of successful build, lint, tests, and acceptance criteria.",
         "The findings cite the concise user decision source and active decision IDs rather than relying only on agent-authored acceptance criteria.",
         "The forbidden file modification is reported with file-level evidence.",
         "The required single public entry point violation is reported with source-level API evidence.",
@@ -184,11 +195,196 @@
       "expected_output": "Identify the material structural-axis ambiguity, ask one focused question that distinguishes method-level separation from type and ownership extraction, and do not freeze the contract or begin implementation until the user resolves it.",
       "files": [],
       "expectations": [
-        "The request is recognized as materially ambiguous because the interpretations change the diff, ownership, and public API.",
+        "Current State remains in the contract phase with the structural decision unresolved.",
         "Exactly one focused clarification question is requested before contract freeze.",
         "The question distinguishes method-level separation from type or ownership extraction.",
-        "The manager does not arbitrarily choose extraction or begin implementation.",
-        "The unresolved decision uses the existing ESCALATE_HUMAN route rather than a new workflow state."
+        "The unresolved decision returns ESCALATE_HUMAN without freezing a validation specification."
+      ]
+    },
+    {
+      "id": 17,
+      "prompt": "A patch worker is interrupted by a transport failure before returning a terminal result. The worker session is still available. The run ID, role, gate, requested action, validation specification, repository state, and patch scope are all unchanged. Decide whether to resume or launch a new worker and explain the accounting.",
+      "expected_output": "Resume the same worker only as a narrow unfinished-action exception, re-establish the unchanged action identity, consume another child call, and do not expand the work slice.",
+      "files": [],
+      "expectations": [
+        "The same worker may be resumed because the exact delegated action is unfinished and every identity field is unchanged.",
+        "The response verifies the current contract and repository state before relying on continuity.",
+        "The resume consumes another child call and does not reset any budget.",
+        "The resumed worker is not given a new role, gate, scope, or repair action."
+      ]
+    },
+    {
+      "id": 18,
+      "prompt": "A verifier was asked to run checks V1, V2, and V3 for one repository state S. It returned current evidence for V1 and V2 but was interrupted before reaching a terminal result for the requested check set. The same session is available, and the contract, state S, and check scope are unchanged. Decide the session route and command scope.",
+      "expected_output": "Resume the verifier as the same unfinished action, retain V1 and V2 evidence for state S, run only V3, and charge the resume against the cumulative child-call budget.",
+      "files": [],
+      "expectations": [
+        "The verifier may be resumed because the original check-set action is unfinished and its identity is unchanged.",
+        "V1 and V2 are not rerun solely because the invocation was interrupted.",
+        "Only V3 remains to be run unless the state or specification changes.",
+        "The current run and its existing V1 and V2 evidence are retained for the resumed action."
+      ]
+    },
+    {
+      "id": 19,
+      "prompt": "Worker W1 completed a parser repair and returned a terminal result. The next approved slice changes database migration rollback behavior. The contract contains a complete handoff for the migration slice, and W1 remains available with relevant repository context. Choose the worker session and explain why.",
+      "expected_output": "Launch a fresh worker for the distinct migration action; W1's familiarity is not a valid resume reason, and cumulative run budgets remain unchanged except for the new child call.",
+      "files": [],
+      "expectations": [
+        "The migration slice is assigned to a fresh worker with no inherited W1 transcript.",
+        "The completed parser action is not resumed or broadened into the migration action.",
+        "Repository familiarity or useful context is explicitly rejected as a sufficient resume reason.",
+        "The fresh launch continues the existing run and cumulative budgets."
+      ]
+    },
+    {
+      "id": 20,
+      "prompt": "Focused reviewer R1 raised finding SEC-4 on candidate state A. A worker repairs the cited symbols, producing candidate state B. R1 is available and could quickly check its own finding. Final whole-changeset review is still pending. Decide the focused recheck and final review session routes.",
+      "expected_output": "Use a fresh focused reviewer for state B with SEC-4, its evidence, the repair delta, and nearby regression scope in the handoff; limit that result to the blocker delta, then use another fresh reviewer for final whole-changeset review.",
+      "files": [],
+      "expectations": [
+        "R1 is not resumed after the candidate changes from state A to state B.",
+        "A fresh focused reviewer is invoked for state B.",
+        "The focused-review handoff includes SEC-4 and its existing evidence.",
+        "The focused-review handoff includes the repair delta.",
+        "The focused review covers nearby regression risk.",
+        "A mapped focused-review PASS is not used to pass Final Correctness.",
+        "The final gate invokes a fresh whole-changeset reviewer after the focused recheck."
+      ]
+    },
+    {
+      "id": 21,
+      "prompt": "A patch worker ran tests diagnostically. The run now needs an authoritative final verifier and fresh whole-changeset reviewer, but spending another repair call would cross the reserved final-call floor. The manager proposes resuming the worker under the verifier role to save capacity. Decide the route.",
+      "expected_output": "Reject cross-role reuse and diagnostic evidence promotion, skip another repair, preserve the final-call floor, and launch the required fresh final verifier and whole-changeset reviewer. Correctness remains pending until both gates pass.",
+      "files": [],
+      "expectations": [
+        "The patch worker is not resumed or relabeled as the authoritative verifier.",
+        "Worker-run diagnostic tests are not promoted to authoritative mechanical evidence.",
+        "No additional repair call is launched, so the final-call floor remains available.",
+        "The route invokes a fresh final verifier and a fresh whole-changeset reviewer.",
+        "Correctness remains pending until both final gates pass."
+      ]
+    },
+    {
+      "id": 22,
+      "prompt": "A backpressure contract declares required before_work action PRE-1 to validate and record a required environment prerequisite. PRE-1 exits nonzero. Authoritative read-back confirms the prerequisite was not recorded and neither external nor repository state changed. No alternate environment or authorized repair route exists, and an optional after_final notification action is also configured. Decide whether to enter the work loop and what to report.",
+      "expected_output": "Record PRE-1 as blocked, do not start implementation or any verifier/reviewer loop, do not run the after_final action as failure cleanup, and hand off with the prerequisite blocker and one focused human decision.",
+      "files": [],
+      "expectations": [
+        "The required PRE-1 non-pass result blocks entry to implementation.",
+        "The decision relies on authoritative read-back confirming no partial external result.",
+        "No patch worker, implementation verifier, final verifier, or final reviewer is launched.",
+        "The optional after_final action is not treated as an on-failure finalizer.",
+        "The unchanged failed action is not blindly repeated without new evidence or changed conditions.",
+        "The handoff preserves the PRE-1 blocker and asks for one focused human decision."
+      ]
+    },
+    {
+      "id": 23,
+      "prompt": "A required final test cannot run because its environment is unavailable, and no repair, alternate evidence, or authorized waiver exists, so Final Correctness is BLOCKED. The contract has stop_after=POST-1 and exact authorization for after_final action POST-1 to update only the body of exact PR #123. Decide whether POST-1 runs and how the terminal state is reported.",
+      "expected_output": "Do not run POST-1 because after_final actions require Final Correctness PASS. Preserve the correctness blocker and hand off without mutating PR #123 despite the stop point and exact authorization.",
+      "files": [],
+      "expectations": [
+        "Final Correctness remains BLOCKED with the unavailable-environment blocker in the handoff.",
+        "POST-1 is recorded as not attempted.",
+        "The configured stop point and exact authorization do not satisfy POST-1's correctness prerequisite."
+      ]
+    },
+    {
+      "id": 24,
+      "prompt": "All gates pass and exact authorization covers two sub-operations on PR #123: set the body to the declared text and add the ready label. POST-1 updates the body successfully, but the label request times out. Analyze two read-back outcomes. A: authoritative PR state shows the desired body and no ready label, and label addition is an idempotent desired-state operation. B: authoritative read-back is unavailable, so label state is unknown. Decide the retry and handoff behavior for each outcome.",
+      "expected_output": "Treat timeout as an unknown partial result and read back before retry. In A, preserve the successful body update and retry only the confirmed-missing idempotent label operation after rechecking policy, then read back again. In B, retry nothing and hand off with an unresolved non-pass action.",
+      "files": [],
+      "expectations": [
+        "The timeout is not assumed to be complete failure or complete success.",
+        "Authoritative read-back occurs before any retry decision.",
+        "The body sub-operation is never repeated: A confirms its success by read-back, while B leaves it only tool-reported and unsafe to repeat.",
+        "Outcome A retries only the confirmed-missing idempotent label operation after rechecking exact authorization, prerequisites, stop point, and budget.",
+        "Outcome A performs authoritative read-back again after the narrow retry.",
+        "Outcome B does not retry while the label result remains unknown.",
+        "Partial results and attempts remain visible without resetting the run budget or broadening the target or operation."
+      ]
+    },
+    {
+      "id": 25,
+      "prompt": "A worker implements an approved parser feature by adding a new third-party dependency and a one-implementation ParserAdapter wrapper. Targeted mechanical checks pass on state A. Use agentic backpressure to decide the next review route and the later final gate. Explain how the manager maps a COMPLETE code-reviewer simplicity report with no unresolved BLOCKER or SHOULD, and how it maps an INCOMPLETE report when the proposed simplification requires materially changing the approved plan.",
+      "expected_output": "Record the dependency and wrapper triggers, launch a fresh code-reviewer child with the simplicity lens for state A after targeted verification, provide the exact subject and context, map the clean COMPLETE report to gate PASS, map decision-caused INCOMPLETE to ESCALATE_HUMAN, and still require separate fresh final whole-changeset verification and review.",
+      "files": [],
+      "expectations": [
+        "The new dependency or one-implementation wrapper triggers the conditional simplicity gate.",
+        "A fresh independent simplicity reviewer is launched only after targeted mechanical checks pass for state A.",
+        "The code-reviewer is given the base-to-candidate subject, exact scope, relevant symbol or caller context, authoritative constraints, simplicity lens, and expected state identity.",
+        "The capability report is bound to state A, does not edit source files, and emits no gate verdict.",
+        "The manager maps COMPLETE with complete coverage and no unresolved BLOCKER or SHOULD to the core gate outcome PASS before advancing.",
+        "An INCOMPLETE capability report caused by a material plan decision maps to ESCALATE_HUMAN rather than authorizing repair or broadening scope.",
+        "The already approved plan is projected without duplicate approval, while a materially changed plan requires renewed explicit agreement.",
+        "A mapped simplicity PASS is not used as final whole-changeset approval."
+      ]
+    },
+    {
+      "id": 26,
+      "prompt": "An approved Lite backpressure task changes one incorrect boolean condition directly in an existing function. It adds no dependency, abstraction, wrapper, configuration option, cross-layer expansion, or duplicated platform behavior, and the user did not request simplification. Targeted checks pass. Decide whether to launch a simplicity reviewer and how final correctness proceeds.",
+      "expected_output": "Record the simplicity gate as not triggered, consume no focused simplicity-review child call, and continue to the required frozen-candidate final verifier and fresh whole-changeset reviewer.",
+      "files": [],
+      "expectations": [
+        "The direct patch is classified as not triggering the conditional simplicity review.",
+        "No simplicity-review child call is consumed.",
+        "The absence of a simplicity review does not skip the required final verifier.",
+        "The absence of a simplicity review does not skip the fresh final whole-changeset reviewer."
+      ]
+    },
+    {
+      "id": 27,
+      "prompt": "An approved authentication migration adds a vetted password-hashing dependency and a wrapper that centralizes algorithm parameters, legacy-hash compatibility, and rehash-on-login safeguards. Targeted security and migration checks pass. A simplicity review is triggered by the dependency and wrapper. Decide whether the reviewer should delete them merely to reduce complexity.",
+      "expected_output": "The code-reviewer simplicity capability report preserves the dependency and wrapper when evidence shows they are required for security, compatibility, migration, and the approved architecture; it returns COMPLETE with explicit safeguard coverage and no manufactured finding, and the manager maps the report.",
+      "files": [],
+      "expectations": [
+        "The new dependency and wrapper still trigger a simplicity review.",
+        "The reviewer returns a capability report without an approval or gate verdict.",
+        "The reviewer does not recommend an insecure standard-library substitute or delete the centralized safeguards merely to reduce complexity.",
+        "The outcome cites security, compatibility, migration, and approved-architecture evidence as load-bearing.",
+        "The review explicitly maps preserved invariants and safeguards to active decisions and acceptance criteria.",
+        "No line-count score or lines-saved estimate determines the outcome."
+      ]
+    },
+    {
+      "id": 28,
+      "prompt": "Targeted checks pass and a fresh code-reviewer simplicity child returns a COMPLETE capability report with repairable finding SIM-004 on candidate state A. The manager maps it to SEND_BACK. A fresh worker removes the unnecessary configuration wrapper, producing state B. Explain which evidence is stale, who evaluates state B, and when the candidate may be frozen for Final Correctness.",
+      "expected_output": "Treat state-A simplicity evidence and affected mechanical evidence as stale after the repair, launch a fresh verifier and fresh code-reviewer simplicity child for state B with SIM-004 and the repair delta, freeze only after the manager maps current-state evidence to PASS, then run separate fresh final verification and whole-changeset review.",
+      "files": [],
+      "expectations": [
+        "The repair is assigned to a fresh worker and changes the candidate state ID from A to B.",
+        "State-A simplicity-review evidence is rejected as STALE for state B.",
+        "Affected targeted mechanical evidence is refreshed by a fresh verifier for state B.",
+        "A fresh code-reviewer simplicity child evaluates state B using stable finding ID SIM-004 and the repair delta without emitting a core gate verdict.",
+        "The candidate is not frozen until the manager maps state-B focused evidence to PASS.",
+        "Final Correctness still uses a separate fresh verifier and fresh whole-changeset reviewer."
+      ]
+    },
+    {
+      "id": 29,
+      "prompt": "A Standard backpressure run requires plan review. The manager is about to invoke a reviewer with only 'review the migration plan' and a validation hash, omitting exact plan content, review scope, active and superseded decisions, ownership, public API constraints, acceptance criteria, required lenses, and prior finding dispositions. Decide whether this handoff is sufficient and construct the required capability request.",
+      "expected_output": "Do not launch the underspecified review. Construct a fresh plan-reviewer request with the exact hashed plan subject and expected identity, exact scope, authoritative decision context, required lenses, and prior findings; then map the returned capability report in the manager.",
+      "files": [],
+      "expectations": [
+        "The underspecified handoff is rejected rather than asking the plan-reviewer to invent scope or authority.",
+        "The corrected handoff explicitly loads plan-reviewer and supplies the exact hashed plan subject and expected identity.",
+        "The corrected handoff includes exact review scope, active and superseded decision context, non-goals, ownership and public API constraints, acceptance criteria, required lenses, and prior finding dispositions.",
+        "The plan-reviewer returns review_completion, subject identity, reviewed scope, coverage, findings, unverified areas, and residual risks without a gate verdict.",
+        "The manager retains gate mapping, review-count limits, freshness, and escalation ownership."
+      ]
+    },
+    {
+      "id": 30,
+      "prompt": "A frozen final candidate is expected at validation hash V7, base B1, and state S9. The fresh code-reviewer child observes state S10 and returns SUBJECT_MISMATCH without reviewing S10. The manager still has green mechanical evidence for S9. Decide the final correctness outcome and next route.",
+      "expected_output": "Map SUBJECT_MISMATCH to STALE, reject both the mismatched semantic report and old S9 evidence for current S10, keep Final Correctness pending, and establish fresh mechanical and whole-changeset evidence for the exact current candidate.",
+      "files": [],
+      "expectations": [
+        "The code-reviewer does not translate SUBJECT_MISMATCH into a gate verdict or review the unexpected S10 subject.",
+        "The manager maps SUBJECT_MISMATCH to STALE.",
+        "S9-bound mechanical and semantic evidence does not pass current state S10.",
+        "Final Correctness remains pending until a fresh verifier and fresh code-reviewer review the same exact current candidate.",
+        "The route preserves the manager's ownership of subject identity, freshness, and gate synthesis."
       ]
     }
   ]

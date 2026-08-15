@@ -32,9 +32,12 @@ With backpressure, the flow becomes:
 Goal
 -> Contract
 -> Plan reviewed by independent feedback when risk or uncertainty requires it
+-> Optional declared before-work actions
 -> Work subagent writes a patch
 -> Mechanical checks reject bad patches first
 -> Feedback subagents reject design, correctness, or test-quality issues
+-> Final correctness
+-> Optional declared after-final actions
 -> Final evidence bundle reaches the human
 ```
 
@@ -52,6 +55,9 @@ scope:
 - It delegates work, verification, and feedback to subagents.
 - It routes specialized runtime work to existing skills or tools instead of
   owning those domains directly.
+- It permits ordered `before_work` and `after_final` Boundary Actions only when
+  they are declared in the active contract with exact authorization and read-back.
+- It does not expose arbitrary plugin hooks or a generic failure finalizer.
 
 That narrower scope keeps the skill composable and prevents it from becoming a
 large all-purpose automation layer.

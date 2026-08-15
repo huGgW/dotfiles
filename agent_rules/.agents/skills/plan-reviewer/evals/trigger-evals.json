@@ -1,0 +1,90 @@
+[
+  {
+    "query": "Review the existing migration plan at docs/plans/customer-id-v2.md before implementation. Check it against ADR-19, the stated zero-data-loss constraint, rollback ownership, mixed-version behavior, and the current repository migration patterns. Return findings only; do not rewrite the plan.",
+    "should_trigger": true
+  },
+  {
+    "query": "이 리팩터링 계획 revision 8을 검토해줘. 사용자가 합의한 단일 public service boundary와 non-goal을 지키는지, superseded decision이 다시 들어오지 않았는지 확인하고 계획 파일은 수정하지 마.",
+    "should_trigger": true
+  },
+  {
+    "query": "Act as the delegated pre-implementation reviewer for exact plan `plans/webhook-retry.md@6f22a9`. Scope is retry ownership, dependency order, verification, rollout, and rollback. Decision sources and prior finding dispositions are included below. Produce a capability report, not a gate verdict.",
+    "should_trigger": true
+  },
+  {
+    "query": "Stress-test our approved implementation plan for moving session storage. I want you to compare each step with the active ADRs and current repository owners, flag scope creep or public API changes, and identify anything that prevents full review. Do not create a new plan.",
+    "should_trigger": true
+  },
+  {
+    "query": "Validate the rollout plan in PR description section 'Implementation Plan' at commit 9ad301, not the code diff. Focus on canary ordering, monitoring ownership, point-of-no-return conditions, rollback rehearsal, and preservation of acknowledged writes.",
+    "should_trigger": true
+  },
+  {
+    "query": "Critique `refactor/catalog-split.md` as written. The source request 'split behavior' may not authorize the plan's new service and event API; report unresolved load-bearing interpretations instead of choosing one or rewriting the document.",
+    "should_trigger": true
+  },
+  {
+    "query": "Please review version 12 of the implementation plan for semantic drift. Generated acceptance criteria say the new subtype APIs work, but decision D-41 requires the existing single public entry point. Check source meaning, scope, ownership, and verification.",
+    "should_trigger": true
+  },
+  {
+    "query": "Before a developer starts, inspect the exact plan artifact `architecture/cache-transition.md#rev-4` and tell me whether its work slices fit this repo, whether it reintroduces rejected Redis ownership, and which areas you could not verify. Read-only review only.",
+    "should_trigger": true
+  },
+  {
+    "query": "Re-review the revised database migration plan using prior findings PLAN-003 and PLAN-007. Preserve stable IDs, verify claimed resolutions against the current plan, and cover data preservation and rollback ownership without deciding the orchestrator's next action.",
+    "should_trigger": true
+  },
+  {
+    "query": "Check whether plan hash `sha256:abc123` is the same subject the coordinator expected, then review only the declared authentication migration scope against active and superseded decisions. If the identity differs, report that rather than reviewing a nearby plan.",
+    "should_trigger": true
+  },
+  {
+    "query": "Design a new multi-tenant webhook platform from scratch. Start with the problem definition, compare architecture options, and build a full design document tree before implementation planning.",
+    "should_trigger": false
+  },
+  {
+    "query": "우리 결제 시스템을 어떤 구조로 바꿀지 아직 정하지 못했다. 요구사항부터 연구 주제, 솔루션 개념, 상위 아키텍처까지 단계적으로 설계해줘.",
+    "should_trigger": false
+  },
+  {
+    "query": "Review PR #812 against main. Inspect the actual code diff for correctness, security regressions, performance problems, and missing tests, with file and line findings.",
+    "should_trigger": false
+  },
+  {
+    "query": "코드 리뷰해줘. 현재 브랜치에서 바뀐 Go 파일과 테스트를 보고 race condition, error wrapping, API 호환성 문제를 찾아줘. 구현 계획 문서는 없다.",
+    "should_trigger": false
+  },
+  {
+    "query": "Implement issue ENG-224. First inspect the codebase, propose the smallest two-step implementation plan for my approval, then update the code and run focused tests.",
+    "should_trigger": false
+  },
+  {
+    "query": "We need to add an optional timeout flag to the CLI. Figure out the implementation approach, write a plan, and wait for my approval before editing anything.",
+    "should_trigger": false
+  },
+  {
+    "query": "Use agentic backpressure for this migration. Create BACKPRESSURE.md, choose the profile and retry budget, dispatch fresh workers and reviewers, route repairs, and stop after the plan gate.",
+    "should_trigger": false
+  },
+  {
+    "query": "The second backpressure plan review still has a blocker. Decide whether to SEND_BACK, launch another fresh reviewer, or ESCALATE_HUMAN, and update the active contract.",
+    "should_trigger": false
+  },
+  {
+    "query": "Rewrite this rough implementation outline into a detailed execution plan with ordered steps, owners, dependencies, acceptance criteria, and rollback. There is no existing authoritative plan to review.",
+    "should_trigger": false
+  },
+  {
+    "query": "Turn the approved architecture spec into reviewable Linear sub-issues with blockers, vertical slices, verification evidence, and rollout risk. Draft the issue breakdown before publishing.",
+    "should_trigger": false
+  },
+  {
+    "query": "Audit our existing architecture documents for contradictions and then propose a replacement service topology. The deliverable is a new architecture design, not an implementation-plan review.",
+    "should_trigger": false
+  },
+  {
+    "query": "Explain what makes a good migration plan, including rollback, compatibility windows, data preservation, and canary rollout. Use a generic example; I do not have a plan to review.",
+    "should_trigger": false
+  }
+]

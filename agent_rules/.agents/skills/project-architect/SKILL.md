@@ -20,7 +20,7 @@ description: >
 
 ## Overview
 
-A structured design skill for complex, large-scale projects that require branching exploration across multiple dimensions. It produces a **mindmap-like directory tree** of design documents, enabling systematic decomposition of complex problems with persistent progress tracking. It uses a **discussion-first, documentation-after-consensus** workflow: explore agendas and candidate directions in conversation first, then document the agreed outcome and rationale.
+A structured design skill for complex, large-scale projects that require branching exploration across multiple dimensions. It produces a **mindmap-like directory tree** of design documents, enabling systematic decomposition of complex problems with persistent progress tracking. It uses a **breadth-first, discussion-first, documentation-after-consensus** workflow: agree on the current-level discussion list, cover sibling topics before deepening one branch, then document the agreed outcome and rationale.
 
 The skill organizes design work into **five phases** with progressively narrowing scope:
 **problem definition → research → solution concept → high-level design → detailed design**.
@@ -54,7 +54,7 @@ Each phase has a clear purpose and produces artifacts that feed the next phase, 
 
 | File | OKF Treatment | Role | When to Read |
 |------|---------------|------|-------------|
-| `plan.md` | Concept document | Current operational checkpoint: phase, active agenda, unresolved discussion, pending candidate set, and next confirmation; not a history log | Every session start |
+| `plan.md` | Concept document | Current operational checkpoint: phase, active agenda, current-level discussion list, unresolved discussion, deferred deep dives, pending candidate set, and next confirmation; not a history log | Every session start |
 | `decisions.md` | Concept document | Central decision log entries that point to local decision artifacts | When referencing prior decisions |
 | `log.md` | Reserved update file | Design-impacting revisit/change history with affected artifacts; compact or archive stale entries | When checking change history |
 | `index.md` | Reserved navigation file | Directory summary: purpose, key decisions, children | When exploring a branch |
@@ -87,6 +87,39 @@ Project Architect artifacts follow an OKF-compatible Markdown structure without 
 | Final local decision | Relevant `decision.md` or Phase artifact | Write only after explicit user consensus on the direction; this records the agreed outcome and rationale where it belongs |
 | Central decision log | `decisions.md` | Add a compact decision-log entry that points to the local decision artifact; this complements the local final decision and is not interchangeable with it |
 | Summary | `index.md` | Summarize status and links; do not use `index.md` as the only place where option details live |
+
+### Breadth-First Discussion Protocol
+
+Apply this protocol to every internal design Phase, agenda, decision area, and recursive design cycle. It controls the conversation order; it does not reduce the rigor of approved research or design artifacts. It does not apply to publication work based on already agreed design; follow `references/publication-guide.md` without reopening design discussion.
+
+1. **Show the current-level discussion list first** — Before discussing the first item, present the sibling topics in a short ordered list, usually 3–7 items. Give each item a one-line purpose. Do not expand subtopics yet.
+2. **Confirm the list and order** — Let the user add, remove, merge, split, or reorder items before proceeding. One confirmation covers the discussion scope and order only; it does not replace later candidate-set or final-decision gates. Do not require a separate gate for every minor item.
+3. **Complete a first pass across siblings** — Discuss each item at the same level of detail, enough to expose its goal, main choice, constraint, or unknown. Do not follow one branch into nested details while sibling items remain unseen.
+4. **Park deeper questions** — Put lower-level questions, early implementation details, and useful tangents under `Later Discussion`, with the Phase or agenda where they belong. Mirror them in `plan.md` as `Deferred Deep Dives`, then continue the current-level pass.
+5. **Deepen selectively** — After the first pass, summarize what is settled, open, and parked. Ask which items need a deeper pass and explain which open items block the current Phase outcome. Recurse only after the user selects or confirms an item.
+6. **Keep research depth separate from discussion depth** — Approved Phase 2 research may still be deep and multi-source. Keep the planning conversation and user-facing synthesis compact unless the user asks for the full analysis.
+
+Default conversation shape:
+
+```markdown
+**Discussion List**
+1. {Topic} — {one-line purpose}
+2. {Topic} — {one-line purpose}
+3. {Topic} — {one-line purpose}
+
+**Later Discussion**
+- {Deeper topic and its target Phase, or "None yet"}
+
+Would you like to add, remove, or reorder anything before we start?
+```
+
+### Conversation Style
+
+- Use the shortest wording that preserves the important meaning. Prefer short sentences and compact sections.
+- Use plain words in the user's language. Avoid uncommon English terms, abbreviations, and formal vocabulary when a familiar word works. Define an unavoidable technical term on first use.
+- Focus each response on the active discussion item. Do not repeat settled context unless it changes the current choice.
+- Use a small table for direct comparisons, a short example for abstract ideas, and a compact ASCII or Mermaid diagram for flows or relationships when it reduces explanation. Do not add decorative visuals.
+- Offer more detail instead of including it by default. If the user requests depth, expand only the selected item and keep unrelated branches parked.
 
 ## Phase Flow
 
@@ -187,19 +220,21 @@ Workflow:
 
 ## Working Principles
 
-1. **Plan first, always** — Read `plan.md` before any work. Update it at every milestone and agenda boundary, but keep only what helps resume the current work: the last consensus gate, unresolved discussion, pending candidate set, and next required user confirmation.
+1. **Plan first, always** — Read `plan.md` before any work. Update it at every milestone and agenda boundary, but keep only what helps resume the current work: the last consensus gate, active discussion list, unresolved discussion, deferred deep dives, pending candidate set, and next required user confirmation.
 2. **Keep operational files focused** — Treat `plan.md` and `log.md` as working memory, not exhaustive history. `plan.md` should answer “where are we and what must happen next?”; `log.md` should answer “what design-impacting changes might matter later?”. Remove, summarize, or archive entries once they no longer help resume, revisit, or validate the design.
-3. **Discussion before documentation** — For each agenda (problem framing, research topics, solution concept, decision areas, component designs), discuss the relevant candidates in conversation before creating or updating final artifacts: research topics and information needs in Phase 2, design directions in later design phases. This applies to **all phases including Phase 1**.
-4. **User gates at phase and agenda boundaries** — Confirm with the user before advancing between Phases and before finalizing each agenda. Work autonomously only after the user agrees on the local direction or scope.
-5. **Every directory tells its story** — Every directory, including the `design/` root, must have `index.md` answering: what is this, what was decided, what are its children?
-6. **Options before decisions** — Present 2+ options with tradeoff analysis in conversation before offering a provisional fit assessment. Do not use final-sounding labels like "recommended" or "selected" until the user explicitly decides.
-7. **Option artifacts are first-class documents** — For Phase 3, Phase 4, and recursive Phase 5 decisions, each candidate direction must be documented as a separate file under `options/`. Do not collapse full option details into `index.md`, `architecture-overview.md`, `design.md`, or `decision.md`.
-8. **Research as decision preparation** — Treat each research topic as a thorough, independent investigation that gathers facts, codebase observations, constraints, risks, alternatives, and open questions needed by later design phases. Phase 2 must not recommend, select, or finalize a design direction; design opinions and decisions belong to Phase 3, 4, or 5 after user discussion. Each research document must be self-sufficient (fully understandable on its own) and include verifiable references. See `references/phase-guide.md` Phase 2 for the full research protocol.
-9. **Defer to the next phase or to the work itself** — If a question can be answered just as well by the next phase or during actual implementation, defer it. Phase 3 should not draw the architecture; Phase 4 should not design component internals; Phase 5 should not micro-design implementation details.
-10. **Depth-aware structure** — No depth limit, but at 4+ depth, review the tree and propose compression to user if possible. See `references/structure-rules.md` for compression strategies.
-11. **Documentation after consensus** — Write design documents as work progresses, but only after local consensus. Capture the discussion summary, criteria, alternatives, and rationale when documenting the agreed outcome.
-12. **OKF compatibility without spec drift** — Use current OKF guidance for artifact authoring details. Do not restate the full OKF spec here; keep this skill focused on architecture workflow.
-13. **Publication is a derived view** — Create external-facing documents only on request, from agreed design content. Keep internal traceability outside the shareable document and never let publication edits silently change the authoritative design.
+3. **Breadth before depth** — Agree on the current-level discussion list and cover sibling items before opening nested discussion. Deeper exploration is a second pass, not the default starting point.
+4. **Discussion before documentation** — For each agenda (problem framing, research topics, solution concept, decision areas, component designs), discuss the relevant candidates in conversation before creating or updating final artifacts: research topics and information needs in Phase 2, design directions in later design phases. This applies to **all phases including Phase 1**.
+5. **User gates at phase and agenda boundaries** — Confirm the discussion list before starting and confirm the outcome before finalizing each agenda. Work autonomously only after the user agrees on the local direction or scope.
+6. **Plain, compact conversation** — Prefer easy words, short explanations, and purposeful examples or visuals. Expand only the selected topic when the user asks for more detail.
+7. **Every directory tells its story** — Every directory, including the `design/` root, must have `index.md` answering: what is this, what was decided, what are its children?
+8. **Options before decisions** — Present 2+ options with tradeoff analysis in conversation before offering a provisional fit assessment. Do not use final-sounding labels like "recommended" or "selected" until the user explicitly decides.
+9. **Option artifacts are first-class documents** — For Phase 3, Phase 4, and recursive Phase 5 decisions, each candidate direction must be documented as a separate file under `options/`. Do not collapse full option details into `index.md`, `architecture-overview.md`, `design.md`, or `decision.md`.
+10. **Research as decision preparation** — Treat each research topic as a thorough, independent investigation that gathers facts, codebase observations, constraints, risks, alternatives, and open questions needed by later design phases. Phase 2 must not recommend, select, or finalize a design direction; design opinions and decisions belong to Phase 3, 4, or 5 after user discussion. Each research document must be self-sufficient (fully understandable on its own) and include verifiable references. See `references/phase-guide.md` Phase 2 for the full research protocol.
+11. **Defer to the next phase or to the work itself** — If a question can be answered just as well by the next phase or during actual implementation, defer it. Phase 3 should not draw the architecture; Phase 4 should not design component internals; Phase 5 should not micro-design implementation details.
+12. **Depth-aware structure** — No depth limit, but do not recurse conversationally before the current-level first pass is complete unless the user explicitly redirects. At 4+ document depth, review the tree and propose compression to user if possible. See `references/structure-rules.md` for compression strategies.
+13. **Documentation after consensus** — Write design documents as work progresses, but only after local consensus. Capture the discussion summary, criteria, alternatives, and rationale when documenting the agreed outcome.
+14. **OKF compatibility without spec drift** — Use current OKF guidance for artifact authoring details. Do not restate the full OKF spec here; keep this skill focused on architecture workflow.
+15. **Publication is a derived view** — Create external-facing documents only on request, from agreed design content. Keep internal traceability outside the shareable document and never let publication edits silently change the authoritative design.
 
 ## Internal Design Directory
 
@@ -300,15 +335,15 @@ Read `references/publication-guide.md` before creating, updating, or validating 
 2. Determine project type: **Greenfield** or **Non-greenfield** (migration/evolution)
    - Non-greenfield: include `as-is-analysis.md` in Phase 1 deliverables
 3. Create only root navigation/operational files (`index.md`, `plan.md`, `decisions.md`, `log.md`) after the user agrees on the internal design location
-4. Begin Phase 1 by discussing the agenda in conversation. Do not create Phase 1 artifacts until the user agrees on problem framing, goals, and (if relevant) constraints. Keep Phase 1 light — write only the artifacts the project actually needs.
+4. Begin Phase 1 with the Breadth-First Discussion Protocol: present and confirm the current-level agenda before discussing its first item. Do not create Phase 1 artifacts until the user agrees on problem framing, goals, and (if relevant) constraints. Keep Phase 1 light — write only the artifacts the project actually needs.
 
 ### Resume (Continuing a Previous Session)
 
-1. Read `plan.md` → identify current Phase, active agenda, unresolved discussion, and next required confirmation
+1. Read `plan.md` → identify current Phase, active agenda, active discussion list, unresolved discussion, deferred deep dives, and next required confirmation
 2. If `plan.md` contains stale completed agenda notes or history-like detail, compact it after confirming the useful resume state
 3. Read current Phase's `index.md` → restore working context
 4. Identify the last consensus gate: what is already documented as agreed, what remains unresolved, and whether any candidate set was discussed but not yet recorded in option files
-5. Summarize current state to user and confirm continuation
+5. Summarize the current-level discussion list, active item, and deferred deep dives to the user; confirm the list and continuation before opening a nested topic
 6. If consensus is unclear or not recorded, ask the user to restate or confirm the candidate set / direction before creating or updating artifacts
 7. Read additional files selectively as needed
 

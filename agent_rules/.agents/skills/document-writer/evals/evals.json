@@ -1,0 +1,58 @@
+{
+  "skill_name": "document-writer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "결제 온콜 엔지니어가 장애 중 사용할 checkout-api 롤백 runbook을 한국어 Markdown으로 작성해줘. 독자는 Kubernetes에 익숙하고 화면 공유로 문서를 함께 본다. 확인된 사실은 다음과 같다. Deployment는 payments namespace의 checkout-api다. 변경 이력 확인은 `kubectl rollout history deployment/checkout-api -n payments`, 직전 revision 롤백은 `kubectl rollout undo deployment/checkout-api -n payments`, 완료 확인은 `kubectl rollout status deployment/checkout-api -n payments --timeout=5m`이다. 롤백 후 5xx 비율과 checkout 성공률을 확인해야 한다. 5분 안에 완료되지 않거나 지표가 회복되지 않으면 `#payments-oncall`로 에스컬레이션한다. 제공하지 않은 명령이나 기준은 만들지 마라.",
+      "expected_output": "장애 중 빠르게 따라갈 수 있고 확인된 명령, 검증, 에스컬레이션이 정확한 compact runbook",
+      "files": [],
+      "expectations": [
+        "The runbook is organized around rollback execution rather than background explanation.",
+        "All three supplied kubectl commands are reproduced accurately and no unsupported command is invented.",
+        "Post-rollback verification covers both the 5xx rate and checkout success rate.",
+        "Escalation conditions and #payments-oncall are easy to find.",
+        "The output avoids a decorative diagram or table that does not improve incident use.",
+        "The runbook does not invent metric thresholds, dashboard locations, owners, or recovery criteria."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "새로 합류한 백엔드 엔지니어가 주문 이벤트 전달 구조와 설계 이유를 이해할 수 있도록 한국어 아키텍처 설명 문서를 작성해줘. 확인된 사실은 다음과 같다. order-service는 주문 변경 transaction 안에서 order와 outbox row를 함께 저장한다. relay는 outbox를 500ms마다 polling하고 한 번에 최대 500건을 Kafka의 order-events topic으로 발행한다. message key는 orderId다. 전달은 at-least-once이므로 consumer는 eventId를 기준으로 7일 동안 중복 제거한다. 순서는 같은 orderId 안에서만 보장된다. 이 방식은 broker 장애 시에도 주문 transaction을 성공시킬 수 있지만 전달 지연과 중복 처리 비용이 생긴다. 운영 절차나 확인되지 않은 시스템 구성은 추가하지 마라.",
+      "expected_output": "구조, 인과관계, 보장 범위, trade-off가 연결되어 이해되는 아키텍처 explanation",
+      "files": [],
+      "expectations": [
+        "The explanation accurately connects the transactional outbox decision to broker-failure isolation and its latency and deduplication costs.",
+        "The at-least-once guarantee, seven-day eventId deduplication, and per-orderId ordering scope are explicit.",
+        "Connected rationale remains readable as an argument rather than being fragmented into isolated bullets.",
+        "Any diagram, if present, clarifies the component or message flow and does not merely repeat the prose.",
+        "The document does not drift into an operational procedure or invent system details."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "신규 고객지원 담당자가 화면 공유 교육 중 사용할 Admin Console 환불 처리 가이드를 한국어 Markdown으로 작성해줘. 확인된 화면과 동작은 다음과 같다. Orders 화면에서 order ID를 검색하면 오른쪽에 order detail panel이 열린다. panel의 Actions 메뉴에서 Refund를 선택하면 modal이 열린다. modal에는 Amount와 Reason 필드가 있다. 부분 환불 가능 금액은 captured amount에서 이미 refunded된 금액을 뺀 값까지다. Confirm 후 refund ID와 Pending 상태가 표시되고 processor webhook을 받으면 Completed로 바뀐다. Pending이 10분 넘게 지속되면 payments dashboard를 확인한 뒤 `#payments-oncall`로 에스컬레이션한다. 실제 제품 화면처럼 보이는 정보를 꾸며내지 마라.",
+      "expected_output": "UI 경로, 입력 조건, 성공 상태, 지연 시 대응을 교육 중 쉽게 따라갈 수 있는 how-to guide",
+      "files": [],
+      "expectations": [
+        "The guide presents the UI path from Orders search through the Refund modal in task order.",
+        "The partial-refund limit is stated accurately without inventing validation behavior.",
+        "The reader can recognize Pending, Completed, and the ten-minute escalation condition.",
+        "Any screen example or wireframe is clearly labeled and contains no invented product controls or layout details.",
+        "The guide uses a visual only if it improves understanding of spatial layout or interaction."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "내부 개발자가 작업 중 조회할 `POST /v1/jobs` API reference를 한국어 Markdown으로 작성해줘. request JSON은 `type` string required, `payload` object required, `priority` integer optional default 0이다. `Idempotency-Key` header는 required다. 성공 시 202와 `{\"jobId\": \"job_123\", \"status\": \"queued\"}`를 반환한다. `type`이 지원되지 않으면 400 `unsupported_type`, 같은 idempotency key가 다른 payload에 사용되면 409 `idempotency_conflict`다. 인증 방식, priority 범위, 추가 error는 확인되지 않았다. curl request와 성공 response 예시는 포함하되 tutorial이나 설계 설명으로 확장하지 마라.",
+      "expected_output": "필드, header, response, error를 빠르게 조회할 수 있고 실행 예시가 정확한 API reference",
+      "files": [],
+      "expectations": [
+        "Request fields and the required Idempotency-Key header are presented for fast lookup with correct required and default information.",
+        "The 202, 400 unsupported_type, and 409 idempotency_conflict responses are accurate.",
+        "The curl request and success response are concrete and consistent with the supplied contract.",
+        "The reference does not invent authentication, a priority range, or additional errors.",
+        "The document remains reference-oriented and avoids unnecessary narrative or diagrams."
+      ]
+    }
+  ]
+}

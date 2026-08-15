@@ -72,7 +72,9 @@ ownership, public API shape, and non-goals as faithfully as practical. Normalize
 formatting and add stable IDs, but do not broaden, narrow, generalize, or silently
 replace its meaning. Omit rejected alternatives, intermediate drafts, and full
 transcript history. Put a materially ambiguous axis in Unresolved Decisions
-instead of choosing an interpretation.
+instead of choosing an interpretation. Project an already user-approved plan
+without asking workers to approve it again. If the run creates a materially new
+plan, record it as unresolved and obtain explicit user agreement before patching.
 
 ## Acceptance Criteria
 
@@ -94,6 +96,7 @@ external-side-effect commands are work, not mechanical verification.
 
 - Plan review: <required | conditional | not required>
 - Final whole-changeset review: required
+- Simplicity review: <triggered: concrete trigger | not triggered>
 - Conditional lenses: <security, type design, performance, integration, none>
 - Required specialist: <role | none>
 
@@ -132,9 +135,9 @@ commands, environments, or authority that are not decision semantics.
 - Required: <true | false>
 - Judgment review: <required | not required>
 
-| Item | Command or artifact rule | Required | Identity | Side effects |
-|---|---|---:|---|---|
-| <lockfile, generated artifact, changelog, migration package, check> | <rule or command> | <yes/no> | <content | commit> | <read_only | sandboxed_local> |
+| Item | Command or artifact rule | Required | Before action | Identity | Side effects |
+|---|---|---:|---|---|---|
+| <lockfile, generated artifact, changelog, migration package, check> | <rule or command> | <yes/no> | <action ID> | <content | commit> | <read_only | sandboxed_local> |
 <!-- publication-spec:end -->
 
 ## Validation Identity
@@ -146,16 +149,19 @@ commands, environments, or authority that are not decision semantics.
 
 ## Run Control
 
-- Stop after: <contract | plan | implementation | correctness | publication | commit | push | pr>
+- Stop after: <contract | plan | implementation | correctness | publication | handoff | Boundary Action ID>
+- Invocation policy: fresh child for every new action; resume only the exact same
+  unfinished action under the skill's recorded continuity exception
 
-| Action | Authorized | Exact target | Operation mode | Source | Expires |
-|---|---:|---|---|---|---|
-| commit | <true/false> | <worktree, branch, paths> | <create only; amend requires explicit permission> | <current instruction> | <condition> |
-| push | <true/false> | <remote and refspec> | <non-force; force requires explicit permission> | <current instruction> | <condition> |
-| pr | <true/false> | <repository, base, head, or exact PR> | <create or exact fields to update> | <current instruction> | <condition> |
+| ID | Timing | Required | Owner | Prerequisites | Exact target | Operation | Payload or reference | Authorized | Authorization source |
+|---|---|---:|---|---|---|---|---|---:|---|
+| PRE-1 | before_work | <yes/no> | <skill, tool, or specialist> | <gate and prior action IDs> | <exact resource> | <exact mutation> | <contract anchor, digest, or fields> | <true/false/unresolved> | <current instruction> |
+| POST-1 | after_final | <yes/no> | <Git, GitHub, or other workflow> | <correctness, publication items, prior actions> | <exact resource> | <exact mutation> | <frozen candidate or fields> | <true/false/unresolved> | <current instruction> |
 
-Authorization permits an action but does not require it or extend `stop_after`.
-Human handoff is always allowed.
+Authorization permits an exact action but does not require it, authorize adjacent
+operations, or extend `stop_after`. A phase stop excludes later actions; an
+action-ID stop executes through that action and then hands off. Human handoff is
+always allowed.
 
 ## Budget
 
@@ -164,17 +170,22 @@ Human handoff is always allowed.
 | Child calls | <profile default or override> | 0 |
 | Repair rounds per gate | <profile default or override> | <gate -> count> |
 | Final-call floor | <profile default or route-adjusted value> | not applicable |
+| Boundary Action attempts per action | 2 | <action -> count> |
 
 - Budget override: <none | value, reason, approver>
 - Remaining route fits final calls: <true | false>
 
 ## Publication Readiness
 
-- Status: <not_required | pending | pass | blocked>
+- Overall status: <not_required | pending | pass | blocked summary>
 
-| Item | Evidence or blocker |
-|---|---|
-| <required item from publication specification> | <reference> |
+| Item | Before action | Status | Evidence or blocker |
+|---|---|---|---|
+| <required item from publication specification> | <action ID> | <pending | pass | blocked | stale> | <reference> |
+
+Gate each action only on items mapped to that action. The overall status is a
+handoff summary and does not require future post-commit items to pass before the
+commit that makes them evaluable.
 
 ## Open Items
 
@@ -182,13 +193,21 @@ Human handoff is always allowed.
 
 ## Current State
 
-- Phase: <contract | plan | implementation | correctness | publication | commit | push | pr>
+- Phase: <contract | plan | before_work | implementation | correctness | publication | after_final | handoff>
 - Current gate: <gate name>
 - Current state ID: <opaque digest>
 - Open blocker IDs: <IDs or none>
 - Plan review: <not_required | pending | pass | blocked, evidence reference>
+- Simplicity review: <not_triggered | pending | approve_delta | send_back | blocked | stale, evidence reference>
 - Correctness: <pending | pass | blocked>
-- Action results: <action -> not attempted | blocked | succeeded with evidence>
+
+| Boundary Action | Status | Bound identity | Attempts | Result and authoritative read-back |
+|---|---|---|---:|---|
+| <action ID> | <not_attempted | pending | pass | blocked | stale | unknown> | <run, specs, state, all manifest fields, exact authorization> | <count> | <evidence or blocker> |
+
+| Delegated action | Tool-reported child ID | Invocation mode | Resume reason |
+|---|---|---|---|
+| <gate and requested action> | <child ID> | <fresh | resumed> | <not applicable | concrete exception> |
 
 | Active decision | Status | Current evidence or blocker |
 |---|---|---|
@@ -226,15 +245,35 @@ Human handoff is always allowed.
    decision under rule 3 rather than a context edit.
 6. Changes inside the publication-spec block invalidate only
    publication-readiness evidence unless they also change candidate content.
-7. Changes only to authorization, counters, findings, or current status do not
-   invalidate correctness evidence. Recheck action policy immediately before an
-   action.
-8. Recompute `state_id` after every candidate-content-changing work slice and
-   before and after each authoritative check set or review.
-9. A changed candidate makes previous content-bound evidence stale.
-10. Keep manager-owned child IDs outside the normative contract. Children do not
-   create separate decision, evidence, or invocation ledgers.
-11. When history is useful, write one concise
+7. Changes only to authorization, counters, findings, Boundary Action manifests,
+   or current status do not invalidate correctness evidence. Recheck action policy
+   immediately before an action. A changed action field, applicable specification
+   hash, `state_id`, or payload makes the prior action result inapplicable.
+8. After an external timeout or partial result, read the exact target before any
+   retry. Do not repeat successful sub-operations. Retry only a confirmed-
+   incomplete idempotent operation with current authorization, prerequisites,
+   stop point, and budget, then read back again. An unavailable read-back or
+   non-idempotent unknown result remains non-pass. Preserve reported successes as
+   tool-reported-only and do not repeat them when authoritative read-back is
+   unavailable.
+9. Recompute `state_id` after every candidate-content-changing work slice and
+   before and after each authoritative check set, review, or Boundary Action that
+   could touch repository content.
+10. A changed candidate makes previous content-bound evidence stale. Classify each
+     changed path: lockfiles, changelogs, and generated release artifacts are
+     publication repair; every other path is a work slice. Mixed changes follow
+     both routes. Reopen Final Correctness before applying required or optional
+     failure behavior. Reassess the simplicity trigger against the new diff.
+     Refresh simplicity-review evidence only when the prior state or new state is
+     triggered, and refresh affected mechanical evidence for the new `state_id`.
+     A `HEAD`-only commit may use the equivalence rule below.
+11. Publishing the agreed plan does not promote its external copy to a Decision
+    Source. Bind the result to `agreed-plan@<validation_spec_hash>`; a changed
+    plan needs a new applicable action result.
+12. Keep manager-owned child IDs and invocation mode outside the normative
+    contract. Record a concrete reason for every resume. Children do not create
+    separate decision, evidence, or invocation ledgers.
+13. When history is useful, write one concise
    `.backpressure/runs/<run_id>/run.md` containing the final contract, gate
    decisions, evidence references, action results, and handoff. Historical state
    is never current authority.

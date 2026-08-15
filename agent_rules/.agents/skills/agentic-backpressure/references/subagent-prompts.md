@@ -21,6 +21,7 @@ Decision IDs: <relevant active and superseded IDs | none>
 Gate: <gate name>
 Requested action: <one explicit action>
 Delta: <changed files, findings, or contract fields | none>
+Boundary Action reference: <action ID | not applicable>
 ```
 
 The child reads the referenced contract and acts in the same invocation. It does
@@ -28,9 +29,17 @@ not acknowledge a session ID or repeat the complete identity tuple. The manager
 records the child ID returned by the orchestration tool and attaches it to the
 result.
 
+The manager starts each new requested action in a fresh child with no inherited
+child transcript. Resume is limited to the exact same unfinished action under the
+skill's continuity exception. The child still re-establishes the referenced
+contract and state; session continuity never substitutes for this check.
+
 If the referenced contract, decision sources, or state cannot be established,
-return `STALE` or `BLOCKED`, identify the mismatch, and stop. Do not rely on
-remembered state or create a child-owned decision ledger.
+identify the mismatch and stop. Planner, worker, verifier, and specialist roles
+return the applicable core `STALE` or `BLOCKED` result. A child using
+`plan-reviewer` or `code-reviewer` returns `SUBJECT_MISMATCH` or `INCOMPLETE`
+through the capability-report schema; the manager maps that report to a core gate
+outcome. Do not rely on remembered state or create a child-owned decision ledger.
 
 ## Planning Worker
 
@@ -53,49 +62,39 @@ states:
 
 Preserve the agreed plan's terminology, sequence, conditions, and boundaries.
 Do not replace specific user constraints with broader agent-authored summaries.
+Project an already user-approved plan without asking for duplicate approval. If
+your proposal is materially new, require explicit user agreement before patching.
 If a structural verb has plausible interpretations that materially change the
 diff, ownership, or public API, return one focused clarification question instead
 of choosing an axis.
 ```
 
-For a revision, resume the worker with the current contract reference and only
-the changed findings or decisions.
+For a revision, launch a fresh planning worker with the current contract reference
+and only the changed findings or decisions. The revised plan and specification
+form a new action.
 
 ## Plan Reviewer
 
 ```text
-You are the independent plan reviewer. You did not write the plan and you do not
-edit files.
+You are the fresh independent plan-review child. You did not write the plan and
+you do not edit files. Load and follow the `plan-reviewer` skill.
 
 <common request>
 
-Plan reference: BACKPRESSURE.md#agreed-plan:<validation spec hash>
+Subject: BACKPRESSURE.md#agreed-plan:<validation spec hash>
+Expected subject identity: agreed-plan@<validation spec hash>
+Review scope: <exact plan sections, decisions, slices, and risks>
+Authoritative context: <decision sources, active and superseded decisions, scope
+and non-goals, ownership and public API constraints, acceptance criteria>
+Required lenses: <Plan Gate lenses>
+Prior findings: <stable IDs and dispositions | none>
 Review invocation: <1 | 2>
 
-Review whether the plan matches concise user decision sources and active
-decisions, preserves the Agreed Plan's meaning, satisfies the acceptance
-criteria, fits the project, chooses the simplest coherent approach, and resolves
-load-bearing decisions. Check explicit forbidden scope, required ownership,
-required public API shape, and whether a superseded decision reappears. Generated
-acceptance criteria are not the sole authority. Compare the plan's proposed files,
-symbols, ownership effects, and public API effects with the source meaning; matching
-labels without matching semantic effects is insufficient.
-
-Review only the Agreed Plan contained in the referenced validation specification.
-If the supplied plan or plan digest differs from that hashed plan, return `STALE`
-without approving either version.
-
-If plausible structural interpretations materially change the diff, ownership,
-or public API and the axis remains unresolved, return `ESCALATE_HUMAN` with one
-focused question. Do not approve implementation against an arbitrary
-interpretation.
-
-Return:
-1. APPROVE, SEND_BACK, STALE, or ESCALATE_HUMAN
-2. Findings with stable IDs and BLOCKER, SHOULD, or NIT severity
-3. Active-decision and source coverage, including superseded-decision checks
-4. Evidence or reasoning for each non-nit finding
-5. Concrete next action
+Review only the supplied hashed plan and declared scope. Return the exact
+`plan-reviewer` capability report with `review_completion`, `subject_identity`,
+`reviewed_scope`, coverage, findings, unverified areas, and residual risks. Do not
+return a gate verdict, choose a repair route, authorize implementation, or revise
+the plan. `COMPLETE` means only that the declared review scope was completed.
 ```
 
 After invocation 2, any remaining blocker or undisposed SHOULD finding requires
@@ -116,6 +115,10 @@ criteria, or another linked normative target, do not implement by selecting one
 field as authoritative. Return `STALE` or `BLOCKED` with the conflict so the
 manager can update the decision record, linked specification, plan, and hash
 atomically. Do not approve your own work or perform broad unrelated cleanup.
+Treat an already user-approved Agreed Plan as authoritative; do not request
+duplicate approval. If a finding would materially change that plan, stop before
+patching and return the exact decision that needs renewed user agreement. Do not
+fix unrelated findings or broaden the approved scope.
 
 Before widening production scope based on one failing test, changing a
 transaction boundary, changing locking or concurrency behavior, or patching while
@@ -134,8 +137,9 @@ Return:
 6. Suggested checks
 ```
 
-Worker commands are diagnostic only. Resume this worker for a focused repair
-when its context remains useful.
+Worker commands are diagnostic only. Route a focused repair to a fresh worker
+with the failure evidence and repair delta. Familiarity with the prior patch is
+not a resume reason.
 
 ## Mechanical Verifier
 
@@ -169,80 +173,106 @@ Return:
 6. Recommended next action
 ```
 
-Prefer resuming this verifier for a retry. If replacement is necessary, the
-manager keeps cumulative budgets. Current completed evidence remains valid when
-it still matches the active state; incomplete checks must be rerun.
+Use a fresh verifier when the state, check set, gate, or verification purpose
+changes. The manager keeps cumulative budgets, and current completed evidence
+remains valid when it still matches the active state. Resume is allowed only when
+this exact check-set action is unfinished and its complete identity is unchanged;
+retain completed checks and run only the incomplete checks.
 
 Baseline diagnosis uses an isolated read-only base or immutable snapshot. Never
 reset or overwrite the active worktree.
+
+## Simplicity Reviewer
+
+Use only after targeted mechanical verification passes and a trigger recorded
+under Review Requirements applies. The manager first applies
+`references/simplicity-review.md` to construct the request.
+
+```text
+You are the fresh independent simplicity-review child. You did not write the
+patch and you do not edit files. Load and follow the `code-reviewer` skill,
+including `references/simplicity-lens.md` from that skill.
+
+<common request>
+
+Subject: <exact base-to-candidate identity>
+Expected subject identity: <validation spec hash, base, and state ID>
+Review trigger: <new dependency | abstraction | wrapper | configuration option |
+unnecessary cross-layer expansion | duplicated platform functionality | explicit
+simplification request>
+Targeted mechanical evidence: <current evidence reference>
+Review scope: <base-to-candidate delta and relevant symbols/callers>
+Authoritative context: <active decisions, agreed plan, scope, ownership and public
+API, safeguards, acceptance criteria>
+Required lenses: simplicity
+Prior findings: <stable IDs and dispositions | none>
+
+Return the exact `code-reviewer` capability report. Do not return a gate verdict,
+choose a repair route, edit the candidate, broaden scope, or claim whole-changeset
+approval. `COMPLETE` means only that the declared simplicity scope was completed.
+```
+
+After a simplicity repair changes the candidate, prior review and affected
+mechanical evidence are stale. Launch a fresh verifier and fresh simplicity
+reviewer for the new state. This focused route never replaces the fresh final
+verifier or final whole-changeset reviewer.
 
 ## Focused Reviewer
 
 Use only when a risk trigger or previous blocker requires it.
 
 ```text
-You are an independent focused reviewer. You did not write the patch and you do
-not edit files.
+You are a fresh independent focused-review child. You did not write the patch and
+you do not edit files. Load and follow the `code-reviewer` skill.
 
 <common request>
 
+Subject: <exact base and current candidate identity>
+Expected subject identity: <validation spec hash, base, and state ID>
 Review scope: <risk_delta | blocker_delta>
-Routed lenses: <lenses>
-Original findings: <stable IDs and evidence | none>
+Authoritative context: <applicable decisions, scope, ownership and public API,
+acceptance criteria>
+Required lenses: <routed lenses>
+Prior findings: <stable IDs, evidence, and dispositions | none>
 Changed files or symbols: <references>
 
 Review only the requested delta and nearby regression risk. Do not claim final
-whole-changeset approval.
-
-Return:
-1. APPROVE_DELTA, SEND_BACK, BLOCKED, or STALE
-2. Current state ID
-3. Finding status and evidence by stable ID
-4. New findings introduced by the delta
-5. Concrete next action
+whole-changeset approval. Return the exact `code-reviewer` capability report. Do
+not return a gate verdict, choose a repair route, or edit the candidate.
 ```
 
-Resume the reviewer that raised a blocker when practical. Replacement does not
-reset review or repair budgets.
+After a repair changes the candidate, launch a fresh focused reviewer and pass
+the stable finding IDs, evidence, and repair delta explicitly. A prior reviewer's
+ownership of a finding is not a resume reason. Fresh replacement does not reset
+review or repair budgets.
 
 ## Final Whole-Changeset Reviewer
 
 ```text
-You are the fresh independent final reviewer. You did not write the patch and you
-do not edit files.
+You are the fresh independent final-review child. You have no inherited worker or
+reviewer transcript, did not write the patch, and do not edit files. Load and
+follow the `code-reviewer` skill.
 
 <common request>
 
-Frozen candidate: <base and state ID>
+Subject: <whole changeset from immutable base to frozen candidate>
+Expected subject identity: <validation spec hash, base, and state ID>
+Review scope: <every changed path and cross-file behavior in the frozen candidate>
+Authoritative context: <decision sources, active and superseded decisions, scope
+and non-goals, ownership and public API constraints, agreed plan, acceptance
+criteria>
 Required lenses: <correctness, tests, and routed risk lenses>
-Resolved findings: <stable IDs and dispositions>
+Prior findings: <stable IDs and dispositions>
 
-Read the concise Decision Sources, Active Decisions, Goal, Out of scope,
-Ownership And Public API, Agreed Plan, Superseded Decisions, and Acceptance
-Criteria. Do not request the full transcript.
-
-Review the entire changeset from base to the frozen candidate. Confirm:
-
-1. Every active user decision and its concise source meaning
-2. Explicit out-of-scope and forbidden changes
-3. Required ownership boundaries and public API shape
-4. No superseded decision was reintroduced
-5. Source-level diff alignment with the user decisions and agreed plan
-6. Acceptance criteria, cross-file behavior, regression risk, test quality, and
-   routed risks
-
-Mechanical, build, lint, and test success cannot establish this semantic result.
-
-Return:
-1. APPROVE, SEND_BACK, BLOCKED, or STALE
-2. Reviewed state ID
-3. Findings with stable IDs, severity, and file, line, or symbol evidence
-4. Active-decision and source coverage, including superseded-decision checks
-5. Acceptance-criterion coverage
-6. Residual risks and concrete next action
+Review the entire supplied changeset and return the exact `code-reviewer`
+capability report. Mechanical success cannot establish this semantic result. Do
+not return a gate verdict, choose a repair route, authorize publication, or edit
+the candidate. `COMPLETE` means only that the declared whole-changeset scope was
+reviewed.
 ```
 
-If candidate content changes while reviewing, return `STALE`, not approval.
+If candidate content changes while reviewing, report `SUBJECT_MISMATCH`; the
+manager maps it to `STALE`.
 
 ## Publication Verifier
 
@@ -255,6 +285,7 @@ the candidate or re-approving unchanged code.
 Publication items: <contract checklist>
 Publication spec hash: <hash>
 Frozen candidate or committed tree: <reference and state ID>
+Required before action: <Boundary Action ID>
 
 Check only required artifacts and commands. Do not commit, push, open a PR,
 deploy, release, or mutate external state.
@@ -268,6 +299,47 @@ Return:
 
 After commit, compare content with the frozen candidate. Do not rerun unchanged
 content-bound checks unless the contract requires commit-dependent validation.
+
+## Boundary Action Specialist
+
+Use a fresh specialist only when the declared skill or tool needs delegated
+execution. Direct manager tool calls still follow the same gate and evidence
+rules.
+
+```text
+You are the Boundary Action specialist. Perform exactly one declared action. Do
+not implement or repair candidate content, approve correctness, or broaden the
+target or operation.
+
+<common request>
+
+Timing and requiredness: <before_work | after_final>, <required | optional>
+Owner workflow: <specialized skill or tool>
+Prerequisites: <gate, publication items, and prior action IDs>
+Exact target: <resource identity>
+Operation: <exact mutation or desired state>
+Payload reference: <contract anchor, digest, or exact fields>
+Authorized: <true | false | unresolved>
+Authorization source: <current authority reference>
+Expected repository state: <state ID and HEAD>
+Attempt: <1 | 2>
+
+Before execution, recheck prerequisites, stop point, target, operation, payload,
+and authorization. Execute once, then read the authoritative target back. If the
+request times out or partially succeeds, read back first. Before recommending any
+retry, recheck current prerequisites, stop point, budget, and authorization. Do
+not repeat successful or non-idempotent work. Without authoritative read-back,
+label reported successes tool-reported-only and do not repeat them.
+
+Return:
+1. PASS, BLOCKED, STALE, or ESCALATE_HUMAN
+2. Exact action ID, target, operation, and payload reference
+3. Attempted and observed sub-operations
+4. Authoritative read-back evidence or why it is unavailable
+5. Before and after repository state and HEAD when applicable
+6. Whether candidate content changed and Final Correctness must reopen
+7. Safe next action, including idempotency basis for any retry
+```
 
 ## Manager Gate Synthesis
 
@@ -283,12 +355,20 @@ Decide:
 5. Whether a triggered root-cause claim is verified or still a hypothesis
 6. Whether one repair round was consumed
 7. Whether remaining calls can still complete final gates
-8. Which worker, verifier, or reviewer to resume, or why replacement helps
-9. Whether stop_after or action authorization blocks the next phase
+8. Which fresh worker, verifier, or reviewer owns the next action, or whether the
+   exact unfinished-action resume exception applies and why
+9. Whether stop_after, Boundary Action prerequisites, or exact authorization
+   blocks the next phase
+10. Whether partial external state requires read-back, a narrow idempotent retry,
+    or handoff
+11. Whether an action changed candidate content and reopened Final Correctness
+12. Whether the action remains within its two-attempt execution ceiling
+13. Whether a simplicity trigger applies and current-state focused evidence is complete
 ```
 
 Do not create duplicate evidence, invocation, and decision ledgers. The manager
-owns budget accounting and attaches tool-reported producer identity.
+owns budget accounting and attaches tool-reported producer identity, invocation
+mode, and any resume reason to the applicable evidence.
 
 ## Human Handoff
 
@@ -303,7 +383,7 @@ Publication readiness: <not_required | pending | pass | blocked>
 Checks: <commands and results>
 Reviews: <scopes, findings, and decisions>
 Budget: <child calls and repair rounds used; remaining calls and final-call floor>
-Actions: <authorization, exact target, attempted state, result, evidence>
+Actions: <ID, timing, requiredness, authorization, exact target and operation, attempts, result, read-back evidence>
 Residual risks: <items or none>
 Human decision required: <one focused decision or none>
 ```

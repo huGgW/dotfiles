@@ -1,0 +1,114 @@
+{
+  "skill_name": "code-reviewer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Review candidate commit 9f3c2d1 against base 2a710b4 in /workspace/shop. Scope is src/users/search.ts and tests/users/search.test.ts. Required lenses are correctness, security, and testing. The actual candidate diff changes src/users/search.ts:61 to `return db.query(\"SELECT id, email FROM users WHERE email LIKE '%\" + request.query.q + \"%'\")`; the HTTP caller passes the untrusted `q` query parameter directly, and the changed tests cover only ordinary alphabetic input. Return a read-only capability report with file evidence and do not fix the code.",
+      "expected_output": "A findings-first report that identifies the concrete SQL injection vulnerability at the supplied line, explains the untrusted data flow and impact, recommends parameterization and regression coverage, and reports completion only for the bounded scope.",
+      "files": [],
+      "expectations": [
+        "The report identifies SQL injection caused by interpolating `request.query.q` into the query and cites `src/users/search.ts:61` as evidence.",
+        "The finding uses `BLOCKER`, has a stable ID, and includes category, location or symbol, issue/evidence, impact, concrete recommendation, scope relevance, and acceptance relevance.",
+        "The recommendation requires a parameterized query and security-focused tests without editing the supplied code.",
+        "The report includes `review_completion`, `subject_identity`, `reviewed_scope`, coverage, unverified areas, and residual risks, and does not issue an approval verdict."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Inspect only the current unstaged repair in src/payments/retry.ts and tests/payments/retry.test.ts. The caller has intentionally excluded every other working-tree path. Required lenses are correctness and testing. Determine whether the repair fixes the retry counter without introducing a boundary regression. This is a narrow repair review: do not assess the whole change set and do not decide whether the larger change is ready to merge.",
+      "expected_output": "A bounded review of the two supplied paths whose completion status applies only to that scope and which makes no whole-change or approval claim.",
+      "files": [],
+      "expectations": [
+        "The report limits `reviewed_scope` and coverage to the supplied retry implementation and test paths while reading only necessary context.",
+        "The report states that `COMPLETE`, if supported by evidence, is bounded to the supplied narrow scope and does not imply whole-change readiness.",
+        "Any finding is tied to the retry counter behavior or its tests rather than unrelated working-tree changes.",
+        "The report contains no Approve, Request changes, PASS, SEND_BACK, merge recommendation, or autonomous repair action."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Review the complete candidate changeset from merge-base main@41ac890 to feature/orders@be7812a, including every changed file. Required lenses are correctness, reliability, architecture/maintainability, and testing. Authoritative context: active ADR-014 requires order persistence and outbox insertion in one database transaction and forbids direct broker publication from request handlers. ADR-003, which allowed direct publication, is superseded. Acceptance criterion AC-7 requires retry-safe event delivery. The diff moves publishing into OrderHandler.publishDirect() and removes the outbox insert. Report decision relevance for each applicable finding.",
+      "expected_output": "A whole-subject capability report that flags the direct broker publication and removed transactional outbox as violations of the active decision and acceptance criterion, without relying on the superseded ADR or returning a gate verdict.",
+      "files": [],
+      "expectations": [
+        "The report treats the caller-supplied whole changeset as authoritative scope and records the exact base and candidate identities.",
+        "A `BLOCKER` finding identifies direct publication and removal of the transactional outbox as violating active ADR-014 and explains the partial-failure or retry-safety impact.",
+        "The finding explicitly connects the issue to AC-7 and does not use superseded ADR-003 as an active requirement.",
+        "The report covers correctness, reliability, architecture/maintainability, and testing and explicitly reports review_completion COMPLETE.",
+        "The report issues no approval or request-changes verdict and directs no autonomous fix loop."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Review PR subject base 731ac0e and head a9c104f in /workspace/api. The expected subject identity is base 731ac0e, head a9c104f, diff digest d8e21c. Inspection shows the available checkout and PR ref now resolve to base 731ac0e, head f044db2, diff digest 880bb7 after a force-push. Do not review a different revision.",
+      "expected_output": "A SUBJECT_MISMATCH capability report that shows expected and observed identities, does not review the unexpected revision, and requests no unnecessary branch-name input.",
+      "files": [],
+      "expectations": [
+        "The report sets `review_completion` to `SUBJECT_MISMATCH`.",
+        "The report clearly states expected head a9c104f and digest d8e21c versus observed head f044db2 and digest 880bb7.",
+        "The response stops rather than producing findings about the force-pushed subject or silently substituting it.",
+        "The response does not ask for branch names because the supplied identity is already sufficient to diagnose the mismatch."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Review commits 18ad20a..75bcd91 in /workspace/mobile, scoped to generated/api/Client.kt and src/sync/SyncCoordinator.kt, with compatibility and correctness lenses. The diff for SyncCoordinator.kt is available, but generated/api/Client.kt is missing from the checkout, the generator schema is unavailable, and the only available artifact for that file is a summary saying 'regenerated client'. The public API compatibility criterion applies to both files.",
+      "expected_output": "An INCOMPLETE report that reviews only available evidence, identifies the missing generated client and schema as material gaps, and does not invent compatibility findings or claim complete coverage.",
+      "files": [],
+      "expectations": [
+        "The report sets `review_completion` to `INCOMPLETE` because a required scoped file and its source schema cannot be inspected.",
+        "`unverified_areas` names generated/api/Client.kt, the generator schema, and the affected public API compatibility criterion.",
+        "The report does not claim line-level review or invent findings for the unavailable generated client.",
+        "Coverage distinguishes the inspected SyncCoordinator evidence from the missing evidence and explains the residual compatibility risk."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Apply the simplicity lens to staged changes in src/ids/UuidProvider.ts, src/ids/DefaultUuidProvider.ts, and src/orders/createOrder.ts. The repository targets Node.js 20. The patch adds a UuidProvider interface with one implementation whose only method returns `randomUUID()` from node:crypto; createOrder is its only caller, there is no injected test double, policy, compatibility branch, or planned second implementation, and repository search confirms no dynamic registration. Review only these paths and their directly relevant tests.",
+      "expected_output": "An evidence-based simplicity finding that identifies the pass-through interface and implementation as unnecessary indirection and recommends direct use of the standard-library capability while preserving testable behavior.",
+      "files": [],
+      "expectations": [
+        "The report applies the simplicity methodology and categorizes the issue using standard-library, delete, YAGNI, or shrink reasoning rather than line-count scoring.",
+        "A finding cites the wrapper files and single caller as evidence that the abstraction owns no policy, compatibility, lifecycle, or test seam.",
+        "The recommendation uses `node:crypto` `randomUUID()` directly at the established owner and states what ID-generation behavior tests must preserve.",
+        "The report stays inside the supplied staged subject and does not mutate files."
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Apply only the simplicity and reliability lenses to the account-key migration diff. Authoritative migration decision M-22 requires dual-read of `legacyAccountId` and `accountId` until consumer adoption reaches 100%, a rollback window ends, and a separately approved contract step removes the legacy field. Current adoption is 73%. The candidate keeps dual-read validation, metrics for legacy reads, and rollback support. A reviewer suggested deleting all of it because the new field works on the happy path. Inspect the safeguard and report only evidence-based findings.",
+      "expected_output": "A review that recognizes the dual-read, metrics, and rollback path as load-bearing migration and operational complexity, does not recommend deleting them, and states any remaining verification gaps without manufacturing a simplicity finding.",
+      "files": [],
+      "expectations": [
+        "The report preserves dual-read behavior because active migration M-22 and 73% adoption establish that compatibility is still load-bearing.",
+        "The report preserves legacy-read metrics and rollback support as operational evidence and recovery safeguards.",
+        "The report does not use line count or happy-path success to justify deletion and does not manufacture a finding merely to satisfy the simplicity lens.",
+        "If no other defect is evidenced, the report says `No findings within the supplied scope.` and records migration completion and rollback-window status as residual risk or verification context."
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Perform a read-only review of all current working-tree changes in /workspace/cli, including untracked files. Required lenses are correctness, security, and testing. Before inspection, git status is clean except for the supplied modified and untracked subject files. You may use status, diff, search, file reads, and language intelligence. Do not run formatters, generators, installers, tests that create snapshots, or any command that changes tracked or untracked files. Return recommendations only and leave the repository byte-for-byte unchanged.",
+      "expected_output": "A read-only review that includes tracked and untracked subject files, uses inspection-only operations, reports unverified validation where necessary, and performs no repository mutation or repair.",
+      "files": [],
+      "expectations": [
+        "The review includes relevant untracked files as part of the all-working-tree subject and records the HEAD and working-tree basis in `subject_identity`.",
+        "The execution does not edit, format, generate, delete, stage, commit, install, or otherwise mutate repository files or state.",
+        "The response records any skipped mutating validation under `unverified_areas` instead of running it or claiming it passed.",
+        "The output consists of evidence-based findings and capability metadata, not applied fixes or an autonomous repair loop."
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Review the static snapshot src/rate-limit/TokenBucket.go with reliability and performance lenses. No comparison baseline was requested. The caller supplies the file itself as the exact subject and scope, plus focused race-test results as authoritative evidence. Inspect the snapshot and relevant definitions, but do not invent a branch diff or broaden into a repository audit. If no actionable defect is supported, report that precisely with residual testing limits.",
+      "expected_output": "A static-file capability report that accepts the supplied snapshot without demanding branch names, avoids inventing a diff, and clearly reports no findings within scope plus residual risks when appropriate.",
+      "files": [],
+      "expectations": [
+        "The response treats src/rate-limit/TokenBucket.go as a valid static subject and does not ask for target and working branches.",
+        "The report does not invent changed lines, a comparison baseline, or repository-wide coverage.",
+        "If no issue is evidenced, the Findings section says `No findings within the supplied scope.`.",
+        "The report still includes completion, subject identity, reviewed scope, lens coverage, unverified areas, residual risks, and testing gaps."
+      ]
+    }
+  ]
+}

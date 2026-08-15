@@ -45,12 +45,15 @@ timestamp: YYYY-MM-DDTHH:MM:SSZ
 > Phase {N} — {Phase Name} 🔄
 > Working on: {current task description}
 > Last Consensus Gate: {what the user has explicitly agreed to, or "none yet"}
+> Active Discussion List: {current-level sibling topics in agreed order, or "not confirmed yet"}
 > Unresolved Discussion: {open agenda or decision still being discussed}
+> Deferred Deep Dives: {lower-level questions shown as `Later Discussion` in conversation, with target Phase/agenda, or "none"}
 > Pending Candidate Set: {candidate options/topics/goals not yet documented, or "none"}
 > Next Required User Confirmation: {what must be confirmed before writing/updating artifacts}
 
 ## Maintenance Rules
-- Keep only the current phase, active agenda, unresolved discussion, pending candidate set, and next required confirmation.
+- Keep only the current phase, active agenda, current-level discussion list, unresolved discussion, deferred deep dives, pending candidate set, and next required confirmation.
+- Keep `Active Discussion List` one level deep. Put nested questions in `Deferred Deep Dives` instead of expanding the list.
 - Remove completed agenda notes once outcomes are documented in phase artifacts.
 - Do not duplicate decision rationale here; link to `decision.md`, `decisions.md`, or the relevant artifact instead.
 
@@ -100,7 +103,7 @@ timestamp: YYYY-MM-DDTHH:MM:SSZ
 **Compaction rules:**
 - Keep `plan.md` focused on “where are we and what must happen next?”
 - Remove stale completed todos, old discussion notes, and history-like detail after they are captured in the appropriate artifact.
-- Preserve unresolved discussion, undocumented candidate sets, and the next required user confirmation.
+- Preserve the active discussion list, unresolved discussion, deferred deep dives, undocumented candidate sets, and the next required user confirmation.
 
 ---
 
