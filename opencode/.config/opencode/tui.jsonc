@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/tui.json",
-  "theme": "catppuccin",
+  "theme": "onedark",
   "attention": {
     "enabled": true,
     "notifications": true,
@@ -12,7 +12,8 @@
   },
   "plugin": [
     "opencode-traffic-light",
-    "@slkiser/opencode-quota"
+    "@slkiser/opencode-quota",
+    "opencode-subagent-statusline"
   ]
 }
 
