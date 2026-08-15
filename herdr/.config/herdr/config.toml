@@ -129,7 +129,7 @@ command = "lazygit"
 [[keys.command]]
 key = "prefix+t"
 type = "plugin_action"
-command = "smart-workspace.switch"
+command = "fullerzz.sesh.open-picker"
 description = "switch workspace"
 
 [[keys.command]]
@@ -204,7 +204,7 @@ command = "btop"
 
 # Background notification popup delivery
 agent_panel_sort = "spaces"
-show_agent_labels_on_pane_borders = false
+show_agent_labels_on_pane_borders = true
 [ui.toast]
 # off = disable pop-up notifications
 # herdr = show in-app toasts
@@ -213,6 +213,7 @@ show_agent_labels_on_pane_borders = false
 # delivery = "off"
 # delay_seconds = 1
 
+delivery = "system"
 [ui.toast.herdr]
 # position = "bottom-right"
 
