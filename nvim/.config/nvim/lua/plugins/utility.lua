@@ -4,11 +4,6 @@ return {
         priority = 998,
         lazy = false,
         config = function()
-            local scrollEnable = true
-            if vim.g.neovide then
-                scrollEnable = false
-            end
-
             local rainbowIndentHl = {
                 "RainbowIndentRed",
                 "RainbowIndentYellow",
@@ -75,10 +70,34 @@ return {
                 notifier = { enabled = true },
                 statuscolumn = { enabled = true },
                 scroll = {
-                    enabled = scrollEnable,
+                    enabled = true,
                     animate = {
                         easing = "outQuad"
                     },
+                    filter = function(buf)
+                        -- default snacks filter opt
+                        if not (
+                            vim.g.snacks_scroll ~= false
+                            and vim.b[buf].snacks_scroll ~= false
+                            and vim.bo[buf].buftype ~= "terminal"
+                        ) then
+                            return false
+                        end
+
+                        -- disable scroll in neovide since it has its own smooth scrolling
+                        if vim.g.neovide then
+                            return false
+                        end
+
+                        -- disable scroll in code diff tabs since it conflicts with position syncing
+                        local current_tab = vim.api.nvim_get_current_tabpage()
+                        if require("codediff.ui.lifecycle").get_session(current_tab) then
+                            return false
+                        end
+
+
+                        return true
+                    end,
                 },
                 input = { enabled = true },
                 dim = {
@@ -110,13 +129,13 @@ return {
                     --         -- TODO: make this responsive based on window size
                     --         layout = vim.o.columns >= 120 and extendedDefaultLayout or extendedVerticalLayout,
                     --     },
-                    sources = {
-                        gh_diff = {
-                            layout = {
-                                layout = vim.o.columns >= 120 and extendedDefaultLayout or extendedVerticalLayout,
-                            },
-                        },
-                    },
+                    -- sources = {
+                    --     gh_diff = {
+                    --         layout = {
+                    --             layout = vim.o.columns >= 120 and extendedDefaultLayout or extendedVerticalLayout,
+                    --         },
+                    --     },
+                    -- },
                 },
 
                 -- editing utility
@@ -131,9 +150,9 @@ return {
             })
 
             -- custom commands
-            vim.api.nvim_create_user_command("PR", function()
-                Snacks.picker.gh_pr()
-            end, { desc = "GitHub Pull Requests" })
+            -- vim.api.nvim_create_user_command("PR", function()
+            --     Snacks.picker.gh_pr()
+            -- end, { desc = "GitHub Pull Requests" })
 
             vim.api.nvim_create_user_command("Dim", function()
                 if (Snacks.dim.enabled) then
@@ -197,8 +216,8 @@ return {
             { "gI",          function() Snacks.picker.lsp_implementations() end,   desc = "Goto Implementation" },
             { "gy",          function() Snacks.picker.lsp_type_definitions() end,  desc = "Goto T[y]pe Definition" },
             { "<leader>fd",  function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
-            { "<leader>o",   function() Snacks.picker.treesitter() end,            desc = "TreeSitter Symbols" },
-            { "<leader>O",   function() Snacks.picker.lsp_symbols() end,           desc = "LSP Symbols" },
+            { "<leader>o",   function() Snacks.picker.lsp_symbols() end,           desc = "LSP Symbols" },
+            { "<leader>O",   function() Snacks.picker.treesitter() end,            desc = "TreeSitter Symbols" },
 
             -- Git-related picker
             { "<leader>ghp", function() Snacks.picker.gh_pr() end,                 desc = "Github Pull Requests" },

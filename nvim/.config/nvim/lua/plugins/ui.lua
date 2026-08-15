@@ -107,8 +107,6 @@ return {
                     which_key = true,
                 },
             })
-
-            vim.cmd.colorscheme("catppuccin")
         end
     },
     {
@@ -138,4 +136,31 @@ return {
             })
         end,
     },
+    {
+        "navarasu/onedark.nvim",
+        priority = 999, -- make sure to load this before all the other start plugins
+        config = function()
+            local colors = require('onedark.palette')[vim.o.background]
+            local blend = require('onedark.util').blend
+            local intensity = 0.35
+
+            require('onedark').setup {
+                style = 'dark',
+                transparent = true,
+                highlights = {
+                    RainbowIndentRed = { fg = blend(colors.red, colors.bg0, intensity) },
+                    RainbowIndentYellow = { fg = blend(colors.yellow, colors.bg0, intensity) },
+                    RainbowIndentBlue = { fg = blend(colors.blue, colors.bg0, intensity) },
+                    RainbowIndentOrange = { fg = blend(colors.orange, colors.bg0, intensity) },
+                    RainbowIndentGreen = { fg = blend(colors.green, colors.bg0, intensity) },
+                    RainbowIndentViolet = { fg = blend(colors.purple, colors.bg0, intensity) },
+                    RainbowIndentCyan = { fg = blend(colors.cyan, colors.bg0, intensity) },
+                },
+            }
+
+            require('onedark').load()
+
+            vim.cmd.colorscheme("onedark")
+        end
+    }
 }
