@@ -175,9 +175,6 @@
                 }
             }
         },
-                }
-            }
-        },
         // Detected copilot authentication; opencode-quota added this global provider declaration.
         "copilot": {},
         // Detected openrouter authentication; opencode-quota added this global provider declaration.
