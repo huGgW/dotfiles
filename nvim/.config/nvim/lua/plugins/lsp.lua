@@ -72,12 +72,106 @@ return {
     --     ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
     --     opts = {},
     -- },
+    -- {
+    --     'nvim-java/nvim-java',
+    --     ft = { 'java' },
+    --     config = function()
+    --         vim.env.JDTLS_JVM_ARGS = table.concat({
+    --             "-Xmx16G",
+    --             "-Xms1G",
+    --             "-XX:+UseParallelGC",
+    --             "-XX:+UseStringDeduplication",
+    --             "-Dsun.zip.disableMemoryMapping",
+    --             "-XX:GCTimeRatio=4",
+    --             "-XX:AdaptiveSizePolicyWeight=90",
+    --             "-Dsun.zip.disableMemoryMapping=true",
+    --         }, " ")
+    --
+    --         require('java').setup({
+    --         })
+    --
+    --         vim.lsp.config("jdtls", {
+    --             settings = {
+    --                 java = {
+    --                     jdt = {
+    --                         ls = {
+    --                             lombokSupport = {
+    --                                 enabled = true
+    --                             },
+    --                             vmargs =
+    --                             "-Xmx8G -Xms1G -XX:+UseParallelGC -XX:+UseStringDeduplication -Dsun.zip.disableMemoryMapping -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true",
+    --                         }
+    --                     },
+    --                     compile = {
+    --                         mode = "automatic",
+    --                         nonnull = {
+    --                             "jakarta.annotation.Nonnull",
+    --                             "jakarta.validation.constraints.NotNull",
+    --                             "org.jspecify.annotations.NonNull",
+    --                             "org.springframework.lang.NonNull",
+    --                             "org.eclipse.jdt.annotation.NonNull",
+    --                         },
+    --                         nullable = {
+    --                             "jakarta.annotation.Nullable",
+    --                             "org.jspecify.annotations.Nullable",
+    --                             "org.springframework.lang.Nullable",
+    --                             "org.eclipse.jdt.annotation.Nullable",
+    --                         },
+    --                         nonnullbydefault = {
+    --                             "org.jspecify.annotations.NullMarked",
+    --                             "org.springframework.lang.NonNullApi",
+    --                             "org.eclipse.jdt.annotation.NonNullByDefault",
+    --                         },
+    --                     },
+    --                     completion = {
+    --                         guessMethodArguments = "insertBestGuessedArguments",
+    --                     },
+    --                     referencesCodeLens = {
+    --                         enabled = false,
+    --                     },
+    --                     implementationsCodeLens = {
+    --                         enabled = false,
+    --                     },
+    --                     signatureHelp = {
+    --                         enabled = true,
+    --                     },
+    --                     sharedIndexes = {
+    --                         enabled = true,
+    --                     },
+    --                     inlayHints = {
+    --                         parameterNames = {
+    --                             enabled = "all",
+    --                             supppressWhenSameNameNumbered = true,
+    --                         },
+    --                         variableTypes = {
+    --                             enabled = true,
+    --                         },
+    --                         parameterTypes = {
+    --                             enabled = true,
+    --                         },
+    --                         formatParameters = {
+    --                             enabled = true,
+    --                         }
+    --                     },
+    --                     hover = {
+    --                         javadoc = {
+    --                             enabled = true,
+    --                         },
+    --                     },
+    --                 },
+    --             },
+    --         })
+    --
+    --         vim.lsp.enable('jdtls')
+    --     end,
+    -- },
     {
-        'nvim-java/nvim-java',
-        ft = { 'java' },
+        'gipo355/nvim-intellij-lsp',
+        ft = { 'java', 'kotlin' },
         config = function()
-            vim.env.JDTLS_JVM_ARGS = table.concat({
-                "-Xmx16G",
+            require('intellij-lsp').setup({
+                jvm_args = {
+                "-Xmx8G",
                 "-Xms1G",
                 "-XX:+UseParallelGC",
                 "-XX:+UseStringDeduplication",
@@ -85,84 +179,9 @@ return {
                 "-XX:GCTimeRatio=4",
                 "-XX:AdaptiveSizePolicyWeight=90",
                 "-Dsun.zip.disableMemoryMapping=true",
-            }, " ")
-
-            require('java').setup({
-            })
-
-            vim.lsp.config("jdtls", {
-                settings = {
-                    java = {
-                        jdt = {
-                            ls = {
-                                lombokSupport = {
-                                    enabled = true
-                                },
-                                vmargs =
-                                "-Xmx8G -Xms1G -XX:+UseParallelGC -XX:+UseStringDeduplication -Dsun.zip.disableMemoryMapping -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true",
-                            }
-                        },
-                        compile = {
-                            mode = "automatic",
-                            nonnull = {
-                                "jakarta.annotation.Nonnull",
-                                "jakarta.validation.constraints.NotNull",
-                                "org.jspecify.annotations.NonNull",
-                                "org.springframework.lang.NonNull",
-                                "org.eclipse.jdt.annotation.NonNull",
-                            },
-                            nullable = {
-                                "jakarta.annotation.Nullable",
-                                "org.jspecify.annotations.Nullable",
-                                "org.springframework.lang.Nullable",
-                                "org.eclipse.jdt.annotation.Nullable",
-                            },
-                            nonnullbydefault = {
-                                "org.jspecify.annotations.NullMarked",
-                                "org.springframework.lang.NonNullApi",
-                                "org.eclipse.jdt.annotation.NonNullByDefault",
-                            },
-                        },
-                        completion = {
-                            guessMethodArguments = "insertBestGuessedArguments",
-                        },
-                        referencesCodeLens = {
-                            enabled = false,
-                        },
-                        implementationsCodeLens = {
-                            enabled = false,
-                        },
-                        signatureHelp = {
-                            enabled = true,
-                        },
-                        sharedIndexes = {
-                            enabled = true,
-                        },
-                        inlayHints = {
-                            parameterNames = {
-                                enabled = "all",
-                                supppressWhenSameNameNumbered = true,
-                            },
-                            variableTypes = {
-                                enabled = true,
-                            },
-                            parameterTypes = {
-                                enabled = true,
-                            },
-                            formatParameters = {
-                                enabled = true,
-                            }
-                        },
-                        hover = {
-                            javadoc = {
-                                enabled = true,
-                            },
-                        },
-                    },
                 },
+                accept_eula = true,
             })
-
-            vim.lsp.enable('jdtls')
         end,
     },
 
