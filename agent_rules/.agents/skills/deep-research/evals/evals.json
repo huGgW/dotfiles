@@ -1,0 +1,47 @@
+{
+  "skill_name": "deep-research",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "다음 증거 패킷만 사용하여 결제 오케스트레이션 플랫폼 선택을 표준 깊이로 조사해줘. 최종 권장안뿐 아니라 질문 ID와 단계 전환을 포함한 감사 가능한 연구 추적 기록도 제공해줘. 상황: 월 1,000만 결제 워크플로, AWS 기반, 플랫폼 엔지니어 3명, 99.99% 목표. 1차 증거 E1(높은 신뢰도, 벤더 공식 문서): AWS Step Functions Standard는 exactly-once workflow execution을 제공한다. E2(높은 신뢰도, 독립 운영 보고서): 결제 saga에서 외부 부작용은 재시도 때문에 중복될 수 있어 애플리케이션 수준 idempotency가 필요하다. E3(중간 신뢰도, 비용 메모): Step Functions가 Temporal보다 저렴하다고 주장하지만 상태 전환 수와 payload 크기를 공개하지 않았다. 추가 증거 E4(높은 신뢰도, 내부 부하 분석): 워크플로당 상태 전환은 p50 18회, p95 47회이며 Express를 사용할 수 없는 장기 실행 비율이 22%다. 추가 증거는 1차 종합에서 결론을 바꿀 수 있는 공백을 식별하고 조사 계획을 갱신한 경우에만 사용해줘.",
+      "expected_output": "The trace reaches Phase 5, identifies the cost and delivery-semantics gaps, returns to Phase 2 without discarding completed findings, consumes remaining budget, and produces a second synthesis before the Korean report.",
+      "files": [],
+      "expectations": [
+        "The research trace explicitly records a Phase 5 synthesis gate with status replan before returning to Phase 2.",
+        "The replan gate names affected existing question IDs and gives a material reason tied to workload-sensitive cost or delivery semantics.",
+        "The trace records the canonical Phase 5 to Phase 2 transition before adding or refining a follow-up research question.",
+        "The Phase 2 re-entry preserves completed findings and E1-E3 references while limiting the revised plan to unresolved or newly discovered questions.",
+        "The Phase 5 gates report remaining iteration budget and show that the replanning cycle consumes the remaining standard-depth iteration.",
+        "After using E4, a second Phase 5 synthesis emits a terminal complete or budget_exhausted gate before the final recommendation."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "다음 자료만 근거로 독일에서 2027년에 출시할 AI 채용 순위화 SaaS의 출시 위험을 deep 수준으로 조사해줘. 조사 과정에서 사용한 질문 구조와 단계별 판단을 추적 기록으로 남기고, 마지막에 한국어 의사결정 보고서를 작성해줘. F1(높은 신뢰도, 법령 본문 요약): 채용 후보 평가와 선발에 사용하는 AI는 원칙적으로 고위험 범주다. F2(높은 신뢰도, 규제기관 지침 요약): 공급자와 배포자의 의무는 시스템 통제권, 브랜드, 모델 변경 주체에 따라 달라진다. F3(높은 신뢰도, 제품 설계): 고객사가 평가 기준을 설정하지만 당사 서비스가 자체 모델로 점수를 산출하고 당사 브랜드로 결과를 제공한다. F4(중간 신뢰도, 영업 가정): 고객이 최종 결정을 내리므로 당사는 단순 처리자라고 가정한다. F5(높은 신뢰도, 계약 초안): 모델 업데이트와 모니터링, 로그 보관은 당사가 수행하지만 인간 검토 절차는 고객이 정한다. 첫 종합에서 역할 분류나 책임 경계가 불명확하면, 그 공백을 새로운 연구 질문으로 만들고 질문 의존 관계를 재구성한 뒤 다시 종합해줘.",
+      "expected_output": "The trace detects that provider/deployer role classification is a newly material dependency, replans Phase 2 around it while retaining prior legal findings, and synthesizes the revised question graph before reporting risk.",
+      "files": [],
+      "expectations": [
+        "The first Phase 5 synthesis identifies provider versus deployer role classification as a material unresolved dependency.",
+        "The synthesis gate records replan and names the previously affected question IDs.",
+        "The trace records Phase 5 to Phase 2 before the role-classification question or dependency graph is changed.",
+        "The Phase 2 re-entry creates or refines a role-classification question and recalculates at least one dependency or priority.",
+        "The re-entry explicitly preserves prior legal findings and F1-F5 source references instead of restarting the investigation.",
+        "A later Phase 5 synthesis emits a terminal gate, and the final report distinguishes settled findings from residual legal uncertainty without relying on F4 as decisive evidence."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "아래 제한된 자료만 사용하고 외부 검색 없이 passkey-only 로그인의 출시 여부를 quick 깊이로 조사해줘. 연구 단계와 예산 상태를 짧게 기록한 다음 한국어 결론을 제시해줘. P1(높은 신뢰도, 플랫폼 문서): 최신 주요 플랫폼은 passkey 인증을 지원한다. P2(높은 신뢰도, 장애 보고서): 기기 분실 후 계정 복구 절차가 없으면 일부 사용자는 계정에 다시 접근할 수 없다. P3(낮은 신뢰도, 내부 주장): 고객 대부분이 최신 기기를 사용하므로 복구 수단이 필요 없을 것이다. 복구 실패율과 다중 기기 보유율 자료는 제공되지 않는다. quick의 반복 예산은 이미 1차 조사에서 모두 사용한 것으로 간주해줘.",
+      "expected_output": "The synthesis gate recognizes a material recovery-data gap but, because the quick iteration budget is exhausted, does not loop or fabricate evidence and reports the uncertainty in the final recommendation.",
+      "files": [],
+      "expectations": [
+        "The Phase 5 synthesis gate records status budget_exhausted rather than replan or complete.",
+        "The budget_exhausted gate names the affected question or conclusion and identifies missing recovery-failure or multi-device evidence as the reason.",
+        "The gate records iteration_budget_remaining as zero and transitions from Phase 5 directly to Phase 6.",
+        "The trace does not claim to return to Phase 2 after stating that no iteration budget remains.",
+        "The final report explicitly presents the unresolved gap and affected conclusion as a limitation.",
+        "The output does not fabricate a recovery failure rate or treat low-credibility P3 as sufficient resolution."
+      ]
+    }
+  ]
+}
