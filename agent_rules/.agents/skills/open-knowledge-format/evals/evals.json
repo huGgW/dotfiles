@@ -1,0 +1,126 @@
+{
+  "skill_name": "open-knowledge-format",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a new OKF concept document for a GitHub-browsed bundle. The concept ID is tables/orders. It describes a canonical asset at https://api.example.com/tables/orders with one row per completed order. The authoritative source is https://docs.example.com/orders-schema, titled Orders Schema, and it establishes that order_id is a required string and customer_id links to the sibling concept tables/customers. The producing actor is reference_agent/model-x and the current time is 2026-08-21T10:00:00Z. The content has not been reviewed. Return only the complete Markdown document and do not invent verification, freshness, usage, or credibility data.",
+      "expected_output": "A grounded OKF v0.2 draft concept using generated and sources metadata, keyed claim attribution, and GitHub-compatible relative concept links without legacy output.",
+      "files": [],
+      "expectations": [
+        "The document has non-empty type, useful title and description, canonical resource, status draft, and generated.by/at with the supplied actor and explicit-offset datetime.",
+        "The source is represented in sources with resource, stable id, and title, and a body footnote label matches that source id.",
+        "The sibling customers link is file-relative for GitHub browsing and does not start with a slash.",
+        "The output contains neither legacy timestamp frontmatter nor a # Citations section.",
+        "The output does not invent verified, stale_after, usage_count, usage_window, source author, or source last_modified values."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Perform a read-only OKF review of the v0.1 bundle in evals/files/v01-bundle. Explain how its legacy timestamp and # Citations are consumed, but do not modify files and do not require migration. Distinguish baseline conformance from optional migration opportunities.",
+      "expected_output": "A compatibility-aware review that accepts the conformant v0.1 concept, uses legacy fallbacks, and does not produce a false v0.2 conformance failure.",
+      "files": [
+        "evals/files/v01-bundle/index.md",
+        "evals/files/v01-bundle/metrics/revenue.md"
+      ],
+      "expectations": [
+        "The review does not classify timestamp or # Citations as a baseline conformance failure.",
+        "The review explains that timestamp is the generated.at fallback only when generated is absent and # Citations is the provenance fallback only when sources is absent.",
+        "The review recognizes the non-empty type and parseable frontmatter as baseline-conformant v0.1 input.",
+        "The review preserves the custom_owner field conceptually and performs no edit or forced migration.",
+        "The response does not infer the bundle version solely from a missing okf_version declaration."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Propose, but do not write, a safe v0.2 migration of evals/files/v01-bundle/metrics/revenue.md. The original producer identity is unknown. Both listed citations informed the concept, but there is no reliable evidence showing which citation supports the specific definition sentence. Return the proposed document plus a short migration note describing retained legacy data and unresolved mappings.",
+      "expected_output": "A non-destructive migration proposal that structures reliable source data without inventing producer identity or claim attribution.",
+      "files": [
+        "evals/files/v01-bundle/metrics/revenue.md"
+      ],
+      "expectations": [
+        "The proposal does not invent generated.by or pair an invented actor with the legacy timestamp.",
+        "The two concrete citations are represented as sources when reliable and their coverage is not reduced.",
+        "The proposal does not assign claim footnotes to either source because claim-to-source evidence is unavailable.",
+        "The custom_owner field, title, description, tags, body definition, and source coverage are preserved.",
+        "The migration note explicitly identifies unknown producer identity and unresolved claim attribution, retaining legacy citation content if needed to avoid information loss."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Propose, but do not write, an enrichment of evals/files/enrichment-bundle/tables/orders.md using evals/files/order-policy-source.md. The current actor is reference_agent/model-x and the meaningful edit time is 2026-08-21T12:00:00Z. The bundle is browsed on GitHub. Add grounded policy context and attribution while preserving existing schema, headings, unknown metadata, lifecycle, trust history, tags, and sources. Return only the complete revised orders.md.",
+      "expected_output": "A conservative v0.2 augmentation that merges provenance and refreshes generation without shrinking or overstating existing content.",
+      "files": [
+        "evals/files/enrichment-bundle/tables/orders.md",
+        "evals/files/order-policy-source.md"
+      ],
+      "expectations": [
+        "All existing frontmatter keys remain, including custom_owner, status, verified, and the original warehouse source.",
+        "The policy source is merged with a stable id and the new policy claims use matching keyed footnote attribution.",
+        "generated is refreshed to the supplied actor and time while the existing verified event is preserved and not replaced with a fabricated new verification.",
+        "Every existing Schema row, the Examples heading, and existing body content remain present.",
+        "No # Citations section, credibility signal, stale_after, or unsupported policy fact is invented."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Review the hybrid OKF concept in evals/files/hybrid-bundle/metrics/activation.md and its root index. Report baseline conformance, v0.2 contract violations, migration issues, link issues, precedence, trust tier, and freshness. Do not edit the files.",
+      "expected_output": "A categorized hybrid review that applies v0.2 precedence without rejecting legal compatibility forms or tolerable broken links.",
+      "files": [
+        "evals/files/hybrid-bundle/index.md",
+        "evals/files/hybrid-bundle/metrics/activation.md"
+      ],
+      "expectations": [
+        "The review uses generated.at over timestamp and sources over # Citations while recognizing the legacy forms as migration issues rather than baseline failures.",
+        "The bare verified mapping is accepted as one verification event and yields a human-reviewed trust tier.",
+        "The date-only stale_after value is reported as a v0.2 timestamp contract violation requiring an explicit UTC-offset datetime.",
+        "The missing linked target is reported but not classified as a baseline conformance failure.",
+        "The review does not infer a single bundle version merely because the root index has no okf_version frontmatter."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Review the attempted Attested Computation in evals/files/attested-bundle/computations/revenue.md. Separate baseline conformance from specialized contract and trust problems. Do not execute anything, invent replacement SQL, or edit files.",
+      "expected_output": "A safe Attested Computation review that identifies the malformed contract and refuses to turn illustrative or LLM-checked execution into attestation.",
+      "files": [
+        "evals/files/attested-bundle/index.md",
+        "evals/files/attested-bundle/computations/revenue.md"
+      ],
+      "expectations": [
+        "The non-empty type and parseable frontmatter are recognized as baseline-conformant while missing runtime is reported as an Attested Computation contract violation.",
+        "The review reports that both computation path and inline # Computation fence are present and requires exactly one representation.",
+        "The parameter missing required, executor missing receipt declaration, and absent source resource are identified.",
+        "The llm:// attester is rejected as evidence of deterministic no-LLM attestation, and verified is not treated as a per-run verdict.",
+        "The review does not execute the computation, create replacement SQL, or classify missing referenced artifacts as a baseline conformance failure."
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Create a complete OKF v0.2 Attested Computation concept for an OKF-native consumer. The authoritative owner supplied these exact facts: title Revenue for fiscal year; runtime bigquery; required integer parameter year; sanctioned inline SQL `SELECT SUM(amount) AS revenue FROM finance.recognized_revenue WHERE fiscal_year = @year`; executor resource /references/skills/run-on-bq.md with receipt fields job_id, executed_sql, result; deterministic attester resource /references/attesters/sql-equality.py; source id revenue-policy at https://docs.example.com/revenue-policy titled Revenue Policy; producer reference_agent/model-x at 2026-08-21T13:00:00Z. The concept is unreviewed and relates to the narrative metric at metrics/revenue.md. Return only the complete Markdown document. Do not execute anything or invent verification, receipts, verdicts, freshness, or credibility signals.",
+      "expected_output": "A complete, safely authored Attested Computation using one inline computation, authoritative contract fields, structured provenance, and spec-recommended absolute bundle-relative linking.",
+      "files": [],
+      "expectations": [
+        "The concept has type Attested Computation, runtime bigquery, a year parameter with type integer and required true, status draft, and the supplied generated actor and time.",
+        "The exact sanctioned SQL appears once under # Computation and no computation path is also declared.",
+        "The executor contains the supplied resource and all three receipt fields, and the attester contains the supplied deterministic resource.",
+        "The Revenue Policy appears in sources with its supplied id, resource, and title, and a matching keyed footnote supports the definition.",
+        "The narrative metric link is absolute bundle-relative as /metrics/revenue.md for the OKF-native consumer.",
+        "The output contains no verified event, stale_after, usage or credibility signal, persisted receipt, verdict, or evidence that execution occurred."
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Make a focused, proposed edit to evals/files/v01-bundle/metrics/revenue.md without writing the file. The bundle must remain v0.1. Change only the description so it says the metric is recognized revenue in USD for a fiscal year, and update the legacy content-change time to 2026-08-21T14:00:00Z. Do not migrate fields or restructure provenance. Return only the complete revised Markdown document.",
+      "expected_output": "A minimal v0.1-preserving edit that changes the requested description and legacy timestamp without opportunistic migration.",
+      "files": [
+        "evals/files/v01-bundle/metrics/revenue.md"
+      ],
+      "expectations": [
+        "The description states recognized revenue in USD for a fiscal year and timestamp is updated to the supplied explicit-offset time.",
+        "The document remains v0.1 and contains no generated, sources, verified, status, stale_after, or okf_version addition.",
+        "The full # Citations section and both original citation links remain unchanged.",
+        "type, title, tags, custom_owner, Definition heading, and definition body remain unchanged.",
+        "The output contains no invented actor, source id, claim footnote, trust signal, or lifecycle value."
+      ]
+    }
+  ]
+}

@@ -1,74 +1,130 @@
-# OKF Authoring Checklist
+# OKF v0.2 Authoring Checklist
 
-Use this reference when creating a new OKF bundle, converting existing notes, or writing concept documents from scratch.
+Use this reference when creating a bundle, converting source material, or
+writing concept documents. Read `okf-v0.1-to-v0.2-migration.md` instead when
+the input already contains legacy `timestamp` or `# Citations` content.
 
 ## Bundle Structure
 
-- Use a directory tree of Markdown files.
-- Treat each non-reserved `.md` file as one concept.
+- Use a directory hierarchy organized around stable concepts.
+- Treat every non-reserved `.md` file as one concept document.
 - Use the bundle-relative path without `.md` as the concept ID.
-- Keep concept paths stable and descriptive, such as `concepts/customer_lifetime_value`, `schemas/orders`, or `references/metrics/revenue`.
-- Use lowercase or snake_case paths when the project has no existing convention.
-- Reserve `index.md` for navigation.
-- Reserve `log.md` for chronological updates.
-- Do not put ordinary concept frontmatter in `index.md` or `log.md` unless the user explicitly needs a bundle-root version declaration.
+- Keep paths stable and descriptive, such as `schemas/orders` or
+  `references/metrics/revenue`.
+- Reserve `index.md` for one-level navigation and `log.md` for chronological
+  updates.
+- Treat files referenced by Attested Computation contracts as artifacts, not
+  concepts, unless they are themselves non-reserved `.md` concept documents.
+- Treat `references/` as a convention, not a required directory.
 
-## Conformance Checklist
+## Baseline Conformance
 
 - Every non-reserved `.md` file starts with parseable YAML frontmatter.
-- Every concept frontmatter has non-empty `type`.
-- Frontmatter parses to a mapping, not a list or scalar.
-- `index.md` is a navigation page, not a concept document.
-- `log.md` is an update log, not a concept document.
-- Markdown links use valid Markdown syntax.
-- Citations point to actual source material used in the body.
+- Frontmatter parses to a mapping and has a non-empty `type` string.
+- `index.md` follows the index structure and is not a concept document.
+- `log.md` follows the log structure and is not a concept document.
+- Do not require optional v0.2 metadata for baseline conformance.
 
-## Practical Compatibility Checklist
+## Useful Concept Metadata
 
-These fields are not all required by the OKF spec, but they make bundles easier for agents and reference tooling to consume.
+Include metadata only when its value is known.
 
-- `title` is present and human-readable.
-- `description` is one concise sentence.
-- `timestamp` is present and ISO 8601 formatted.
-- `resource` is present when the concept represents an external asset.
-- `tags` is a YAML list, not a comma-separated string.
-- Unknown frontmatter keys are preserved during edits.
-- Concept docs include enough prose for an agent to understand why the concept matters.
+- `title`: Human-readable display name.
+- `description`: One concise sentence suitable for an index entry or search
+  result.
+- `resource`: Canonical URI of the asset described by the concept. Omit it for
+  abstract concepts without a canonical asset.
+- `tags`: YAML list of short strings.
+- `status`: Use `draft` for unreviewed agent-generated content. Omission means
+  `stable`; use `deprecated` for retained but no-longer-current concepts.
+- `generated`: Current producer and last meaningful content change. Omit it
+  rather than inventing an actor.
+- `verified`: Evidence of actual checks, never an authoring default.
+- `stale_after`: An evidence-based absolute expiry instant, never an invented
+  TTL.
+- Unknown producer fields: Preserve them during edits.
 
-## Frontmatter Template
+## Provenance Checklist
+
+- Put derived materials in `sources`, not a new `# Citations` section.
+- Each source entry has a `resource`.
+- Give a source a stable `id` when a body claim attributes to it.
+- Use the source ID as a Markdown footnote label.
+- Keep the concept's canonical `resource` separate from web pages or documents
+  that informed it.
+- Record `author`, `usage_count`, `last_modified`, and `usage_window` only from
+  known evidence.
+- Every `usage_count` is framed by one shared `usage_window` or that source's
+  explicit override.
+- Do not add a credibility score or a `derived_from` field. Consumers infer
+  credibility from source signals and follow concept links for lineage.
+
+## Trust And Time Checklist
+
+- Use `<producer>/<version>` for agents or tools, `human:<id>` for people, and
+  `process:<id>` for automated processes.
+- When `generated` is present, include its required `by`; normally include `at`
+  to record the meaningful content change.
+- Represent `verified` as a list of `{ by, at }` events. A single mapping is
+  legal input, but a list is clearer for new authoring.
+- Preserve verification history during edits. Do not imply that an old event
+  verified newer content.
+- Use ISO 8601 datetime strings with an explicit UTC offset for every
+  timestamp-valued key, for example `2026-08-21T10:00:00Z`.
+- Apply that format to `generated.at`, `verified[].at`, `stale_after`,
+  `sources[].last_modified`, and both ends of `usage_window`.
+- Use date-only `YYYY-MM-DD` values only for `log.md` headings.
+
+## General Frontmatter Template
+
+Replace or omit values that are not known. Do not copy the example actor into
+real content without confirming it describes the producer.
 
 ```yaml
 ---
 type: Reference
-resource: https://example.com/source
 title: Example Concept
 description: One sentence explaining what this concept captures.
+resource: https://example.com/canonical-asset
 tags:
   - example
-  - reference
-timestamp: 2026-07-02T00:00:00Z
+status: draft
+generated:
+  by: knowledge_agent/model-version
+  at: 2026-08-21T10:00:00Z
+sources:
+  - id: source-doc
+    resource: https://example.com/source-document
+    title: Source Document
 ---
 ```
 
-## Generic Concept Template
+## General Concept Template
 
 ````markdown
 ---
 type: Reference
-resource: https://example.com/source
 title: Concept Title
 description: One sentence describing the concept and its role in the bundle.
 tags:
   - domain-tag
-timestamp: 2026-07-02T00:00:00Z
+status: draft
+generated:
+  by: knowledge_agent/model-version
+  at: 2026-08-21T10:00:00Z
+sources:
+  - id: source-doc
+    resource: https://example.com/source-document
+    title: Source Document
 ---
 
-This concept explains the role, scope, and context of the subject.
+This concept explains the role and scope of the subject according to the
+source material.[^source-doc]
 
 # Details
 
-- Key fact grounded in the cited source.
-- Relationship to [Another Concept](../path/another_concept.md).
+- Key fact grounded in the source.
+- Relationship to [another concept](../path/another-concept.md).
 
 # Examples
 
@@ -76,48 +132,52 @@ This concept explains the role, scope, and context of the subject.
 Concrete example or usage pattern.
 ```
 
-# Citations
-
-1. [Source title](https://example.com/source)
+[^source-doc]: Source Document
 ````
 
 ## Schema-Bearing Concept Template
 
-Use this when a concept describes an API response, event, file, table-like structure, typed record, or other schema-bearing asset.
+Use this for an API response, event, file, table, typed record, or other
+schema-bearing asset.
 
 ````markdown
 ---
 type: Schema
-resource: https://example.com/schema-source
 title: Orders Event
 description: Event schema emitted when an order changes state.
+resource: https://example.com/orders-event
 tags:
   - schema
   - orders
-timestamp: 2026-07-02T00:00:00Z
+status: draft
+generated:
+  by: knowledge_agent/model-version
+  at: 2026-08-21T10:00:00Z
+sources:
+  - id: schema-source
+    resource: https://example.com/orders-event-schema
+    title: Orders Event Schema
 ---
 
-This concept describes the row, event, message, or object grain and the business meaning of the schema.
+This concept describes the event grain and business meaning documented by the
+schema source.[^schema-source]
 
 # Schema
 
 | Field | Type | Description | Notes |
 | --- | --- | --- | --- |
 | `order_id` | string | Stable identifier for the order. | Required. |
-| `status` | string | Current order state. | See [Order Status](../references/order_status.md). |
+| `status` | string | Current order state. | See [Order Status](/references/order-status.md). |
 
 # Common usage
 
 ```sql
--- Example query or pseudo-query when relevant.
 SELECT order_id, status
 FROM orders
 WHERE status = 'paid';
 ```
 
-# Citations
-
-1. [Schema source](https://example.com/schema-source)
+[^schema-source]: Orders Event Schema
 ````
 
 ## Metric Reference Template
@@ -125,15 +185,22 @@ WHERE status = 'paid';
 ````markdown
 ---
 type: Metric
-resource: https://example.com/metric-source
 title: Conversion Rate
-description: Percentage of sessions that complete the target conversion event.
+description: Percentage of eligible sessions that complete the target event.
 tags:
   - metric
-timestamp: 2026-07-02T00:00:00Z
+status: draft
+generated:
+  by: knowledge_agent/model-version
+  at: 2026-08-21T10:00:00Z
+sources:
+  - id: metric-policy
+    resource: https://example.com/conversion-policy
+    title: Conversion Metric Policy
 ---
 
-Conversion Rate measures the share of eligible sessions that completed the target conversion event.
+Conversion Rate measures the share of eligible sessions that completed the
+target event.[^metric-policy]
 
 # Definition
 
@@ -143,12 +210,10 @@ conversion_rate = converted_sessions / eligible_sessions
 
 # Usage notes
 
-- Define the eligible population before comparing this metric across reports.
-- Link contributing concepts, such as [Sessions](../../schemas/sessions.md), in prose.
+- Define the eligible population before comparing reports.
+- Link contributing concepts, such as [Sessions](/schemas/sessions.md), in prose.
 
-# Citations
-
-1. [Metric definition source](https://example.com/metric-source)
+[^metric-policy]: Conversion Metric Policy
 ````
 
 ## Join Reference Template
@@ -156,15 +221,22 @@ conversion_rate = converted_sessions / eligible_sessions
 ````markdown
 ---
 type: Join
-resource: https://example.com/join-source
 title: Orders to Customers Join
 description: Join path from orders to customers through customer_id.
 tags:
   - join
-timestamp: 2026-07-02T00:00:00Z
+status: draft
+generated:
+  by: knowledge_agent/model-version
+  at: 2026-08-21T10:00:00Z
+sources:
+  - id: join-source
+    resource: https://example.com/orders-data-model
+    title: Orders Data Model
 ---
 
-Use this join when attributing order behavior to customer attributes.
+Use this relationship when attributing order behavior to customer
+attributes.[^join-source]
 
 # Join condition
 
@@ -174,15 +246,44 @@ orders.customer_id = customers.customer_id
 
 # Usage notes
 
-- Use an inner join when only orders with known customers should remain.
-- Use a left join when preserving all orders is more important than complete customer attribution.
+- Record cardinality and filtering caveats only when the source establishes them.
 
-# Citations
-
-1. [Join source](https://example.com/join-source)
+[^join-source]: Orders Data Model
 ````
 
-## index.md Template
+## Attested Computation Skeleton
+
+Use the full checklist in `okf-attested-computation.md` before populating this
+shape.
+
+````markdown
+---
+type: Attested Computation
+title: Revenue for fiscal year
+description: Computes recognized revenue for a fiscal year.
+status: draft
+runtime: bigquery
+parameters:
+  - name: year
+    type: integer
+    required: true
+executor:
+  resource: /references/skills/run-on-bq.md
+  receipt: [job_id, executed_sql, result]
+attester:
+  resource: /references/attesters/sql-equality.py
+---
+
+# Computation
+
+```sql
+-- Insert only an authoritative sanctioned computation.
+```
+````
+
+## index.md Templates
+
+A normal directory index has no frontmatter:
 
 ```markdown
 # Directory Title
@@ -190,28 +291,47 @@ orders.customer_id = customers.customer_id
 ## Concepts
 
 * [Concept Title](concept.md) - Short description of the concept.
-* [Another Concept](another_concept.md) - Short description of the concept.
 
 ## Subdirectories
 
-* [References](references/index.md) - Reusable definitions, metrics, joins, and background concepts.
+* [References](references/) - Reusable definitions and background concepts.
+```
+
+Only the bundle-root index may declare a version:
+
+```markdown
+---
+okf_version: "0.2"
+---
+
+# Bundle Title
+
+* [Schemas](schemas/) - Schemas and data contracts.
 ```
 
 ## log.md Template
 
+Use newest-first date groups and no frontmatter:
+
 ```markdown
 # Change Log
 
-## 2026-07-02
+## 2026-08-21
 
-* **Creation** - Created initial OKF bundle structure.
-* **Update** - Added metric references and citations for conversion analysis.
+* **Update**: Added structured provenance to the revenue metric.
+
+## 2026-08-20
+
+* **Creation**: Created the initial bundle structure.
 ```
 
 ## Conversion Heuristics
 
-- Split by concept identity, not by source page boundaries.
-- Keep source page URLs in `resource` when a concept primarily summarizes one source.
-- Use `# Citations` for source evidence and Markdown links for bundle-internal relationships.
-- Create reference docs only for reusable concepts, definitions, metrics, joins, enums, or background needed by multiple concepts.
-- Prefer a shallow structure first. Add deeper directories when there are enough related concepts to justify progressive disclosure.
+- Split by concept identity, not source page boundaries.
+- Keep source evidence in `sources` and relationships in Markdown links.
+- Create standalone reference concepts only for reusable definitions, metrics,
+  joins, enums, or background needed by multiple concepts.
+- Prefer a shallow structure first and add directories when they improve
+  progressive disclosure.
+- Preserve the target bundle's established link style unless its consumer is
+  known to require another style.
