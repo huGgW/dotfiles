@@ -19,11 +19,7 @@
       "space c c": "agent::ToggleFocus",
       "space o": "outline::Toggle",
       // find
-      // "space f o": "file_finder::Toggle",
-      "space f o": [
-        "task::Spawn",
-        { "task_name": "fzf_file", "reveal_target": "center" },
-      ],
+      "space f o": "file_finder::Toggle",
       "space f s": "pane::DeploySearch",
       "space f p": "command_palette::Toggle",
       "space f d": "project_symbols::Toggle",
@@ -72,8 +68,10 @@
     "bindings": {
       "ctrl-`": "workspace::ToggleBottomDock",
       "cmd-i": "workspace::ToggleRightDock",
+      "cmd-shift-i": "multi_workspace::ToggleWorkspaceSidebar",
     },
   },
+  // unbind defaults
   {
     "context": "AgentPanel",
     "unbind": {
@@ -92,4 +90,22 @@
       "cmd-i": "editor::ShowSignatureHelp",
     },
   },
+  {
+    "context": "GitBranchSelector || GitBranchSelector > Picker > Editor",
+    "unbind": {
+      "cmd-shift-i": "branch_picker::CycleBranchFilter"
+    }
+  },
+  {
+    "context": "Editor",
+    "unbind": {
+      "cmd-shift-i": "editor::Format"
+    }
+  },
+  {
+    "context": "FileFinder || FileFinder > Picker > Editor",
+    "unbind": {
+      "cmd-shift-i": "search::ToggleIncludeIgnored"
+    }
+  }
 ]

@@ -16,10 +16,14 @@
   // theme
   "theme": {
     "mode": "system",
-    "light": "Catppuccin Latte (Blur) [Heavy]",
-    "dark": "Catppuccin Mocha (Blur) [Heavy]",
+    "light": "One Light",
+    "dark": "One Dark",
   },
-  "icon_theme": "Material Icon Theme",
+  "icon_theme": {
+    "mode": "system",
+    "light": "Material Icon Theme",
+    "dark": "Material Icon Theme"
+  },
 
   // keymap
   "base_keymap": "VSCode",
@@ -71,8 +75,11 @@
         "...",
       ],
     },
+    "Java": {
+      "language_servers": ["intellij-server", "!jdtls"]
+    },
     "Kotlin": {
-      "language_servers": ["kotlin-lsp", "!kotlin-language-server"],
+      "language_servers": ["intellij-server", "!kotlin-lsp", "!kotlin-language-server"]
     },
   },
   "global_lsp_settings": {
@@ -136,11 +143,26 @@
         },
       },
     },
+    "intellij-server": {
+      "settings": {
+        "jvm_args": [
+        "-Xmx8G",
+        "-Xms1G",
+        "-XX:+UseParallelGC",
+        "-XX:+UseStringDeduplication",
+        "-Dsun.zip.disableMemoryMapping",
+        "-XX:GCTimeRatio=4",
+        "-XX:AdaptiveSizePolicyWeight=90",
+        "-Dsun.zip.disableMemoryMapping=true",
+        ],
+        "accept_jetbrains_eula": true
+      }
+    }
   },
 
   // ai related
   "edit_predictions": {
-    "provider": "copilot",
+    "provider": "zed",
     "disabled_globs": [
       "**/.env*",
       "**/*.pem",
@@ -157,10 +179,6 @@
     "play_sound_when_agent_done": "always",
   },
   "agent_servers": {
-    "opencode": {
-      "type": "custom",
-      "command": "opencode",
-      "args": ["acp"],
-    },
+
   },
 }
