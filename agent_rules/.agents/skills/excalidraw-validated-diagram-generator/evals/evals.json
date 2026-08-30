@@ -1,0 +1,615 @@
+{
+  "skill_name": "excalidraw-validated-diagram-generator",
+  "evals": [
+    {
+      "id": 1,
+      "kind": "template",
+      "template_id": "architecture",
+      "prompt": "Create an editorial-light architecture diagram for a checkout platform. Show Web Client and Mobile App entering through API Gateway, then Order Service and Payment Service, with Orders DB and an external Payment Processor. Label the major protocols, make Payment Service the focal component, and keep system boundaries explicit. Save deliverables under output/checkout-architecture and do not create explanatory documents.",
+      "expected_output": "A validated architecture-template-based Excalidraw scene and matching PNG that communicate boundaries, components, external integration, protocols, and the focal payment path without exceeding the architecture budgets.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `architecture`, with explicit boundaries, components, an external system, and labeled connections rather than deployment placement, a generic dependency network, or a data-store pipeline.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "The scene includes Web Client, Mobile App, API Gateway, Order Service, Payment Service, Orders DB, and external Payment Processor; major protocols and boundaries are visible, and Payment Service or its path is the focal orange role.",
+        "The scene has at most 9 major nodes, 12 edges, and 3 boundaries.",
+        "The source and PNG use editorial-light styling on `#ffffff`; labels are separate readable text elements using `fontFamily: 5` at 16 px or larger, without clipping, overlap, or connectors crossing unrelated nodes."
+      ]
+    },
+    {
+      "id": 2,
+      "kind": "template",
+      "template_id": "flowchart",
+      "prompt": "Draw an expense approval flowchart in editorial-light style. Start when an employee submits an expense, validate the receipt, branch on whether the amount is above $1,000, require director approval only for the high-value branch, then either send to Finance for payment or return it to the employee when rejected. Include explicit start/end states and label every decision outcome. Save only the diagram and PNG under output/expense-approval-flow.",
+      "expected_output": "A validated flowchart-template-based source and PNG with terminals, ordered steps, explicit decisions, labeled outcomes, and correctly converging approval paths.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `flowchart`, with a start, process steps, a decision, labeled outcomes, and directed flow rather than actor lanes, persistent lifecycle states, or a branch-free process.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "The flow has explicit start and end terminals, a $1,000 decision, a rejection route to the employee, and director approval only on the high-value branch before Finance payment; every decision exit is labeled.",
+        "The scene has at most 8 major nodes, 10 edges, and 3 decisions, with explicit arrowheads and no connector routed through a non-endpoint node.",
+        "The source and PNG use editorial-light styling on `#ffffff`; labels are separate readable text elements using `fontFamily: 5` at 16 px or larger, without clipping or overlap."
+      ]
+    },
+    {
+      "id": 3,
+      "kind": "template",
+      "template_id": "relationship",
+      "prompt": "Create a relationship diagram for a small SaaS dependency map. Billing API queries Customer Service and Pricing Service and publishes to Event Bus. Notification Worker consumes from Event Bus and sends through external Email Provider. Label each relationship with `queries`, `publishes`, `consumes`, or `sends` as appropriate, and show direction. Save exactly the Excalidraw source and PNG under output/saas-relationships.",
+      "expected_output": "A validated relationship-template-based diagram whose labeled directed edges distinguish service dependencies, event relationships, and the external provider.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `relationship`, as a labeled entity network rather than boundary architecture, runtime deployment, or actor-process-store data flow.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "Billing API, Customer Service, Pricing Service, Event Bus, Notification Worker, and external Email Provider are distinct nodes, and directed edges use the supplied `queries`, `publishes`, `consumes`, and `sends` labels.",
+        "The scene has at most 8 major nodes and 12 edges; connector labels clear lines and nodes, and connectors do not cross unrelated nodes.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped or overlapping labels."
+      ]
+    },
+    {
+      "id": 4,
+      "kind": "template",
+      "template_id": "mind-map",
+      "prompt": "Make an editorial-light mind map for incident readiness. Use `Incident Readiness` as the central topic, with first-level branches `Detection`, `Response`, and `Recovery`. Add one subordinate topic per branch: alerts for Detection, roles for Response, and backups for Recovery. Save only the `.excalidraw` and rendered `.png` under output/incident-readiness-map.",
+      "expected_output": "A validated mindmap-template-based hierarchy with one central topic, three distinct first-level branches, and three correctly parented subordinate topics.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `mind-map`, with one central topic and connected branches rather than nested containment or an organizational reporting tree.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "`Incident Readiness` is the single center; Detection, Response, and Recovery are first-level branches, with alerts, roles, and backups attached to their respective parents.",
+        "The hierarchy has at most 9 major nodes, 8 edges, and 3 levels and does not imply chronological decisions; connectors do not cross unrelated topics.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped or overlapping labels."
+      ]
+    },
+    {
+      "id": 5,
+      "kind": "template",
+      "template_id": "data-flow",
+      "prompt": "Create a data flow diagram for profile analytics. Browser sends click events to an Ingestion process, which writes raw events to Event Store. A Redaction process reads raw events, removes direct identifiers, writes sanitized events to Analytics Warehouse, and BI Dashboard reads aggregates from the warehouse. Label flows with the data being moved and show Browser and BI Dashboard as external actors. Save only source and PNG under output/profile-analytics-dfd.",
+      "expected_output": "A validated data-flow-template-based diagram that distinguishes external actors, transformation processes, stores, and named data flows including the redaction boundary.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `data-flow`, distinguishing external actors, processes, data stores, and named data movement rather than control decisions, system topology, or quantity-weighted bands.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "Browser and BI Dashboard are external actors, Ingestion and Redaction are processes, Event Store and Analytics Warehouse are stores, and each directed connector names click events, raw events, sanitized events, or aggregates; direct identifiers never flow to BI Dashboard.",
+        "The scene has at most 8 major nodes, 12 edges, and 4 stores; dashed styling is used only for genuinely asynchronous movement.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipping, overlap, or unrelated-node crossings."
+      ]
+    },
+    {
+      "id": 6,
+      "kind": "template",
+      "template_id": "business-flow-swimlane",
+      "prompt": "Build a swimlane diagram for a subscription refund handled by Customer, Support, and Billing. Customer submits the request; Support verifies eligibility and either rejects with a reason or sends an approved request to Billing; Billing issues the refund; Support notifies Customer. Make lane ownership and cross-lane handoffs explicit. Save exactly one Excalidraw file and one PNG under output/refund-swimlane.",
+      "expected_output": "A validated business-flow-swimlane-template-based process with three named lanes, correct activity ownership, decision outcomes, and visible handoffs.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `business-flow-swimlane`, with named ownership lanes, activities, and cross-lane handoffs rather than a single-axis flow, a participant-message sequence, or a journey.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "Customer, Support, and Billing are distinct lanes; the eligibility outcomes are explicit, only approval reaches Billing, rejection returns a reason, and Support notification follows the refund.",
+        "The scene has at most 9 major activity nodes, 12 edges, and 4 lanes, with every activity inside its owner's lane and no accidental lane-boundary crossing.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped or overlapping labels."
+      ]
+    },
+    {
+      "id": 7,
+      "kind": "template",
+      "template_id": "class-diagram",
+      "prompt": "Create a compact class diagram for a subscription domain. Include abstract Plan with `price(): Money`, concrete MonthlyPlan and AnnualPlan inheriting Plan, Customer with `subscribe(plan: Plan): Subscription`, and Subscription with `cancel(): void` and a status attribute. Show visibility, inheritance, Customer-to-Subscription multiplicity, and the Plan association. Save only the Excalidraw source and PNG under output/subscription-classes.",
+      "expected_output": "A validated class-diagram-template-based object model with compartments, typed members, inheritance, associations, and multiplicities rather than database notation.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `class-diagram`, with compartmentalized classes, inheritance, and associations rather than physical tables, foreign keys, or ER-only notation.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "Plan, MonthlyPlan, AnnualPlan, Customer, and Subscription include the requested visible typed members; both concrete plans inherit abstract Plan, and Customer-to-Subscription multiplicity plus the Plan association are explicit.",
+        "The scene has at most 6 classes, 8 relationship edges, and 24 members.",
+        "The source and PNG use editorial-light styling on `#ffffff`; member and relationship labels use readable `fontFamily: 5` text at 16 px or larger without clipping or overlap."
+      ]
+    },
+    {
+      "id": 8,
+      "kind": "template",
+      "template_id": "sequence-diagram",
+      "prompt": "Draw a sequence diagram for login. Participants are Browser, Auth API, Session Store, and Audit Queue. Browser calls `POST /login`; Auth API reads credentials from Session Store; Session Store returns the account; Auth API asynchronously publishes `LoginSucceeded` to Audit Queue; Auth API returns a session token to Browser. Show lifelines, chronological order, and distinguish calls, returns, and the async message. Save exactly the diagram and PNG under output/login-sequence.",
+      "expected_output": "A validated sequence-diagram-template-based interaction with four participants, lifelines, top-to-bottom messages, dashed returns, and a semantically distinct asynchronous publish.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `sequence-diagram`, with aligned participants, lifelines, and top-to-bottom messages rather than static topology, a pipeline, or process boxes.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "Browser, Auth API, Session Store, and Audit Queue are participants; calls are solid, the two returns are dashed, and asynchronous `LoginSucceeded` precedes the final session-token return.",
+        "The scene has at most 6 participants, 12 message edges, and 6 activation spans; message labels clear lifelines and connector strokes.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped or overlapping labels."
+      ]
+    },
+    {
+      "id": 9,
+      "kind": "template",
+      "template_id": "er-diagram",
+      "prompt": "Create an ER diagram for a small marketplace with Customer, Order, Product, and OrderItem. Show primary keys, the foreign keys in Order and OrderItem, one Customer to many Orders, and resolve the many-to-many Order/Product relationship through OrderItem with cardinalities on both sides. Include quantity on OrderItem. Save only one `.excalidraw` and one `.png` under output/marketplace-er.",
+      "expected_output": "A validated er-diagram-template-based relational model with entities, key fields, explicit cardinality, and OrderItem as the junction entity.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `er-diagram`, with relational entities, key fields, and cardinalities rather than class methods, inheritance, or an implementation-heavy physical schema.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "Customer, Order, Product, and OrderItem show primary keys and required foreign keys; Customer-to-Order is one-to-many, and OrderItem with quantity resolves Order-to-Product many-to-many with cardinalities on both sides.",
+        "The scene has at most 7 entities, 10 relationship edges, and 32 columns.",
+        "The source and PNG use editorial-light styling on `#ffffff`; entity and attribute labels are separate readable `fontFamily: 5` text at 16 px or larger without clipping or overlap."
+      ]
+    },
+    {
+      "id": 10,
+      "kind": "template",
+      "template_id": "state",
+      "prompt": "Show the lifecycle of a support ticket. It begins in New, `assign` moves it to In Progress, `request info` moves it to Waiting on Customer, `reply received` returns it to In Progress, and `resolve` moves it to Resolved. A `reopen` event returns Resolved to In Progress, while `close after 7 days` reaches the final Closed state. Save only source and PNG under output/ticket-lifecycle.",
+      "expected_output": "A validated lifecycle scene with stable states, event-labeled transitions, a clear initial state, and a final Closed state.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `state`, with stable states, event-labeled transitions, an initial marker, and a final marker rather than procedural decisions or an unlabeled cycle.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "New, In Progress, Waiting on Customer, Resolved, and Closed are states; all supplied events connect the correct states, including reply, reopen, and delayed close transitions.",
+        "The scene has at most 8 major nodes and 10 transition edges, and Closed is the only final state.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped labels or ambiguous transition attachment."
+      ]
+    },
+    {
+      "id": 11,
+      "kind": "template",
+      "template_id": "timeline",
+      "prompt": "Summarize the launch history of Atlas on one chronological axis: project kickoff on January 15, private beta on March 1, public beta on April 15, general availability on June 1, and first enterprise customer on July 15. These are milestones, not task-duration bars. Save only source and PNG under output/atlas-history.",
+      "expected_output": "A validated chronological milestone scene with a dated axis and proportionally spaced events, without schedule rows or dependencies.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `timeline`, with one chronological axis and dated items rather than Gantt task bars, dependencies, or journey touchpoints.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "All five named milestones appear in date order and their axis positions are proportional to elapsed days: Jan 15-Mar 1 and Mar 1-Apr 15 are equal 45-day spans, Apr 15-Jun 1 is slightly wider at 47 days, and Jun 1-Jul 15 is slightly narrower at 44 days.",
+        "The scene has at most 8 major nodes, 2 edges, and 2 bands, with no task-duration encoding.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped or colliding date labels."
+      ]
+    },
+    {
+      "id": 12,
+      "kind": "template",
+      "template_id": "quadrant",
+      "prompt": "Place six initiatives on axes from 0 to 10, with customer impact increasing upward and implementation effort increasing rightward: SSO (8,4), Dark Mode (5,2), Billing Rewrite (9,9), CSV Export (4,3), Mobile Offline (7,8), and Copy Refresh (2,1). Name the four regions Quick Wins, Strategic Bets, Fill-ins, and Avoid. Save only source and PNG under output/initiative-priorities.",
+      "expected_output": "A validated four-region prioritization view whose point positions truthfully encode the supplied impact and effort scores.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `quadrant`, with two interpreted 0-10 axes, four named regions, and positioned items rather than an unlabeled statistical scatter or a categorical matrix.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "All six initiatives are plotted; each x position scales with effort and each y position scales with impact, placing the initiatives in regions consistent with their numeric coordinates.",
+        "The scene has at most 12 major nodes, 2 axis edges, and 12 points.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, visible axis direction, and no clipped or overlapping point labels."
+      ]
+    },
+    {
+      "id": 13,
+      "kind": "template",
+      "template_id": "radar",
+      "prompt": "Compare two API gateway candidates on the same 1-to-5 scale across Reliability, Operability, Security, Extensibility, and Cost Efficiency. North scores 5,4,4,3,2; South scores 3,3,5,5,4 in that axis order. Make the two profiles distinguishable and keep every dimension visible. Save only source and PNG under output/gateway-profiles.",
+      "expected_output": "A validated radial profile comparison with shared dimensions and two series whose vertices reflect the supplied scores.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `radar`, with shared radial dimensions and closed multi-axis series rather than angular category bars, a line chart, or unrelated radial decoration.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "Five labeled radial axes use one 1-5 scale; North and South each have five vertices whose center distance is proportional to the supplied score, and a legend or direct labels distinguish the series.",
+        "The scene has at most 6 major nodes, 0 relationship edges, 3 series, and 18 plotted points.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped axis or series labels."
+      ]
+    },
+    {
+      "id": 14,
+      "kind": "template",
+      "template_id": "polar",
+      "prompt": "Show incident volume around six angular categories on a shared radial scale: Authentication 12, Billing 8, Search 5, Uploads 10, Notifications 4, and Admin 6. Encode magnitude by radius from zero and label every category and value. Save only source and PNG under output/incidents-by-area.",
+      "expected_output": "A validated angular magnitude display whose radial lengths truthfully compare six category totals.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `polar`, with angular categories and radial magnitude encoding rather than a multi-dimension radar profile or Cartesian bars.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "All six categories and values appear on one zero-based radial scale; each category radius is proportional to its value, with Authentication longest and Notifications shortest.",
+        "The scene has at most 8 major nodes, 0 relationship edges, 2 series, and 12 plotted points.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped angular labels."
+      ]
+    },
+    {
+      "id": 15,
+      "kind": "template",
+      "template_id": "loop",
+      "prompt": "Illustrate the recurring reliability practice: Observe signals, Prioritize risk, Implement change, Verify impact, and feed the result back into Observe signals. There is no terminal outcome; emphasize continuous feedback. Save only source and PNG under output/reliability-cycle.",
+      "expected_output": "A validated closed cycle of recurring stages with an explicit feedback connection and no terminal state.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `loop`, with recurring stages forming a closed directed cycle rather than a linear process or persistent-state lifecycle.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "Observe signals, Prioritize risk, Implement change, and Verify impact appear once each in cycle order, and Verify impact connects back to Observe signals without start or end terminals.",
+        "The scene has at most 7 major nodes and 7 edges, and its curved-cycle geometry makes the closure unambiguous.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped labels or crossing cycle arrows."
+      ]
+    },
+    {
+      "id": 16,
+      "kind": "template",
+      "template_id": "nested",
+      "prompt": "Show containment for a regulated analytics environment: Company contains Data Platform, Data Platform contains Restricted Workspace, and Restricted Workspace contains Customer PII Store and Audit Log. Directional dependencies are not relevant; the boundaries themselves carry the meaning. Save only source and PNG under output/analytics-containment.",
+      "expected_output": "A validated containment hierarchy with successively nested scopes and two sibling contents in the innermost region.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `nested`, using spatial containment rather than directional links, stacked peer layers, a treemap, or radial branches.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "Company spatially contains Data Platform, which contains Restricted Workspace, which contains both Customer PII Store and Audit Log as siblings.",
+        "The scene has at most 8 major nodes, 0 edges, and 4 containment levels.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, visible boundary padding, and no clipped nested labels."
+      ]
+    },
+    {
+      "id": 17,
+      "kind": "template",
+      "template_id": "org-chart",
+      "prompt": "Map reporting lines for Product Engineering. VP Engineering manages the Platform Director and Applications Director. Platform Director manages Infrastructure Lead and Developer Experience Lead; Applications Director manages Web Lead and Mobile Lead. Show roles, not workflow handoffs. Save only source and PNG under output/product-engineering-org.",
+      "expected_output": "A validated reporting hierarchy with one executive root, two director branches, and four correctly parented lead roles.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `org-chart`, with roles and top-down reporting lines rather than topic branches, deployment nodes, or workflow ownership lanes.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "VP Engineering is the root; each director and lead is connected to the exact manager stated in the prompt, with no cross-reporting implied.",
+        "The scene has at most 9 major nodes, 8 reporting edges, and 4 levels.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped role labels or crossing reporting lines."
+      ]
+    },
+    {
+      "id": 18,
+      "kind": "template",
+      "template_id": "layers",
+      "prompt": "Present a platform as four ordered horizontal strata from bottom to top: Infrastructure, Data Services, Domain Services, and Experience APIs. Put example contents in each band: Kubernetes, Postgres and Kafka, Orders and Billing, then Web BFF and Mobile BFF. Do not draw individual service dependencies. Save only source and PNG under output/platform-strata.",
+      "expected_output": "A validated stacked-layer view with four ordered bands and correctly grouped contents, without component-level dependency arrows.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `layers`, with ordered stacked peer bands and grouped contents rather than nested scopes, a width-ranked pyramid, or bronze-silver-gold refinement.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "The four bands appear in the requested bottom-to-top order, and each named example is contained in its correct band with no service dependency links.",
+        "The scene has at most 6 major nodes, 0 edges, and 6 bands.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, consistent band spacing, and no clipped content."
+      ]
+    },
+    {
+      "id": 19,
+      "kind": "template",
+      "template_id": "venn",
+      "prompt": "Compare three access groups: Support can view profiles and reset passwords, Finance can view invoices and issue refunds, and Security can view audit logs and suspend accounts. All three can view account IDs; Support and Security share account suspension review, while Support and Finance share customer contact access. Show unique and shared membership. Save only source and PNG under output/access-overlap.",
+      "expected_output": "A validated three-set overlap view with labels placed in the correct exclusive, pairwise, and all-set regions.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `venn`, with overlapping set geometry and membership labels rather than nested containment or four fixed Cartesian regions.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "Support, Finance, and Security are three overlapping sets; account IDs occupy the triple overlap, pairwise capabilities occupy the stated pair overlaps, and unique capabilities remain in their exclusive regions.",
+        "The scene has at most 4 major nodes, 0 edges, and 4 sets.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and enough overlap area to avoid clipped or ambiguous membership labels."
+      ]
+    },
+    {
+      "id": 20,
+      "kind": "template",
+      "template_id": "pyramid",
+      "prompt": "Arrange an engineering reliability hierarchy in four tiers, widest to narrowest: Healthy Infrastructure at the base, Observable Services, Resilient Workflows, and Customer Trust at the apex. Width should communicate the narrowing hierarchy rather than equal peer bands. Save only source and PNG under output/reliability-tiers.",
+      "expected_output": "A validated four-tier hierarchy whose decreasing widths and vertical order communicate foundation and priority.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `pyramid`, with vertically ordered tiers whose widths narrow toward the apex rather than equal-width layers or medallion data stages.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "The four named tiers appear in the requested base-to-apex order, and each higher tier is visibly narrower than the tier below it.",
+        "The scene has at most 5 major nodes, 0 edges, and 5 bands.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable centered `fontFamily: 5` text at 16 px or larger and no clipped tier labels."
+      ]
+    },
+    {
+      "id": 21,
+      "kind": "template",
+      "template_id": "bar",
+      "prompt": "Compare weekly support tickets across four products on a zero-based scale: Core 120, Billing 80, Mobile 60, and Integrations 40. Use aligned categorical bars, print each value, and make Core exactly three times the visual length of Integrations. Save only source and PNG under output/tickets-by-product.",
+      "expected_output": "A validated categorical comparison whose aligned bar lengths truthfully encode four exact values.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `bar`, with discrete categories and aligned bars rather than an ordered trend line or radial magnitudes.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "All four categories and exact values appear on a zero-based axis; bar length is proportional to value, including Core at 3x Integrations and Billing at 2x Integrations.",
+        "The scene has at most 8 major nodes, 2 axis edges, 3 series, and 16 plotted points.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped value or category labels."
+      ]
+    },
+    {
+      "id": 22,
+      "kind": "template",
+      "template_id": "treemap",
+      "prompt": "Show monthly cloud spend as nested area. The $100k whole divides into Compute 50%, Databases 30%, and Network 20%; Compute divides into API 30% of the whole and Workers 20%, while Databases divides into Primary 20% and Replicas 10%. Label percentages and preserve area truthfulness. Save only source and PNG under output/cloud-spend-composition.",
+      "expected_output": "A validated part-to-whole hierarchy whose nested rectangle areas match the supplied percentages.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `treemap`, with nested area encoding for hierarchical composition rather than equal containment boxes or aligned bars.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "Top-level cells cover the whole and have areas proportional to 50:30:20; child areas partition their parent exactly, including API:Workers at 30:20 and Primary:Replicas at 20:10 of the whole.",
+        "The scene has at most 12 major nodes, 0 edges, 12 cells, and 3 levels.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped labels in cells."
+      ]
+    },
+    {
+      "id": 23,
+      "kind": "template",
+      "template_id": "line",
+      "prompt": "Plot API p95 latency across six equally spaced months from January through June: 240, 220, 260, 200, 180, and 150 ms. Add a second series for the 200 ms objective across all months. Keep the ordered trend and exact scale visible. Save only source and PNG under output/api-latency-trend.",
+      "expected_output": "A validated ordered-axis trend with two distinguishable series and point positions matching the monthly values.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `line`, with ordered x positions and connected quantitative series rather than discrete bars, a radial profile, or journey sentiment.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "January through June are equally spaced and ordered; latency point heights match 240, 220, 260, 200, 180, and 150 on one linear y scale, while the objective is horizontal at 200.",
+        "The scene has at most 12 major nodes, 3 line-series edges, 3 series, and 24 plotted points.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, a clear legend, and no clipped axes or labels."
+      ]
+    },
+    {
+      "id": 24,
+      "kind": "template",
+      "template_id": "gantt",
+      "prompt": "Schedule a six-week migration starting September 1. Discovery runs Sep 1-7; Schema Design runs Sep 8-14 after Discovery; Backfill runs Sep 15-28 after Schema Design; Dual Write runs Sep 22-Oct 5 and overlaps Backfill; Cutover is a milestone on Oct 6 after both Backfill and Dual Write. Show task rows, durations, overlap, dependencies, and the milestone. Save only source and PNG under output/migration-schedule.",
+      "expected_output": "A validated task schedule with date-scaled bars, overlap, dependencies, and a distinct cutover milestone.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `gantt`, with dated task rows, duration bars, dependencies, and a milestone rather than milestone-only chronology or status columns.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "Every bar starts and ends on the supplied dates; bar widths are proportional to duration, Dual Write visibly overlaps Backfill from Sep 22-28, and Cutover follows both predecessor dependencies on Oct 6.",
+        "The scene has at most 10 major nodes, 8 dependency edges, 8 rows, and 10 time bands.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped dates, task names, or dependency arrows."
+      ]
+    },
+    {
+      "id": 25,
+      "kind": "template",
+      "template_id": "scatter",
+      "prompt": "Plot six services by deploys per week on x and change failure rate percent on y: Auth (5,12), Billing (3,18), Search (12,5), Catalog (10,7), Checkout (4,25), and Notifications (14,6). Preserve the exact coordinates and call out Checkout as the outlier; do not divide the field into named regions. Save only source and PNG under output/deploy-risk-distribution.",
+      "expected_output": "A validated two-variable distribution with accurately positioned observations and one annotated outlier.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `scatter`, with independent observations on two quantitative Cartesian axes rather than interpreted fixed quadrants or a connected trend line.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "All six services are positioned according to the supplied x and y values on linear scales, Checkout is identified as the high-failure outlier, and no lines connect observations.",
+        "The scene has at most 12 major nodes, 2 axis edges, 3 series, and 24 plotted points.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped axes or overlapping observation labels."
+      ]
+    },
+    {
+      "id": 26,
+      "kind": "template",
+      "template_id": "process",
+      "prompt": "Show how a release candidate becomes production software in one branch-free sequence: Build artifact, Run automated tests, Sign artifact, Deploy to staging, Run smoke tests, and Promote to production. There are no decisions, actor lanes, or recurring feedback. Save only source and PNG under output/release-stages.",
+      "expected_output": "A validated linear sequence of transformation stages with one clear direction and no decision grammar.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `process`, with ordered steps and directed flow rather than decision diamonds, ownership lanes, or a closed cycle.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "The six named stages appear exactly once in the supplied order along one primary axis, with no branches or backward connection.",
+        "The scene has at most 8 major nodes and 8 edges.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped labels or connectors crossing unrelated steps."
+      ]
+    },
+    {
+      "id": 27,
+      "kind": "template",
+      "template_id": "medallion",
+      "prompt": "Show a lakehouse refinement path. Bronze holds immutable raw CRM and product events, Silver contains deduplicated and conformed customer events, and Gold contains customer-360 aggregates for BI. Make data quality increase from Bronze through Silver to Gold and keep these as the canonical three refinement stages. Save only source and PNG under output/customer-data-refinement.",
+      "expected_output": "A validated bronze-silver-gold refinement architecture with ordered data-quality stages and named contents.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `medallion`, with canonical Bronze, Silver, and Gold refinement stages rather than generic peer layers or an arbitrary branching data-flow pipeline.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "Bronze, Silver, and Gold appear once in refinement order, contain the requested datasets, and show increasing quality toward BI-ready customer-360 aggregates.",
+        "The scene has at most 4 major nodes, 3 edges, and 4 bands.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped stage or content labels."
+      ]
+    },
+    {
+      "id": 28,
+      "kind": "template",
+      "template_id": "dp-security-matrix",
+      "prompt": "Map security control ownership with rows Identity, Data Protection, Detection, and Recovery, and columns Application, Platform, and Security Team. Fill the intersections with concrete controls: SSO and input authorization; encryption and key rotation; audit events and SIEM alerts; restore tests and incident coordination. This is categorical responsibility coverage, not continuous risk scoring. Save only source and PNG under output/security-control-ownership.",
+      "expected_output": "A validated categorical control matrix with labeled rows, columns, and populated responsibility cells.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `dp-security-matrix`, with categorical row-column intersections rather than continuous quadrant axes or a product story board.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "All four control-domain rows and three owner columns are labeled, and every supplied control appears in an unambiguous intersection consistent with its owner and domain.",
+        "The scene has at most 12 major nodes, 0 edges, 4 rows, 4 columns, and 12 populated cells.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, consistent cell geometry, and no clipped cell content."
+      ]
+    },
+    {
+      "id": 29,
+      "kind": "template",
+      "template_id": "sankey",
+      "prompt": "Show 100 incoming trial users splitting into 60 Activated and 40 Dropped. Activated then splits into 45 Retained and 15 Churned. Encode each quantity in flow width, label every band, and preserve conservation at both splits. Save only source and PNG under output/trial-conversion-flow.",
+      "expected_output": "A validated weighted flow network whose band widths truthfully encode and conserve the supplied user counts.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `sankey`, with variable-width flow bands and nodes rather than equal-width data-flow arrows or process connectors.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "Band widths are proportional to 100, 60, 40, 45, and 15; the incoming width equals 60+40 at the first split, and the Activated width equals 45+15 at the second split.",
+        "The scene has at most 8 major nodes, 12 flow edges, and 12 variable-width bands.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped labels or visually false band crossings."
+      ]
+    },
+    {
+      "id": 30,
+      "kind": "template",
+      "template_id": "fishbone",
+      "prompt": "Analyze the effect `Slow checkout`. Use cause branches People, Process, Platform, and External. Add causes: incomplete on-call training; manual fraud review; database lock contention and cold caches; payment provider latency and tax API timeouts. Arrange them around one central problem spine. Save only source and PNG under output/slow-checkout-causes.",
+      "expected_output": "A validated cause-and-effect analysis with one effect, a central spine, categorized cause branches, and correctly attached causes.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `fishbone`, with one effect on a central spine and diagonal categorized cause branches rather than radial brainstorming or a generic relationship network.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "`Slow checkout` is the effect; People, Process, Platform, and External are cause branches, and each supplied cause is attached to its correct category.",
+        "The scene has at most 10 major nodes, 9 edges, and 6 branches.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped cause labels or ambiguous branch attachment."
+      ]
+    },
+    {
+      "id": 31,
+      "kind": "template",
+      "template_id": "wardley",
+      "prompt": "Map the value chain for an online store from visible user need to underlying capabilities. Customer Purchase depends on Storefront, which depends on Checkout and Search; Checkout depends on Payments and Kubernetes. Place Customer Purchase and Storefront toward genesis/custom build, Checkout and Search around product/rental, Payments near commodity, and Kubernetes at commodity. Use vertical position for visibility and horizontal position for evolution. Save only source and PNG under output/store-strategy-map.",
+      "expected_output": "A validated value-chain evolution map with justified visibility, evolution positions, and dependency links.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `wardley`, combining a value chain with a labeled evolution axis rather than a free dependency network or fixed quadrant regions.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "Every named component appears at a visibility height consistent with the dependency chain and at the requested evolution position from genesis/custom build through product/rental to commodity.",
+        "The scene has at most 12 major nodes, 12 dependency edges, and 4 evolution columns.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, labeled axes, and no clipped component or dependency labels."
+      ]
+    },
+    {
+      "id": 32,
+      "kind": "template",
+      "template_id": "kanban",
+      "prompt": "Show the current delivery board with columns Backlog, In Progress, Review, and Done. Cards are OAuth cleanup and Billing export in Backlog; Mobile crash fix in In Progress; Search tuning in Review; and Audit logging in Done. Add Expedite and Standard swimlanes, placing Mobile crash fix in Expedite and all other cards in Standard. Dates and durations are not needed. Save only source and PNG under output/delivery-board.",
+      "expected_output": "A validated work-status board with workflow columns, two swimlanes, and each card in its requested current position.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `kanban`, with workflow columns, swimlanes, and movable work cards rather than dated schedule bars or a release-oriented story map.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "All four columns and both swimlanes are labeled; each of the five cards appears exactly once in the requested column and lane.",
+        "The scene has at most 12 major nodes, 0 edges, 3 rows, 5 columns, 12 cells, and 12 cards.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, consistent cell geometry, and no clipped card text."
+      ]
+    },
+    {
+      "id": 33,
+      "kind": "template",
+      "template_id": "journey",
+      "prompt": "Trace a customer's first purchase through Discover, Evaluate, Checkout, and Receive. For each stage show one touchpoint and action: ad/click, product page/compare, payment form/pay, tracking email/track. Plot sentiment scores on a -2 to +2 scale as +1, +1, -1, and +2 in stage order, making Checkout the low point. Save only source and PNG under output/first-purchase-experience.",
+      "expected_output": "A validated staged customer experience with touchpoints, actions, and a sentiment curve matching the supplied scores.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `journey`, with chronological experience stages, touchpoints, and sentiment rather than milestone-only chronology or internal ownership lanes.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "The four stages, touchpoints, and actions appear in order; equally spaced stage columns carry sentiment points at +1, +1, -1, and +2 on one linear scale, with Checkout visibly lowest.",
+        "The scene has at most 8 major nodes, 7 edges, 8 columns, and 8 plotted points.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped stage, touchpoint, or sentiment labels."
+      ]
+    },
+    {
+      "id": 34,
+      "kind": "template",
+      "template_id": "deployment",
+      "prompt": "Show where the checkout artifacts run in production. An AWS region contains a public subnet with ALB and two private availability-zone nodes, each running a Checkout API container. Both connect to an RDS PostgreSQL node; the APIs also connect over TLS to an external Payment Provider. Distinguish runtime nodes, deployed artifacts, network paths, and the external system. Save only source and PNG under output/checkout-runtime.",
+      "expected_output": "A validated runtime topology with environments, deployment nodes, placed artifacts, and network connections.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `deployment`, with runtime nodes containing artifacts and network paths rather than logical service boundaries or an abstract dependency network.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "The AWS region, public subnet, two private availability zones, ALB, two Checkout API containers, RDS PostgreSQL, and external Payment Provider have the requested containment and TLS/network connections.",
+        "The scene has at most 9 major nodes, 12 edges, and 3 environments.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped artifact labels or network paths crossing unrelated nodes."
+      ]
+    },
+    {
+      "id": 35,
+      "kind": "template",
+      "template_id": "story-map",
+      "prompt": "Organize a checkout product slice around the user-activity backbone Browse, Select, Pay, and Confirm. Under Release 1 place Search catalog, Add item, Card payment, and Receipt email. Under Release 2 place Saved filters, Edit quantity, Wallet payment, and SMS confirmation. Keep releases as horizontal slices under the activity columns, not work-status columns. Save only source and PNG under output/checkout-release-slices.",
+      "expected_output": "A validated user story map with an activity backbone and stories arranged into two release slices.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `story-map`, with activity columns and prioritized release rows rather than workflow status columns or a customer sentiment journey.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "Browse, Select, Pay, and Confirm form the backbone; every Release 1 and Release 2 story appears exactly once below the matching activity and inside the correct release slice.",
+        "The scene has at most 15 major nodes, 0 edges, 4 rows, 5 columns, 15 cells, and 15 cards.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, consistent matrix geometry, and no clipped story text."
+      ]
+    },
+    {
+      "id": 36,
+      "kind": "template",
+      "template_id": "db-schema",
+      "prompt": "Document the physical PostgreSQL tables for accounts and sessions. `accounts` has `id uuid PK`, `email citext UNIQUE`, and `created_at timestamptz`; `sessions` has `id uuid PK`, `account_id uuid FK NOT NULL`, `token_hash bytea`, and `expires_at timestamptz`; `login_audits` has `id bigint PK`, `account_id uuid FK`, `session_id uuid FK NULL`, and `occurred_at timestamptz`. Draw each foreign key from its exact column row to the referenced primary-key row. Save only source and PNG under output/auth-postgres-schema.",
+      "expected_output": "A validated implementation-level database schema with physical types, constraints, keys, and row-anchored foreign-key references.",
+      "files": [],
+      "expectations": [
+        "The artifacts implement exactly catalog template `db-schema`, with physical tables, typed columns, constraints, and row-anchored foreign keys rather than an abstract ER model or class methods.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "All three tables contain every supplied column, type, and constraint; each `account_id` and `session_id` foreign-key connector starts at its exact row and ends at the referenced primary-key row.",
+        "The scene has at most 8 major nodes, 12 relationship edges, and 40 columns.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped columns or ambiguous foreign-key attachment."
+      ]
+    },
+    {
+      "id": 37,
+      "kind": "routing",
+      "routing_alias": "it-state",
+      "expected_template_id": "architecture",
+      "prompt": "Map our current IT estate: employee web and mobile clients, identity gateway, HR and payroll services, their databases, and the external benefits provider. Make trust boundaries and major protocols clear.",
+      "expected_output": "A routing decision that maps the `it-state` request to catalog template `architecture`.",
+      "files": [],
+      "expectations": [
+        "The routing result selects exactly template ID `architecture` for alias `it-state`.",
+        "The routing rationale recognizes system boundaries, components, external integration, and major connections as the decisive semantics.",
+        "The case is routing-only and does not require generated `.excalidraw` or `.png` artifacts."
+      ]
+    },
+    {
+      "id": 38,
+      "kind": "routing",
+      "routing_alias": "tree",
+      "expected_template_id": "mind-map",
+      "prompt": "Turn incident readiness into a tree rooted at Incident Readiness, branching to Detection, Response, and Recovery, with compact child topics under each branch.",
+      "expected_output": "A routing decision that maps the `tree` request to catalog template `mind-map`.",
+      "files": [],
+      "expectations": [
+        "The routing result selects exactly template ID `mind-map` for alias `tree`.",
+        "The routing rationale recognizes one central concept with hierarchical topic branches, not reporting lines or containment, as the decisive semantics.",
+        "The case is routing-only and does not require generated `.excalidraw` or `.png` artifacts."
+      ]
+    },
+    {
+      "id": 39,
+      "kind": "routing",
+      "routing_alias": "high-level",
+      "expected_template_id": "architecture",
+      "prompt": "Give executives a high-level view of the commerce platform, showing customer channels, the commerce boundary, core services, data stores, and external payment and shipping systems with only major connections.",
+      "expected_output": "A routing decision that maps the `high-level` request to catalog template `architecture`.",
+      "files": [],
+      "expectations": [
+        "The routing result selects exactly template ID `architecture` for alias `high-level`.",
+        "The routing rationale recognizes a boundary-aware component overview with external systems and major connections as the decisive semantics.",
+        "The case is routing-only and does not require generated `.excalidraw` or `.png` artifacts."
+      ]
+    },
+    {
+      "id": 40,
+      "kind": "routing",
+      "routing_alias": "dp-integration",
+      "expected_template_id": "data-flow",
+      "prompt": "Explain the integration path in our data platform: Salesforce emits account changes, normalization transforms them, a lake stores the cleaned records, and the warehouse consumes them. Name the data moving on every connection.",
+      "expected_output": "A routing decision that maps the `dp-integration` request to catalog template `data-flow`.",
+      "files": [],
+      "expectations": [
+        "The routing result selects exactly template ID `data-flow` for alias `dp-integration`.",
+        "The routing rationale recognizes origin, transformation, persistence, consumption, and named data movement as the decisive semantics.",
+        "The case is routing-only and does not require generated `.excalidraw` or `.png` artifacts."
+      ]
+    },
+    {
+      "id": 41,
+      "kind": "routing",
+      "routing_alias": "dependency",
+      "expected_template_id": "relationship",
+      "prompt": "Create a dependency map showing which services call, publish to, consume from, or rely on each other. Label every directed relationship, but do not group components into system or deployment boundaries.",
+      "expected_output": "A routing decision that maps the `dependency` request to catalog template `relationship`.",
+      "files": [],
+      "expectations": [
+        "The routing result selects exactly template ID `relationship` for alias `dependency`.",
+        "The routing rationale recognizes labeled directed entity relationships without architecture boundaries as the decisive semantics.",
+        "The case is routing-only and does not require generated `.excalidraw` or `.png` artifacts."
+      ]
+    }
+  ]
+}

@@ -14,23 +14,213 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
 from pathlib import Path
+from typing import Any, cast
 
 
-def validate_excalidraw(data: dict) -> list[str]:
+REQUIRED_TOP_LEVEL_KEYS = ("type", "version", "source", "elements", "appState", "files")
+REQUIRED_ELEMENT_KEYS = (
+    "id",
+    "type",
+    "x",
+    "y",
+    "width",
+    "height",
+    "angle",
+    "index",
+    "opacity",
+    "version",
+)
+GEOMETRY_KEYS = ("x", "y", "width", "height", "angle")
+
+
+def _is_finite_number(value: object) -> bool:
+    return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
+
+
+def _element_label(position: int, element: dict[str, Any]) -> str:
+    element_id = element.get("id")
+    if isinstance(element_id, str) and element_id:
+        return f"Element {position} ('{element_id}')"
+    return f"Element {position}"
+
+
+def validate_excalidraw(data: object) -> list[str]:
     """Validate Excalidraw JSON structure. Returns list of errors (empty = valid)."""
     errors: list[str] = []
+
+    if not isinstance(data, dict):
+        return ["Top-level Excalidraw data must be an object"]
+    data = cast(dict[str, Any], data)
+
+    for key in REQUIRED_TOP_LEVEL_KEYS:
+        if key not in data:
+            errors.append(f"Missing top-level '{key}'")
 
     if data.get("type") != "excalidraw":
         errors.append(f"Expected type 'excalidraw', got '{data.get('type')}'")
 
-    if "elements" not in data:
-        errors.append("Missing 'elements' array")
-    elif not isinstance(data["elements"], list):
+    version = data.get("version")
+    if not isinstance(version, int) or isinstance(version, bool) or version != 2:
+        errors.append(f"Top-level 'version' must be integer 2, got {version!r}")
+
+    if "source" in data and not isinstance(data["source"], str):
+        errors.append("Top-level 'source' must be a string")
+    if "appState" in data and not isinstance(data["appState"], dict):
+        errors.append("Top-level 'appState' must be an object")
+    if "files" in data and not isinstance(data["files"], dict):
+        errors.append("Top-level 'files' must be an object")
+
+    elements = data.get("elements")
+    if not isinstance(elements, list):
         errors.append("'elements' must be an array")
-    elif len(data["elements"]) == 0:
-        errors.append("'elements' array is empty — nothing to render")
+        return errors
+    if not elements:
+        errors.append("'elements' array is empty - nothing to render")
+        return errors
+
+    ids: dict[str, int] = {}
+    indexes: dict[str, int] = {}
+    valid_elements: list[tuple[int, dict[str, Any]]] = []
+
+    for position, element in enumerate(elements):
+        if not isinstance(element, dict):
+            errors.append(f"Element {position} must be an object")
+            continue
+        element = cast(dict[str, Any], element)
+
+        valid_elements.append((position, element))
+        label = _element_label(position, element)
+
+        for key in REQUIRED_ELEMENT_KEYS:
+            if key not in element:
+                errors.append(f"{label} is missing required field '{key}'")
+
+        element_id = element.get("id")
+        if not isinstance(element_id, str) or not element_id:
+            errors.append(f"Element {position} field 'id' must be a non-empty string")
+        elif element_id in ids:
+            errors.append(
+                f"{label} duplicates id '{element_id}' from element {ids[element_id]}"
+            )
+        else:
+            ids[element_id] = position
+
+        element_type = element.get("type")
+        if not isinstance(element_type, str) or not element_type:
+            errors.append(f"{label} field 'type' must be a non-empty string")
+
+        index = element.get("index")
+        if not isinstance(index, str) or not index:
+            errors.append(f"{label} field 'index' must be a non-empty string")
+        elif index in indexes:
+            errors.append(
+                f"{label} duplicates index '{index}' from element {indexes[index]}"
+            )
+        else:
+            indexes[index] = position
+
+        for key in GEOMETRY_KEYS:
+            if key in element and not _is_finite_number(element[key]):
+                errors.append(f"{label} field '{key}' must be a finite number")
+
+        if "opacity" in element:
+            opacity = element["opacity"]
+            if not _is_finite_number(opacity) or not 0 <= opacity <= 100:
+                errors.append(f"{label} field 'opacity' must be a number from 0 to 100")
+
+        if "version" in element:
+            element_version = element["version"]
+            if (
+                not isinstance(element_version, int)
+                or isinstance(element_version, bool)
+                or element_version < 1
+            ):
+                errors.append(f"{label} field 'version' must be an integer of at least 1")
+
+        if "isDeleted" in element and not isinstance(element["isDeleted"], bool):
+            errors.append(f"{label} field 'isDeleted' must be a boolean")
+
+        if element_type in ("line", "arrow"):
+            points = element.get("points")
+            if not isinstance(points, list) or len(points) < 2:
+                errors.append(f"{label} field 'points' must contain at least two points")
+            else:
+                for point_position, point in enumerate(points):
+                    if (
+                        not isinstance(point, (list, tuple))
+                        or len(point) != 2
+                        or not all(_is_finite_number(coordinate) for coordinate in point)
+                    ):
+                        errors.append(
+                            f"{label} point {point_position} must be a pair of finite numbers"
+                        )
+
+        if element_type == "text" and not isinstance(element.get("text"), str):
+            errors.append(f"{label} text element field 'text' must be a string")
+
+        if "originalText" in element:
+            original_text = element["originalText"]
+            if not isinstance(original_text, str):
+                errors.append(f"{label} field 'originalText' must be a string")
+            elif element.get("text") != original_text:
+                errors.append(f"{label} fields 'text' and 'originalText' must be equal")
+
+    for position, element in valid_elements:
+        label = _element_label(position, element)
+
+        for binding_name in ("startBinding", "endBinding"):
+            if binding_name not in element or element[binding_name] is None:
+                continue
+
+            binding = element[binding_name]
+            if not isinstance(binding, dict):
+                errors.append(f"{label} field '{binding_name}' must be an object or null")
+                continue
+
+            target_id = binding.get("elementId")
+            if not isinstance(target_id, str) or not target_id:
+                errors.append(
+                    f"{label} field '{binding_name}.elementId' must be a non-empty string"
+                )
+            elif target_id not in ids:
+                errors.append(
+                    f"{label} field '{binding_name}' targets missing element '{target_id}'"
+                )
+
+            for numeric_key in ("focus", "gap"):
+                if numeric_key in binding and not _is_finite_number(binding[numeric_key]):
+                    errors.append(
+                        f"{label} field '{binding_name}.{numeric_key}' must be a finite number"
+                    )
+
+        if "boundElements" not in element or element["boundElements"] is None:
+            continue
+
+        bound_elements = element["boundElements"]
+        if not isinstance(bound_elements, list):
+            errors.append(f"{label} field 'boundElements' must be an array or null")
+            continue
+
+        for bound_position, bound_element in enumerate(bound_elements):
+            if not isinstance(bound_element, dict):
+                errors.append(
+                    f"{label} boundElements[{bound_position}] must be an object"
+                )
+                continue
+
+            target_id = bound_element.get("id")
+            if not isinstance(target_id, str) or not target_id:
+                errors.append(
+                    f"{label} boundElements[{bound_position}].id must be a non-empty string"
+                )
+            elif target_id not in ids:
+                errors.append(
+                    f"{label} boundElements[{bound_position}] targets missing element "
+                    f"'{target_id}'"
+                )
 
     return errors
 

@@ -1,0 +1,1392 @@
+{
+  "version": 2,
+  "defaultStyle": "editorial-light",
+  "templates": [
+    {
+      "id": "architecture",
+      "diagramType": "architecture",
+      "style": "editorial-light",
+      "description": "A boundary-aware system view with components, external systems, protocols, and major flows.",
+      "bestFor": [
+        "service and infrastructure overviews",
+        "system boundaries and external integrations"
+      ],
+      "avoidWhen": [
+        "message order over time is the primary question",
+        "the request is mainly a database schema"
+      ],
+      "nodeBudget": 9,
+      "edgeBudget": 12,
+      "templateFile": "templates/architecture-template.excalidraw",
+      "previewFile": "previews/architecture-template.png",
+      "upstreamSlugs": [
+        "architecture",
+        "it-state",
+        "high-level"
+      ],
+      "primaryQuestion": "What are the system boundaries, components, and major connections?",
+      "confusableWith": [
+        "deployment",
+        "relationship",
+        "data-flow"
+      ],
+      "semanticMinimums": [
+        "boundary",
+        "component",
+        "external-system",
+        "connection"
+      ],
+      "limits": {
+        "majorNodes": 9,
+        "edges": 12,
+        "boundaries": 3
+      },
+      "geometryProfile": "default",
+      "geometryExemptions": [],
+      "previewSourceSha256": "64f89fadeb574db3853862d84c8f2f32568ae91079e3de98c3d17124c6d50db2"
+    },
+    {
+      "id": "flowchart",
+      "diagramType": "flowchart",
+      "style": "editorial-light",
+      "description": "A single-axis process flow with explicit decisions, branch labels, and terminal outcomes.",
+      "bestFor": [
+        "procedures and approval paths",
+        "algorithms with decisions"
+      ],
+      "avoidWhen": [
+        "ownership lanes are essential",
+        "the main concern is data movement rather than control flow"
+      ],
+      "nodeBudget": 8,
+      "edgeBudget": 10,
+      "templateFile": "templates/flowchart-template.excalidraw",
+      "previewFile": "previews/flowchart-template.png",
+      "upstreamSlugs": [
+        "flowchart"
+      ],
+      "primaryQuestion": "What decisions and outcomes control this process?",
+      "confusableWith": [
+        "process",
+        "state",
+        "business-flow-swimlane"
+      ],
+      "semanticMinimums": [
+        "start",
+        "process",
+        "decision",
+        "outcome",
+        "flow"
+      ],
+      "limits": {
+        "majorNodes": 8,
+        "edges": 10,
+        "decisions": 3
+      },
+      "geometryProfile": "default",
+      "geometryExemptions": [],
+      "previewSourceSha256": "62a30fc5fc4633b4ea0e72a9246a21f91c0f1cabac857fd71a6d99bf79f8d729"
+    },
+    {
+      "id": "relationship",
+      "diagramType": "relationship",
+      "style": "editorial-light",
+      "description": "A labeled network of entities or components focused on dependency and relationship meaning.",
+      "bestFor": [
+        "dependency maps",
+        "stakeholder or domain relationships"
+      ],
+      "avoidWhen": [
+        "strict chronological order matters",
+        "database keys and cardinality are required"
+      ],
+      "nodeBudget": 8,
+      "edgeBudget": 12,
+      "templateFile": "templates/relationship-template.excalidraw",
+      "previewFile": "previews/relationship-template.png",
+      "upstreamSlugs": [
+        "dependency"
+      ],
+      "primaryQuestion": "Which entities depend on or relate to one another, and how?",
+      "confusableWith": [
+        "architecture",
+        "data-flow",
+        "deployment"
+      ],
+      "semanticMinimums": [
+        "entity",
+        "relationship"
+      ],
+      "limits": {
+        "majorNodes": 8,
+        "edges": 12
+      },
+      "geometryProfile": "default",
+      "geometryExemptions": [],
+      "previewSourceSha256": "1a96c9019f612798f955db1c220bbda8ea94df2231e2ed9dbb302a16839244a7"
+    },
+    {
+      "id": "mind-map",
+      "diagramType": "mind-map",
+      "style": "editorial-light",
+      "description": "A central concept with visually distinct first-level branches and compact subordinate topics.",
+      "bestFor": [
+        "concept breakdowns",
+        "hierarchical brainstorming summaries"
+      ],
+      "avoidWhen": [
+        "edges need protocol or sequence semantics",
+        "the hierarchy cannot fit in two readable levels"
+      ],
+      "nodeBudget": 9,
+      "edgeBudget": 8,
+      "templateFile": "templates/mindmap-template.excalidraw",
+      "previewFile": "previews/mindmap-template.png",
+      "upstreamSlugs": [
+        "tree"
+      ],
+      "primaryQuestion": "How does one central topic branch into related ideas?",
+      "confusableWith": [
+        "nested",
+        "org-chart"
+      ],
+      "semanticMinimums": [
+        "central-topic",
+        "branch",
+        "topic",
+        "connection"
+      ],
+      "limits": {
+        "majorNodes": 9,
+        "edges": 8,
+        "levels": 3
+      },
+      "geometryProfile": "default",
+      "geometryExemptions": [],
+      "previewSourceSha256": "63640d0611463aff2cf27956b0d2284a3bdeaaec4c4f36b8b1af099e328b2ded"
+    },
+    {
+      "id": "data-flow",
+      "diagramType": "data-flow",
+      "style": "editorial-light",
+      "description": "A data-centric view that distinguishes external actors, transformations, stores, and named flows.",
+      "bestFor": [
+        "ETL and ingestion paths",
+        "privacy or trust-boundary data movement"
+      ],
+      "avoidWhen": [
+        "control decisions are more important than data",
+        "method calls over time are the focus"
+      ],
+      "nodeBudget": 8,
+      "edgeBudget": 12,
+      "templateFile": "templates/data-flow-diagram-template.excalidraw",
+      "previewFile": "previews/data-flow-diagram-template.png",
+      "upstreamSlugs": [
+        "data-flow",
+        "dp-integration"
+      ],
+      "primaryQuestion": "Where does data originate, transform, persist, and move?",
+      "confusableWith": [
+        "architecture",
+        "sankey",
+        "process"
+      ],
+      "semanticMinimums": [
+        "external-actor",
+        "process",
+        "data-store",
+        "data-flow"
+      ],
+      "limits": {
+        "majorNodes": 8,
+        "edges": 12,
+        "stores": 4
+      },
+      "geometryProfile": "default",
+      "geometryExemptions": [],
+      "previewSourceSha256": "a5307e7c43fc434940de8333c93018d2c3ba7e011fc87199cc7bf9e8aa6efc7b"
+    },
+    {
+      "id": "business-flow-swimlane",
+      "diagramType": "business-flow-swimlane",
+      "style": "editorial-light",
+      "description": "An ordered business process grouped into actor lanes with visible cross-lane handoffs.",
+      "bestFor": [
+        "multi-team procedures",
+        "responsibility-aware approval flows"
+      ],
+      "avoidWhen": [
+        "there is only one meaningful actor",
+        "participant messages need sequence-diagram notation"
+      ],
+      "nodeBudget": 9,
+      "edgeBudget": 12,
+      "templateFile": "templates/business-flow-swimlane-template.excalidraw",
+      "previewFile": "previews/business-flow-swimlane-template.png",
+      "upstreamSlugs": [
+        "swimlane"
+      ],
+      "primaryQuestion": "Who owns each activity and where do handoffs occur?",
+      "confusableWith": [
+        "flowchart",
+        "process",
+        "journey"
+      ],
+      "semanticMinimums": [
+        "lane",
+        "activity",
+        "handoff"
+      ],
+      "limits": {
+        "majorNodes": 9,
+        "edges": 12,
+        "lanes": 4
+      },
+      "geometryProfile": "default",
+      "geometryExemptions": [],
+      "previewSourceSha256": "907d2a1cb0f609252a800eaf9058e73614bf8b665af11bc6d5f6a613d7b55c21"
+    },
+    {
+      "id": "class-diagram",
+      "diagramType": "class-diagram",
+      "style": "editorial-light",
+      "description": "A compact object model with compartmentalized classes and typed object-oriented relationships.",
+      "bestFor": [
+        "class responsibilities and public APIs",
+        "inheritance and implementation relationships"
+      ],
+      "avoidWhen": [
+        "runtime message order is the primary concern",
+        "the request is for physical database modeling"
+      ],
+      "nodeBudget": 6,
+      "edgeBudget": 8,
+      "templateFile": "templates/class-diagram-template.excalidraw",
+      "previewFile": "previews/class-diagram-template.png",
+      "upstreamSlugs": [
+        "uml-class"
+      ],
+      "primaryQuestion": "What classes, members, and object relationships define the model?",
+      "confusableWith": [
+        "er-diagram",
+        "db-schema"
+      ],
+      "semanticMinimums": [
+        "class",
+        "inheritance",
+        "association"
+      ],
+      "limits": {
+        "majorNodes": 6,
+        "edges": 8,
+        "members": 24
+      },
+      "geometryProfile": "default",
+      "geometryExemptions": [],
+      "previewSourceSha256": "e77d313241644dd6b0493b76e7577b16615477bc32aa5c821d3380413194fb60"
+    },
+    {
+      "id": "sequence-diagram",
+      "diagramType": "sequence-diagram",
+      "style": "editorial-light",
+      "description": "A time-ordered interaction view with participants, lifelines, calls, returns, and optional activation spans.",
+      "bestFor": [
+        "request and response interactions",
+        "cross-service call order"
+      ],
+      "avoidWhen": [
+        "static component topology is the main question",
+        "more than six participants are required for the overview"
+      ],
+      "nodeBudget": 6,
+      "edgeBudget": 12,
+      "templateFile": "templates/sequence-diagram-template.excalidraw",
+      "previewFile": "previews/sequence-diagram-template.png",
+      "upstreamSlugs": [
+        "sequence"
+      ],
+      "primaryQuestion": "In what order do participants exchange messages?",
+      "confusableWith": [
+        "data-flow",
+        "process"
+      ],
+      "semanticMinimums": [
+        "participant",
+        "lifeline",
+        "message"
+      ],
+      "limits": {
+        "majorNodes": 6,
+        "edges": 12,
+        "activations": 6
+      },
+      "geometryProfile": "default",
+      "geometryExemptions": [],
+      "previewSourceSha256": "747503ff707956bf88cc92b5d328d70245867248a16743a41794923539ff33c2"
+    },
+    {
+      "id": "er-diagram",
+      "diagramType": "er-diagram",
+      "style": "editorial-light",
+      "description": "A relational data model with entities, key fields, cardinalities, and explicit junction entities.",
+      "bestFor": [
+        "relational schema overviews",
+        "primary and foreign key relationships"
+      ],
+      "avoidWhen": [
+        "application methods or inheritance are required",
+        "the request is mainly a runtime data pipeline"
+      ],
+      "nodeBudget": 7,
+      "edgeBudget": 10,
+      "templateFile": "templates/er-diagram-template.excalidraw",
+      "previewFile": "previews/er-diagram-template.png",
+      "upstreamSlugs": [
+        "er"
+      ],
+      "primaryQuestion": "Which entities, keys, and cardinalities define the relational model?",
+      "confusableWith": [
+        "db-schema",
+        "class-diagram"
+      ],
+      "semanticMinimums": [
+        "table",
+        "column",
+        "fk"
+      ],
+      "limits": {
+        "majorNodes": 7,
+        "edges": 10,
+        "columns": 32
+      },
+      "geometryProfile": "schema",
+      "geometryExemptions": [],
+      "previewSourceSha256": "3c5fc32619d820502e5cd0b44e092d6fc9faeca6449a1b7d7e015997da8f6f92"
+    },
+    {
+      "id": "state",
+      "diagramType": "state",
+      "style": "editorial-light",
+      "description": "A lifecycle view of states and event-driven transitions.",
+      "bestFor": [
+        "object and workflow lifecycles"
+      ],
+      "avoidWhen": [
+        "the focus is procedural branching rather than persistent state"
+      ],
+      "nodeBudget": 8,
+      "edgeBudget": 10,
+      "templateFile": "templates/state-template.excalidraw",
+      "previewFile": "previews/state-template.png",
+      "upstreamSlugs": [
+        "state"
+      ],
+      "primaryQuestion": "Which events move the subject between stable states?",
+      "confusableWith": [
+        "flowchart",
+        "loop"
+      ],
+      "semanticMinimums": [
+        "state",
+        "transition",
+        "initial-state",
+        "final-state"
+      ],
+      "limits": {
+        "majorNodes": 8,
+        "edges": 10
+      },
+      "geometryProfile": "default",
+      "geometryExemptions": [],
+      "previewSourceSha256": "3a00205ce1e2129e4bb3a9991bc4e33fe34bd73bc169e4960faa44b0ae5ed16f"
+    },
+    {
+      "id": "timeline",
+      "diagramType": "timeline",
+      "style": "editorial-light",
+      "description": "A chronological axis with dated milestones and intervals.",
+      "bestFor": [
+        "milestones and historical sequences"
+      ],
+      "avoidWhen": [
+        "task duration and dependencies require a Gantt view"
+      ],
+      "nodeBudget": 8,
+      "edgeBudget": 2,
+      "templateFile": "templates/timeline-template.excalidraw",
+      "previewFile": "previews/timeline-template.png",
+      "upstreamSlugs": [
+        "timeline"
+      ],
+      "primaryQuestion": "What happened when, and in what chronological order?",
+      "confusableWith": [
+        "gantt",
+        "journey"
+      ],
+      "semanticMinimums": [
+        "time-axis",
+        "time-item"
+      ],
+      "limits": {
+        "majorNodes": 8,
+        "edges": 2,
+        "bands": 2
+      },
+      "geometryProfile": "timeline",
+      "geometryExemptions": [],
+      "previewSourceSha256": "aa96fe0c1ae7fa0d807df3d6f51be92bb917bdc82a05ee3f82cb505e53e68299"
+    },
+    {
+      "id": "quadrant",
+      "diagramType": "quadrant",
+      "style": "editorial-light",
+      "description": "A two-axis comparison divided into four interpreted regions.",
+      "bestFor": [
+        "portfolio and prioritization comparisons"
+      ],
+      "avoidWhen": [
+        "precise statistical distribution is required"
+      ],
+      "nodeBudget": 12,
+      "edgeBudget": 2,
+      "templateFile": "templates/quadrant-template.excalidraw",
+      "previewFile": "previews/quadrant-template.png",
+      "upstreamSlugs": [
+        "quadrant"
+      ],
+      "primaryQuestion": "Where do items fall across two meaningful dimensions?",
+      "confusableWith": [
+        "scatter",
+        "dp-security-matrix"
+      ],
+      "semanticMinimums": [
+        "axes",
+        "data",
+        "quadrant"
+      ],
+      "limits": {
+        "majorNodes": 12,
+        "edges": 2,
+        "points": 12
+      },
+      "geometryProfile": "cartesian",
+      "geometryExemptions": [],
+      "previewSourceSha256": "3c096f817dafc4b2d94dc7fd6e60eb5028a0c4e2ea34df7bf9585d52a16ba1ea"
+    },
+    {
+      "id": "radar",
+      "diagramType": "radar",
+      "style": "editorial-light",
+      "description": "A radial comparison of multiple series across shared dimensions.",
+      "bestFor": [
+        "multi-attribute profile comparison"
+      ],
+      "avoidWhen": [
+        "exact values matter more than profile shape"
+      ],
+      "nodeBudget": 6,
+      "edgeBudget": 0,
+      "templateFile": "templates/radar-template.excalidraw",
+      "previewFile": "previews/radar-template.png",
+      "upstreamSlugs": [
+        "radar"
+      ],
+      "primaryQuestion": "How do series compare across the same radial dimensions?",
+      "confusableWith": [
+        "polar",
+        "line"
+      ],
+      "semanticMinimums": [
+        "radial-axis",
+        "data-series"
+      ],
+      "limits": {
+        "majorNodes": 6,
+        "edges": 0,
+        "series": 3,
+        "points": 18
+      },
+      "geometryProfile": "radial",
+      "geometryExemptions": [
+        "radial-series"
+      ],
+      "previewSourceSha256": "cbe6610240fd7f2069a226cbb318a03337995e3349318967840d0da3b0009c62"
+    },
+    {
+      "id": "polar",
+      "diagramType": "polar",
+      "style": "editorial-light",
+      "description": "A radial magnitude display arranged by angular categories.",
+      "bestFor": [
+        "cyclical category magnitude comparison"
+      ],
+      "avoidWhen": [
+        "multiple dimensions per item require a radar chart"
+      ],
+      "nodeBudget": 8,
+      "edgeBudget": 0,
+      "templateFile": "templates/polar-template.excalidraw",
+      "previewFile": "previews/polar-template.png",
+      "upstreamSlugs": [
+        "polar"
+      ],
+      "primaryQuestion": "How do category magnitudes compare around a radial scale?",
+      "confusableWith": [
+        "radar",
+        "bar"
+      ],
+      "semanticMinimums": [
+        "radial-axis",
+        "data-series"
+      ],
+      "limits": {
+        "majorNodes": 8,
+        "edges": 0,
+        "series": 2,
+        "points": 12
+      },
+      "geometryProfile": "radial",
+      "geometryExemptions": [
+        "radial-series"
+      ],
+      "previewSourceSha256": "7718cce31b685a3ef6a1c823941cbabfbbb461b903976d179476e824a6c28f2e"
+    },
+    {
+      "id": "loop",
+      "diagramType": "loop",
+      "style": "editorial-light",
+      "description": "A closed cycle of recurring stages and feedback.",
+      "bestFor": [
+        "continuous improvement and recurring processes"
+      ],
+      "avoidWhen": [
+        "the process has a definitive terminal outcome"
+      ],
+      "nodeBudget": 7,
+      "edgeBudget": 7,
+      "templateFile": "templates/loop-template.excalidraw",
+      "previewFile": "previews/loop-template.png",
+      "upstreamSlugs": [
+        "loop"
+      ],
+      "primaryQuestion": "Which stages repeat and feed the next cycle?",
+      "confusableWith": [
+        "process",
+        "state"
+      ],
+      "semanticMinimums": [
+        "cycle",
+        "stage"
+      ],
+      "limits": {
+        "majorNodes": 7,
+        "edges": 7
+      },
+      "geometryProfile": "radial",
+      "geometryExemptions": [
+        "curved-cycle"
+      ],
+      "previewSourceSha256": "38bc11c351e4712fdd49d8452710fc13525e0b9bc827b618d3e7d2fb7f7b0e89"
+    },
+    {
+      "id": "nested",
+      "diagramType": "nested",
+      "style": "editorial-light",
+      "description": "A containment hierarchy expressed through nested regions.",
+      "bestFor": [
+        "scope and containment relationships"
+      ],
+      "avoidWhen": [
+        "directional relationships are the primary meaning"
+      ],
+      "nodeBudget": 8,
+      "edgeBudget": 0,
+      "templateFile": "templates/nested-template.excalidraw",
+      "previewFile": "previews/nested-template.png",
+      "upstreamSlugs": [
+        "nested"
+      ],
+      "primaryQuestion": "What contains what across successive scopes?",
+      "confusableWith": [
+        "layers",
+        "treemap",
+        "mind-map"
+      ],
+      "semanticMinimums": [
+        "container",
+        "content"
+      ],
+      "limits": {
+        "majorNodes": 8,
+        "edges": 0,
+        "levels": 4
+      },
+      "geometryProfile": "containment",
+      "geometryExemptions": [],
+      "previewSourceSha256": "107c1125dda1772010d10fe7324504a0bfe4edd4e77fa313caf30d7456d8efe7"
+    },
+    {
+      "id": "org-chart",
+      "diagramType": "org-chart",
+      "style": "editorial-light",
+      "description": "A reporting hierarchy of roles, teams, and managers.",
+      "bestFor": [
+        "organizational reporting structures"
+      ],
+      "avoidWhen": [
+        "cross-functional workflow is the primary question"
+      ],
+      "nodeBudget": 9,
+      "edgeBudget": 8,
+      "templateFile": "templates/org-chart-template.excalidraw",
+      "previewFile": "previews/org-chart-template.png",
+      "upstreamSlugs": [
+        "org-chart"
+      ],
+      "primaryQuestion": "Who reports to whom in the organization?",
+      "confusableWith": [
+        "mind-map",
+        "deployment"
+      ],
+      "semanticMinimums": [
+        "role",
+        "reporting-line"
+      ],
+      "limits": {
+        "majorNodes": 9,
+        "edges": 8,
+        "levels": 4
+      },
+      "geometryProfile": "default",
+      "geometryExemptions": [],
+      "previewSourceSha256": "1d974d84a4f7ed5daa07c7412c954c051ecddf5d71fa85e0acb46ce7e78976ea"
+    },
+    {
+      "id": "layers",
+      "diagramType": "layers",
+      "style": "editorial-light",
+      "description": "A stacked view of ordered conceptual or technical layers.",
+      "bestFor": [
+        "layered architecture and maturity strata"
+      ],
+      "avoidWhen": [
+        "individual dependencies between components must be explicit"
+      ],
+      "nodeBudget": 6,
+      "edgeBudget": 0,
+      "templateFile": "templates/layers-template.excalidraw",
+      "previewFile": "previews/layers-template.png",
+      "upstreamSlugs": [
+        "layers"
+      ],
+      "primaryQuestion": "Which ordered layers contain the system concepts?",
+      "confusableWith": [
+        "nested",
+        "medallion",
+        "pyramid"
+      ],
+      "semanticMinimums": [
+        "container",
+        "content",
+        "layer"
+      ],
+      "limits": {
+        "majorNodes": 6,
+        "edges": 0,
+        "bands": 6
+      },
+      "geometryProfile": "containment",
+      "geometryExemptions": [],
+      "previewSourceSha256": "71800664bce695975def429355f89097f2b7a6334a3758a942e7576c10def25a"
+    },
+    {
+      "id": "venn",
+      "diagramType": "venn",
+      "style": "editorial-light",
+      "description": "Overlapping sets that expose shared and exclusive membership.",
+      "bestFor": [
+        "set comparison and shared capabilities"
+      ],
+      "avoidWhen": [
+        "more than four sets must be compared"
+      ],
+      "nodeBudget": 4,
+      "edgeBudget": 0,
+      "templateFile": "templates/venn-template.excalidraw",
+      "previewFile": "previews/venn-template.png",
+      "upstreamSlugs": [
+        "venn"
+      ],
+      "primaryQuestion": "What is unique to and shared between the sets?",
+      "confusableWith": [
+        "nested",
+        "quadrant"
+      ],
+      "semanticMinimums": [
+        "set",
+        "overlap"
+      ],
+      "limits": {
+        "majorNodes": 4,
+        "edges": 0,
+        "sets": 4
+      },
+      "geometryProfile": "freeform",
+      "geometryExemptions": [
+        "overlap-sets"
+      ],
+      "previewSourceSha256": "3161e5d2108b005c61ac4c69b23845259c19902d242d787c645185de5524b45a"
+    },
+    {
+      "id": "pyramid",
+      "diagramType": "pyramid",
+      "style": "editorial-light",
+      "description": "A tiered hierarchy whose width communicates rank or accumulation.",
+      "bestFor": [
+        "priorities, maturity, and hierarchical tiers"
+      ],
+      "avoidWhen": [
+        "items have non-hierarchical relationships"
+      ],
+      "nodeBudget": 5,
+      "edgeBudget": 0,
+      "templateFile": "templates/pyramid-template.excalidraw",
+      "previewFile": "previews/pyramid-template.png",
+      "upstreamSlugs": [
+        "pyramid"
+      ],
+      "primaryQuestion": "How are concepts ordered across hierarchical tiers?",
+      "confusableWith": [
+        "layers",
+        "medallion"
+      ],
+      "semanticMinimums": [
+        "container",
+        "content",
+        "level"
+      ],
+      "limits": {
+        "majorNodes": 5,
+        "edges": 0,
+        "bands": 5
+      },
+      "geometryProfile": "containment",
+      "geometryExemptions": [],
+      "previewSourceSha256": "4634b480cc07741d8580b93e1500b85506d7aad90ba69dab3775e0b77b959969"
+    },
+    {
+      "id": "bar",
+      "diagramType": "bar",
+      "style": "editorial-light",
+      "description": "A categorical quantitative comparison using aligned bars.",
+      "bestFor": [
+        "category magnitude comparison"
+      ],
+      "avoidWhen": [
+        "the main story is change over continuous time"
+      ],
+      "nodeBudget": 8,
+      "edgeBudget": 2,
+      "templateFile": "templates/bar-template.excalidraw",
+      "previewFile": "previews/bar-template.png",
+      "upstreamSlugs": [
+        "bar"
+      ],
+      "primaryQuestion": "How do values compare across discrete categories?",
+      "confusableWith": [
+        "line",
+        "polar"
+      ],
+      "semanticMinimums": [
+        "axes",
+        "data"
+      ],
+      "limits": {
+        "majorNodes": 8,
+        "edges": 2,
+        "series": 3,
+        "points": 16
+      },
+      "geometryProfile": "cartesian",
+      "geometryExemptions": [],
+      "previewSourceSha256": "1e034c4375113ae6ffe0a35e98132982d6057d88f5470d04032a16c0e14fff57"
+    },
+    {
+      "id": "treemap",
+      "diagramType": "treemap",
+      "style": "editorial-light",
+      "description": "A part-to-whole hierarchy encoded as nested area.",
+      "bestFor": [
+        "hierarchical composition and relative size"
+      ],
+      "avoidWhen": [
+        "small value differences need precise comparison"
+      ],
+      "nodeBudget": 12,
+      "edgeBudget": 0,
+      "templateFile": "templates/treemap-template.excalidraw",
+      "previewFile": "previews/treemap-template.png",
+      "upstreamSlugs": [
+        "treemap"
+      ],
+      "primaryQuestion": "How is the whole divided across nested categories?",
+      "confusableWith": [
+        "nested",
+        "bar"
+      ],
+      "semanticMinimums": [
+        "container",
+        "content"
+      ],
+      "limits": {
+        "majorNodes": 12,
+        "edges": 0,
+        "cells": 12,
+        "levels": 3
+      },
+      "geometryProfile": "containment",
+      "geometryExemptions": [],
+      "previewSourceSha256": "028b1f457cc2fab856eebfa4b015dc50547531327b06467ce915df5a4acef46b"
+    },
+    {
+      "id": "line",
+      "diagramType": "line",
+      "style": "editorial-light",
+      "description": "A quantitative trend view across an ordered axis.",
+      "bestFor": [
+        "time series and ordered trends"
+      ],
+      "avoidWhen": [
+        "categories have no meaningful order"
+      ],
+      "nodeBudget": 12,
+      "edgeBudget": 3,
+      "templateFile": "templates/line-template.excalidraw",
+      "previewFile": "previews/line-template.png",
+      "upstreamSlugs": [
+        "line"
+      ],
+      "primaryQuestion": "How do one or more values change across an ordered axis?",
+      "confusableWith": [
+        "bar",
+        "radar",
+        "journey"
+      ],
+      "semanticMinimums": [
+        "axes",
+        "data"
+      ],
+      "limits": {
+        "majorNodes": 12,
+        "edges": 3,
+        "series": 3,
+        "points": 24
+      },
+      "geometryProfile": "cartesian",
+      "geometryExemptions": [],
+      "previewSourceSha256": "ce4e673e0b0edbdbd9e8798ccfe13a29d15740519444893f402ca373fddad17c"
+    },
+    {
+      "id": "gantt",
+      "diagramType": "gantt",
+      "style": "editorial-light",
+      "description": "A scheduled task view with durations, milestones, and dependencies.",
+      "bestFor": [
+        "project schedules and dependency planning"
+      ],
+      "avoidWhen": [
+        "only milestone chronology is needed"
+      ],
+      "nodeBudget": 10,
+      "edgeBudget": 8,
+      "templateFile": "templates/gantt-template.excalidraw",
+      "previewFile": "previews/gantt-template.png",
+      "upstreamSlugs": [
+        "gantt"
+      ],
+      "primaryQuestion": "When do tasks run, overlap, and depend on each other?",
+      "confusableWith": [
+        "timeline",
+        "kanban"
+      ],
+      "semanticMinimums": [
+        "time-axis",
+        "time-item",
+        "task",
+        "dependency"
+      ],
+      "limits": {
+        "majorNodes": 10,
+        "edges": 8,
+        "rows": 8,
+        "bands": 10
+      },
+      "geometryProfile": "timeline",
+      "geometryExemptions": [],
+      "previewSourceSha256": "6aae2f13c15b0cd62aecccbebff0a0aa805e7de1a09a9f0255ea316d43aa06be"
+    },
+    {
+      "id": "scatter",
+      "diagramType": "scatter",
+      "style": "editorial-light",
+      "description": "A two-variable distribution of observations on Cartesian axes.",
+      "bestFor": [
+        "correlation, clusters, and outliers"
+      ],
+      "avoidWhen": [
+        "items belong in interpreted fixed quadrants"
+      ],
+      "nodeBudget": 12,
+      "edgeBudget": 2,
+      "templateFile": "templates/scatter-template.excalidraw",
+      "previewFile": "previews/scatter-template.png",
+      "upstreamSlugs": [
+        "scatter"
+      ],
+      "primaryQuestion": "What relationship, clusters, or outliers appear between two variables?",
+      "confusableWith": [
+        "quadrant",
+        "line"
+      ],
+      "semanticMinimums": [
+        "axes",
+        "data"
+      ],
+      "limits": {
+        "majorNodes": 12,
+        "edges": 2,
+        "series": 3,
+        "points": 24
+      },
+      "geometryProfile": "cartesian",
+      "geometryExemptions": [],
+      "previewSourceSha256": "048ca84ef858cc6c79ff6438d21e085f61bfc45f8eed1e73a4591cabf53527e1"
+    },
+    {
+      "id": "process",
+      "diagramType": "process",
+      "style": "editorial-light",
+      "description": "A concise ordered sequence of process stages without decision grammar.",
+      "bestFor": [
+        "simple linear procedures and value streams"
+      ],
+      "avoidWhen": [
+        "branching decisions or ownership lanes are required"
+      ],
+      "nodeBudget": 8,
+      "edgeBudget": 8,
+      "templateFile": "templates/process-template.excalidraw",
+      "previewFile": "previews/process-template.png",
+      "upstreamSlugs": [
+        "process"
+      ],
+      "primaryQuestion": "What ordered stages transform the input into the outcome?",
+      "confusableWith": [
+        "flowchart",
+        "loop",
+        "business-flow-swimlane"
+      ],
+      "semanticMinimums": [
+        "step",
+        "flow"
+      ],
+      "limits": {
+        "majorNodes": 8,
+        "edges": 8
+      },
+      "geometryProfile": "default",
+      "geometryExemptions": [],
+      "previewSourceSha256": "b96e9ac455114254f4f99d37be952200cf3a8fd0c7651484140037eef0671d3f"
+    },
+    {
+      "id": "medallion",
+      "diagramType": "medallion",
+      "style": "editorial-light",
+      "description": "A layered bronze-silver-gold data refinement architecture.",
+      "bestFor": [
+        "lakehouse data quality progression"
+      ],
+      "avoidWhen": [
+        "arbitrary pipeline branching is the main concern"
+      ],
+      "nodeBudget": 4,
+      "edgeBudget": 3,
+      "templateFile": "templates/medallion-template.excalidraw",
+      "previewFile": "previews/medallion-template.png",
+      "upstreamSlugs": [
+        "medallion"
+      ],
+      "primaryQuestion": "How does data become more refined across quality layers?",
+      "confusableWith": [
+        "layers",
+        "data-flow"
+      ],
+      "semanticMinimums": [
+        "container",
+        "content",
+        "stage"
+      ],
+      "limits": {
+        "majorNodes": 4,
+        "edges": 3,
+        "bands": 4
+      },
+      "geometryProfile": "containment",
+      "geometryExemptions": [],
+      "previewSourceSha256": "947715016dd636d5302e8402124b6910ea65369a3d40996ce4991f79353607e7"
+    },
+    {
+      "id": "dp-security-matrix",
+      "diagramType": "dp-security-matrix",
+      "style": "editorial-light",
+      "description": "A security responsibility or control matrix across two categorical dimensions.",
+      "bestFor": [
+        "control coverage and responsibility mapping"
+      ],
+      "avoidWhen": [
+        "risk position requires continuous quantitative axes"
+      ],
+      "nodeBudget": 12,
+      "edgeBudget": 0,
+      "templateFile": "templates/dp-security-matrix-template.excalidraw",
+      "previewFile": "previews/dp-security-matrix-template.png",
+      "upstreamSlugs": [
+        "dp-security-matrix"
+      ],
+      "primaryQuestion": "Which controls or responsibilities apply at each matrix intersection?",
+      "confusableWith": [
+        "quadrant",
+        "story-map"
+      ],
+      "semanticMinimums": [
+        "row",
+        "column",
+        "cell"
+      ],
+      "limits": {
+        "majorNodes": 12,
+        "edges": 0,
+        "rows": 4,
+        "columns": 4,
+        "cells": 12
+      },
+      "geometryProfile": "matrix",
+      "geometryExemptions": [],
+      "previewSourceSha256": "3216a7f251d4d20475faa37c0826eede81a6c9c5251c139bb30c4439f469f445"
+    },
+    {
+      "id": "sankey",
+      "diagramType": "sankey",
+      "style": "editorial-light",
+      "description": "A weighted flow network whose band widths encode quantity.",
+      "bestFor": [
+        "resource, energy, and conversion flows"
+      ],
+      "avoidWhen": [
+        "flow magnitude is not meaningful"
+      ],
+      "nodeBudget": 8,
+      "edgeBudget": 12,
+      "templateFile": "templates/sankey-template.excalidraw",
+      "previewFile": "previews/sankey-template.png",
+      "upstreamSlugs": [
+        "sankey"
+      ],
+      "primaryQuestion": "How does a quantity split, combine, and move between stages?",
+      "confusableWith": [
+        "data-flow",
+        "process"
+      ],
+      "semanticMinimums": [
+        "flow-band",
+        "node"
+      ],
+      "limits": {
+        "majorNodes": 8,
+        "edges": 12,
+        "bands": 12
+      },
+      "geometryProfile": "ribbon",
+      "geometryExemptions": [
+        "variable-width-band"
+      ],
+      "previewSourceSha256": "86000f76a0ac682f102ae2efbdc35126218fb1ba6bb3817e46b231eebce8e99e"
+    },
+    {
+      "id": "fishbone",
+      "diagramType": "fishbone",
+      "style": "editorial-light",
+      "description": "A cause-and-effect analysis arranged around a central problem spine.",
+      "bestFor": [
+        "root-cause analysis and contributing factors"
+      ],
+      "avoidWhen": [
+        "causes require quantified statistical evidence"
+      ],
+      "nodeBudget": 10,
+      "edgeBudget": 9,
+      "templateFile": "templates/fishbone-template.excalidraw",
+      "previewFile": "previews/fishbone-template.png",
+      "upstreamSlugs": [
+        "fishbone"
+      ],
+      "primaryQuestion": "Which categories and causes contribute to the observed effect?",
+      "confusableWith": [
+        "mind-map",
+        "relationship"
+      ],
+      "semanticMinimums": [
+        "effect",
+        "cause",
+        "cause-branch"
+      ],
+      "limits": {
+        "majorNodes": 10,
+        "edges": 9,
+        "branches": 6
+      },
+      "geometryProfile": "freeform",
+      "geometryExemptions": [
+        "diagonal-spine"
+      ],
+      "previewSourceSha256": "dcfc895028923aab15c8316d6bffec9291663251d80ab888c588281390c6d35a"
+    },
+    {
+      "id": "wardley",
+      "diagramType": "wardley",
+      "style": "editorial-light",
+      "description": "A value-chain map positioned by user visibility and component evolution.",
+      "bestFor": [
+        "strategy and capability evolution analysis"
+      ],
+      "avoidWhen": [
+        "component positions cannot be justified"
+      ],
+      "nodeBudget": 12,
+      "edgeBudget": 12,
+      "templateFile": "templates/wardley-template.excalidraw",
+      "previewFile": "previews/wardley-template.png",
+      "upstreamSlugs": [
+        "wardley"
+      ],
+      "primaryQuestion": "How do value-chain components depend on and evolve relative to users?",
+      "confusableWith": [
+        "relationship",
+        "quadrant"
+      ],
+      "semanticMinimums": [
+        "value-chain",
+        "evolution-axis",
+        "component"
+      ],
+      "limits": {
+        "majorNodes": 12,
+        "edges": 12,
+        "columns": 4
+      },
+      "geometryProfile": "freeform",
+      "geometryExemptions": [],
+      "previewSourceSha256": "63d0ddf5cf33ebb84931259cd012d5c5bfb880c1cf4d608f65eca6c5fbf40516"
+    },
+    {
+      "id": "kanban",
+      "diagramType": "kanban",
+      "style": "editorial-light",
+      "description": "A work board organized by workflow columns and optional swimlanes.",
+      "bestFor": [
+        "work-in-progress and delivery status"
+      ],
+      "avoidWhen": [
+        "task dates and dependency durations are primary"
+      ],
+      "nodeBudget": 12,
+      "edgeBudget": 0,
+      "templateFile": "templates/kanban-template.excalidraw",
+      "previewFile": "previews/kanban-template.png",
+      "upstreamSlugs": [
+        "kanban"
+      ],
+      "primaryQuestion": "Where is each work item in the delivery workflow?",
+      "confusableWith": [
+        "gantt",
+        "story-map"
+      ],
+      "semanticMinimums": [
+        "row",
+        "column",
+        "cell",
+        "card"
+      ],
+      "limits": {
+        "majorNodes": 12,
+        "edges": 0,
+        "rows": 3,
+        "columns": 5,
+        "cells": 12,
+        "cards": 12
+      },
+      "geometryProfile": "matrix",
+      "geometryExemptions": [],
+      "previewSourceSha256": "6ea4910bc561c8f27ecb3eae11c9519a46f4deaae7ddb505f279bfb5b61d78ef"
+    },
+    {
+      "id": "journey",
+      "diagramType": "journey",
+      "style": "editorial-light",
+      "description": "A staged user journey with touchpoints, actions, and sentiment.",
+      "bestFor": [
+        "customer experience and service design"
+      ],
+      "avoidWhen": [
+        "internal task ownership is the primary concern"
+      ],
+      "nodeBudget": 8,
+      "edgeBudget": 7,
+      "templateFile": "templates/journey-template.excalidraw",
+      "previewFile": "previews/journey-template.png",
+      "upstreamSlugs": [
+        "journey"
+      ],
+      "primaryQuestion": "What does the user experience at each stage over time?",
+      "confusableWith": [
+        "timeline",
+        "business-flow-swimlane"
+      ],
+      "semanticMinimums": [
+        "time-axis",
+        "time-item",
+        "stage",
+        "touchpoint"
+      ],
+      "limits": {
+        "majorNodes": 8,
+        "edges": 7,
+        "columns": 8,
+        "points": 8
+      },
+      "geometryProfile": "timeline",
+      "geometryExemptions": [
+        "sentiment-curve"
+      ],
+      "previewSourceSha256": "183e58c1c6bfaf08ab45330401222a2f2dd7381b0731ecbe3ccc5917b48bbfb7"
+    },
+    {
+      "id": "deployment",
+      "diagramType": "deployment",
+      "style": "editorial-light",
+      "description": "A runtime topology of deployment nodes, artifacts, and network paths.",
+      "bestFor": [
+        "environment and infrastructure deployment topology"
+      ],
+      "avoidWhen": [
+        "logical service boundaries matter more than runtime placement"
+      ],
+      "nodeBudget": 9,
+      "edgeBudget": 12,
+      "templateFile": "templates/deployment-template.excalidraw",
+      "previewFile": "previews/deployment-template.png",
+      "upstreamSlugs": [
+        "deployment"
+      ],
+      "primaryQuestion": "Where do artifacts run and how do deployment nodes connect?",
+      "confusableWith": [
+        "architecture",
+        "relationship"
+      ],
+      "semanticMinimums": [
+        "node",
+        "artifact",
+        "connection"
+      ],
+      "limits": {
+        "majorNodes": 9,
+        "edges": 12,
+        "environments": 3
+      },
+      "geometryProfile": "default",
+      "geometryExemptions": [],
+      "previewSourceSha256": "3093c97177932781e977dd6ef1be3476b75415cd9f8b901bb582de65fe901d7e"
+    },
+    {
+      "id": "story-map",
+      "diagramType": "story-map",
+      "style": "editorial-light",
+      "description": "A user-activity backbone with stories arranged by priority and release slice.",
+      "bestFor": [
+        "product discovery and release slicing"
+      ],
+      "avoidWhen": [
+        "current work status requires a Kanban board"
+      ],
+      "nodeBudget": 15,
+      "edgeBudget": 0,
+      "templateFile": "templates/story-map-template.excalidraw",
+      "previewFile": "previews/story-map-template.png",
+      "upstreamSlugs": [
+        "story-map"
+      ],
+      "primaryQuestion": "How do user activities break into prioritized stories and releases?",
+      "confusableWith": [
+        "kanban",
+        "journey"
+      ],
+      "semanticMinimums": [
+        "row",
+        "column",
+        "cell",
+        "story"
+      ],
+      "limits": {
+        "majorNodes": 15,
+        "edges": 0,
+        "rows": 4,
+        "columns": 5,
+        "cells": 15,
+        "cards": 15
+      },
+      "geometryProfile": "matrix",
+      "geometryExemptions": [],
+      "previewSourceSha256": "c9aadf1bd7bc13d32ddc9c6b048bf959cd18082f3f614454ed90870f6189d5b4"
+    },
+    {
+      "id": "db-schema",
+      "diagramType": "db-schema",
+      "style": "editorial-light",
+      "description": "A physical database schema with tables, columns, keys, and row-anchored references.",
+      "bestFor": [
+        "implementation-level database structure"
+      ],
+      "avoidWhen": [
+        "a conceptual entity model is sufficient"
+      ],
+      "nodeBudget": 8,
+      "edgeBudget": 12,
+      "templateFile": "templates/db-schema-template.excalidraw",
+      "previewFile": "previews/db-schema-template.png",
+      "upstreamSlugs": [
+        "db-schema"
+      ],
+      "primaryQuestion": "Which physical tables, columns, and foreign keys define the database?",
+      "confusableWith": [
+        "er-diagram",
+        "class-diagram"
+      ],
+      "semanticMinimums": [
+        "table",
+        "column",
+        "fk"
+      ],
+      "limits": {
+        "majorNodes": 8,
+        "edges": 12,
+        "columns": 40
+      },
+      "geometryProfile": "schema",
+      "geometryExemptions": [
+        "row-anchored-fk"
+      ],
+      "previewSourceSha256": "83a242bc4605f4c412dd5a462adaf555dd2b1f79e391115911634cf0c785ab6c"
+    }
+  ]
+}

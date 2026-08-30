@@ -1,0 +1,245 @@
+{
+  "schema": "excalidraw-template-upstream-coverage",
+  "version": 1,
+  "upstream": {
+    "repository": "cathrynlavery/diagram-design",
+    "commit": "648c2a597839301e06df1e7434a08bde9f42eed3",
+    "templateCount": 39
+  },
+  "coverage": [
+    {
+      "upstreamSlug": "architecture",
+      "localTemplateId": "architecture",
+      "status": "direct",
+      "rationale": "The local architecture asset directly implements the upstream system-view grammar."
+    },
+    {
+      "upstreamSlug": "flowchart",
+      "localTemplateId": "flowchart",
+      "status": "direct",
+      "rationale": "The local flowchart asset directly implements decision and outcome flow grammar."
+    },
+    {
+      "upstreamSlug": "data-flow",
+      "localTemplateId": "data-flow",
+      "status": "direct",
+      "rationale": "The local data-flow asset directly implements actor, process, store, and flow grammar."
+    },
+    {
+      "upstreamSlug": "swimlane",
+      "localTemplateId": "business-flow-swimlane",
+      "status": "direct",
+      "rationale": "The local swimlane asset directly implements lane ownership and handoffs."
+    },
+    {
+      "upstreamSlug": "uml-class",
+      "localTemplateId": "class-diagram",
+      "status": "direct",
+      "rationale": "The local class-diagram asset directly implements classes and object relationships."
+    },
+    {
+      "upstreamSlug": "sequence",
+      "localTemplateId": "sequence-diagram",
+      "status": "direct",
+      "rationale": "The local sequence asset directly implements participants, lifelines, and messages."
+    },
+    {
+      "upstreamSlug": "er",
+      "localTemplateId": "er-diagram",
+      "status": "direct",
+      "rationale": "The local ER asset directly implements relational entities, keys, and cardinality."
+    },
+    {
+      "upstreamSlug": "it-state",
+      "localTemplateId": "architecture",
+      "status": "alias",
+      "rationale": "IT estate questions route to the boundary-aware architecture asset."
+    },
+    {
+      "upstreamSlug": "tree",
+      "localTemplateId": "mind-map",
+      "status": "alias",
+      "rationale": "Tree-shaped concept hierarchies route to the local mind-map extension."
+    },
+    {
+      "upstreamSlug": "high-level",
+      "localTemplateId": "architecture",
+      "status": "alias",
+      "rationale": "High-level system overviews route to the architecture asset."
+    },
+    {
+      "upstreamSlug": "dp-integration",
+      "localTemplateId": "data-flow",
+      "status": "alias",
+      "rationale": "Integration movement questions route to the data-flow asset."
+    },
+    {
+      "upstreamSlug": "dependency",
+      "localTemplateId": "relationship",
+      "status": "alias",
+      "rationale": "Dependency maps route to the local labeled-relationship extension."
+    },
+    {
+      "upstreamSlug": "state",
+      "localTemplateId": "state",
+      "status": "new",
+      "rationale": "A new local state lifecycle asset is required."
+    },
+    {
+      "upstreamSlug": "timeline",
+      "localTemplateId": "timeline",
+      "status": "new",
+      "rationale": "A new local chronological timeline asset is required."
+    },
+    {
+      "upstreamSlug": "quadrant",
+      "localTemplateId": "quadrant",
+      "status": "new",
+      "rationale": "A new local two-axis quadrant asset is required."
+    },
+    {
+      "upstreamSlug": "radar",
+      "localTemplateId": "radar",
+      "status": "new",
+      "rationale": "A new local radial profile asset is required."
+    },
+    {
+      "upstreamSlug": "polar",
+      "localTemplateId": "polar",
+      "status": "new",
+      "rationale": "A new local polar magnitude asset is required."
+    },
+    {
+      "upstreamSlug": "loop",
+      "localTemplateId": "loop",
+      "status": "new",
+      "rationale": "A new local recurring-cycle asset is required."
+    },
+    {
+      "upstreamSlug": "nested",
+      "localTemplateId": "nested",
+      "status": "new",
+      "rationale": "A new local nested-containment asset is required."
+    },
+    {
+      "upstreamSlug": "org-chart",
+      "localTemplateId": "org-chart",
+      "status": "new",
+      "rationale": "A new local reporting-hierarchy asset is required."
+    },
+    {
+      "upstreamSlug": "layers",
+      "localTemplateId": "layers",
+      "status": "new",
+      "rationale": "A new local layered-system asset is required."
+    },
+    {
+      "upstreamSlug": "venn",
+      "localTemplateId": "venn",
+      "status": "new",
+      "rationale": "A new local overlapping-set asset is required."
+    },
+    {
+      "upstreamSlug": "pyramid",
+      "localTemplateId": "pyramid",
+      "status": "new",
+      "rationale": "A new local tiered-pyramid asset is required."
+    },
+    {
+      "upstreamSlug": "bar",
+      "localTemplateId": "bar",
+      "status": "new",
+      "rationale": "A new local categorical bar asset is required."
+    },
+    {
+      "upstreamSlug": "treemap",
+      "localTemplateId": "treemap",
+      "status": "new",
+      "rationale": "A new local area-encoded hierarchy asset is required."
+    },
+    {
+      "upstreamSlug": "line",
+      "localTemplateId": "line",
+      "status": "new",
+      "rationale": "A new local quantitative trend asset is required."
+    },
+    {
+      "upstreamSlug": "gantt",
+      "localTemplateId": "gantt",
+      "status": "new",
+      "rationale": "A new local task schedule asset is required."
+    },
+    {
+      "upstreamSlug": "scatter",
+      "localTemplateId": "scatter",
+      "status": "new",
+      "rationale": "A new local two-variable distribution asset is required."
+    },
+    {
+      "upstreamSlug": "process",
+      "localTemplateId": "process",
+      "status": "new",
+      "rationale": "A new local linear-process asset is required."
+    },
+    {
+      "upstreamSlug": "medallion",
+      "localTemplateId": "medallion",
+      "status": "new",
+      "rationale": "A new local medallion data-layer asset is required."
+    },
+    {
+      "upstreamSlug": "dp-security-matrix",
+      "localTemplateId": "dp-security-matrix",
+      "status": "new",
+      "rationale": "A new local security matrix asset is required."
+    },
+    {
+      "upstreamSlug": "sankey",
+      "localTemplateId": "sankey",
+      "status": "new",
+      "rationale": "A new local weighted-flow asset is required."
+    },
+    {
+      "upstreamSlug": "fishbone",
+      "localTemplateId": "fishbone",
+      "status": "new",
+      "rationale": "A new local cause-and-effect asset is required."
+    },
+    {
+      "upstreamSlug": "wardley",
+      "localTemplateId": "wardley",
+      "status": "new",
+      "rationale": "A new local strategy evolution map is required."
+    },
+    {
+      "upstreamSlug": "kanban",
+      "localTemplateId": "kanban",
+      "status": "new",
+      "rationale": "A new local workflow board asset is required."
+    },
+    {
+      "upstreamSlug": "journey",
+      "localTemplateId": "journey",
+      "status": "new",
+      "rationale": "A new local user journey asset is required."
+    },
+    {
+      "upstreamSlug": "deployment",
+      "localTemplateId": "deployment",
+      "status": "new",
+      "rationale": "A new local runtime deployment asset is required."
+    },
+    {
+      "upstreamSlug": "story-map",
+      "localTemplateId": "story-map",
+      "status": "new",
+      "rationale": "A new local user story map asset is required."
+    },
+    {
+      "upstreamSlug": "db-schema",
+      "localTemplateId": "db-schema",
+      "status": "new",
+      "rationale": "A new local physical database schema asset is required."
+    }
+  ]
+}

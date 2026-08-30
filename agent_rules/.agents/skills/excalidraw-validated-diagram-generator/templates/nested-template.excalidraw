@@ -1,0 +1,114 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "id": "organization-scope", "type": "rectangle", "x": 120, "y": 112, "width": 1000, "height": 520, "angle": 0,
+      "strokeColor": "#657084", "backgroundColor": "#f5f7fa", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100,
+      "groupIds": [], "frameId": null, "index": "a000", "roundness": {"type": 3}, "seed": 3101, "version": 1, "versionNonce": 4101,
+      "isDeleted": false, "boundElements": null, "updated": 1, "link": null, "locked": false
+    },
+    {
+      "id": "product-domain", "type": "rectangle", "x": 216, "y": 184, "width": 808, "height": 376, "angle": 0,
+      "strokeColor": "#3568b8", "backgroundColor": "#e8effb", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100,
+      "groupIds": [], "frameId": null, "index": "a001", "roundness": {"type": 3}, "seed": 3102, "version": 1, "versionNonce": 4102,
+      "isDeleted": false, "boundElements": null, "updated": 1, "link": null, "locked": false
+    },
+    {
+      "id": "checkout-workspace", "type": "rectangle", "x": 320, "y": 256, "width": 616, "height": 232, "angle": 0,
+      "strokeColor": "#e66a36", "backgroundColor": "#ffffff", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100,
+      "groupIds": [], "frameId": null, "index": "a002", "roundness": {"type": 3}, "seed": 3103, "version": 1, "versionNonce": 4103,
+      "isDeleted": false, "boundElements": null, "updated": 1, "link": null, "locked": false
+    },
+    {
+      "id": "client-module", "type": "rectangle", "x": 364, "y": 352, "width": 152, "height": 80, "angle": 0,
+      "strokeColor": "#2f3545", "backgroundColor": "#eef2f6", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100,
+      "groupIds": [], "frameId": null, "index": "a003", "roundness": {"type": 3}, "seed": 3104, "version": 1, "versionNonce": 4104,
+      "isDeleted": false, "boundElements": null, "updated": 1, "link": null, "locked": false
+    },
+    {
+      "id": "api-module", "type": "rectangle", "x": 552, "y": 352, "width": 152, "height": 80, "angle": 0,
+      "strokeColor": "#2f3545", "backgroundColor": "#eef2f6", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100,
+      "groupIds": [], "frameId": null, "index": "a004", "roundness": {"type": 3}, "seed": 3105, "version": 1, "versionNonce": 4105,
+      "isDeleted": false, "boundElements": null, "updated": 1, "link": null, "locked": false
+    },
+    {
+      "id": "order-store", "type": "rectangle", "x": 740, "y": 352, "width": 152, "height": 80, "angle": 0,
+      "strokeColor": "#2f3545", "backgroundColor": "#eef2f6", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100,
+      "groupIds": [], "frameId": null, "index": "a005", "roundness": {"type": 3}, "seed": 3106, "version": 1, "versionNonce": 4106,
+      "isDeleted": false, "boundElements": null, "updated": 1, "link": null, "locked": false
+    },
+    {
+      "id": "title", "type": "text", "x": 64, "y": 32, "width": 1088, "height": 40, "angle": 0,
+      "strokeColor": "#2f3545", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100,
+      "groupIds": [], "frameId": null, "index": "a006", "roundness": null, "seed": 3107, "version": 1, "versionNonce": 4107,
+      "isDeleted": false, "boundElements": null, "updated": 1, "link": null, "locked": false,
+      "fontSize": 28, "fontFamily": 5, "text": "Checkout Scope Containment", "originalText": "Checkout Scope Containment", "textAlign": "left", "verticalAlign": "middle", "containerId": null, "lineHeight": 1.25, "autoResize": false
+    },
+    {
+      "id": "organization-scope-label", "type": "text", "x": 144, "y": 128, "width": 360, "height": 32, "angle": 0,
+      "strokeColor": "#657084", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100,
+      "groupIds": [], "frameId": null, "index": "a007", "roundness": null, "seed": 3108, "version": 1, "versionNonce": 4108,
+      "isDeleted": false, "boundElements": null, "updated": 1, "link": null, "locked": false,
+      "fontSize": 20, "fontFamily": 5, "text": "ORGANIZATION SCOPE", "originalText": "ORGANIZATION SCOPE", "textAlign": "left", "verticalAlign": "middle", "containerId": null, "lineHeight": 1.25, "autoResize": false
+    },
+    {
+      "id": "product-domain-label", "type": "text", "x": 240, "y": 200, "width": 360, "height": 32, "angle": 0,
+      "strokeColor": "#3568b8", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100,
+      "groupIds": [], "frameId": null, "index": "a008", "roundness": null, "seed": 3109, "version": 1, "versionNonce": 4109,
+      "isDeleted": false, "boundElements": null, "updated": 1, "link": null, "locked": false,
+      "fontSize": 20, "fontFamily": 5, "text": "PRODUCT DOMAIN", "originalText": "PRODUCT DOMAIN", "textAlign": "left", "verticalAlign": "middle", "containerId": null, "lineHeight": 1.25, "autoResize": false
+    },
+    {
+      "id": "checkout-workspace-label", "type": "text", "x": 344, "y": 272, "width": 360, "height": 32, "angle": 0,
+      "strokeColor": "#e66a36", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100,
+      "groupIds": [], "frameId": null, "index": "a009", "roundness": null, "seed": 3110, "version": 1, "versionNonce": 4110,
+      "isDeleted": false, "boundElements": null, "updated": 1, "link": null, "locked": false,
+      "fontSize": 20, "fontFamily": 5, "text": "CHECKOUT WORKSPACE", "originalText": "CHECKOUT WORKSPACE", "textAlign": "left", "verticalAlign": "middle", "containerId": null, "lineHeight": 1.25, "autoResize": false
+    },
+    {
+      "id": "client-module-label", "type": "text", "x": 376, "y": 372, "width": 128, "height": 40, "angle": 0,
+      "strokeColor": "#2f3545", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100,
+      "groupIds": [], "frameId": null, "index": "a010", "roundness": null, "seed": 3111, "version": 1, "versionNonce": 4111,
+      "isDeleted": false, "boundElements": null, "updated": 1, "link": null, "locked": false,
+      "fontSize": 20, "fontFamily": 5, "text": "Client", "originalText": "Client", "textAlign": "center", "verticalAlign": "middle", "containerId": null, "lineHeight": 1.25, "autoResize": false
+    },
+    {
+      "id": "api-module-label", "type": "text", "x": 564, "y": 372, "width": 128, "height": 40, "angle": 0,
+      "strokeColor": "#2f3545", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100,
+      "groupIds": [], "frameId": null, "index": "a011", "roundness": null, "seed": 3112, "version": 1, "versionNonce": 4112,
+      "isDeleted": false, "boundElements": null, "updated": 1, "link": null, "locked": false,
+      "fontSize": 20, "fontFamily": 5, "text": "API", "originalText": "API", "textAlign": "center", "verticalAlign": "middle", "containerId": null, "lineHeight": 1.25, "autoResize": false
+    },
+    {
+      "id": "order-store-label", "type": "text", "x": 752, "y": 372, "width": 128, "height": 40, "angle": 0,
+      "strokeColor": "#2f3545", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100,
+      "groupIds": [], "frameId": null, "index": "a012", "roundness": null, "seed": 3113, "version": 1, "versionNonce": 4113,
+      "isDeleted": false, "boundElements": null, "updated": 1, "link": null, "locked": false,
+      "fontSize": 20, "fontFamily": 5, "text": "Order Store", "originalText": "Order Store", "textAlign": "center", "verticalAlign": "middle", "containerId": null, "lineHeight": 1.25, "autoResize": false
+    },
+    {
+      "id": "containment-note", "type": "text", "x": 120, "y": 652, "width": 1000, "height": 24, "angle": 0,
+      "strokeColor": "#657084", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100,
+      "groupIds": [], "frameId": null, "index": "a013", "roundness": null, "seed": 3114, "version": 1, "versionNonce": 4114,
+      "isDeleted": false, "boundElements": null, "updated": 1, "link": null, "locked": false,
+      "fontSize": 16, "fontFamily": 5, "text": "SIZE ENCODES CONTAINMENT SCOPE, NOT ITEM COUNT", "originalText": "SIZE ENCODES CONTAINMENT SCOPE, NOT ITEM COUNT", "textAlign": "center", "verticalAlign": "middle", "containerId": null, "lineHeight": 1.25, "autoResize": false
+    }
+  ],
+  "templateMetadata": {
+    "templateId": "nested",
+    "majorNodeIds": ["organization-scope", "product-domain", "checkout-workspace", "client-module", "api-module", "order-store"],
+    "edgeIds": [],
+    "counts": {
+      "levels": ["organization-scope", "product-domain", "checkout-workspace"]
+    },
+    "semanticRoles": {
+      "container": ["organization-scope", "product-domain", "checkout-workspace"],
+      "content": ["client-module", "api-module", "order-store"],
+      "scope": ["organization-scope", "product-domain", "checkout-workspace"]
+    }
+  },
+  "appState": {"viewBackgroundColor": "#ffffff", "gridSize": 20},
+  "files": {}
+}

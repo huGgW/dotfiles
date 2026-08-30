@@ -1,305 +1,172 @@
 # Excalidraw JSON Schema Reference
 
-This document describes the structure of Excalidraw `.excalidraw` files for diagram generation.
+Use this reference when editing `.excalidraw` JSON directly. Start from the selected canonical template and preserve fields that Excalidraw already emitted unless a change requires updating them.
 
 ## Top-Level Structure
 
 ```typescript
 interface ExcalidrawFile {
   type: "excalidraw";
-  version: number;           // Always 2
-  source: string;            // "https://excalidraw.com"
+  version: 2;
+  source: "https://excalidraw.com";
   elements: ExcalidrawElement[];
-  appState: AppState;
-  files: Record<string, any>; // Usually empty {}
+  appState: {
+    viewBackgroundColor: "#ffffff";
+    gridSize: 4;
+  };
+  files: Record<string, unknown>;
 }
 ```
 
-## AppState
+Keep `files` empty unless the scene intentionally embeds a supported asset. Canonical templates do not redistribute HTML, SVG, icon fonts, or product logos.
 
-```typescript
-interface AppState {
-  viewBackgroundColor: string; // Hex color, e.g., "#ffffff"
-  gridSize: number;            // Typically 20
-}
-```
-
-## ExcalidrawElement Base Properties
-
-All elements share these common properties:
+## Common Element Fields
 
 ```typescript
 interface BaseElement {
-  id: string;                  // Unique identifier
-  type: ElementType;           // See Element Types below
-  x: number;                   // X coordinate (pixels from top-left)
-  y: number;                   // Y coordinate (pixels from top-left)
-  width: number;               // Width in pixels
-  height: number;              // Height in pixels
-  angle: number;               // Rotation angle in radians (usually 0)
-  strokeColor: string;         // Hex color, e.g., "#1e1e1e"
-  backgroundColor: string;     // Hex color or "transparent"
+  id: string;
+  type: "rectangle" | "ellipse" | "diamond" | "arrow" | "line" | "text";
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  angle: number;
+  strokeColor: string;
+  backgroundColor: string;
   fillStyle: "solid" | "hachure" | "cross-hatch";
-  strokeWidth: number;         // 1-4 typically
+  strokeWidth: number;
   strokeStyle: "solid" | "dashed" | "dotted";
-  roughness: number;           // 0-2, controls hand-drawn effect (1 = default)
-  opacity: number;             // 0-100
-  groupIds: string[];          // IDs of groups this element belongs to
-  frameId: null;               // Usually null
-  index: string;               // Stacking order identifier
-  roundness: Roundness | null;
-  seed: number;                // Random seed for deterministic rendering
-  version: number;             // Element version (increment on edit)
-  versionNonce: number;        // Random number changed on edit
-  isDeleted: boolean;          // Should be false
-  boundElements: any;          // Usually null
-  updated: number;             // Timestamp in milliseconds
-  link: null;                  // External link (usually null)
-  locked: boolean;             // Whether element is locked
+  roughness: number;
+  opacity: number;
+  groupIds: string[];
+  frameId: string | null;
+  index: string;
+  roundness: { type: number } | null;
+  seed: number;
+  version: number;
+  versionNonce: number;
+  isDeleted: boolean;
+  boundElements: Array<{ id: string; type: string }> | null;
+  updated: number;
+  link: string | null;
+  locked: boolean;
 }
 ```
 
-## Element Types
+All IDs must be unique. Keep positions, dimensions, and connector bend points on a 4 px rhythm when practical. Use `opacity` from 0 through 100 and positive integer versions.
 
-### Rectangle
+## Shape Elements
+
+Rectangles, ellipses, and diamonds are visual containers only. Labels are independent text elements.
 
 ```typescript
 interface RectangleElement extends BaseElement {
   type: "rectangle";
-  roundness: { type: 3 };      // 3 = rounded corners
-  text?: string;               // Optional text inside
-  fontSize?: number;           // Font size (16-32 typical)
-  fontFamily?: number;         // 1 = Virgil, 2 = Helvetica, 3 = Cascadia
-  textAlign?: "left" | "center" | "right";
-  verticalAlign?: "top" | "middle" | "bottom";
+  roundness: { type: 3 } | null;
 }
-```
 
-**Example:**
-```json
-{
-  "id": "rect1",
-  "type": "rectangle",
-  "x": 100,
-  "y": 100,
-  "width": 200,
-  "height": 100,
-  "strokeColor": "#1e1e1e",
-  "backgroundColor": "#a5d8ff",
-  "text": "My Box",
-  "fontSize": 20,
-  "textAlign": "center",
-  "verticalAlign": "middle",
-  "roundness": { "type": 3 }
-}
-```
-
-### Ellipse
-
-```typescript
 interface EllipseElement extends BaseElement {
   type: "ellipse";
-  text?: string;
-  fontSize?: number;
-  fontFamily?: number;
-  textAlign?: "left" | "center" | "right";
-  verticalAlign?: "top" | "middle" | "bottom";
 }
-```
 
-### Diamond
-
-```typescript
 interface DiamondElement extends BaseElement {
   type: "diamond";
-  text?: string;
-  fontSize?: number;
-  fontFamily?: number;
-  textAlign?: "left" | "center" | "right";
-  verticalAlign?: "top" | "middle" | "bottom";
 }
 ```
 
-### Arrow
+Do not put `text`, `originalText`, `fontFamily`, or `fontSize` on a shape. A separate text element avoids exporter-dependent shape-label behavior and makes z-order explicit.
 
-```typescript
-interface ArrowElement extends BaseElement {
-  type: "arrow";
-  points: [number, number][];  // Array of [x, y] coordinates relative to element
-  startBinding: Binding | null;
-  endBinding: Binding | null;
-  roundness: { type: 2 };      // 2 = curved arrow
-}
-```
-
-**Example:**
-```json
-{
-  "id": "arrow1",
-  "type": "arrow",
-  "x": 100,
-  "y": 100,
-  "width": 200,
-  "height": 0,
-  "points": [
-    [0, 0],
-    [200, 0]
-  ],
-  "roundness": { "type": 2 },
-  "startBinding": null,
-  "endBinding": null
-}
-```
-
-**Points explanation:**
-- First point `[0, 0]` is relative to `(x, y)`
-- Subsequent points are relative to the first point
-- For straight horizontal arrow: `[[0, 0], [width, 0]]`
-- For straight vertical arrow: `[[0, 0], [0, height]]`
-
-### Line
-
-```typescript
-interface LineElement extends BaseElement {
-  type: "line";
-  points: [number, number][];
-  startBinding: Binding | null;
-  endBinding: Binding | null;
-  roundness: { type: 2 } | null;
-}
-```
-
-### Text
+## Text Elements
 
 ```typescript
 interface TextElement extends BaseElement {
   type: "text";
   text: string;
-  fontSize: number;
-  fontFamily: number;          // 1-3
+  originalText: string;
+  fontSize: 16 | 20 | 28;
+  fontFamily: 5;
   textAlign: "left" | "center" | "right";
-  verticalAlign: "top" | "middle" | "bottom";
-  roundness: null;             // Text has no roundness
+  verticalAlign: "top" | "middle";
+  lineHeight: number;
+  containerId: null;
+  autoResize: boolean;
 }
 ```
 
-**Example:**
-```json
-{
-  "id": "text1",
-  "type": "text",
-  "x": 100,
-  "y": 100,
-  "width": 150,
-  "height": 25,
-  "text": "Hello World",
-  "fontSize": 20,
-  "fontFamily": 1,
-  "textAlign": "left",
-  "verticalAlign": "top",
-  "roundness": null
-}
+Keep `text` and `originalText` identical. Use 16 px for annotations, 20 px for primary labels or section headings, and 28 px for the title. Do not use text smaller than 16 px.
+
+Approximate unwrapped text bounds before rendering:
+
+```text
+width  ~= longest_line_characters * fontSize * 0.6
+height ~= line_count * fontSize * lineHeight
 ```
 
-**Width/Height calculation:**
-- Width ≈ `text.length * fontSize * 0.6`
-- Height ≈ `fontSize * 1.2 * numberOfLines`
+Rendering is authoritative; enlarge or reposition text after reading the PNG when these estimates clip.
 
-## Bindings
-
-Bindings connect arrows to shapes:
+## Arrow And Line Elements
 
 ```typescript
 interface Binding {
-  elementId: string;           // ID of bound element
-  focus: number;               // -1 to 1, position along edge
-  gap: number;                 // Distance from element edge
+  elementId: string;
+  focus: number;
+  gap: number;
+}
+
+interface ArrowElement extends BaseElement {
+  type: "arrow";
+  points: Array<[number, number]>;
+  startBinding: Binding | null;
+  endBinding: Binding | null;
+  startArrowhead: "arrow" | "bar" | "dot" | "triangle" | null;
+  endArrowhead: "arrow" | "bar" | "dot" | "triangle" | null;
+  elbowed?: boolean;
+}
+
+interface LineElement extends BaseElement {
+  type: "line";
+  points: Array<[number, number]>;
+  startBinding: Binding | null;
+  endBinding: Binding | null;
+  startArrowhead: null;
+  endArrowhead: null;
 }
 ```
 
-## Common Colors
+Points are relative to the element's `(x, y)`. Use an arrow with an explicit `endArrowhead` for directional semantics. Reserve plain lines for lifelines, dividers, hierarchy branches, or genuinely non-directional relationships.
 
-| Color Name | Hex Code | Use Case |
-|------------|----------|----------|
-| Black | `#1e1e1e` | Default stroke |
-| Light Blue | `#a5d8ff` | Primary entities |
-| Light Green | `#b2f2bb` | Process steps |
-| Yellow | `#ffd43b` | Important/Central |
-| Light Red | `#ffc9c9` | Warnings/Errors |
-| Cyan | `#96f2d7` | Secondary items |
-| Transparent | `transparent` | No fill |
-| White | `#ffffff` | Background |
+For off-axis routing, use orthogonal bend points rather than a diagonal crossing. Separate fan-out anchors by at least 12 px. A connector must not cross a non-endpoint node, and a separate connector label must remain at least 8 px from lines and shapes.
 
-## ID Generation
+## Z-Order
 
-IDs should be unique strings. Common patterns:
+Array order controls stacking. Use this order:
 
-```javascript
-// Timestamp-based
-const id = Date.now().toString(36) + Math.random().toString(36).substr(2);
+1. Background regions, boundaries, lane fills, or separators.
+2. Lines and arrows.
+3. Node shapes.
+4. Standalone labels and annotations.
+5. Section headings and title.
 
-// Sequential
-const id = "element-" + counter++;
+In particular, place connectors before their endpoint nodes so node fills cover connector ends cleanly.
 
-// Descriptive
-const id = "step-1", "entity-user", "arrow-1-to-2";
-```
+## Palette Roles
 
-## Seed Generation
+Use semantic roles rather than copying a product palette:
 
-Seeds are used for deterministic randomness in hand-drawn effect:
+| Role | Guidance |
+| --- | --- |
+| Canvas | `#ffffff` |
+| Ordinary elements | Neutral surface, dark text, muted border |
+| Ordinary connectors | Muted neutral stroke |
+| External systems | Blue accent |
+| Focal path or node | Orange accent |
+| Async or return flow | Dashed stroke |
 
-```javascript
-const seed = Math.floor(Math.random() * 2147483647);
-```
+Use one accent by default and at most two. Do not add shadows.
 
-## Version and VersionNonce
+## Minimal Example
 
-```javascript
-const version = 1;  // Increment when element is edited
-const versionNonce = Math.floor(Math.random() * 2147483647);
-```
-
-## Coordinate System
-
-- Origin `(0, 0)` is top-left corner
-- X increases to the right
-- Y increases downward
-- All units are in pixels
-
-## Recommended Spacing
-
-| Context | Spacing |
-|---------|---------|
-| Horizontal gap between elements | 200-300px |
-| Vertical gap between rows | 100-150px |
-| Minimum margin from edge | 50px |
-| Arrow-to-box clearance | 20-30px |
-
-## Font Families
-
-| ID | Name | Description |
-|----|------|-------------|
-| 1 | Virgil | Hand-drawn style (default) |
-| 2 | Helvetica | Clean sans-serif |
-| 3 | Cascadia | Monospace |
-
-## Validation Rules
-
-✅ **Required:**
-- All IDs must be unique
-- `type` must match actual element type
-- `version` must be an integer ≥ 1
-- `opacity` must be 0-100
-
-⚠️ **Recommended:**
-- Keep `roughness` at 1 for consistency
-- Use `strokeWidth` of 2 for clarity
-- Set `isDeleted` to `false`
-- Set `locked` to `false`
-- Keep `frameId`, `boundElements`, `link` as `null`
-
-## Complete Minimal Example
+The shape and its label are separate, and the title uses the required font family:
 
 ```json
 {
@@ -308,15 +175,15 @@ const versionNonce = Math.floor(Math.random() * 2147483647);
   "source": "https://excalidraw.com",
   "elements": [
     {
-      "id": "box1",
+      "id": "component-shape",
       "type": "rectangle",
-      "x": 100,
-      "y": 100,
+      "x": 120,
+      "y": 120,
       "width": 200,
-      "height": 100,
+      "height": 80,
       "angle": 0,
-      "strokeColor": "#1e1e1e",
-      "backgroundColor": "#a5d8ff",
+      "strokeColor": "#64748b",
+      "backgroundColor": "#ffffff",
       "fillStyle": "solid",
       "strokeWidth": 2,
       "strokeStyle": "solid",
@@ -326,25 +193,68 @@ const versionNonce = Math.floor(Math.random() * 2147483647);
       "frameId": null,
       "index": "a0",
       "roundness": { "type": 3 },
-      "seed": 1234567890,
+      "seed": 123456789,
       "version": 1,
       "versionNonce": 987654321,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1706659200000,
+      "updated": 0,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "component-label",
+      "type": "text",
+      "x": 152,
+      "y": 148,
+      "width": 136,
+      "height": 24,
+      "angle": 0,
+      "strokeColor": "#1f2937",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a1",
+      "roundness": null,
+      "seed": 246813579,
+      "version": 1,
+      "versionNonce": 975318642,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 0,
       "link": null,
       "locked": false,
-      "text": "Hello",
+      "text": "API Gateway",
+      "originalText": "API Gateway",
       "fontSize": 20,
-      "fontFamily": 1,
+      "fontFamily": 5,
       "textAlign": "center",
-      "verticalAlign": "middle"
+      "verticalAlign": "top",
+      "lineHeight": 1.2,
+      "containerId": null,
+      "autoResize": true
     }
   ],
   "appState": {
     "viewBackgroundColor": "#ffffff",
-    "gridSize": 20
+    "gridSize": 4
   },
   "files": {}
 }
 ```
+
+## Validation Checklist
+
+- Top-level type and version are correct.
+- IDs are unique and referenced bindings exist.
+- Shapes contain no embedded text fields.
+- Every text element uses `fontFamily: 5` and `fontSize >= 16`.
+- Directional connectors have explicit arrowheads.
+- Connectors precede nodes in z-order and avoid non-endpoint nodes.
+- The scene respects the selected template budgets.
+- The final JSON renders, and the final PNG has been read after the last edit.

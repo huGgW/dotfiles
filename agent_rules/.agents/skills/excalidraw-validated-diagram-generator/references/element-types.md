@@ -1,497 +1,235 @@
 # Excalidraw Element Types Guide
 
-Detailed specifications for each Excalidraw element type with visual examples and use cases.
+Use the smallest set of native Excalidraw elements that communicates the selected diagram type. Labels are always separate text elements.
 
-## Element Type Overview
+## Overview
 
-| Type | Visual | Primary Use | Text Support |
-|------|--------|-------------|--------------|
-| `rectangle` | □ | Boxes, containers, process steps | ✅ Yes |
-| `ellipse` | ○ | Emphasis, terminals, states | ✅ Yes |
-| `diamond` | ◇ | Decision points, choices | ✅ Yes |
-| `arrow` | → | Directional flow, relationships | ❌ No (use separate text) |
-| `line` | — | Connections, dividers | ❌ No |
-| `text` | A | Labels, annotations, titles | ✅ (Its purpose) |
-
----
+| Type | Primary use | Directional | Label rule |
+| --- | --- | --- | --- |
+| `rectangle` | Components, steps, entities, stores, class compartments | No | Separate `text` |
+| `ellipse` | Start or end terminals, actors, emphasis | No | Separate `text` |
+| `diamond` | Flowchart decisions | No | Separate `text` |
+| `arrow` | Directed flow, calls, dependencies, associations | Yes | Separate `text` |
+| `line` | Lifelines, dividers, hierarchy, non-directional links | No | Separate `text` when needed |
+| `text` | Titles, labels, annotations, members, keys | N/A | `fontFamily: 5`, at least 16 px |
 
 ## Rectangle
 
-**Best for:** Process steps, entities, data stores, components
-
-### Properties
-
-```typescript
-{
-  type: "rectangle",
-  roundness: { type: 3 },  // Rounded corners
-  text: "Step Name",       // Optional embedded text
-  fontSize: 20,
-  textAlign: "center",
-  verticalAlign: "middle"
-}
-```
-
-### Use Cases
-
-| Scenario | Configuration |
-|----------|---------------|
-| **Process step** | Green background (`#b2f2bb`), centered text |
-| **Entity/Object** | Blue background (`#a5d8ff`), medium size |
-| **System component** | Light color, descriptive text |
-| **Data store** | Gray/white, database-like label |
-
-### Size Guidelines
-
-| Content | Width | Height |
-|---------|-------|--------|
-| Single word | 120-150px | 60-80px |
-| Short phrase (2-4 words) | 180-220px | 80-100px |
-| Sentence | 250-300px | 100-120px |
-
-### Example
+Use rectangles for most semantic nodes. Rounded rectangles work well for components and process steps; square corners help structured records such as classes and entities.
 
 ```json
 {
   "type": "rectangle",
-  "x": 100,
-  "y": 100,
+  "x": 120,
+  "y": 120,
   "width": 200,
   "height": 80,
-  "backgroundColor": "#b2f2bb",
-  "text": "Validate Input",
-  "fontSize": 20,
-  "textAlign": "center",
-  "verticalAlign": "middle",
+  "backgroundColor": "#ffffff",
+  "strokeColor": "#64748b",
   "roundness": { "type": 3 }
 }
 ```
 
----
+Do not add `text` or font fields to the rectangle. Place a text element after the rectangle in z-order.
+
+Common uses:
+
+- architecture component or boundary;
+- flowchart process;
+- data-flow process or store;
+- swimlane activity;
+- class or ER compartment.
 
 ## Ellipse
 
-**Best for:** Start/end points, states, emphasis circles
-
-### Properties
-
-```typescript
-{
-  type: "ellipse",
-  text: "Start",
-  fontSize: 18,
-  textAlign: "center",
-  verticalAlign: "middle"
-}
-```
-
-### Use Cases
-
-| Scenario | Configuration |
-|----------|---------------|
-| **Flow start** | Light green, "Start" text |
-| **Flow end** | Light red, "End" text |
-| **State** | Soft color, state name |
-| **Highlight** | Bright color, emphasis text |
-
-### Size Guidelines
-
-For circular shapes, use `width === height`:
-
-| Content | Diameter |
-|---------|----------|
-| Icon/Symbol | 60-80px |
-| Short text | 100-120px |
-| Longer text | 150-180px |
-
-### Example
+Use ellipses sparingly for terminals, external actors, or a focal concept when the selected template uses that grammar.
 
 ```json
 {
   "type": "ellipse",
-  "x": 100,
-  "y": 100,
+  "x": 120,
+  "y": 120,
   "width": 120,
-  "height": 120,
-  "backgroundColor": "#d0f0c0",
-  "text": "Start",
-  "fontSize": 18,
-  "textAlign": "center",
-  "verticalAlign": "middle"
+  "height": 64,
+  "backgroundColor": "#ffffff",
+  "strokeColor": "#64748b"
 }
 ```
 
----
+Prefer a wide terminal ellipse over forcing text into a small circle.
 
 ## Diamond
 
-**Best for:** Decision points, conditional branches
-
-### Properties
-
-```typescript
-{
-  type: "diamond",
-  text: "Valid?",
-  fontSize: 18,
-  textAlign: "center",
-  verticalAlign": "middle"
-}
-```
-
-### Use Cases
-
-| Scenario | Text Example |
-|----------|--------------|
-| **Yes/No decision** | "Is Valid?", "Exists?" |
-| **Multiple choice** | "Type?", "Status?" |
-| **Conditional** | "Score > 50?" |
-
-### Size Guidelines
-
-Diamonds need more space than rectangles for the same text:
-
-| Content | Width | Height |
-|---------|-------|--------|
-| Yes/No | 120-140px | 120-140px |
-| Short question | 160-180px | 160-180px |
-| Longer question | 200-220px | 200-220px |
-
-### Example
+Use diamonds only for control-flow decisions. Phrase the separate label as a concise question and label every outgoing branch.
 
 ```json
 {
   "type": "diamond",
-  "x": 100,
-  "y": 100,
-  "width": 150,
-  "height": 150,
-  "backgroundColor": "#ffe4a3",
-  "text": "Valid?",
-  "fontSize": 18,
-  "textAlign": "center",
-  "verticalAlign": "middle"
+  "x": 120,
+  "y": 120,
+  "width": 160,
+  "height": 120,
+  "backgroundColor": "#ffffff",
+  "strokeColor": "#64748b"
 }
 ```
 
----
+Keep the decision on the dominant axis and route branches orthogonally when they leave that axis.
 
 ## Arrow
 
-**Best for:** Flow direction, relationships, dependencies
-
-### Properties
-
-```typescript
-{
-  type: "arrow",
-  points: [[0, 0], [endX, endY]],  // Relative coordinates
-  roundness: { type: 2 },          // Curved
-  startBinding: null,              // Or { elementId, focus, gap }
-  endBinding: null
-}
-```
-
-### Arrow Directions
-
-#### Horizontal (Left to Right)
+Use arrows for directional semantics. Set arrowheads explicitly rather than depending on renderer defaults.
 
 ```json
 {
-  "x": 100,
-  "y": 150,
-  "width": 200,
-  "height": 0,
-  "points": [[0, 0], [200, 0]]
+  "type": "arrow",
+  "x": 120,
+  "y": 160,
+  "width": 240,
+  "height": 80,
+  "points": [[0, 0], [120, 0], [120, 80], [240, 80]],
+  "strokeStyle": "solid",
+  "startArrowhead": null,
+  "endArrowhead": "arrow",
+  "startBinding": null,
+  "endBinding": null
 }
 ```
 
-#### Vertical (Top to Bottom)
+Connector rules:
 
-```json
-{
-  "x": 200,
-  "y": 100,
-  "width": 0,
-  "height": 150,
-  "points": [[0, 0], [0, 150]]
-}
-```
+- Use solid muted arrows for ordinary flow.
+- Use blue for a flow whose external-system role needs emphasis.
+- Use orange only for the focal path.
+- Use dashed arrows for asynchronous or return flows.
+- Use orthogonal points for off-axis routes.
+- Keep fan-out anchors at least 12 px apart.
+- Keep the route outside non-endpoint nodes.
+- Place arrows before endpoint nodes in z-order.
 
-#### Diagonal
-
-```json
-{
-  "x": 100,
-  "y": 100,
-  "width": 200,
-  "height": 150,
-  "points": [[0, 0], [200, 150]]
-}
-```
-
-### Arrow Styles
-
-| Style | `strokeStyle` | `strokeWidth` | Use Case |
-|-------|---------------|---------------|----------|
-| **Normal flow** | `"solid"` | 2 | Standard connections |
-| **Optional/Weak** | `"dashed"` | 2 | Optional paths |
-| **Important** | `"solid"` | 3-4 | Emphasized flow |
-| **Dotted** | `"dotted"` | 2 | Indirect relationships |
-
-### Adding Arrow Labels
-
-Use separate text elements positioned near arrow midpoint:
-
-```json
-[
-  {
-    "type": "arrow",
-    "id": "arrow1",
-    "x": 100,
-    "y": 150,
-    "points": [[0, 0], [200, 0]]
-  },
-  {
-    "type": "text",
-    "x": 180,      // Near midpoint
-    "y": 130,      // Above arrow
-    "text": "sends",
-    "fontSize": 14
-  }
-]
-```
-
----
+Add labels as separate text elements at least 8 px from the arrow and nearby shapes. Use at least 16 px text.
 
 ## Line
 
-**Best for:** Non-directional connections, dividers, borders
+Use lines when direction would be misleading:
 
-### Properties
-
-```typescript
-{
-  type: "line",
-  points: [[0, 0], [x2, y2], [x3, y3], ...],
-  roundness: null  // Or { type: 2 } for curved
-}
-```
-
-### Use Cases
-
-| Scenario | Configuration |
-|----------|---------------|
-| **Divider** | Horizontal, thin stroke |
-| **Border** | Closed path (polygon) |
-| **Connection** | Multi-point path |
-| **Underline** | Short horizontal line |
-
-### Multi-Point Line Example
+- sequence lifelines;
+- swimlane separators;
+- class or ER compartment dividers;
+- mind-map hierarchy branches;
+- explicitly non-directional relationships.
 
 ```json
 {
   "type": "line",
-  "x": 100,
-  "y": 100,
-  "points": [
-    [0, 0],
-    [100, 50],
-    [200, 0]
-  ]
+  "x": 120,
+  "y": 120,
+  "width": 0,
+  "height": 240,
+  "points": [[0, 0], [0, 240]],
+  "strokeStyle": "dashed",
+  "startArrowhead": null,
+  "endArrowhead": null
 }
 ```
 
----
+Do not substitute a plain line when the relationship has direction.
 
 ## Text
 
-**Best for:** Labels, titles, annotations, standalone text
-
-### Properties
-
-```typescript
-{
-  type: "text",
-  text: "Label text",
-  fontSize: 20,
-  fontFamily: 1,        // 1=Virgil, 2=Helvetica, 3=Cascadia
-  textAlign: "left",
-  verticalAlign: "top"
-}
-```
-
-### Font Sizes by Purpose
-
-| Purpose | Font Size |
-|---------|-----------|
-| **Main title** | 28-36 |
-| **Section header** | 24-28 |
-| **Element label** | 18-22 |
-| **Annotation** | 14-16 |
-| **Small note** | 12-14 |
-
-### Width/Height Calculation
-
-```javascript
-// Approximate width
-const width = text.length * fontSize * 0.6;
-
-// Approximate height (single line)
-const height = fontSize * 1.2;
-
-// Multi-line
-const lines = text.split('\n').length;
-const height = fontSize * 1.2 * lines;
-```
-
-### Text Positioning
-
-| Position | textAlign | verticalAlign | Use Case |
-|----------|-----------|---------------|----------|
-| **Top-left** | `"left"` | `"top"` | Default labels |
-| **Centered** | `"center"` | `"middle"` | Titles |
-| **Bottom-right** | `"right"` | `"bottom"` | Footnotes |
-
-### Example: Title
+All visible words belong in standalone text elements.
 
 ```json
 {
   "type": "text",
-  "x": 100,
-  "y": 50,
-  "width": 400,
-  "height": 40,
-  "text": "System Architecture",
-  "fontSize": 32,
-  "fontFamily": 2,
+  "x": 152,
+  "y": 148,
+  "width": 136,
+  "height": 24,
+  "text": "API Gateway",
+  "originalText": "API Gateway",
+  "fontSize": 20,
+  "fontFamily": 5,
   "textAlign": "center",
-  "verticalAlign": "top"
+  "verticalAlign": "top",
+  "lineHeight": 1.2,
+  "containerId": null,
+  "autoResize": true
 }
 ```
 
-### Example: Annotation
+Use this hierarchy:
 
-```json
-{
-  "type": "text",
-  "x": 150,
-  "y": 200,
-  "width": 100,
-  "height": 20,
-  "text": "User input",
-  "fontSize": 14,
-  "fontFamily": 1,
-  "textAlign": "left",
-  "verticalAlign": "top"
-}
-```
+| Purpose | Size |
+| --- | --- |
+| Annotation, branch label, multiplicity | 16 |
+| Primary node label, participant, section heading | 20 |
+| Diagram title | 28 |
 
----
+Do not use smaller text to fit an overloaded scene. Shorten content, enlarge the node, or split overview and detail.
 
-## Combining Elements
+## Composite Patterns
 
-### Pattern: Labeled Box
+### Labeled Node
+
+Order the shape before its label:
 
 ```json
 [
+  { "id": "service-shape", "type": "rectangle" },
   {
-    "type": "rectangle",
-    "id": "box1",
-    "x": 100,
-    "y": 100,
-    "width": 200,
-    "height": 100,
-    "text": "Component",
-    "textAlign": "center",
-    "verticalAlign": "middle"
-  }
-]
-```
-
-### Pattern: Connected Boxes
-
-```json
-[
-  {
-    "type": "rectangle",
-    "id": "box1",
-    "x": 100,
-    "y": 100,
-    "width": 150,
-    "height": 80,
-    "text": "Step 1"
-  },
-  {
-    "type": "arrow",
-    "id": "arrow1",
-    "x": 250,
-    "y": 140,
-    "points": [[0, 0], [100, 0]]
-  },
-  {
-    "type": "rectangle",
-    "id": "box2",
-    "x": 350,
-    "y": 100,
-    "width": 150,
-    "height": 80,
-    "text": "Step 2"
-  }
-]
-```
-
-### Pattern: Decision Tree
-
-```json
-[
-  {
-    "type": "diamond",
-    "id": "decision",
-    "x": 100,
-    "y": 100,
-    "width": 140,
-    "height": 140,
-    "text": "Valid?"
-  },
-  {
-    "type": "arrow",
-    "id": "yes-arrow",
-    "x": 240,
-    "y": 170,
-    "points": [[0, 0], [60, 0]]
-  },
-  {
+    "id": "service-label",
     "type": "text",
-    "id": "yes-label",
-    "x": 250,
-    "y": 150,
-    "text": "Yes",
-    "fontSize": 14
-  },
-  {
-    "type": "rectangle",
-    "id": "yes-box",
-    "x": 300,
-    "y": 140,
-    "width": 120,
-    "height": 60,
-    "text": "Process"
+    "text": "Order Service",
+    "originalText": "Order Service",
+    "fontFamily": 5,
+    "fontSize": 20,
+    "containerId": null
   }
 ]
 ```
 
----
+### Connected Nodes
 
-## Summary
+Order the connector before both nodes so the node fills cover its endpoints:
 
-| When you need... | Use this element |
-|------------------|------------------|
-| Process box | `rectangle` with text |
-| Decision point | `diamond` with question |
-| Flow direction | `arrow` |
-| Start/End | `ellipse` |
-| Title/Header | `text` (large font) |
-| Annotation | `text` (small font) |
-| Non-directional link | `line` |
-| Divider | `line` (horizontal) |
+```json
+[
+  {
+    "id": "request-arrow",
+    "type": "arrow",
+    "startArrowhead": null,
+    "endArrowhead": "arrow"
+  },
+  { "id": "client-shape", "type": "rectangle" },
+  { "id": "api-shape", "type": "rectangle" },
+  {
+    "id": "request-label",
+    "type": "text",
+    "text": "HTTPS",
+    "originalText": "HTTPS",
+    "fontFamily": 5,
+    "fontSize": 16,
+    "containerId": null
+  }
+]
+```
+
+### Structured Class Or Entity
+
+Use one outer rectangle, separate divider lines, and separate text blocks for the name and each member section. Class diagrams use attributes, methods, visibility, and OOP connectors. ER diagrams use attributes, PK/FK markers, and cardinality. Do not blur the two notations.
+
+### Sequence Interaction
+
+Use participant nodes at the top, dashed plain lines for lifelines, solid arrows for calls, and dashed arrows for returns. Place messages in chronological top-to-bottom order and keep labels clear of lifelines and arrow strokes.
+
+## Final Element Checks
+
+- Every label is a separate text element.
+- Every text element uses font family 5 and size 16, 20, or 28.
+- Every directional connector has an explicit arrowhead.
+- Async and return connectors are dashed.
+- Off-axis connectors are orthogonal.
+- Connectors do not pass through unrelated nodes.
+- Connector labels have at least 8 px clearance.
+- Connector elements precede nodes in z-order.
