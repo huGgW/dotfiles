@@ -119,11 +119,11 @@
         },
         "linear": {
             "enabled": true,
+            "type": "remote",
+            "url": "https://mcp.linear.app/mcp",
             "oauth": {
                 "scope": "tools:read"
-            },
-            "type": "remote",
-            "url": "https://mcp.linear.app/mcp"
+            }
         }
     },
     "provider": {

@@ -11,9 +11,8 @@
     "automaticStrategies": true
   },
   "compress": {
-    "maxContextLimit": "66%",
-    "minContextLimit": "33%",
-    "nudgeForce": "strong"
+    "maxContextLimit": "75%",
+    "minContextLimit": "25%"
   },
   "experimental": {
     "allowSubAgents": true
