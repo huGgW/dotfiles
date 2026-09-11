@@ -49,6 +49,32 @@
         "The verification plan covers the dual-field event contract and transactional outbox behavior required for the expand phase.",
         "The response identifies consumer migration, adoption verification, and `accountId` removal as gated later phases rather than optional simplifications."
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "The implementation plan is approved. Show the complete Java implementation of an `OrderService` with constructor-injected `OrderRepository`, `AuditPublisher`, and `Clock` fields. Assume the domain types and collaborators already exist. Implement `OrderReceipt placeOrder(OrderRequest request)` to reject a null request and non-positive quantity, create an order from the request and clock, save it, publish an audit event for the saved order, and construct a receipt from it. Keep the implementation direct and concise without extracting one-off helpers. There is no project-specific blank-line rule. Include a brief verification summary after the code.",
+      "expected_output": "Concrete Java code with readable separation of member declarations and meaningful method phases, cohesive statements kept together, and an explicit layout check rather than only a promise to run a formatter.",
+      "files": [],
+      "expectations": [
+        "The generated code separates fields with blank lines or uses clear conceptual field groups separated by blank lines; unrelated collaborators are not compressed into one undifferentiated field block.",
+        "The generated code separates field declarations, the constructor, and the placeOrder method with blank lines.",
+        "The placeOrder body uses blank lines to distinguish validation, order creation, persistence, audit publishing, and receipt construction where they are separate logical steps.",
+        "The generated code keeps cohesive operations together without adding one-off helpers or obvious comments solely to mark sections.",
+        "The verification summary reports inspection of logical blank-line grouping rather than treating formatter or linter success alone as proof of readability."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "The implementation plan is approved. Show the smallest TypeScript patch for `createCustomer`: reject a whitespace-only email after normalization and before saving. Keep the rest of the behavior unchanged. The repository has no explicit blank-line rule, and its formatter preserves blank lines. Existing code:\n```typescript\nclass CustomerService {\n  // Owns customer persistence.\n  private readonly repository: CustomerRepository;\n\n  constructor(repository: CustomerRepository) {\n    this.repository = repository;\n  }\n\n  async createCustomer(input: CustomerInput): Promise<Customer> {\n    const email = input.email.trim();\n    const name = input.name.trim();\n    const customer = await this.repository.save({ email, name });\n    return customer;\n  }\n\n  async deleteCustomer(id: string): Promise<void> {\n    await this.repository.delete(id);\n  }\n}\n```\nDo not refactor or reformat unrelated members. Include a brief verification summary.",
+      "expected_output": "A focused patch that adds the email guard and separates normalization, validation, and persistence while preserving cohesive statements, attached comments, and unrelated members.",
+      "files": [],
+      "expectations": [
+        "The patch rejects whitespace-only email after trimming and before repository.save.",
+        "The modified method includes blank lines between normalization, the validation guard, and persistence despite the compact original body and smallest-patch request.",
+        "The two related normalization statements stay together without a blank line mechanically inserted after every statement.",
+        "The patch leaves the repository field and its attached comment, constructor, and deleteCustomer method unchanged.",
+        "The verification summary checks blank-line grouping in the changed method and does not claim unexecuted tests or formatter runs succeeded."
+      ]
     }
   ]
 }

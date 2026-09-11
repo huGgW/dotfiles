@@ -93,16 +93,16 @@ interface TextElement extends BaseElement {
 }
 ```
 
-Keep `text` and `originalText` identical. Use 16 px for annotations, 20 px for primary labels or section headings, and 28 px for the title. Do not use text smaller than 16 px.
+Keep `text` and `originalText` identical. Use 16 px for annotations, 20 px for primary labels or section headings, and 28 px for the title. Do not use text smaller than 16 px. Unbounded titles and annotations may use `autoResize: true`. Shape labels use an explicitly sized safe-area text box with `autoResize: false`; insert the same manual `\n` characters in both text fields instead of depending on exporter-side wrapping.
 
-Approximate unwrapped text bounds before rendering:
+Approximate text bounds before rendering. Latin letters average roughly 0.6 em, while Korean and other CJK glyphs are commonly close to 1 em:
 
 ```text
-width  ~= longest_line_characters * fontSize * 0.6
-height ~= line_count * fontSize * lineHeight
+line_width ~= fontSize * (latin_like_characters * 0.6 + cjk_or_wide_characters)
+height     ~= line_count * fontSize * lineHeight
 ```
 
-Rendering is authoritative; enlarge or reposition text after reading the PNG when these estimates clip.
+For a rectangle, reserve at least 16 px on the left and right and 12 px at the top and bottom. Use a smaller centered inscribed area for ellipses and diamonds because their edges taper toward the label. After inserting or removing a line break, update `width`, `height`, `x`, and `y` together so the complete text block remains centered. Rendering is authoritative; enlarge or reposition text after reading the PNG when these estimates clip or leave uncomfortably narrow padding.
 
 ## Arrow And Line Elements
 
@@ -254,6 +254,8 @@ The shape and its label are separate, and the title uses the required font famil
 - IDs are unique and referenced bindings exist.
 - Shapes contain no embedded text fields.
 - Every text element uses `fontFamily: 5` and `fontSize >= 16`.
+- Every shape label fits a centered safe area with consistent padding and semantic line breaks where needed.
+- Manually wrapped shape labels use matching explicit `\n` characters in `text` and `originalText`, `lineHeight: 1.25`, and `autoResize: false`.
 - Directional connectors have explicit arrowheads.
 - Connectors precede nodes in z-order and avoid non-endpoint nodes.
 - The scene respects the selected template budgets.

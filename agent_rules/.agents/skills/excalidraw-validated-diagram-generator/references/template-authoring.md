@@ -14,6 +14,7 @@ A template must:
 - establish one dominant axis;
 - stay within its catalog `nodeBudget` and `edgeBudget`;
 - use separate text elements with `fontFamily: 5` and sizes from 16, 20, and 28;
+- fit shape labels inside a centered safe area with consistent padding and semantic line breaks;
 - place connectors before nodes in element z-order;
 - use explicit arrowheads for directional semantics;
 - use dashed lines for asynchronous or return semantics;
@@ -119,6 +120,10 @@ The catalog remains authoritative. Keep each starter scene within both `nodeBudg
 Order the `elements` array so background regions and connectors appear before nodes, then place standalone labels and titles above their visual containers. Keep shape labels separate; do not use shape-embedded `text`, `fontFamily`, or `fontSize` fields.
 
 Set both `text` and `originalText` on text elements and keep them identical. Use 16 px for annotations, 20 px for primary node labels or section headings, and 28 px for the diagram title.
+
+Fit internal labels before connector routing. Rectangles need at least 16 px of horizontal and 12 px of vertical padding; ellipses and diamonds need a smaller centered safe area that accounts for their tapered edges. Use explicit, balanced `\n` breaks at word or phrase boundaries when a label crowds one line. Keep ordinary node labels to one or two lines, use `lineHeight: 1.25` and `autoResize: false`, then recompute and center the text box. If the result still does not fit, enlarge the shape and reflow the scene rather than shrinking the font.
+
+Do not split identifiers or short code tokens. In class and schema compartments, keep one member or row per semantic line and widen the compartment instead of wrapping a signature. Rendering remains authoritative: inspect internal padding and line-break quality at whole-diagram scale as well as checking for clipping.
 
 Every `templateMetadata` object must include `counts`. Named limits beyond `majorNodes` and `edges` are counted from an explicit singular semantic role when one exists, including the configured `boundary`, `decision`, `data-store`, and `flow-band` aliases. Put every remaining named limit in `counts` as a list of one representative element ID per counted item; the key set must be exact. All metadata IDs must reference non-deleted scene elements.
 

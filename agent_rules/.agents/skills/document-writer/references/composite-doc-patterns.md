@@ -2,6 +2,8 @@
 
 Use these patterns after applying the Diataxis compass. Document-type names are convenient shortcuts, not primary modes. Keep each major section locally aligned with a reader need.
 
+For every pattern, default to headings, labeled bullets, numbered actions, and compact tables while preserving all scope-relevant detail. Keep prose short and purposeful. Add visuals wherever they clarify structure, behavior, comparisons, or interaction; the section lists below are adaptable guides, not mandatory templates.
+
 ## README
 
 A README is usually a landing page. It should help the reader decide what the project is, whether it matters to them, and where to go next.
@@ -83,8 +85,8 @@ Useful sections:
 Architecture guardrails:
 
 - Do not force every architecture document into the same template.
-- Prefer diagrams only when they clarify relationships or flows.
-- Keep decision catalogs concise; move long rationale into explanation subsections.
+- Proactively show system boundaries, relationships, and important flows with focused diagrams when they aid understanding. Add separate views for distinct questions rather than crowding everything into one diagram.
+- Keep decision catalogs concise; move long rationale into labeled explanation points, using short prose where needed to preserve meaning.
 - Link to reference docs for complete schemas, APIs, flags, and runtime configuration.
 
 ## Onboarding Guide

@@ -142,21 +142,23 @@ All visible words belong in standalone text elements.
 ```json
 {
   "type": "text",
-  "x": 152,
-  "y": 148,
-  "width": 136,
-  "height": 24,
-  "text": "API Gateway",
-  "originalText": "API Gateway",
-  "fontSize": 20,
+  "x": 64,
+  "y": 32,
+  "width": 320,
+  "height": 35,
+  "text": "Checkout Architecture",
+  "originalText": "Checkout Architecture",
+  "fontSize": 28,
   "fontFamily": 5,
-  "textAlign": "center",
+  "textAlign": "left",
   "verticalAlign": "top",
-  "lineHeight": 1.2,
+  "lineHeight": 1.25,
   "containerId": null,
   "autoResize": true
 }
 ```
+
+Use `autoResize: true` for unbounded text such as this title. Internal shape labels use fixed safe-area boxes with `autoResize: false`, as described below.
 
 Use this hierarchy:
 
@@ -168,23 +170,62 @@ Use this hierarchy:
 
 Do not use smaller text to fit an overloaded scene. Shorten content, enlarge the node, or split overview and detail.
 
+### Text Fit Inside Shapes
+
+Fit every shape label before routing connectors. Treat the center of the shape as a safe text area rather than using the full outer bounds:
+
+| Shape | Safe-area guidance |
+| --- | --- |
+| Rectangle | Keep at least 16 px of horizontal and 12 px of vertical padding. |
+| Ellipse | Start with a centered box no wider or taller than about 70% of the ellipse. Enlarge the ellipse when that area is insufficient. |
+| Diamond | Start with a centered box no wider or taller than about 50% of the diamond. Keep decision questions short and enlarge the diamond before squeezing the label. |
+
+For an internal label:
+
+1. Preserve the user's terminology, shortening only when meaning is unchanged.
+2. Insert explicit `\n` characters at natural word or phrase boundaries when one line would crowd the safe area. Prefer balanced lines and avoid a short orphan word.
+3. Keep ordinary node labels to one or two lines. Allow three lines only in content-heavy cards or cells whose height leaves vertical padding.
+4. Set `text` and `originalText` to the same manually wrapped string, use `autoResize: false` and `lineHeight: 1.25`, and size the text element to the safe area.
+5. Recompute the text block height and center it after every line-break change. Enlarge the shape and reflow peers and connectors when the block still does not fit.
+
+Do not split identifiers, URLs, method signatures, or short code tokens across lines. For Korean and other CJK text, break at spaces or semantic phrase boundaries and do not apply Latin character-count assumptions. If an unbreakable token is too wide, enlarge the shape or move supporting detail to a separate annotation.
+
+Class and schema compartments are exceptions to the ordinary two-line node-label target. Keep one attribute, method, or column per semantic line and widen the compartment instead of wrapping a signature or row in the middle.
+
 ## Composite Patterns
 
 ### Labeled Node
 
-Order the shape before its label:
+Order the shape before its label. This example uses explicit semantic wrapping and a fixed safe-area text box:
 
 ```json
 [
-  { "id": "service-shape", "type": "rectangle" },
+  {
+    "id": "service-shape",
+    "type": "rectangle",
+    "x": 120,
+    "y": 120,
+    "width": 200,
+    "height": 88,
+    "groupIds": ["service-node"]
+  },
   {
     "id": "service-label",
     "type": "text",
-    "text": "Order Service",
-    "originalText": "Order Service",
+    "x": 136,
+    "y": 139,
+    "width": 168,
+    "height": 50,
+    "text": "Payment\nProcessor",
+    "originalText": "Payment\nProcessor",
     "fontFamily": 5,
     "fontSize": 20,
-    "containerId": null
+    "textAlign": "center",
+    "verticalAlign": "middle",
+    "lineHeight": 1.25,
+    "containerId": null,
+    "autoResize": false,
+    "groupIds": ["service-node"]
   }
 ]
 ```
@@ -227,6 +268,8 @@ Use participant nodes at the top, dashed plain lines for lifelines, solid arrows
 
 - Every label is a separate text element.
 - Every text element uses font family 5 and size 16, 20, or 28.
+- Every shape label fits a centered safe area with consistent padding and natural line breaks.
+- Manually wrapped shape labels use matching `text` and `originalText`, `lineHeight: 1.25`, and `autoResize: false`.
 - Every directional connector has an explicit arrowhead.
 - Async and return connectors are dashed.
 - Off-axis connectors are orthogonal.

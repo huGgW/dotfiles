@@ -2,6 +2,8 @@
 
 Use this guide when drafting or revising non-trivial documentation sections. Classify the reader need first, then apply the mode rules.
 
+Across all modes, default to compact structured forms without reducing scope or substance. Mode determines the reader's need, not whether the answer must use prose. Add useful visuals proactively; reserve short paragraphs for meaning that structured points cannot convey clearly.
+
 ## Compass
 
 | Question | If yes | If no |
@@ -142,10 +144,10 @@ Use explanation mode when:
 Write explanation like this:
 
 - Start from the reader's real or imagined "why" question.
-- Connect concepts, causes, constraints, and consequences.
-- Explain trade-offs and alternatives.
+- Connect concepts, causes, constraints, and consequences explicitly in labeled bullets or a clear sequence of points. Keep a short paragraph when it is necessary to preserve the argument.
+- Explain trade-offs and alternatives with concise comparison tables or structured points, preserving reasons and conditions.
 - State perspective where useful; explanation can include justified opinion.
-- Use diagrams when they clarify relationships or flow.
+- Proactively add diagrams for relationships or flow and charts for supported quantitative comparisons. Use separate focused visuals when they explain distinct aspects of the topic.
 - Link to how-to guides for procedures and reference for exact facts.
 
 Avoid in explanation:

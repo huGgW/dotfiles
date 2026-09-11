@@ -3,9 +3,46 @@
 Use these templates to preserve role separation without protocol-only handshakes.
 Do not ask one child to produce and approve the same work.
 
+## Manager Intake For A New Run
+
+The intake coordinator first follows `run-lifecycle.md`, archives the prior
+active run if present, and launches a manager with history inheritance disabled.
+Do not include the prior conversation or full contract in the prompt.
+
+```text
+You are the manager for this new backpressure run. You are already the assigned
+manager: do not dispatch another manager. Load agentic-backpressure and follow
+its manager protocol. Delegate production, verification, and independent review.
+
+Run ID: <new run_id>
+Request mode: new
+Current request and source: <user request and stable source reference>
+Accepted plan and constraints: <concise accepted plan, ownership, non-goals,
+stop point, exact authority; references for longer approved artifacts>
+Repository root and active contract path: <paths>
+Review base and rationale: <immutable base; in-scope changes it includes>
+Protected existing work: <staged, unstaged, relevant untracked work>
+Relevant unresolved items: <defects, decisions, dependencies | none>
+External partial/unknown operations: <exact target, operation, successful parts,
+attempt count, read-back obligations and reference | none>
+Profile and initial budget: <profile defaults or explicit initial overrides>
+Calls already used by this run: 1 for this manager dispatch
+Context isolation evidence: <no-history launch setting; coordinator attaches ID>
+Prior run reference: <archive only if relevant; not current approvals or evidence>
+```
+
+The manager verifies these facts and activates its own contract. It does not
+inherit prior used budgets or gate approvals. Recheck whether earlier exact
+external-write authorization still matches the latest user intent; do not require
+duplicate approval while its target, scope, and material risk remain unchanged.
+The coordinator records the tool-reported manager ID and launch mode. Without a
+no-history launch facility, record isolation as unavailable and hand off under
+`run-lifecycle.md`; creating a new ID or document is not a substitute.
+
 ## Common Request
 
-Include this compact block in each invocation:
+Include this compact block plus all fields in the selected role template in each
+invocation. The common block alone is not a complete request.
 
 ```text
 Run ID: <run_id>
@@ -33,6 +70,12 @@ The manager starts each new requested action in a fresh child with no inherited
 child transcript. Resume is limited to the exact same unfinished action under the
 skill's continuity exception. The child still re-establishes the referenced
 contract and state; session continuity never substitutes for this check.
+
+Before dispatch, the manager checks that required role-specific fields contain
+concrete facts or precise readable references. Recover missing facts from the
+contract, original finding, repair report, or repository; never invent evidence,
+dispositions, or scope. If a required fact remains unavailable, record the gap and
+route a focused investigation or blocked handoff instead of a completion review.
 
 If the referenced contract, decision sources, or state cannot be established,
 identify the mismatch and stop. Planner, worker, verifier, and specialist roles
@@ -89,6 +132,7 @@ and non-goals, ownership and public API constraints, acceptance criteria>
 Required lenses: <Plan Gate lenses>
 Prior findings: <stable IDs and dispositions | none>
 Review invocation: <1 | 2>
+Plan allowance: <initial | authorized material-extension ID>
 
 Review only the supplied hashed plan and declared scope. Return the exact
 `plan-reviewer` capability report with `review_completion`, `subject_identity`,
@@ -97,8 +141,11 @@ return a gate verdict, choose a repair route, authorize implementation, or revis
 the plan. `COMPLETE` means only that the declared review scope was completed.
 ```
 
-After invocation 2, any remaining blocker or undisposed SHOULD finding requires
-human escalation. Do not request another reviewer to reset the limit.
+After invocation 2 within that allowance, any remaining blocker or undisposed
+SHOULD finding requires human escalation. Ordinary revisions and new reviewers
+do not grant another allowance. Only a user-authorized material extension under
+`run-lifecycle.md` receives additional plan-review capacity; existing findings and
+unchanged repeated-failure stops remain in force.
 
 ## Patch Worker
 
@@ -204,6 +251,8 @@ Targeted mechanical evidence: <current evidence reference>
 Review scope: <base-to-candidate delta and relevant symbols/callers>
 Authoritative context: <active decisions, agreed plan, scope, ownership and public
 API, safeguards, acceptance criteria>
+Preservation bindings: <each applicable safeguard -> active decision or acceptance
+criterion IDs and source; none only when no safeguard applies>
 Required lenses: simplicity
 Prior findings: <stable IDs and dispositions | none>
 
@@ -214,8 +263,8 @@ approval. `COMPLETE` means only that the declared simplicity scope was completed
 
 After a simplicity repair changes the candidate, prior review and affected
 mechanical evidence are stale. Launch a fresh verifier and fresh simplicity
-reviewer for the new state. This focused route never replaces the fresh final
-verifier or final whole-changeset reviewer.
+reviewer for the new state, including the repair review context below. This route
+never replaces the fresh final verifier or final whole-changeset reviewer.
 
 ## Focused Reviewer
 
@@ -234,17 +283,33 @@ Authoritative context: <applicable decisions, scope, ownership and public API,
 acceptance criteria>
 Required lenses: <routed lenses>
 Prior findings: <stable IDs, evidence, and dispositions | none>
-Changed files or symbols: <references>
+Delta and adjacent scope: <include the repair review context below for a repair;
+otherwise name the risk trigger, changed files/symbols, adjacent callers,
+behaviors/tests, and why they are in scope>
 
 Review only the requested delta and nearby regression risk. Do not claim final
 whole-changeset approval. Return the exact `code-reviewer` capability report. Do
 not return a gate verdict, choose a repair route, or edit the candidate.
 ```
 
-After a repair changes the candidate, launch a fresh focused reviewer and pass
-the stable finding IDs, evidence, and repair delta explicitly. A prior reviewer's
-ownership of a finding is not a resume reason. Fresh replacement does not reset
-review or repair budgets.
+### Repair Review Context
+
+For focused or simplicity review after a repair, include this single block in the
+request so a fresh reviewer can assess both the original defect and regressions:
+
+```text
+Prior findings: <stable IDs -> original evidence or exact source references,
+original state, and current manager-recorded dispositions>
+Repair delta: <concrete changes since that review, with files and symbols>
+Adjacent regression scope: <affected callers, behaviors, and tests to inspect,
+with the connection to the repair; any exclusion needs a concrete rationale>
+Current validation: <current state ID and targeted mechanical evidence references>
+```
+
+Original evidence explains the defect; it does not validate the repaired state.
+Require current-state coverage of the repair and declared adjacent scope in the
+capability report. A prior reviewer's ownership of a finding is not a resume
+reason. Fresh replacement does not reset review or repair budgets.
 
 ## Final Whole-Changeset Reviewer
 

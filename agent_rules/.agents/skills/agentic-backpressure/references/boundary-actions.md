@@ -70,7 +70,7 @@ Examples:
 | Final Correctness is non-pass | Execute no `after_final` action |
 | Required `after_final` action is non-pass and content is unchanged | Keep correctness `PASS`, block later actions, and hand off |
 | Optional `after_final` action is non-pass and content is unchanged | Report it; continue only to independent later actions |
-| Prior result belongs to another identity | Discard it as `STALE` and evaluate the current action |
+| Prior result belongs to another identity | Mark gate evidence `STALE`; retain operation attempts and real-world outcome facts before evaluating the current action |
 | Current action cannot establish its declared identity | Return `STALE` and hand off or refresh current state |
 | Outcome is unknown or partially successful | Read back before deciding whether any retry is safe |
 
@@ -99,6 +99,13 @@ When a request times out or partially succeeds:
 Allow at most two execution attempts per action, including the first. A delegated
 attempt also consumes a child call. Record each attempt and observed partial
 result; never broaden the target or operation to recover from a failure.
+
+A new run, extension grant, renamed action, or changed specification does not
+reset attempts for the same underlying operation or erase an unknown outcome.
+Carry exact target, operation, successful parts, attempt count, and read-back
+references into a relevant new run. Stale evidence cannot satisfy the new gate,
+but it still constrains safe retries; read back before issuing another operation.
+See `run-lifecycle.md` for request-boundary handoffs.
 
 ## Candidate Mutation
 

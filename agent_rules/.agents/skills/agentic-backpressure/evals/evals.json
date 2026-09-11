@@ -138,7 +138,7 @@
     },
     {
       "id": 12,
-      "prompt": "Publication readiness passed for the current candidate. Before an authorized action, the validation specification changes to require an SBOM that was not in the prior checklist. Candidate content is unchanged. Decide which evidence remains usable and what must happen before the action.",
+      "prompt": "Publication readiness passed for the current candidate. Before an authorized action, only the publication specification changes to require an SBOM that was not in the prior publication checklist. Candidate content, the validation specification, and all correctness constraints remain unchanged; the SBOM will be verified as a separate publication artifact without changing the candidate. Decide which evidence remains usable and what must happen before the action.",
       "expected_output": "Invalidate the old publication-readiness pass, retain unaffected content-bound correctness evidence, verify the new SBOM requirement, and block the action until current publication evidence passes.",
       "files": [],
       "expectations": [
@@ -154,8 +154,8 @@
       "expected_output": "Record the earlier decision as superseded and the latest explicit user decision as active, update the linked contract and plan, recompute the validation hash, mark related evidence stale, and continue only with fresh planner, reviewer, or worker sessions under the new specification.",
       "files": [],
       "expectations": [
-        "The single manager-owned decision record marks the earlier decision as superseded and links it to the active replacement decision.",
-        "The active contract and agreed plan preserve the latest user's behavior-preservation and public-boundary constraints instead of broadly paraphrasing or weakening them.",
+        "The manager owns the authoritative decision update, marks the earlier decision superseded, and makes the latest decision its active replacement. An explicit replacement relationship is sufficient; no particular record field name or ledger serialization is required.",
+        "The active contract and revised plan retain both requirements: preserve existing behavior as much as possible and keep one service-level public boundary. Equivalent wording is accepted, but omitting or weakening either constraint is not.",
         "The correctness-affecting decision change recomputes the validation specification hash and makes related evidence, including final semantic review, stale.",
         "Implementation does not continue against the previously approved plan.",
         "Children created under the superseded decision are not resumed after the new specification is activated.",
@@ -164,7 +164,7 @@
     },
     {
       "id": 14,
-      "prompt": "Final build, lint, and tests pass for a frozen candidate. Concise decision source SRC-21 binds active decision D-21 to a prohibition on changing src/legacy_adapter.go. Source SRC-22 binds active decision D-22 to Service.Execute as the single service-level public entry point. The diff modifies src/legacy_adapter.go and adds public SubtypeA.Execute and SubtypeB.Execute entry points. Agent-authored acceptance criteria mention only successful behavior and all of them pass. Explain the final code-reviewer capability report and the manager's gate mapping.",
+      "prompt": "Final build, lint, and tests pass for a frozen candidate. Concise decision source SRC-21 binds active decision D-21 to a prohibition on changing src/legacy_adapter.go. Source SRC-22 binds active decision D-22 to Service.Execute as the single service-level public entry point. The diff modifies src/legacy_adapter.go and adds public SubtypeA.Execute and SubtypeB.Execute entry points. Agent-authored acceptance criteria mention only successful behavior and all of them pass. Both violations can be repaired within the agreed plan and existing ownership; no new public API decision, authority, or user clarification is needed, and repair capacity remains. Explain the final code-reviewer capability report and the manager's gate mapping.",
       "expected_output": "The final code-reviewer returns a COMPLETE whole-changeset capability report with BLOCKER findings citing SRC-21/D-21 and SRC-22/D-22 and file or symbol evidence; the manager maps those findings to SEND_BACK despite mechanical success.",
       "files": [],
       "expectations": [
@@ -178,14 +178,14 @@
     },
     {
       "id": 15,
-      "prompt": "One rollback test fails against a seeded fixture. A worker proposes immediately widening the production transaction scope, but the authoritative fixture precondition and exception propagation path have not been verified. Fixture-versus-production attribution is unresolved, and a fixture or tooling owner is available for investigation. Decide the backpressure route before any production patch.",
-      "expected_output": "Do not change production transaction scope yet. Record the suspected cause as a hypothesis and route a focused investigation to the available owner for the authoritative precondition, clean fixture reproduction, isolating control case, transaction ownership, and exception propagation evidence.",
+      "prompt": "One rollback test fails against a seeded fixture. A worker proposes immediately widening the production transaction scope, but the authoritative fixture precondition and exception propagation path have not been verified. Transaction ownership and exception propagation directly affect this rollback behavior. Fixture-versus-production attribution is unresolved, and a fixture or tooling owner is available for investigation. Decide the backpressure route before any production patch, including what happens if required evidence cannot be obtained.",
+      "expected_output": "Do not change production transaction scope yet. Record the suspected cause as a hypothesis and route a focused investigation to the available owner for the authoritative precondition, clean fixture reproduction, isolating control case, transaction ownership, and exception propagation evidence. Missing required evidence keeps production repair blocked rather than waiving the precondition.",
       "files": [],
       "expectations": [
         "The failing rollback test does not immediately justify a production transaction-scope change.",
         "The suspected root cause is recorded as a hypothesis rather than a verified conclusion.",
-        "The route requires an authoritative precondition, clean fixture reproduction, and a control case before production repair.",
-        "Transaction ownership and exception propagation are required before changing the transaction boundary.",
+        "The investigation requests the authoritative precondition, clean fixture reproduction, and an isolating control case before production repair; if required evidence is unavailable, production repair remains blocked. Applicability or feasibility wording alone is not a failure when it does not waive this requirement.",
+        "Transaction ownership and exception propagation evidence are required for this transaction-boundary change; unavailable evidence cannot be used to justify the production patch.",
         "The available fixture or tooling owner receives a focused investigation route instead of an immediate production patch or PASS."
       ]
     },
@@ -239,22 +239,22 @@
     },
     {
       "id": 20,
-      "prompt": "Focused reviewer R1 raised finding SEC-4 on candidate state A. A worker repairs the cited symbols, producing candidate state B. R1 is available and could quickly check its own finding. Final whole-changeset review is still pending. Decide the focused recheck and final review session routes.",
-      "expected_output": "Use a fresh focused reviewer for state B with SEC-4, its evidence, the repair delta, and nearby regression scope in the handoff; limit that result to the blocker delta, then use another fresh reviewer for final whole-changeset review.",
+      "prompt": "Focused reviewer R1 raised finding SEC-4 on candidate state A: src/auth/token.go ValidateToken accepted an expired token because it checked only the signature. tests/auth/token_test.go TestRejectExpiredToken reproduced the bug by expecting rejection but receiving success. A worker repairs ValidateToken in state B by rejecting expired tokens while retaining signature validation, and adds an expiry-boundary test. Its disposition is fixed pending independent verification. The callers src/api/session.go RefreshSession and src/api/profile.go ReadProfile depend on valid-token acceptance and invalid-token rejection. R1 is available and could quickly check its own finding. Final whole-changeset review is still pending. Decide the review session routes and write the concrete focused-review handoff for state B, covering the finding, prior evidence and disposition, repair delta, and adjacent regression scope using these supplied facts. This is a policy exercise: emit the handoff text without invoking a reviewer or claiming the tests have run.",
+      "expected_output": "Emit a concrete handoff to a fresh focused reviewer for state B carrying SEC-4, the original expired-token reproduction and fixed-pending-verification disposition, the expiry-check and test repair delta, and nearby caller, token-behavior, and test regression scope. Do not resume R1. Limit this result to the requested repair and adjacent risks, then use another fresh reviewer for final whole-changeset review.",
       "files": [],
       "expectations": [
         "R1 is not resumed after the candidate changes from state A to state B.",
-        "A fresh focused reviewer is invoked for state B.",
-        "The focused-review handoff includes SEC-4 and its existing evidence.",
-        "The focused-review handoff includes the repair delta.",
-        "The focused review covers nearby regression risk.",
+        "The emitted handoff requests a fresh focused reviewer for state B rather than claiming an observed invocation.",
+        "The emitted handoff includes SEC-4, the original expired-token acceptance evidence from ValidateToken and TestRejectExpiredToken, and the fixed-pending-independent-verification disposition. A bare finding ID or promise to include evidence is insufficient.",
+        "The emitted handoff describes the actual repair delta: expiry rejection added while signature validation is retained, plus the new expiry-boundary test. A bare repair_delta label is insufficient.",
+        "The emitted handoff identifies adjacent regression scope across RefreshSession and ReadProfile, valid-token acceptance and invalid-token rejection, and the existing expired-token reproduction plus expiry-boundary test. Equivalent concrete descriptions are accepted; bare labels such as blocker_delta or nearby regressions are insufficient.",
         "A mapped focused-review PASS is not used to pass Final Correctness.",
         "The final gate invokes a fresh whole-changeset reviewer after the focused recheck."
       ]
     },
     {
       "id": 21,
-      "prompt": "A patch worker ran tests diagnostically. The run now needs an authoritative final verifier and fresh whole-changeset reviewer, but spending another repair call would cross the reserved final-call floor. The manager proposes resuming the worker under the verifier role to save capacity. Decide the route.",
+      "prompt": "A patch worker ran tests diagnostically. All intermediate gates already have current passing evidence, no repair is required, and the candidate is otherwise eligible to be frozen for Final Correctness. Exactly the reserved final-route capacity remains and it fits the required fresh final verifier and fresh whole-changeset reviewer; an unnecessary extra repair call would consume that reserve. The manager proposes resuming the worker under the verifier role to save capacity. Decide the route.",
       "expected_output": "Reject cross-role reuse and diagnostic evidence promotion, skip another repair, preserve the final-call floor, and launch the required fresh final verifier and whole-changeset reviewer. Correctness remains pending until both gates pass.",
       "files": [],
       "expectations": [
@@ -335,7 +335,7 @@
     },
     {
       "id": 27,
-      "prompt": "An approved authentication migration adds a vetted password-hashing dependency and a wrapper that centralizes algorithm parameters, legacy-hash compatibility, and rehash-on-login safeguards. Targeted security and migration checks pass. A simplicity review is triggered by the dependency and wrapper. Decide whether the reviewer should delete them merely to reduce complexity.",
+      "prompt": "An approved authentication migration adds a vetted password-hashing dependency and a wrapper. Active decision D-SEC requires the vetted algorithm and centrally controlled parameters; acceptance criterion AC-SEC requires approved-parameter hashes and secure verification. D-COMPAT requires existing users to authenticate with legacy hashes; AC-COMPAT requires legacy-login compatibility. D-MIGRATE requires rehash-on-login only after successful authentication; AC-MIGRATE forbids rehash on rejected credentials. D-ARCH requires one authentication boundary to own these safeguards; AC-ARCH requires all login callers to use that boundary. The wrapper implements these responsibilities, and targeted checks for AC-SEC, AC-COMPAT, AC-MIGRATE, and AC-ARCH pass on the current candidate. A simplicity review is triggered by the dependency and wrapper. Explain the reviewer's capability report and manager mapping, explicitly mapping each preserved safeguard to its active decision and acceptance criterion. Decide whether the reviewer should delete the dependency or wrapper merely to reduce complexity.",
       "expected_output": "The code-reviewer simplicity capability report preserves the dependency and wrapper when evidence shows they are required for security, compatibility, migration, and the approved architecture; it returns COMPLETE with explicit safeguard coverage and no manufactured finding, and the manager maps the report.",
       "files": [],
       "expectations": [
@@ -343,7 +343,7 @@
         "The reviewer returns a capability report without an approval or gate verdict.",
         "The reviewer does not recommend an insecure standard-library substitute or delete the centralized safeguards merely to reduce complexity.",
         "The outcome cites security, compatibility, migration, and approved-architecture evidence as load-bearing.",
-        "The review explicitly maps preserved invariants and safeguards to active decisions and acceptance criteria.",
+        "The capability report maps approved algorithm parameters to D-SEC/AC-SEC, legacy login to D-COMPAT/AC-COMPAT, successful-authentication-only rehash to D-MIGRATE/AC-MIGRATE, and centralized ownership for login callers to D-ARCH/AC-ARCH. Equivalent explicit associations are accepted; merely promising a safeguard mapping is insufficient.",
         "No line-count score or lines-saved estimate determines the outcome."
       ]
     },
@@ -353,7 +353,7 @@
       "expected_output": "Treat state-A simplicity evidence and affected mechanical evidence as stale after the repair, launch a fresh verifier and fresh code-reviewer simplicity child for state B with SIM-004 and the repair delta, freeze only after the manager maps current-state evidence to PASS, then run separate fresh final verification and whole-changeset review.",
       "files": [],
       "expectations": [
-        "The repair is assigned to a fresh worker and changes the candidate state ID from A to B.",
+        "Subsequent evidence and review target repaired state B, not state A. The answer need not repeat the already supplied fact that a fresh worker performed the repair; it must not contradict that fact or reuse A's identity for B.",
         "State-A simplicity-review evidence is rejected as STALE for state B.",
         "Affected targeted mechanical evidence is refreshed by a fresh verifier for state B.",
         "A fresh code-reviewer simplicity child evaluates state B using stable finding ID SIM-004 and the repair delta without emitting a core gate verdict.",
@@ -368,7 +368,7 @@
       "files": [],
       "expectations": [
         "The underspecified handoff is rejected rather than asking the plan-reviewer to invent scope or authority.",
-        "The corrected handoff explicitly loads plan-reviewer and supplies the exact hashed plan subject and expected identity.",
+        "The corrected handoff explicitly requests the named plan-reviewer skill or capability workflow and supplies the exact hashed plan subject and expected identity. 'Follow the plan-reviewer workflow' satisfies this policy assertion; observing the actual skill load requires a separate runtime trace, not a particular verb in this answer.",
         "The corrected handoff includes exact review scope, active and superseded decision context, non-goals, ownership and public API constraints, acceptance criteria, required lenses, and prior finding dispositions.",
         "The plan-reviewer returns review_completion, subject identity, reviewed scope, coverage, findings, unverified areas, and residual risks without a gate verdict.",
         "The manager retains gate mapping, review-count limits, freshness, and escalation ownership."
@@ -385,6 +385,148 @@
         "S9-bound mechanical and semantic evidence does not pass current state S10.",
         "Final Correctness remains pending until a fresh verifier and fresh code-reviewer review the same exact current candidate.",
         "The route preserves the manager's ownership of subject identity, freshness, and gate synthesis."
+      ]
+    },
+    {
+      "id": 31,
+      "prompt": "The previous Standard backpressure run completed a parser feature after using 18 of 20 child calls. In the same conversation and branch, the user now requests backpressure for an unrelated export feature that also warrants Standard. Decide the run, manager context, contract, and available capacity. The old contract contains many completed findings.",
+      "expected_output": "Start an independent new run with a fresh manager context, a new active contract, and an initial 20-call allowance; charge the manager launch to this new allowance and archive the previous contract without importing its consumed budget or completed history.",
+      "files": [],
+      "expectations": [
+        "The export task uses a new run ID and new active contract by default despite sharing the conversation and branch.",
+        "The new Standard run receives an initial 20-call allowance rather than the previous run's 2 remaining calls, and its manager launch consumes one of those calls.",
+        "The manager is launched without the previous manager transcript, using only a bounded relevant handoff.",
+        "The previous contract is preserved as history rather than appended wholesale to the active contract."
+      ]
+    },
+    {
+      "id": 32,
+      "prompt": "Standard run R1 has used 18 of 20 child calls. Before completion, the user adds acceptance criterion AC-4 for the same parser's rollback behavior and agrees to extend the existing contract because old and new criteria must be verified together. The extension remains Standard and no grant override is specified. Decide the run identity, capacity, and evidence handling.",
+      "expected_output": "Keep R1, record the authorized contract extension with an identity and one default 20-call grant, yielding limit 40, used 18, remaining 22; revise the contract and refresh affected evidence.",
+      "files": [],
+      "expectations": [
+        "R1 is retained with a recorded reason that AC-4 needs joint verification with the existing criteria.",
+        "The extension adds 20 calls, resulting in a limit of 40, used count of 18, and remaining count of 22.",
+        "The grant is tied to the user-requested extension so it can be distinguished from a retry.",
+        "The changed validation specification invalidates affected old evidence before any correctness PASS."
+      ]
+    },
+    {
+      "id": 33,
+      "prompt": "Standard run R1 is interrupted with 18 of 20 calls used. The user says: continue the same unfinished backpressure work; the goal, acceptance criteria, repository state, and scope have not changed. Decide the run and budget route. A fresh replacement manager is needed because the old session is unavailable.",
+      "expected_output": "Continue R1 with limit 20 and prior usage 18. Check route feasibility before dispatch and escalate without launching when capacity is insufficient. If a replacement is actually launched, charge one additional call; neither replacement nor recovery grants capacity or a new contract.",
+      "files": [],
+      "expectations": [
+        "The unchanged unfinished work is classified as continuation of R1.",
+        "The budget retains limit 20 and previous consumption 18 with no grant or reset; any actual replacement-manager dispatch costs one additional call, but an unlaunched replacement costs none.",
+        "Recovery uses the existing execution state rather than treating session loss as a new request; no replacement launch is required when the remaining route cannot fit.",
+        "If remaining capacity cannot satisfy the required route, the manager preserves the blocker and escalates instead of silently adding calls."
+      ]
+    },
+    {
+      "id": 34,
+      "prompt": "R1 originally allowed 20 child calls and had used 18. User extension EXT-7 added 20 calls and was durably recorded before a transport interruption. The user repeats the exact EXT-7 request while recovering the interrupted session. No additional requirement is present. Decide the budget and how to recover if the grant record cannot be read reliably.",
+      "expected_output": "Treat this as recovery of EXT-7, keep the recorded 40-call limit and 18 used, and do not grant another 20 calls. Reconcile an unreadable or uncertain grant record before any further grant.",
+      "files": [],
+      "expectations": [
+        "The repeated EXT-7 request receives no second grant: limit remains 40 and used remains 18.",
+        "Recovery checks the durable extension identity and grant record rather than using a new invocation ID as authorization.",
+        "An uncertain grant outcome is reconciled or escalated before another grant is issued."
+      ]
+    },
+    {
+      "id": 35,
+      "prompt": "R1 is a Standard run with limit 20 and used 18. The user extends its scope to authentication-token migration, requiring joint verification and the Critical profile. Compare A: no additional budget specified; B: the user explicitly grants 12 additional child calls for this extension. Neither request authorizes a production rollout. State the call limits and retained constraints.",
+      "expected_output": "Reassess the extension as Critical. A adds the Critical default 32 calls, yielding 52 total and 34 remaining. B honors the explicit 12-call addition, yielding 32 total and 14 remaining. Both preserve used count and authorization boundaries.",
+      "files": [],
+      "expectations": [
+        "The authentication migration raises the applicable risk profile to Critical.",
+        "Outcome A adds 32 calls for a total limit of 52 and 34 remaining with 18 used.",
+        "Outcome B adds exactly 12 calls for a total limit of 32 and 14 remaining with 18 used.",
+        "Additional capacity does not authorize production rollout or remove security and migration gates."
+      ]
+    },
+    {
+      "id": 36,
+      "prompt": "A Standard run has spent both plan-review invocations and all 3 repair rounds on gate G1. Its prior plan is now resolved and G1 passes. Gate G2 has an unrelated repeated unchanged failure that still blocks progress. The user approves a material extension affecting the plan and G1, but not G2. Decide the new allowances, existing counters, repeated-failure status, and final-call reserve.",
+      "expected_output": "Give the material extension up to two new plan-review invocations and add Standard's 3 repair rounds to affected G1 while retaining previous usage. Do not replenish unaffected G2 or clear its repeated failure; recompute the final reserve from the remaining route.",
+      "files": [],
+      "expectations": [
+        "The material extension has up to two new plan-review invocations without erasing the prior two invocations.",
+        "Affected G1 gains 3 repair rounds, with the previous 3 consumed rounds still recorded.",
+        "Unaffected G2 receives no repair allowance increase and its repeated unchanged failure remains a blocker.",
+        "The final-call reserve is recomputed for the current remaining verification route rather than summed with every historical reserve."
+      ]
+    },
+    {
+      "id": 37,
+      "prompt": "A Standard loop has exhausted its repair allowance on the same unchanged blocker. No user has requested new work or changed the contract. The manager proposes renaming the gate, creating run R2, and labeling the next identical repair an extension to obtain fresh capacity. Decide the route.",
+      "expected_output": "Reject the invented run and extension as budget evasion, retain the consumed allowance and blocker, and escalate the unchanged failed work with a focused decision.",
+      "files": [],
+      "expectations": [
+        "The manager does not create a fresh budget through a renamed gate, run ID, or invented extension.",
+        "The original consumed allowance and repeated unchanged blocker remain visible.",
+        "No additional identical repair is launched without a legitimate changed condition or user decision."
+      ]
+    },
+    {
+      "id": 38,
+      "prompt": "The user requests a new independent backpressure loop after a long prior run. Existing local changes include the prior feature, an unrelated user edit, and an untracked test fixture. One unresolved data-loss hazard affects the new task. Describe the new manager handoff, review baseline, history handling, and old PASS handling without deleting files or committing.",
+      "expected_output": "Start with a compact task-specific handoff including the relevant hazard, preservation constraints, and an explicit baseline accounting for existing tracked and untracked changes; keep the old history external and do not inherit PASS as current evidence.",
+      "files": [],
+      "expectations": [
+        "The new manager receives the current request and relevant unresolved data-loss hazard, not the full previous transcript or completed findings.",
+        "The baseline explicitly accounts for existing tracked and untracked changes rather than silently using HEAD as the whole starting state.",
+        "The prior feature, unrelated user edit, and untracked fixture are preserved.",
+        "The previous run's PASS is not automatically accepted as current evidence for the new contract."
+      ]
+    },
+    {
+      "id": 39,
+      "prompt": "In an old loop, an exactly authorized remote action POST-1 timed out after sending its request. Authoritative read-back remains unavailable, so the outcome is unknown. The user now requests an independent new loop whose desired final state would normally involve the same target and operation. Decide how POST-1 affects the new handoff and any retry.",
+      "expected_output": "Carry the unknown side effect, exact target, and prior attempts into the new loop as a relevant hazard. A new run or fresh budget cannot authorize blind repetition; obtain authoritative state and recheck current authorization before any supported narrow retry.",
+      "files": [],
+      "expectations": [
+        "The unknown POST-1 outcome and prior attempts are included in the new loop's handoff.",
+        "A new run ID or child-call grant does not reset the same external action's retry history.",
+        "The operation is not repeated while its result remains unknown.",
+        "Any later retry requires authoritative state and the latest exact authorization for the target and operation."
+      ]
+    },
+    {
+      "id": 40,
+      "prompt": "The user requests a new independent backpressure loop. The host can launch children only by inheriting the entire current conversation; no clean-context manager launch is available. The manager proposes changing run_id and replacing BACKPRESSURE.md, then reporting that the loop has an isolated context. Decide what may be claimed and the next route.",
+      "expected_output": "Distinguish fresh execution metadata from actual context isolation. Do not claim isolation or silently proceed as if it exists; report the host limitation and request a supported clean-context route or an explicit user choice for degraded execution.",
+      "files": [],
+      "expectations": [
+        "Changing run_id or replacing the contract is not presented as actual context isolation.",
+        "The host's forced transcript inheritance is reported as an unresolved limitation.",
+        "The manager seeks a supported clean-context route or a user decision before treating degraded execution as acceptable.",
+        "No claim of observed fresh-manager execution is made without host evidence."
+      ]
+    },
+    {
+      "id": 41,
+      "prompt": "R1 remains unfinished with a large active contract and uncommitted changes. The user now requests backpressure for an independently verifiable documentation task in the same repository. It does not add criteria to R1 and can be completed without resolving R1. Decide whether to append it to R1, what happens to R1's state, and how to avoid two managers writing the same active contract.",
+      "expected_output": "Use a new loop by default, preserve R1 as suspended history with its unresolved state, and coordinate exclusive active-contract ownership before activating the new manager. Do not declare R1 complete or let concurrent managers overwrite its contract.",
+      "files": [],
+      "expectations": [
+        "The independent task starts a new loop rather than expanding R1 merely because the repository is shared.",
+        "R1's unfinished state, budget, and local changes remain recoverable and are not marked complete.",
+        "Active-contract ownership is transferred or isolated before a new manager can write it.",
+        "The new loop starts with its own applicable profile budget."
+      ]
+    },
+    {
+      "id": 42,
+      "prompt": "The user approves extension EXT-2 to a Standard run. The extension adds a new acceptance criterion and has already received its one default grant. The first extension plan review requests a correction; a fresh second reviewer still finds the same unresolved ownership decision. The manager suggests issuing another extension grant and a third reviewer invocation because the reviewer session is new. Decide the route and what remains preserved.",
+      "expected_output": "Treat both reviews as part of the same EXT-2 allowance. Do not regrant or launch a third plan review merely because the plan was revised or reviewer replaced; preserve the unresolved decision and escalate.",
+      "files": [],
+      "expectations": [
+        "EXT-2 receives no additional grant for its own plan correction or reviewer replacement.",
+        "Both completed reviews count against EXT-2's two-invocation plan allowance.",
+        "No third reviewer or implementation worker is launched while the ownership decision remains unresolved.",
+        "The unresolved decision is escalated with the existing extension and consumption history intact."
       ]
     }
   ]

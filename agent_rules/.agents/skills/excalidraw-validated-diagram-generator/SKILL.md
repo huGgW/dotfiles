@@ -67,6 +67,10 @@ Apply these rules:
 - Use no shadows. Use an independent Excalidraw palette; do not copy upstream CSS values.
 - Render every label as a separate `text` element with `fontFamily: 5` and `fontSize >= 16`.
 - Use the 16/20/28 type hierarchy for annotations, labels or section headings, and the title.
+- Fit labels to their shapes before routing connectors. Keep at least 16 px of horizontal and 12 px of vertical padding inside rectangles, and use a smaller centered safe area inside ellipses and diamonds.
+- Insert explicit semantic line breaks when a shape label does not fit comfortably on one line. Break at word or phrase boundaries, keep identifiers and short code tokens intact, and prefer balanced lines. Keep ordinary node labels to one or two lines; use three only in content-heavy cards or cells with enough height.
+- For manually wrapped shape labels, put the same explicit `\n` characters in `text` and `originalText`, use `autoResize: false` and `lineHeight: 1.25`, recompute the text box, and center it in the shape.
+- If a label still does not fit its safe area, shorten it without losing meaning, enlarge the shape and reflow nearby elements, or split the diagram. Never reduce the font below the 16/20/28 hierarchy to make text fit.
 - Give directional connectors explicit arrowheads. Use dashed connectors for asynchronous or return flows.
 - Route off-axis connectors orthogonally. Keep fan-out anchors at least 12 px apart.
 - Put connectors before nodes in element z-order so nodes visually cover connector ends.
@@ -74,7 +78,22 @@ Apply these rules:
 
 Read `references/excalidraw-schema.md` when creating or changing raw JSON and `references/element-types.md` for element-specific fields and semantics. Read the full `references/template-authoring.md` only when the task is to create or maintain canonical templates.
 
-### 5. Render, Read, And Fix
+### 5. Run The Visual Correction Loop
+
+Treat the first render as a draft, not as a deliverable. Use this loop after adapting the canonical scene:
+
+1. Render the current `.excalidraw` source to PNG.
+2. Read the PNG with the image-capable Read tool.
+3. Inspect the rendered image in this order:
+   - shape labels that are clipped, overflow their safe area, lack consistent padding, use awkward line breaks, or become unreadable at whole-diagram scale;
+   - overlapping labels, shapes, connectors, or decorations;
+   - connectors crossing non-endpoint nodes, wrong arrow targets, or ambiguous labels;
+   - inconsistent alignment, spacing, hierarchy, or excessive empty space;
+   - broken type-specific semantics such as missing decision labels, lifelines, keys, or cardinality.
+4. If any defect exists, fix the `.excalidraw` source. Correct all obvious defects found in that pass together rather than making one render per defect. Do not patch or post-process the PNG.
+5. Re-render to the intended final PNG path and read that PNG again.
+
+Repeat steps 3-5 until the latest render has no obvious visual or semantic defect. The loop is complete only when the last image read was rendered from the final source; never infer visual correctness from JSON alone.
 
 Render with the bundled renderer:
 
@@ -91,16 +110,6 @@ uv sync
 uv run playwright install chromium
 ```
 
-Read the PNG with the Read tool and check:
-
-- text clipping, unreadable text, or weak hierarchy;
-- unintended overlaps or connectors crossing non-endpoint nodes;
-- incorrect arrow targets, arrowheads, or ambiguous labels;
-- broken type-specific semantics such as missing decision labels, lifelines, keys, or cardinality;
-- cramped regions, excessive empty space, or a lost dominant axis.
-
-When a defect exists, edit the `.excalidraw` file, re-render, and read the new PNG. Repeat until the final render has no obvious defect. The last image read must correspond to the final source.
-
 ## Existing Diagram Validation
 
 For an existing `.excalidraw` file:
@@ -108,7 +117,7 @@ For an existing `.excalidraw` file:
 1. Render and read it before editing.
 2. Preserve its intent and structure unless the user asks for a redesign.
 3. Apply fixes only when requested or clearly included in the task.
-4. Re-render and re-read after every edit.
+4. After editing, run the same visual correction loop before delivery.
 
 ## Final Response
 

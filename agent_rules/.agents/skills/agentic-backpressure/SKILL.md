@@ -56,14 +56,21 @@ Apply these rules to every run:
     authorize adjacent operations.
 14. Keep Boundary Actions declarative and ordered; they must not become arbitrary hooks or mutate the frozen candidate without reopening the correctness loop.
 
-Gate outcomes are `PASS`, `SEND_BACK`, `BLOCKED`, `STALE`, and
-`ESCALATE_HUMAN`. Only `PASS` advances successfully.
+Gate outcomes are `PASS`, `SEND_BACK`, `BLOCKED`, `STALE`, and `ESCALATE_HUMAN`. Only `PASS` advances.
 
 ## Roles
 
+### Intake Coordinator
+
+Read `references/run-lifecycle.md` before activating or reusing a contract. Choose
+`new` (default), `extend` (justified expansion), or `continue` (unfinished contract).
+For `new`, dispatch a fresh manager without inherited conversation history. The
+coordinator handles intake and user communication, not gates. An assigned manager
+starts directly without another manager dispatch. Report unavailable isolation.
+
 ### Manager
 
-The main agent owns the decision record, faithful projection of the agreed plan,
+The run's manager owns the decision record, faithful projection of the agreed plan,
 contract activation, routing, budget accounting, gate decisions, evidence
 synthesis, Boundary Action coordination, and human handoff. It delegates each
 action to the named specialized workflow or tool and records child IDs, fresh or
@@ -81,7 +88,8 @@ The manager must not:
 - Write implementation patches.
 - Run authoritative mechanical checks.
 - Perform the only correctness review.
-- Reset budgets by creating a new session or renaming a gate.
+- Reset an unchanged run's budgets by changing sessions, run IDs, or gate names.
+- Mint a new run or extension grant to bypass failure or authority stops.
 - Infer permission for an external action.
 
 ### Worker
@@ -136,11 +144,12 @@ Do not switch a child between worker, verifier, reviewer, or specialist roles.
 ## Active Contract And State
 
 Create or update `BACKPRESSURE.md` before launching work. Keep it limited to one
-active run. Use the template in `references/backpressure-contract.md`.
+active run. Apply `references/run-lifecycle.md` and the template in
+`references/backpressure-contract.md` before reusing a contract or its budgets.
 
 The active run records:
 
-- `run_id` and profile
+- `run_id`, request mode and source, profile, and manager context isolation
 - Concise decision sources, normative active decision bindings, superseded
   decisions, and unresolved decisions
 - Goal, scope, out-of-scope boundary, and acceptance criteria
@@ -151,8 +160,8 @@ The active run records:
 - Repository base, `HEAD`, and current `state_id`
 - The ordered Boundary Action manifest, `stop_after`, and separate exact action
   authorization
-- Three budget values: total child calls, repair rounds per gate, and the
-  final-call floor
+- Child-call and per-gate repair limits and usage, plan-review allowance,
+  final-call floor, and compact idempotent extension grants
 - Current blockers, gate results, and acceptance status
 - Per-action status, result, evidence binding, and authoritative read-back
 - Tool-reported child identity, invocation mode, and any resume reason attached to
@@ -186,9 +195,8 @@ identity is not part of this content identity. Use one deterministic
 implementation for the run. Evidence records the opaque `state_id`; detailed
 identity components are recorded once in the active run.
 
-Keep one concise historical record at `.backpressure/runs/<run_id>/run.md` when
-history is needed. Historical approvals, skips, and evidence are context only and
-do not govern a new run. Never record secret values.
+Archive replaced contracts at `.backpressure/runs/<run_id>/run.md`. New runs retain
+only relevant handoff facts, not historical approvals or evidence. Never record secrets.
 
 ## Profiles And Budgets
 
@@ -200,23 +208,12 @@ Choose the lowest profile that covers known risk. Use Standard when uncertain.
 | Standard | Ordinary multi-file or behavioral work | 20 | 3 | 4 |
 | Critical | Auth, security, migration, data loss, concurrency, production, or release risk | 32 | 4 | 6 |
 
-These are ceilings, not targets. Every child launch or resume consumes one child
-call. A completed non-pass gate evaluation consumes one repair round. Protocol or
-transport failure consumes a child call but not a repair round.
-
-The final-call floor is reserved inside the child-call ceiling, not consumed as a
-separate budget. Before another repair, confirm that remaining child calls exceed
-the floor needed for a fresh final verifier and fresh final reviewer, plus any
-required specialist, publication, Boundary Action, and read-back calls. Otherwise
-escalate. Plan review, when used, has at most two invocations across fresh
-reviewers. Token and unique-session counts may be recorded as telemetry, but they
-are not separate pass conditions.
-
-Each Boundary Action has a two-attempt execution ceiling, including its first
-attempt. Delegated attempts also consume child-call budget.
-
-The user may override a budget explicitly. Record the value and reason without
-weakening state freshness, role separation, or stop conditions.
+These are initial ceilings, not targets. Apply `references/run-lifecycle.md`
+before dispatch: `new` starts with full profile limits; `extend` adds a unique
+profile-sized or explicit grant; `continue` preserves limits and usage. Every
+child launch or resume costs a call; completed non-pass gates cost repair rounds.
+Plan review allows two calls per initial or material-extension allowance. Boundary
+Actions retain two attempts. Recompute the final-call floor; never add floors.
 
 ## Handoffs
 
@@ -237,36 +234,36 @@ Requested action: <one action>
 Delta: <changed files, findings, or contract fields | none>
 ```
 
-The manager derives the action identity from this handoff and the role-specific
-scope. It launches fresh by default and records invocation mode and any resume
-reason outside the normative specification. The child does not need prior child
-transcripts.
+Before dispatch, the manager adds and checks the required role-specific fields in
+`references/subagent-prompts.md`, then derives the action identity from the full
+handoff. It launches fresh and records mode and any valid resume reason outside
+the specification. Recover missing facts from sources; never invent them.
 
-The child reads the referenced sections and performs the requested action in the
-same invocation. It does not perform a separate acknowledgement handshake or
-self-report its session ID. If it cannot establish the referenced state, it
-returns `STALE` or `BLOCKED` with the mismatch and does not rely on prior evidence.
+The child reads the references and acts in the same invocation without an identity
+handshake. If context or state cannot be established, non-reviewers return `STALE`
+or `BLOCKED`; reviewers return capability `SUBJECT_MISMATCH` or `INCOMPLETE` for
+manager mapping. Neither may substitute prior evidence for the referenced state.
 
-See `references/subagent-prompts.md` for role-specific prompts.
+If required facts remain unavailable, report the gap and route investigation or handoff.
 
 ## Default Flow
 
 ### 1. Contract
 
-1. Discover the goal, decision sources, active and superseded decisions, scope,
+1. Apply `references/run-lifecycle.md`; preserve work and choose the review base.
+2. Discover the goal, decision sources, active and superseded decisions, scope,
    checks, risk, repository state, stop point, and authorization without guessing.
-2. Project the final agreed plan faithfully; an already user-approved plan needs
+3. Project the final agreed plan faithfully; an already user-approved plan needs
    no duplicate worker approval. Preserve accepted terminology, ordering,
    constraints, ownership, public API shape, and non-goals.
-3. When a structural request such as split, move, extract, merge, unify, or
+4. When a structural request such as split, move, extract, merge, unify, or
    separate has plausible interpretations that materially change the diff,
    ownership boundary, or public API, ask one focused axis question before
    freezing the contract. Do not force clarification when those outcomes are
    materially the same.
-4. Select the profile and budgets.
-5. Activate `BACKPRESSURE.md` and compute the applicable specification hashes and
-   state ID.
-6. Stop before planning or implementation when a required decision or material
+5. Select the profile and initialize, extend, or retain budgets for the mode.
+6. Activate `BACKPRESSURE.md` and compute specification hashes and state ID.
+7. Stop before planning or implementation when a required decision or material
    structural axis remains unresolved.
 
 ### 2. Plan When Needed
@@ -286,9 +283,11 @@ If backpressure creates a materially new plan, stop before patching until the us
 agrees. Findings cannot broaden scope; plan changes need renewed agreement, and
 unrelated findings are reported rather than fixed.
 
-After a plan revision, use a fresh reviewer for the second and final allowed plan
-review. If the mapped result still has an unresolved blocker or SHOULD finding,
-escalate; freshness does not reset the limit.
+After a revision, use a fresh reviewer for the second and final review in that
+plan allowance. Unresolved blockers or SHOULD findings then require escalation.
+Only a user-authorized material contract extension grants another plan allowance
+under `references/run-lifecycle.md`; ordinary revisions and reviewer replacement
+never reset it or remove existing findings.
 
 ### 3. Before Work Actions
 
@@ -477,13 +476,13 @@ Stop and hand off when:
 
 - A required contract value or authorization is unresolved.
 - A structural axis that materially changes the diff, ownership, or public API is unresolved.
-- The plan still has a blocker after its second review.
+- The plan still has a blocker after the second review in its current allowance.
 - A hard budget is reached or another repair would cross the final-call floor.
 - The same failure repeats without new evidence.
 - Required evidence cannot be bound to current state.
 - A required specialized flow has no available owner.
 - The current execution of a required Boundary Action is terminally non-pass or
-  has an unresolved partial result; discard stale prior-identity results first.
+  has an unresolved partial result; stale results retain real-world outcome facts.
 - The user asks to stop or `stop_after` is reached.
 
 The handoff reports the active contract and state IDs, acceptance status, checks,
@@ -492,6 +491,7 @@ risk, and the exact human decision needed.
 
 ## Reference Files
 
+- `references/run-lifecycle.md` defines request modes, manager isolation, and grants; read at intake and before budget decisions.
 - `references/philosophy.md` explains the underlying model.
 - `references/backpressure-contract.md` defines the active contract template.
 - `references/boundary-actions.md` defines the action schema and execution rules.

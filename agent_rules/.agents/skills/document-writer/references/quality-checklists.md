@@ -30,9 +30,12 @@ Check:
 - Flow: the next needed information appears before the reader has to hunt for it.
 - Cognitive load: the document avoids unnecessary branching, formatting, tables, diagrams, and digressions.
 - Information density: each passage improves the reader's understanding, decision, or action rather than adding ornamental framing, repetition, inflated importance, or unrelated background.
-- Representation fit: prose, bullets, steps, tables, diagrams, screens, and examples match the shape of the information instead of following one default format.
-- Scannability: independent ideas are separated when that helps scanning, while connected causality, rationale, and trade-offs remain readable as continuous reasoning.
-- Visual utility: diagrams, screens, and examples expose useful structure or replace difficult explanation instead of duplicating nearby text.
+- Representation fit: compact structured forms are the default; bullets, steps, tables, visuals, and short prose match the information shape without forcing a rigid template.
+- Scannability: key facts and reasoning are easy to locate in labeled points or tables; retained paragraphs serve a clear purpose, and lists are shallow without paragraph-sized bullets.
+- Substance preservation: compression retains scope-relevant facts, conditions, exceptions, causal links, trade-offs, examples, and evidence from the source material.
+- Visual coverage: useful opportunities to explain relationships, flows, states, comparisons, or UI interaction are acted on without requiring a separate user request or imposing a visual count.
+- Visual utility: each visual answers a useful reader question; multiple views add distinct information rather than decoration or repeated narration.
+- Visual correctness and access: diagrams match source facts, charts use supported data, labels and captions explain the takeaway, and alt text or a concise text equivalent preserves essential meaning. Rendering is checked where possible, with limitations stated.
 - Language fit: Korean documents minimize unnecessary English and difficult phrasing without losing technical precision.
 - Anticipation: likely next questions are answered or linked without derailing the current mode.
 - Confidence: the reader can tell when they are done, successful, or ready to continue elsewhere.
@@ -104,7 +107,7 @@ Use small, responsive improvements instead of defaulting to broad rewrites.
 
 ## Representation Choice
 
-Use prose when continuity carries meaning:
+Start with compact structured forms. Preserve reasoning within labeled bullets or a clear sequence of points; use short prose only when restructuring would obscure meaning:
 
 - Causes, consequences, rationale, and trade-offs.
 - Background that must connect several concepts.
@@ -112,10 +115,11 @@ Use prose when continuity carries meaning:
 
 Use numbered steps for ordered actions where sequence matters.
 
-Use bullets when ideas are independent or need to be checked separately:
+Use bullets as the default for distinct points, keeping each point's reason, condition, and consequence attached:
 
 - Conditions, caveats, risks, and action items.
 - Parallel alternatives, findings, statuses, or constraints.
+- Decisions, supporting reasons, and implications with explicit causal links.
 - Ideas where the reader needs to pause at each point rather than follow one connected argument.
 
 Use tables when they make comparison or lookup easier:
@@ -134,13 +138,15 @@ Avoid tables when:
 - The table will wrap heavily on mobile.
 - Bullets or short sections would preserve meaning with less visual strain.
 
-Use diagrams when they reduce explanation cost:
+Proactively add diagrams when they reduce explanation cost, using multiple focused views when they answer distinct questions:
 
 - Architecture boundaries.
 - Data flow or control flow.
 - Sequence of interactions.
 - State transitions.
 - Entity relationships.
+
+Use charts for quantitative comparisons or trends when source data supports them. Preserve units, scope, and relevant uncertainty; do not invent measurements to make a visual.
 
 Avoid diagrams when:
 

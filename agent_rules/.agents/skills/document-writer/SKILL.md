@@ -22,7 +22,9 @@ Use this skill to create or improve technical documentation by matching the docu
 
 - Write documentation in Korean unless the user explicitly requests another language.
 - Keep code, commands, identifiers, and code comments in English.
-- Assume documentation may be reviewed together over screen sharing. Favor compact, scannable structure over long prose.
+- Default to compact, structured documentation: descriptive headings, labeled bullets, numbered steps, and tables. Assume readers may review it together over screen sharing; minimize prose unless a short paragraph communicates the meaning more clearly.
+- Compress presentation, not substance. Preserve all scope-relevant facts, reasoning, conditions, exceptions, trade-offs, examples, and evidence; do not turn a complete document into a lossy summary.
+- Proactively add useful diagrams, charts, screenshots, or wireframes without waiting for an explicit request. Include each visual that materially improves understanding; choose by explanatory value, not a fixed count.
 - In Korean documents, minimize English except where exact technical meaning requires it, such as code, commands, identifiers, API names, configuration keys, and product names. Prefer plain Korean over difficult Sino-Korean terms, translationese, or overly formal phrasing.
 - If working inside a repository, inspect relevant source files, existing docs, configuration, or tests before writing factual technical content.
 - Ask one concise clarification question only when the audience, use moment, or requested output is too ambiguous to choose a documentation mode safely. Otherwise, proceed and state assumptions at the end.
@@ -62,8 +64,9 @@ Do not treat README, API docs, runbooks, architecture docs, onboarding guides, d
 
 4. Choose the representation, then draft or revise with mode-specific rules.
    - For each substantial section, identify the information shape before choosing its format: connected rationale or context, independent conditions, ordered actions, repeated attributes, relationships or flow, user interaction, or concrete system behavior.
-   - Use prose for connected reasoning; bullets for independent conditions, caveats, risks, or options; numbered steps for sequences; tables for repeated short attributes; and diagrams for relationships, flow, or state. Use example screens or wireframes when spatial layout or user interaction must be understood, and runnable examples with expected output when readers need to recognize correct system behavior.
-   - Prefer a visual or example when it exposes structure or replaces difficult explanation. Do not add one when a short passage is clearer or when it would merely duplicate nearby text.
+   - Start with labeled bullets for facts and reasoning, numbered steps for ordered actions, and tables for comparisons or repeated short attributes. Keep causes, conditions, and consequences explicit within each point or through a clear sequence of points. Use a short paragraph only where these forms would obscure the argument.
+   - Actively look for visual opportunities in each substantial section: diagrams for relationships, flow, or state; charts for supported quantitative comparisons or trends; and example screens or wireframes for spatial layout or user interaction. Add them where they make the subject easier to understand, alongside runnable examples with expected output when readers need to recognize correct behavior.
+   - Use multiple focused visuals when they answer different reader questions. Keep necessary explanation, exact constraints, and evidence beside them; remove redundant narration, not details that the visual cannot convey.
    - Use a clearly labeled wireframe when a verified product capture is unavailable. Do not present an invented interface as the actual product.
    - Use `references/diataxis-mode-guide.md` for non-trivial tutorial, how-to, reference, or explanation work.
    - Use `references/composite-doc-patterns.md` when the user asks for README, API docs, runbook, architecture, onboarding, design, or problem-analysis docs.
@@ -77,7 +80,8 @@ Do not treat README, API docs, runbooks, architecture docs, onboarding guides, d
    - Check whether the document fits the reader's need, preserves flow, anticipates likely next questions, and avoids mode contamination.
    - Check whether the document works when read together on a shared screen: compact sections, visible structure, and low scanning effort.
    - Remove material that does not improve the reader's understanding, decision, or action, including ornamental openings, repeated conclusions, inflated importance, and unrelated background.
-   - Recheck representation choices. Convert dense prose when another form makes the information easier to use, but preserve prose when causality, rationale, or trade-offs depend on continuous reasoning.
+   - Recheck every substantial prose block for a clearer structured form. Preserve causal links, rationale, and trade-offs in labeled points or comparison tables; retain short prose where restructuring would lose meaning.
+   - Compare the revision against the source material for omitted facts, qualifiers, exceptions, reasoning, and evidence. Check for missed visual opportunities as well as unnecessary visuals.
    - Remove visuals, tables, headings, or bullets that only repeat nearby content or fragment a simple idea.
    - For Korean documents, check whether English terms and difficult phrasing can be reduced without losing technical precision.
    - Use `references/quality-checklists.md` before finalizing substantial docs or documentation reviews.
@@ -110,15 +114,17 @@ Read `references/composite-doc-patterns.md` before drafting these document types
 
 ## Formatting Principles
 
-- Choose the representation that matches the information shape. Compactness is not a reason to fragment connected reasoning or add structure that does not help the reader.
+- Prefer structured forms by default, then choose the one that matches the information shape. A request for compact writing changes presentation, not the required depth or coverage. Follow an explicitly requested narrative format when applicable.
 - Choose headings that match the reader's task or question, not generic template slots.
-- Keep shared-screen readability in mind: prefer short sections, short paragraphs, bullets, tables, and diagrams when they help readers follow the document quickly.
-- When a sentence becomes hard to follow, clarify it first. Use bullets when its ideas are independent or need to be checked separately, such as conditions, caveats, or action items.
+- Keep shared-screen readability in mind: use short sections and shallow lists. Keep one main point per bullet, with its reason or condition attached; avoid paragraph-sized bullets, cryptic fragments, and deep nesting.
+- Use concise labels such as `Decision`, `Reason`, `Condition`, `Trade-off`, or `Evidence` when they help scanning, translated into the document's language. Choose labels for the content instead of imposing a fixed template.
+- When a sentence becomes hard to follow, clarify it first, then separate distinct claims while retaining their logical connections. Explanation mode requires connected reasoning, not long paragraphs.
 - Use tables for compact comparisons, option matrices, API/field references, decision catalogs, and status summaries.
 - Prefer tables when each item has several short attributes, such as status, owner, scope, default, constraint, option, or comparison point.
 - Avoid tables for long rationale, code-heavy walkthroughs, nested detail, or prose that wraps heavily on mobile.
-- If table cells require connected rationale, move it into short sections. Use bullets only when the points remain independent.
-- Use diagrams only when they reduce cognitive load. Prefer Mermaid for architecture, sequence, flow, ER, state, and dependency diagrams when Markdown rendering supports it.
+- If table cells require long rationale, move it into labeled bullets or a short explanation next to the table.
+- Add visuals wherever they materially reduce cognitive load or reveal useful structure. Prefer Mermaid for architecture, sequence, flow, ER, state, and dependency diagrams when Markdown rendering supports it; otherwise use a supported image or text diagram.
+- Place each visual near the content it explains, with a clear caption or short takeaway and meaningful labels. Verify diagrams against source facts and charts against supplied data; check rendering when possible and state when it was not verified. Provide alt text or a concise text equivalent so essential meaning remains accessible.
 - Keep examples concrete and runnable. Show expected output when it helps the reader know they are on track.
 - Do not add decorative markers, forced metadata, or boilerplate sections unless the user or repository convention requires them.
 
@@ -131,4 +137,7 @@ Read `references/composite-doc-patterns.md` before drafting these document types
 - Creating empty top-level `Tutorials / How-to / Reference / Explanation` boxes without evidence that the structure helps readers.
 - Forcing a planning/design template onto every design problem.
 - Adding diagrams, tables, examples, or decision catalogs because they look professional rather than because they improve use.
+- Defaulting to long prose, including in explanation mode, when labeled bullets, a comparison table, or a visual would make the same reasoning easier to follow.
+- Achieving compactness by dropping conditions, exceptions, causal links, evidence, or other scope-relevant details.
+- Stopping after one overview diagram when another focused visual would clarify a distinct interaction, lifecycle, or comparison.
 - Duplicating volatile technical facts across documents instead of linking to the authoritative source.

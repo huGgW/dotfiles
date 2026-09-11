@@ -58,6 +58,12 @@ constraints, acceptance criteria, safeguards, required checks, and out-of-scope
 boundaries as authoritative context. An already user-approved plan is the active
 authority; the reviewer does not ask for duplicate approval.
 
+Bind each applicable safeguard to its active decision or acceptance criterion IDs
+and source in the request, and require preservation coverage of those bindings in
+the report. Do not invent IDs or promote a reviewer preference to a requirement.
+If a necessary safeguard lacks a binding, identify its source and let the manager
+resolve the contract gap under the existing decision rules before relying on it.
+
 Inspect:
 
 - The complete base-to-candidate diff for the declared work slice
@@ -79,10 +85,10 @@ Construct the `code-reviewer` request with:
 - Repository root from the active run.
 - Exact base-to-candidate subject identity.
 - Exact work-slice scope and directly relevant symbols, callers, and consumers.
-- Active decisions, Agreed Plan, constraints, safeguards, and acceptance criteria
-  as authoritative context.
+- Active decisions, Agreed Plan, constraints, safeguards bound to active decision
+  or acceptance criterion IDs and sources, and acceptance criteria as context.
 - `simplicity` as the required lens.
-- Stable prior finding IDs and dispositions for a changed-state recheck.
+- The `Repair Review Context` from `subagent-prompts.md` for a repair recheck.
 - The current `validation_spec_hash`, base, and `state_id` as expected identity.
 
 The child follows `code-reviewer/references/simplicity-lens.md`. That capability

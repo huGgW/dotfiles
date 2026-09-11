@@ -135,15 +135,17 @@ Every changed line must be traceable to the approved plan.
 
 ## 6. Readable Code Layout
 
-**Use blank lines intentionally to separate meaningful code groups. Readable spacing is encouraged; compact code is not inherently better.**
+**Blank-line separation is required for readable code, not optional polish. Make declaration boundaries and logical phases visible while writing code, and verify them before completion.**
 
-When writing or modifying code:
-- Group related statements together.
-- Prefer inserting blank lines between logical steps when they make the flow easier to scan.
-- Insert blank lines between distinct responsibilities, phases, or validation branches.
-- Keep setup, validation, transformation, side effects, and return logic visually distinguishable when they are meaningfully separate.
-- Do not remove useful blank lines just to make code shorter.
-- Do not add decorative spacing that conflicts with the surrounding project style.
+When writing or directly modifying code:
+- Separate field declarations with blank lines by default. Keep closely related fields together only when they form a clear conceptual group; separate distinct field groups with a blank line.
+- Separate methods and other member declarations with blank lines according to the language and project conventions.
+- Within methods and functions, use a blank line between meaningful logical steps, such as setup, validation, transformation, side effects, and result construction or return, whenever these are distinct phases.
+- Keep statements that perform one cohesive operation together. Do not insert a blank line after every statement or split a tightly coupled expression.
+- Keep annotations, documentation, and explanatory comments attached to the declaration or code group they describe. Place a separating blank line before the attached comment, not between it and its code.
+- Do not compress distinct logical groups to minimize line count or diff size. A short method can still need blank lines.
+- Follow explicit project formatting rules and enforced formatter behavior when they constrain spacing. Otherwise, do not treat nearby dense code as a reason to omit meaningful separation.
+- Apply these rules to newly written or directly modified code without reformatting unrelated areas.
 
 ## 7. Verification-Driven Execution
 
@@ -161,6 +163,9 @@ Examples:
 - Broaden verification when the change has wider impact, the precise scope is uncertain, or a project final gate requires it.
 - Do not classify an unrelated failure from a broad verification scope as a patch defect until its relationship to the change is established.
 - Record required verification that could not run and explain the substitute evidence.
+
+Before declaring completion:
+- Inspect newly written and directly modified code for blank-line separation between fields or field groups, member declarations, and meaningful logical phases. Correct missing separation and excessive spacing within the changed scope. Formatter or linter success alone does not establish readable logical grouping.
 
 At completion, provide:
 - What changed and why.

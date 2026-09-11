@@ -5,30 +5,30 @@
       "id": 1,
       "kind": "template",
       "template_id": "architecture",
-      "prompt": "Create an editorial-light architecture diagram for a checkout platform. Show Web Client and Mobile App entering through API Gateway, then Order Service and Payment Service, with Orders DB and an external Payment Processor. Label the major protocols, make Payment Service the focal component, and keep system boundaries explicit. Save deliverables under output/checkout-architecture and do not create explanatory documents.",
-      "expected_output": "A validated architecture-template-based Excalidraw scene and matching PNG that communicate boundaries, components, external integration, protocols, and the focal payment path without exceeding the architecture budgets.",
+      "prompt": "Create an editorial-light architecture diagram for a checkout platform. Show Customer Web Application and Customer Mobile Application entering through Public API Gateway, then Order Orchestration Service and Payment Authorization Service, with Transactional Order Database and an external Payment Processing Gateway. Label the major protocols, make Payment Authorization Service the focal component, keep system boundaries explicit, and make every long shape label comfortably readable. Save deliverables under output/checkout-architecture and do not create explanatory documents.",
+      "expected_output": "A validated architecture-template-based Excalidraw scene and matching PNG that communicate boundaries, components, external integration, protocols, the focal payment path, and readable long internal labels without exceeding the architecture budgets.",
       "files": [],
       "expectations": [
         "The artifacts implement exactly catalog template `architecture`, with explicit boundaries, components, an external system, and labeled connections rather than deployment placement, a generic dependency network, or a data-store pipeline.",
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
-        "The scene includes Web Client, Mobile App, API Gateway, Order Service, Payment Service, Orders DB, and external Payment Processor; major protocols and boundaries are visible, and Payment Service or its path is the focal orange role.",
+        "The scene includes Customer Web Application, Customer Mobile Application, Public API Gateway, Order Orchestration Service, Payment Authorization Service, Transactional Order Database, and external Payment Processing Gateway; major protocols and boundaries are visible, and Payment Authorization Service or its path is the focal orange role.",
         "The scene has at most 9 major nodes, 12 edges, and 3 boundaries.",
-        "The source and PNG use editorial-light styling on `#ffffff`; labels are separate readable text elements using `fontFamily: 5` at 16 px or larger, without clipping, overlap, or connectors crossing unrelated nodes."
+        "The source and PNG use editorial-light styling on `#ffffff`; labels are separate text elements using `fontFamily: 5` at 16 px or larger, and long shape labels use explicit semantic line breaks where needed, retain comfortable and consistent internal padding, normally stay within two lines, and remain readable at whole-diagram scale without clipping, overlap, or connectors crossing unrelated nodes."
       ]
     },
     {
       "id": 2,
       "kind": "template",
       "template_id": "flowchart",
-      "prompt": "Draw an expense approval flowchart in editorial-light style. Start when an employee submits an expense, validate the receipt, branch on whether the amount is above $1,000, require director approval only for the high-value branch, then either send to Finance for payment or return it to the employee when rejected. Include explicit start/end states and label every decision outcome. Save only the diagram and PNG under output/expense-approval-flow.",
-      "expected_output": "A validated flowchart-template-based source and PNG with terminals, ordered steps, explicit decisions, labeled outcomes, and correctly converging approval paths.",
+      "prompt": "Draw an expense approval flowchart in editorial-light style. Start when an employee submits an expense reimbursement request, validate receipt completeness and policy compliance, branch on whether the requested reimbursement exceeds $1,000, require director approval only for the high-value branch, then either send the approved reimbursement to Finance for payment or return the rejected request to the employee with a reason. Include explicit start/end states, label every decision outcome, and keep the long process and decision labels comfortably readable inside their shapes. Save only the diagram and PNG under output/expense-approval-flow.",
+      "expected_output": "A validated flowchart-template-based source and PNG with terminals, ordered steps, explicit decisions, labeled outcomes, correctly converging approval paths, and readable long internal labels.",
       "files": [],
       "expectations": [
         "The artifacts implement exactly catalog template `flowchart`, with a start, process steps, a decision, labeled outcomes, and directed flow rather than actor lanes, persistent lifecycle states, or a branch-free process.",
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "The flow has explicit start and end terminals, a $1,000 decision, a rejection route to the employee, and director approval only on the high-value branch before Finance payment; every decision exit is labeled.",
         "The scene has at most 8 major nodes, 10 edges, and 3 decisions, with explicit arrowheads and no connector routed through a non-endpoint node.",
-        "The source and PNG use editorial-light styling on `#ffffff`; labels are separate readable text elements using `fontFamily: 5` at 16 px or larger, without clipping or overlap."
+        "The source and PNG use editorial-light styling on `#ffffff`; labels are separate text elements using `fontFamily: 5` at 16 px or larger, and long process and decision labels use explicit semantic line breaks where needed, preserve identifiers such as `$1,000`, retain comfortable internal padding, and remain readable at whole-diagram scale without clipping or overlap."
       ]
     },
     {
@@ -80,15 +80,15 @@
       "id": 6,
       "kind": "template",
       "template_id": "business-flow-swimlane",
-      "prompt": "Build a swimlane diagram for a subscription refund handled by Customer, Support, and Billing. Customer submits the request; Support verifies eligibility and either rejects with a reason or sends an approved request to Billing; Billing issues the refund; Support notifies Customer. Make lane ownership and cross-lane handoffs explicit. Save exactly one Excalidraw file and one PNG under output/refund-swimlane.",
-      "expected_output": "A validated business-flow-swimlane-template-based process with three named lanes, correct activity ownership, decision outcomes, and visible handoffs.",
+      "prompt": "Build a swimlane diagram for a subscription refund handled by Customer, Support, and Billing. Customer submits a subscription refund request; Support verifies refund policy eligibility and either returns a rejection with the policy reason or sends an approved refund authorization to Billing; Billing issues the refund to the original payment method; Support notifies the customer that the refund is complete. Make lane ownership and cross-lane handoffs explicit, and keep every long activity label comfortably readable inside its shape. Save exactly one Excalidraw file and one PNG under output/refund-swimlane.",
+      "expected_output": "A validated business-flow-swimlane-template-based process with three named lanes, correct activity ownership, decision outcomes, visible handoffs, and readable long activity labels.",
       "files": [],
       "expectations": [
         "The artifacts implement exactly catalog template `business-flow-swimlane`, with named ownership lanes, activities, and cross-lane handoffs rather than a single-axis flow, a participant-message sequence, or a journey.",
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "Customer, Support, and Billing are distinct lanes; the eligibility outcomes are explicit, only approval reaches Billing, rejection returns a reason, and Support notification follows the refund.",
         "The scene has at most 9 major activity nodes, 12 edges, and 4 lanes, with every activity inside its owner's lane and no accidental lane-boundary crossing.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped or overlapping labels."
+        "The source and PNG use editorial-light styling on `#ffffff`; labels are separate text elements using `fontFamily: 5` at 16 px or larger, and long activity labels use explicit semantic line breaks where needed, retain comfortable and consistent internal padding across peer activities, and remain readable at whole-diagram scale without clipping or overlap."
       ]
     },
     {

@@ -5,6 +5,10 @@ only decision context needed to validate the active run; archive broader history
 outside the active file. Do not record secrets; record only their source and
 required access.
 
+Before using this template, apply `run-lifecycle.md`. Use a new contract for `new`,
+update this contract and credit a unique grant for `extend`, and retain accounting
+for `continue`. Omit unused optional rows instead of growing a history ledger.
+
 ## Template
 
 ```markdown
@@ -13,9 +17,16 @@ required access.
 ## Run
 
 - Run ID: <stable ID>
+- Request mode and source: <new | extend | continue>; <current request reference>
+- Mode reason: <one sentence; for extend, why joint validation helps>
 - Profile: <lite | standard | critical>
 - Activated at: <ISO-8601 timestamp>
 - Owner: <user or approved authority>
+- Manager context: <isolated | unavailable | user-accepted same-context exception>;
+  <tool-reported manager ID and no-history launch evidence, or limitation>
+- Previous run reference: <relevant archived run | none>
+- Carryover: <protected work, relevant unresolved risks, unknown external outcomes
+  and attempt references | none; no prior gate approvals or full transcript>
 
 ## Decision Sources
 
@@ -43,6 +54,7 @@ specifications, and reviewer assumptions.
 
 - Root: <canonical path>
 - Base: <full commit SHA | immutable reference | unresolved>
+- Base rationale: <which existing and new in-scope changes this review includes>
 - Candidate state ID implementation: <shared helper or exact read-only commands>
 - Isolated base: <read-only path | immutable snapshot | unresolved>
 
@@ -167,13 +179,27 @@ always allowed.
 
 | Budget | Value | Used |
 |---|---:|---:|
-| Child calls | <profile default or override> | 0 |
-| Repair rounds per gate | <profile default or override> | <gate -> count> |
+| Child calls | <initial limit + unique grants> | <cumulative calls, including manager dispatch> |
+| Repair rounds per gate | <gate -> initial limit + applicable grants> | <gate -> cumulative count> |
+| Plan review invocations | <initial plan or extension ID -> limit, normally 2> | <allowance ID -> cumulative count> |
 | Final-call floor | <profile default or route-adjusted value> | not applicable |
-| Boundary Action attempts per action | 2 | <action -> count> |
+| Boundary Action attempts per operation | 2 | <action/operation -> count, including prior-run attempts> |
 
+- Initial limits: <child calls; repairs per gate; profile; initial override if any>
 - Budget override: <none | value, reason, approver>
 - Remaining route fits final calls: <true | false>
+
+| Extension ID | Request source and scope delta | Profile | Added calls | Added repair limits by affected gate | Plan allowance | Grant status |
+|---|---|---|---:|---|---|---|
+| <EXT-1> | <stable request reference; added requirements; compact archive reference if needed> | <reassessed profile> | <default or explicit additional amount> | <existing gate -> added rounds; new gate -> initial rounds> | <EXT-1: 2 for material expansion | none> | <pending reconciliation | applied> |
+
+Keep one row per unique extension request. Preserve the initial limits and used
+counters, derive current limits from unique applied grants, and reconcile partial
+updates before dispatch. Replayed requests do not receive another grant. Limits,
+grants, request mode, and manager identity remain outside the validation hash;
+the added requirements and plan belong inside it. Do not copy full old contracts
+or transcripts into this table. Boundary operation attempts and unresolved
+failures survive an extension or new run when relevant to the same work.
 
 ## Publication Readiness
 
@@ -277,6 +303,12 @@ commit that makes them evaluable.
    `.backpressure/runs/<run_id>/run.md` containing the final contract, gate
    decisions, evidence references, action results, and handoff. Historical state
    is never current authority.
+14. Before replacing this active file for `new`, archive its current state and
+    stop outstanding old-run actions. Apply the manager-isolation and minimal
+    handoff rules in `run-lifecycle.md`; do not overwrite another live run's file.
+15. For `extend`, record the request once, update normative requirements and
+    evidence bindings, and add the grant without resetting counters. `continue`
+    receives no implicit grant. A budget update alone never resolves a blocker.
 
 ## Repository State Requirements
 

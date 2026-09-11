@@ -10,6 +10,11 @@ Gate outcomes are `PASS`, `SEND_BACK`, `BLOCKED`, `STALE`, and
 
 Pass when:
 
+- Request mode and source follow `run-lifecycle.md`: `new` by default, `extend`
+  with a joint-validation reason, or `continue` for the same unfinished contract.
+- A new run has a new contract and a manager launched without inherited history,
+  or a documented user-accepted isolation exception. Prior work and relevant
+  unresolved hazards are preserved, and the review base covers in-scope changes.
 - One manager-owned decision record identifies concise sources, active decision
   bindings, superseded decisions and replacements, and unresolved decisions.
 - Goal, scope, out-of-scope boundary, and acceptance criteria are actionable.
@@ -50,7 +55,8 @@ Pass when:
 - Reviewers are independent and do not edit the candidate.
 - Worker-run commands remain diagnostic.
 - A child never changes between worker, verifier, reviewer, or specialist roles.
-- Fresh launch or exceptional resume does not reset cumulative budget.
+- Fresh launch or exceptional resume within a run does not reset cumulative
+  budget; request-boundary grants follow `run-lifecycle.md`.
 
 ## Invocation Freshness Gate
 
@@ -132,9 +138,11 @@ When plan review is required, the fresh independent child loads `plan-reviewer`
 with the exact manager-constructed subject, scope, authoritative context, lenses,
 prior findings, and expected identity. Pass only when the mapped review condition
 is satisfied and every SHOULD finding has a disposition. Use a fresh reviewer
-after a revision. After the second review still has an unresolved `BLOCKER` or
-`SHOULD`, return `ESCALATE_HUMAN`; do not start work or replace the reviewer to
-reset the count.
+after a revision. After the second review in the current plan allowance still
+has an unresolved `BLOCKER` or `SHOULD`, return `ESCALATE_HUMAN`; do not start work
+or replace the reviewer to reset the count. Only a material user-authorized
+extension receives a new allowance under `run-lifecycle.md`; unchanged repeated
+blockers do not become eligible for another attempt merely because it exists.
 
 The manager must write the exact plan under review into the validation
 specification and recompute its hash before invoking the reviewer. Bind review
@@ -216,6 +224,11 @@ symbols and callers, and has no unresolved `BLOCKER` or `SHOULD`. The
 `code-reviewer` simplicity lens owns the finding method and preservation analysis;
 the manager owns the trigger, subject, scope, evidence binding, and gate mapping.
 
+The handoff binds applicable safeguards to active decision or acceptance criterion
+IDs and their sources; the report must cover those bindings. An unmapped claimed
+requirement needs source investigation or a manager-owned decision, not invented
+IDs or constraints. Apply the existing capability mapping to any unresolved gap.
+
 Do not delete complexity required for safety, correctness, compatibility,
 accessibility, migration, operational needs, ownership, or approved architecture. The
 reviewer does not edit source. A mapped `SEND_BACK` routes an in-scope repair to a
@@ -232,6 +245,12 @@ explicitly `risk_delta` or `blocker_delta`, stable finding IDs have evidence and
 dispositions, the capability report has complete required coverage, and the
 reviewed state remains current. Map the report through the shared table. A focused
 review never substitutes for final whole-changeset review.
+
+Before dispatching a repair review, the manager checks the `Repair Review Context`
+in `subagent-prompts.md`: original finding IDs/evidence/dispositions, concrete
+repair delta, justified adjacent regression scope, and current validation.
+Recover omissions from actual sources or report the gap; do not invent context.
+Prior finding evidence is historical context, not proof for the repaired state.
 
 ## Final Correctness Gate
 
@@ -260,7 +279,20 @@ is not a pass.
 
 ## Budget Gate
 
-Pass when total child calls and repair rounds remain within the active contract.
+Pass when total child calls and repair rounds remain within the active contract,
+plan-review usage fits its allowance, and request mode was accounted correctly:
+
+- `new` initializes full profile limits and no old usage; manager dispatch costs
+  one of the new run's calls.
+- `extend` credits the reassessed profile or explicit grant once per request,
+  preserves usage, and adds repair limits only for affected gates. Material plan
+  expansion has its own recorded two-review allowance.
+- `continue`, resumed actions, renamed gates, and internal revisions receive no
+  implicit grant. Unknown external outcomes and operation attempts are retained.
+
+Reconcile pending or duplicate grant records before dispatch; do not infer
+capacity from a partially applied update. Recompute, rather than accumulate, the
+final-call floor for the current profile and remaining route.
 Before another repair, require remaining child calls above the final-call floor,
 which covers the fresh final verifier, fresh final reviewer, and any required
 specialist, publication verifier, publication judgment reviewer, Boundary Action
@@ -304,8 +336,8 @@ read the authoritative result back before reporting success. A required
 `before_work` non-pass blocks implementation. A required `after_final` non-pass
 keeps correctness `PASS` only when candidate content is unchanged and blocks later
 actions. An optional failure may continue only to independent actions and must
-remain visible in the handoff. Discard stale prior-identity results before
-evaluating the current action.
+remain visible in the handoff. Stale prior-identity evidence cannot pass the new
+gate; retain real-world outcome facts and attempts before evaluating the action.
 
 After timeout or partial success, read back before retrying and do not repeat a
 successful or non-idempotent operation. Retry only a confirmed-incomplete,
@@ -325,6 +357,12 @@ committed tree equals the frozen candidate.
 
 Historical contracts, skips, approvals, and evidence are context only. They do
 not satisfy a current gate without current validation and authority.
+
+Before replacing an active contract, archive its state and ensure no prior manager
+or child still owns it. A new run carries only relevant constraints, protected
+work, unresolved hazards, and exact partial-operation/read-back references, not
+old approvals, counters, or full transcripts. Extending a run retains only compact
+grant records and current requirements; broader history remains in the archive.
 
 The final handoff must report active, superseded, and unresolved decision IDs with
 concise sources, active validation IDs, stop point, acceptance status, checks,
