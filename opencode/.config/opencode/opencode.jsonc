@@ -39,7 +39,6 @@
         "@mohak34/opencode-notifier@latest",
         "opencode-betterglob",
         "opencode-bettergrep",
-        "opencode-betterread",
         [
             "@plannotator/opencode@latest",
             {
@@ -116,59 +115,91 @@
             "enabled": true,
             "type": "remote",
             "url": "https://mcp.grep.app"
-        },
-        "linear": {
-            "enabled": true,
-            "type": "remote",
-            "url": "https://mcp.linear.app/mcp",
-            "oauth": {
-                "scope": "tools:read"
-            }
         }
     },
     "provider": {
         "openai": {
             "options": {
             "models": {
+                "gpt-6-astra": {
+                    "limit": {
+                        "context": 828000,
+                        "input": 700000,
+                        "output": 128000
+                    }
+                },
+                "gpt-6-astra-fast": {
+                    "limit": {
+                        "context": 828000,
+                        "input": 700000,
+                        "output": 128000
+                    }
+                },
                 "gpt-5.6-sol": {
                     "limit": {
-                        "context": 1050000,
-                        "input": 922000,
+                        "context": 828000,
+                        "input": 700000,
                         "output": 128000
                     }
                 },
                 "gpt-5.6-sol-fast": {
                     "limit": {
-                        "context": 1050000,
-                        "input": 922000,
+                        "context": 828000,
+                        "input": 700000,
                         "output": 128000
+                    }
+                },
+                "gpt-5.6-sol-ultrafast": {
+                    "name": "GPT 5.6 Sol Ultrafast",
+                    "limit": {
+                        "context": 828000,
+                        "input": 700000,
+                        "output": 128000
+                    },
+                    "reasoning": true,
+                    "variants": {
+                        "low": {
+                            "reasoningEffort": "low"
+                        },
+                        "medium": {
+                            "reasoningEffort": "medium"
+                        },
+                        "high": {
+                            "reasoningEffort": "high"
+                        },
+                        "xhigh": {
+                            "reasoningEffort": "xhigh"
+                        },
+                        "max": {
+                            "reasoningEffort": "max"
+                        }
                     }
                 },
                 "gpt-5.6-terra": {
                     "limit": {
-                        "context": 1050000,
-                        "input": 922000,
+                        "context": 828000,
+                        "input": 700000,
                         "output": 128000
                     }
                 },
                 "gpt-5.6-terra-fast": {
                     "limit": {
-                        "context": 1050000,
-                        "input": 922000,
+                        "context": 828000,
+                        "input": 700000,
                         "output": 128000
                     }
                 },
                 "gpt-5.6-luna": {
                     "limit": {
-                        "context": 1050000,
-                        "input": 922000,
+                        "context": 828000,
+                        "input": 700000,
                         "output": 128000
                     }
                 },
                 "gpt-5.6-luna-fast": {
                     "limit": {
-                        "context": 1050000,
-                        "input": 922000,
+                        "context": 828000,
+                        "input": 700000,
                         "output": 128000
                     }
                 }
