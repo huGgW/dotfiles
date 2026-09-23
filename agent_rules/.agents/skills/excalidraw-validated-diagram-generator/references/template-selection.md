@@ -1,14 +1,15 @@
 # Template Selection
 
-Use this reference after identifying the user's primary question. The catalog is authoritative for available template IDs, styles, budgets, and paths.
+Use this reference only after completing the visual brief in `visual-brief-and-comprehension.md`. The catalog is authoritative for available template IDs, styles, budgets, and paths.
 
 ## Selection Order
 
-1. Read `templates/catalog.json`.
-2. Map the request to exactly one catalog ID.
-3. Filter that type by style.
-4. Use the requested style when available; otherwise use the catalog's `defaultStyle`.
-5. Read the selected entry's `templateFile` only.
+1. Complete the visual brief and identify one primary reader question per diagram.
+2. Read `templates/catalog.json`.
+3. Map each diagram to exactly one catalog ID.
+4. Filter that type by style.
+5. Use the requested style when available; otherwise use the catalog's `defaultStyle`.
+6. Read the selected entry's `templateFile` only.
 
 Do not open every template or preview to choose visually. The type and style metadata are designed to make selection deterministic and keep context focused.
 
@@ -118,13 +119,20 @@ When the requested content exceeds a budget:
 
 1. Keep the overview at or below the budget.
 2. Group low-level details behind a clearly named overview node when that preserves meaning.
-3. If grouping would hide required semantics, split the request into overview and detail diagrams instead of shrinking text or crowding the scene.
+3. If grouping would hide required semantics, split overview, partition/routing, idempotency, or atomicity into separate diagrams instead of shrinking text or crowding the scene.
+4. Record a split plan that assigns each resulting diagram one primary reader question, exactly one catalog ID, and one target display profile.
+5. Produce a matching `.excalidraw` and `.png` pair for each resulting diagram, using shared vocabulary, semantic colors, and component names.
 
 Do not evade budgets by converting required nodes into tiny annotations.
 
 ## Canonical Starter Scene
 
-Copy the selected template and replace its placeholder content. Preserve its diagram-specific grammar, dominant axis, element ordering, and routing strategy. It is not merely an image to imitate.
+Use this definition exactly:
+
+> Template = semantic grammar + style tokens + starter components  
+> Template != fixed coordinates + fixed box count + fixed card layout
+
+Copy the selected template and replace its placeholder content. Preserve its diagram-specific grammar, dominant axis, element ordering, and routing strategy. Default to template adaptation. Recompose only when the visual brief shows that the requested content structure cannot fit the starter coordinates or card arrangement. Accuracy and the primary reader question take precedence over fixed coordinates, but do not draw arbitrarily from a blank canvas.
 
 Adding or removing elements is allowed when the request requires it, but the resulting scene must still satisfy the selected type semantics and catalog budgets. Never combine unrelated template scenes into one output.
 

@@ -98,10 +98,10 @@ Use arrows for directional semantics. Set arrowheads explicitly rather than depe
 
 Connector rules:
 
-- Use solid muted arrows for ordinary flow.
+- Use solid muted arrows for the default path or call.
 - Use blue for a flow whose external-system role needs emphasis.
 - Use orange only for the focal path.
-- Use dashed arrows for asynchronous or return flows.
+- Use dashed arrows for asynchronous, return, or fallback flows, with redundant labels: `ASYNC`; `RETURN` when sequence context is not already unambiguous; or the fallback condition plus `FALLBACK` and warning treatment.
 - Use orthogonal points for off-axis routes.
 - Keep fan-out anchors at least 12 px apart.
 - Keep the route outside non-endpoint nodes.
@@ -262,7 +262,29 @@ Use one outer rectangle, separate divider lines, and separate text blocks for th
 
 ### Sequence Interaction
 
-Use participant nodes at the top, dashed plain lines for lifelines, solid arrows for calls, and dashed arrows for returns. Place messages in chronological top-to-bottom order and keep labels clear of lifelines and arrow strokes.
+Use participant nodes at the top, dashed plain lines for lifelines, solid arrows for default calls, and dashed arrows for returns. Add `RETURN` when sequence context does not already make the return unambiguous. Place messages in chronological top-to-bottom order and keep labels clear of lifelines and arrow strokes.
+
+### Staged Pipeline And Event-Flow Grammar
+
+Use these native-element composites when the visual brief calls for them:
+
+- **Numbered grouped stage:** a lightly bounded stage region with a number, concise stage label, and independent component nodes. A prose card listing several components is not equivalent.
+- **Independent component node:** one shape per responsibility so connectors can show actual split, merge, and ownership geometry.
+- **Owned state/store:** place the store inside its owner when ownership is exclusive, or immediately adjacent with a labeled ownership connector when it must remain independently addressable.
+- **True fan-out/fan-in:** draw separate branches from the split point and separate incoming routes to the merge point. Do not summarize branching in a sentence.
+- **Routing connector chip:** a small labeled chip attached to the relevant connector; it identifies partition or routing semantics, not idempotency.
+- **Business-ID key chip:** a distinct labeled chip for business identity. A routing key is not an idempotency key.
+- **Cursor/checkpoint marker:** a compact marker adjacent to the consumer or state that owns progress.
+- **Transaction zone:** a labeled enclosing boundary around operations that are atomic together; do not imply that operations outside it share the transaction.
+- **Warning strip:** a clearly shaped and labeled strip for non-guarantees, fallback caveats, or boundary warnings.
+
+Keep default paths and calls solid. Use dashed connectors plus `ASYNC` for asynchronous movement, dashed plus `RETURN` when needed for returns, and dashed plus the condition, `FALLBACK`, and warning treatment for fallback. Long prose cannot replace this geometry.
+
+### Badges And Semantic Color
+
+Use a technology badge only when naming the technology improves understanding of responsibility. Prefer plain text or a generic badge unless an official asset is verified. Use role badges for internal components. Keep outer cards neutral when internal routing, business-identity, state/merge, or warning chips carry semantic color. Preserve one accent by default and at most two; distinguish the four semantic roles with combinations of color, labels, shapes, and line treatment rather than requiring four hues. Repeat color meaning with text and shape so no-color readers retain the same distinctions.
+
+In identity-heavy flows, explicitly audit what each label counts. Identifier roles and duplicate-defense points are separate axes, so different counts are not a defect. The title, legend, and cards must each state whether they count identifiers, stages, stores, or defenses.
 
 ## Final Element Checks
 
@@ -271,7 +293,7 @@ Use participant nodes at the top, dashed plain lines for lifelines, solid arrows
 - Every shape label fits a centered safe area with consistent padding and natural line breaks.
 - Manually wrapped shape labels use matching `text` and `originalText`, `lineHeight: 1.25`, and `autoResize: false`.
 - Every directional connector has an explicit arrowhead.
-- Async and return connectors are dashed.
+- Async, return, and fallback connectors are dashed and carry the required redundant labels or treatment; default paths remain solid.
 - Off-axis connectors are orthogonal.
 - Connectors do not pass through unrelated nodes.
 - Connector labels have at least 8 px clearance.

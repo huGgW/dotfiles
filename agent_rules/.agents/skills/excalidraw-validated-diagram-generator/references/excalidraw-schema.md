@@ -12,7 +12,7 @@ interface ExcalidrawFile {
   elements: ExcalidrawElement[];
   appState: {
     viewBackgroundColor: "#ffffff";
-    gridSize: 4;
+    gridSize: 20;
   };
   files: Record<string, unknown>;
 }
@@ -53,7 +53,7 @@ interface BaseElement {
 }
 ```
 
-All IDs must be unique. Keep positions, dimensions, and connector bend points on a 4 px rhythm when practical. Use `opacity` from 0 through 100 and positive integer versions.
+All IDs must be unique. Preserve the canonical `appState.gridSize: 20`. Independently, positions, dimensions, and connector bend points may use a 4 px coordinate rhythm when practical; this layout rhythm does not change `gridSize`. Use `opacity` from 0 through 100 and positive integer versions.
 
 ## Shape Elements
 
@@ -158,11 +158,15 @@ Use semantic roles rather than copying a product palette:
 | Canvas | `#ffffff` |
 | Ordinary elements | Neutral surface, dark text, muted border |
 | Ordinary connectors | Muted neutral stroke |
-| External systems | Blue accent |
-| Focal path or node | Orange accent |
-| Async or return flow | Dashed stroke |
+| Transport or routing | One labeled accent and/or routing chip |
+| Business identity | A distinct labeled chip or shape |
+| State or merge | A distinct labeled store/checkpoint role |
+| Warning or boundary | Warning strip or boundary treatment |
+| Async flow | Dashed stroke plus `ASYNC` label |
+| Return flow | Dashed stroke plus `RETURN` when sequence context is not already unambiguous |
+| Fallback flow | Dashed stroke plus condition, `FALLBACK` label, and warning treatment |
 
-Use one accent by default and at most two. Do not add shadows.
+Use color to encode roles, not importance. Keep outer cards neutral when their internal chips carry semantic color. Repeat each meaning with labels, shapes, or line styles so the diagram works without color. Use one accent by default and at most two; the four semantic roles do not require four unique hues. Keep the default path or call solid. Do not add shadows.
 
 ## Minimal Example
 
@@ -242,7 +246,7 @@ The shape and its label are separate, and the title uses the required font famil
   ],
   "appState": {
     "viewBackgroundColor": "#ffffff",
-    "gridSize": 4
+    "gridSize": 20
   },
   "files": {}
 }
@@ -259,4 +263,5 @@ The shape and its label are separate, and the title uses the required font famil
 - Directional connectors have explicit arrowheads.
 - Connectors precede nodes in z-order and avoid non-endpoint nodes.
 - The scene respects the selected template budgets.
+- `appState.gridSize` is 20; any optional 4 px coordinate rhythm is only a placement convention.
 - The final JSON renders, and the final PNG has been read after the last edit.

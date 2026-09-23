@@ -65,15 +65,16 @@
       "id": 5,
       "kind": "template",
       "template_id": "data-flow",
-      "prompt": "Create a data flow diagram for profile analytics. Browser sends click events to an Ingestion process, which writes raw events to Event Store. A Redaction process reads raw events, removes direct identifiers, writes sanitized events to Analytics Warehouse, and BI Dashboard reads aggregates from the warehouse. Label flows with the data being moved and show Browser and BI Dashboard as external actors. Save only source and PNG under output/profile-analytics-dfd.",
-      "expected_output": "A validated data-flow-template-based diagram that distinguishes external actors, transformation processes, stores, and named data flows including the redaction boundary.",
+      "prompt": "Create an editorial-light data flow diagram whose primary reader question is `How do incoming observations split into independent processing branches and merge into one published result?` A Source Actor sends observations to Intake, which fans out to Validation and Enrichment as independent components. Validation owns a Rejection Store. Only accepted validation results and enriched records fan in at Merge, which writes Published Store for a Consumer Actor. Use numbered grouped stages, named data flows, true branch and merge geometry, and place each owned store inside or immediately adjacent to its owner. Show async movement as dashed and ordinary movement as solid. Target a doc-wide display and omit implementation prose that does not answer the primary question. Save only one matching source and PNG under output/branched-data-flow.",
+      "expected_output": "A validated data-flow-template adaptation and matching PNG that answer one fan-out/fan-in reader question through stage, component, store-ownership, split, merge, and connector geometry and remain readable at doc-wide size.",
       "files": [],
       "expectations": [
         "The artifacts implement exactly catalog template `data-flow`, distinguishing external actors, processes, data stores, and named data movement rather than control decisions, system topology, or quantity-weighted bands.",
-        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
-        "Browser and BI Dashboard are external actors, Ingestion and Redaction are processes, Event Store and Analytics Warehouse are stores, and each directed connector names click events, raw events, sanitized events, or aggregates; direct identifiers never flow to BI Dashboard.",
-        "The scene has at most 8 major nodes, 12 edges, and 4 stores; dashed styling is used only for genuinely asynchronous movement.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipping, overlap, or unrelated-node crossings."
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file; the diagram owns only the supplied fan-out/fan-in primary question.",
+        "Source Actor, Intake, Validation, Enrichment, Merge, Consumer Actor, Rejection Store, and Published Store are distinct semantic nodes; numbered grouped stages contain independent component nodes, and each store has unambiguous ownership or adjacency.",
+        "The scene shows actual separate fan-out branches from Intake and separate fan-in routes to Merge rather than prose describing a split or merge; every flow names its data, asynchronous movement is dashed, ordinary movement is solid, and connectors avoid unrelated nodes.",
+        "The scene respects the catalog budgets, uses editorial-light styling on `#ffffff`, separate `fontFamily: 5` text at 16 px or larger, and passes both whole-image overview and detail readability at doc-wide size without zoom; a large PNG or nominal font size alone is not sufficient.",
+        "The final rendered image independently answers where observations split, what each branch does and owns, where accepted and enriched results merge, and what reaches the consumer; any difficult answer, clipping, overlap, taxonomy drift, or reliance on long prose prevents visual PASS."
       ]
     },
     {
@@ -110,15 +111,17 @@
       "id": 8,
       "kind": "template",
       "template_id": "sequence-diagram",
-      "prompt": "Draw a sequence diagram for login. Participants are Browser, Auth API, Session Store, and Audit Queue. Browser calls `POST /login`; Auth API reads credentials from Session Store; Session Store returns the account; Auth API asynchronously publishes `LoginSucceeded` to Audit Queue; Auth API returns a session token to Browser. Show lifelines, chronological order, and distinguish calls, returns, and the async message. Save exactly the diagram and PNG under output/login-sequence.",
-      "expected_output": "A validated sequence-diagram-template-based interaction with four participants, lifelines, top-to-bottom messages, dashed returns, and a semantically distinct asynchronous publish.",
+      "prompt": "Draw an editorial-light sequence diagram whose primary reader question is `How do exactly three identifier role families travel through an asynchronous event flow while four duplicate-defense points act at different boundaries?` The three role families are: routing, business identity, and duplicate control. Map routing key `account-42` to routing; business ID `order-731` to business identity; and both event ID `evt-908` and downstream idempotency key `apply-order-731` to the duplicate-control family as two boundary-specific concrete keys. Participants are Producer, Event Broker, Consumer, State Store, and Downstream API. Consumer reads from a cursor/checkpoint, records event ID before applying state, and calls Downstream API with the downstream idempotency key. Show exactly three identifier-role cards or legend entries, distinct from four numbered duplicate-defense badges: producer retry record, broker delivery marker, consumer event-ID record, and downstream idempotency check. Do not imply that the concrete key count is three. Make clear that the routing key controls routing and is not an idempotency key. Use a routing connector chip, business-ID chip, cursor/checkpoint marker, owned state, and an explicit consumer transaction zone. Keep default calls solid; label dashed asynchronous messages `ASYNC`; label a conditional dashed fallback with its condition, `FALLBACK`, and warning treatment; label a dashed return `RETURN` only if sequence context does not already make it unambiguous. Preserve at most two accent colors and distinguish semantic roles with labels, shapes, and line treatments rather than four unique hues. The title, legend, and cards must each state what they count. Target screen-share size. Save exactly one source and PNG under output/event-identities.",
+      "expected_output": "A validated sequence-diagram-template adaptation and matching PNG that distinguish three identifier roles from four duplicate-defense points, encode routing, ownership, checkpoint, transaction, async, default, and fallback semantics geometrically, and remain comprehensible at screen-share size.",
       "files": [],
       "expectations": [
         "The artifacts implement exactly catalog template `sequence-diagram`, with aligned participants, lifelines, and top-to-bottom messages rather than static topology, a pipeline, or process boxes.",
-        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
-        "Browser, Auth API, Session Store, and Audit Queue are participants; calls are solid, the two returns are dashed, and asynchronous `LoginSucceeded` precedes the final session-token return.",
-        "The scene has at most 6 participants, 12 message edges, and 6 activation spans; message labels clear lifelines and connector strokes.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped or overlapping labels."
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file; the diagram owns the supplied identifier-and-defense primary question rather than mixing in a separate architecture overview.",
+        "Producer, Event Broker, Consumer, State Store, and Downstream API are participants with chronological lifelines/messages; default calls are solid, async messages are dashed and labeled `ASYNC`, fallback is dashed with its condition, `FALLBACK`, and warning treatment, and a return adds `RETURN` only when sequence context is not already unambiguous.",
+        "Exactly three identifier-role cards or legend entries are visible: routing maps `account-42`; business identity maps `order-731`; duplicate control maps both `evt-908` and `apply-order-731` as two boundary-specific concrete keys. The diagram does not imply that there are only three concrete keys and explicitly states that routing key is not idempotency key.",
+        "All four numbered defense points, the cursor/checkpoint marker, Consumer-owned state, and the Consumer transaction zone are geometric elements rather than a prose list; the transaction boundary does not imply atomicity for the broker or Downstream API.",
+        "The exactly three identifier-role entries are visually distinct from exactly four numbered defense badges. Title, legend, and cards each state which axis they count; at most two accent colors are used, while transport/routing, business identity, state/merge, and warning/boundary roles remain distinguishable through combinations of color, labels, shapes, and line treatments and remain meaningful without color.",
+        "The scene stays within 6 participants, 12 message edges, and 6 activation spans. An aspect-ratio-preserving, letterboxed 1440x900 temporary screen-share raster is read for overview, detail, and prompt-derived comprehension, then the original final PNG is read for source/render consistency; the temporary raster is not delivered, and large dimensions or 16 px fonts alone cannot pass."
       ]
     },
     {
@@ -380,15 +383,17 @@
       "id": 26,
       "kind": "template",
       "template_id": "process",
-      "prompt": "Show how a release candidate becomes production software in one branch-free sequence: Build artifact, Run automated tests, Sign artifact, Deploy to staging, Run smoke tests, and Promote to production. There are no decisions, actor lanes, or recurring feedback. Save only source and PNG under output/release-stages.",
-      "expected_output": "A validated linear sequence of transformation stages with one clear direction and no decision grammar.",
+      "prompt": "Show how a release candidate becomes production software in one branch-free sequence: Build artifact, Run automated tests, Sign artifact, Deploy to staging, Run smoke tests, and Promote to production. The one primary reader question is `What is the ordered release path?`; there are no decisions, actor lanes, stores, identifiers, split/merge points, warnings, or recurring feedback. Adapt the canonical process starter rather than inventing a new card system, but change labels and spacing as needed for accuracy and doc-inline readability. Save only source and PNG under output/release-stages.",
+      "expected_output": "A validated, minimal process-template adaptation that preserves the starter semantic grammar while answering one simple ordered-path question at doc-inline size without arbitrary recomposition.",
       "files": [],
       "expectations": [
         "The artifacts implement exactly catalog template `process`, with ordered steps and directed flow rather than decision diamonds, ownership lanes, or a closed cycle.",
-        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
+        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file; no unnecessary overview/detail split is introduced.",
         "The six named stages appear exactly once in the supplied order along one primary axis, with no branches or backward connection.",
         "The scene has at most 8 major nodes and 8 edges.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped labels or connectors crossing unrelated steps."
+        "The result defaults to adaptation of the canonical starter's semantic grammar, style tokens, and starter components; it may adjust coordinates and box count for accurate content but does not replace the fitting process layout with arbitrary blank-canvas cards.",
+        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, no clipped labels or unrelated-node crossings, and a useful whole-image overview plus readable detail at doc-inline size without zoom.",
+        "The final PNG stands alone and directly answers the ordered release path question; visual PASS requires comprehension as well as legibility, while absent entities such as stores, identifiers, boundaries, and warnings are not invented."
       ]
     },
     {
@@ -500,15 +505,17 @@
       "id": 34,
       "kind": "template",
       "template_id": "deployment",
-      "prompt": "Show where the checkout artifacts run in production. An AWS region contains a public subnet with ALB and two private availability-zone nodes, each running a Checkout API container. Both connect to an RDS PostgreSQL node; the APIs also connect over TLS to an external Payment Provider. Distinguish runtime nodes, deployed artifacts, network paths, and the external system. Save only source and PNG under output/checkout-runtime.",
-      "expected_output": "A validated runtime topology with environments, deployment nodes, placed artifacts, and network connections.",
+      "prompt": "Create exactly three editorial-light deployment diagrams for slide delivery: a Global Overview, a Region A Detail, and a Region B Detail. The overview's primary reader question is `How do Region A and Region B connect to the external identity and payment providers and fail over between regions?` Each region detail's primary reader question is `What runs inside this region and its network boundaries?` Use catalog ID `deployment` and target profile `slide` for all three. Each region detail contains one region boundary, one public ingress, two private availability-zone runtime nodes, one API artifact on each runtime node, one regional queue, one cache, and one database. For this eval, the region boundary counts as one major node; subnet background regions count toward the environment limit but not `majorNodes`, so each detail has exactly 9 major nodes and at most 3 environments. The overview shows the two regions as overview nodes, both external providers, major inter-region failover, and only connections needed to answer its question, staying within its own deployment budget. Label responsibility-changing protocols. Show `ASYNC` on dashed cross-region failover and a warning that it does not guarantee zero data loss. Every diagram must have a matching `.excalidraw` and PNG pair and share vocabulary, colors, and component names. Fit each 1920x1080 slide validation box without zoom. Save deliverables under output/multi-region-runtime.",
+      "expected_output": "Exactly three validated deployment-template-based source/PNG pairs: a global overview and two region details, each with one primary question, catalog ID `deployment`, slide profile, deterministic budget accounting, shared vocabulary, and target-size readability.",
       "files": [],
       "expectations": [
         "The artifacts implement exactly catalog template `deployment`, with runtime nodes containing artifacts and network paths rather than logical service boundaries or an abstract dependency network.",
-        "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
-        "The AWS region, public subnet, two private availability zones, ALB, two Checkout API containers, RDS PostgreSQL, and external Payment Provider have the requested containment and TLS/network connections.",
-        "The scene has at most 9 major nodes, 12 edges, and 3 environments.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped artifact labels or network paths crossing unrelated nodes."
+        "The output contains exactly three matching valid `.excalidraw`/`.png` pairs named or clearly identified as Global Overview, Region A Detail, and Region B Detail; all three use catalog ID `deployment`, profile `slide`, shared vocabulary, semantic colors, and component names.",
+        "The Global Overview asks and answers how Region A and Region B connect to both external providers and fail over. It contains only overview-level nodes and connections and stays within the deployment template's 9-major-node, 12-edge, and 3-environment budgets.",
+        "Each region detail asks and answers what runs inside that region and its network boundaries and contains exactly 9 major nodes: region boundary, ingress, two runtime nodes, two API artifacts, queue, cache, and database. Subnet background regions count toward at most 3 environments but not majorNodes.",
+        "The dashed cross-region failover is labeled `ASYNC`; its zero-data-loss non-guarantee is visible with warning treatment rather than buried in prose, and labels or shapes preserve meaning without color.",
+        "Each final PNG is aspect-ratio-preserving downscaled and letterboxed into a temporary 1920x1080 slide validation raster that is read for whole-image overview and required detail without zoom; each original final PNG is then read for source/render consistency, temporary rasters are not delivered, and source/PNG dimensions or font size alone cannot establish PASS.",
+        "Prompt-derived comprehension questions about placement, containment, network paths, external boundaries, and failover limits are answerable from the final image set without prior context; any difficult answer, clipped detail, or ambiguous taxonomy prevents visual PASS."
       ]
     },
     {
