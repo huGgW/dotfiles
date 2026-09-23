@@ -13,7 +13,9 @@
   "plugin": [
     "opencode-traffic-light",
     "@slkiser/opencode-quota",
-    "opencode-subagent-statusline"
+    "opencode-subagent-statusline",
+    "./herdr-tui-session.js",
+    "oh-my-opencode-slim",
   ]
 }
 

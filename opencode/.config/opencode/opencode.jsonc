@@ -46,7 +46,22 @@
             }
         ],
         "@slkiser/opencode-quota",
+        "oh-my-opencode-slim",
     ],
+    "agent": {
+        "explore": {
+            "disable": true
+        },
+        "general": {
+            "disable": true
+        },
+        "scout": {
+            "disable": true
+        },
+        "build": {
+            "disable": true
+        }
+    },
     "lsp": {
         "jdtls": {
             "command": [
@@ -119,94 +134,42 @@
     },
     "provider": {
         "openai": {
-            "options": {
             "models": {
                 "gpt-6-astra": {
                     "limit": {
-                        "context": 828000,
-                        "input": 700000,
+                        "context": 872000,
                         "output": 128000
                     }
                 },
                 "gpt-6-astra-fast": {
                     "limit": {
-                        "context": 828000,
-                        "input": 700000,
+                        "context": 872000,
                         "output": 128000
                     }
                 },
-                "gpt-5.6-sol": {
+                "gpt-6-sol": {
                     "limit": {
-                        "context": 828000,
-                        "input": 700000,
+                        "context": 872000,
                         "output": 128000
                     }
                 },
-                "gpt-5.6-sol-fast": {
+                "gpt-6-sol-fast": {
                     "limit": {
-                        "context": 828000,
-                        "input": 700000,
+                        "context": 872000,
                         "output": 128000
                     }
                 },
-                "gpt-5.6-sol-ultrafast": {
-                    "name": "GPT 5.6 Sol Ultrafast",
+                "gpt-6-luna": {
                     "limit": {
-                        "context": 828000,
-                        "input": 700000,
-                        "output": 128000
-                    },
-                    "reasoning": true,
-                    "variants": {
-                        "low": {
-                            "reasoningEffort": "low"
-                        },
-                        "medium": {
-                            "reasoningEffort": "medium"
-                        },
-                        "high": {
-                            "reasoningEffort": "high"
-                        },
-                        "xhigh": {
-                            "reasoningEffort": "xhigh"
-                        },
-                        "max": {
-                            "reasoningEffort": "max"
-                        }
-                    }
-                },
-                "gpt-5.6-terra": {
-                    "limit": {
-                        "context": 828000,
-                        "input": 700000,
+                        "context": 872000,
                         "output": 128000
                     }
                 },
-                "gpt-5.6-terra-fast": {
+                "gpt-6-luna-fast": {
                     "limit": {
-                        "context": 828000,
-                        "input": 700000,
+                        "context": 872000,
                         "output": 128000
                     }
-                },
-                "gpt-5.6-luna": {
-                    "limit": {
-                        "context": 828000,
-                        "input": 700000,
-                        "output": 128000
-                    }
-                },
-                "gpt-5.6-luna-fast": {
-                    "limit": {
-                        "context": 828000,
-                        "input": 700000,
-                        "output": 128000
-                    }
-                }
-                    },
-                    },
-                    },
-                    },
                 }
             }
         },
