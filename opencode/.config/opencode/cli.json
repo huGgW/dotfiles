@@ -1,0 +1,45 @@
+{
+  "$schema": "https://opencode.ai/v2/cli.json",
+  "theme": {
+    "name": "system",
+    "mode": "system"
+  },
+  "diffs": {
+    "wrap": "word"
+  },
+  "session": {
+    "sidebar": "auto",
+    "scrollbar": false,
+    "thinking": "hide",
+    "markdown": "rendered",
+    "tps": true,
+    "permissions": "autoaccept",
+    "new_location": "launch",
+    "grouping": "auto",
+    "verbosity": "low"
+  },
+  "animations": true,
+  "attention": {
+    "notifications": true,
+    "sound": true
+  },
+  "terminal": {
+    "copy": "select"
+  },
+  "tabs": {
+    "mode": "on"
+  },
+  "keybinds": {
+    "session.half.page.up": "ctrl+u",
+    "session.half.page.down": "ctrl+d",
+    "session.message.user.previous": "ctrl+shift+u",
+    "session.message.user.next": "ctrl+shift+d"
+  },
+  "plugins": [
+    // Disabled for OpenCode v2 compatibility: TUI support is not confirmed.
+    // "@slkiser/opencode-quota",
+    // "opencode-subagent-statusline",
+    "oh-my-opencode-slim",
+    "./herdr-opencode"
+  ]
+}

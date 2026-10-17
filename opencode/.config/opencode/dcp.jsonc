@@ -11,8 +11,24 @@
     "automaticStrategies": true
   },
   "compress": {
-    "maxContextLimit": "80%",
-    "minContextLimit": "33%"
+    "maxContextLimit": "66%",
+    "minContextLimit": "33%",
+    "modelMaxLimits": {
+      "openai/gpt-6-astra": 500000,
+      "openai/gpt-6.1-sol": 500000,
+      "openai/gpt-6-luna": 500000,
+      "openai/gpt-6-astra-fast": 500000,
+      "openai/gpt-6.1-sol-fast": 500000,
+      "openai/gpt-6-luna-fast": 500000,
+    },
+    "modelMinLimits": {
+      "openai/gpt-6-astra": 200000,
+      "openai/gpt-6.1-sol": 200000,
+      "openai/gpt-6-luna": 200000,
+      "openai/gpt-6-astra-fast": 200000,
+      "openai/gpt-6.1-sol-fast": 200000,
+      "openai/gpt-6-luna-fast": 200000,
+    }
   },
   "experimental": {
     "allowSubAgents": true

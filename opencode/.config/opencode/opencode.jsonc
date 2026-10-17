@@ -1,138 +1,153 @@
 {
     "$schema": "https://opencode.ai/config.json",
-    "autoshare": false,
-    "autoupdate": true,
+    "share": "manual",
+    "update": "auto",
     "compaction": {
         "auto": true
     },
-    "experimental": {
-        "batch_tool": true
-    },
-    "instructions": [
-        "AGENTS.local.md"
-    ],
-    "permission": {
-        "*": "allow",
-        "bash": {
-            "git push * --force *": "ask",
-            "git push * -f *": "ask",
-            "git reset * --hard *": "ask",
-            "git reset * -h *": "ask",
-            "rm -rf": "ask"
+    "permissions": [
+        {
+            "action": "*",
+            "resource": "*",
+            "effect": "allow"
         },
-        "external_directory": {
-            "*": "ask",
-            "/private/var/folders/**/opencode/**": "allow",
-            "/var/folders/**/opencode/**": "allow",
-            "/private/var/folders/hm/**": "allow",
-            "/var/folders/hm/**": "allow",
-            "~/.agents/**": "allow",
-            "~/.gradle/**": "allow",
-            "~/.plannotator/**": "allow",
-            "~/github/**": "allow",
-            "~/Library/Application Support/rtk/**": "allow",
-            "~/.local/share/opencode/**": "allow"
+        {
+            "action": "external_directory",
+            "resource": "*",
+            "effect": "ask"
+        },
+        {
+            "action": "external_directory",
+            "resource": "/private/var/folders/**/opencode/**",
+            "effect": "allow"
+        },
+        {
+            "action": "external_directory",
+            "resource": "/var/folders/**/opencode/**",
+            "effect": "allow"
+        },
+        {
+            "action": "external_directory",
+            "resource": "/private/var/folders/hm/**",
+            "effect": "allow"
+        },
+        {
+            "action": "external_directory",
+            "resource": "/var/folders/hm/**",
+            "effect": "allow"
+        },
+        {
+            "action": "external_directory",
+            "resource": "~/.agents/**",
+            "effect": "allow"
+        },
+        {
+            "action": "external_directory",
+            "resource": "~/.gradle/**",
+            "effect": "allow"
+        },
+        {
+            "action": "external_directory",
+            "resource": "~/.plannotator/**",
+            "effect": "allow"
+        },
+        {
+            "action": "external_directory",
+            "resource": "~/.querypie/**",
+            "effect": "allow"
+        },
+        {
+            "action": "external_directory",
+            "resource": "~/github/**",
+            "effect": "allow"
+        },
+        {
+            "action": "external_directory",
+            "resource": "~/Library/Application Support/rtk/**",
+            "effect": "allow"
+        },
+        {
+            "action": "external_directory",
+            "resource": "~/.local/share/opencode/**",
+            "effect": "allow"
+        },
+        // Include commands rewritten by the local RTK plugin.
+        {
+            "action": "shell",
+            "resource": "*git push *--force*",
+            "effect": "ask"
+        },
+        {
+            "action": "shell",
+            "resource": "*git push *-f*",
+            "effect": "ask"
+        },
+        {
+            "action": "shell",
+            "resource": "*git reset *--hard*",
+            "effect": "ask"
+        },
+        {
+            "action": "shell",
+            "resource": "*git reset *-h*",
+            "effect": "ask"
+        },
+        {
+            "action": "shell",
+            "resource": "*rm -rf*",
+            "effect": "ask"
         }
-    },
-    "plugin": [
+    ],
+    "plugins": [
         "@tarquinen/opencode-dcp@latest",
-        "@mohak34/opencode-notifier@latest",
-        "opencode-betterglob",
-        "opencode-bettergrep",
-        [
-            "@plannotator/opencode@latest",
-            {
+        // Disabled for OpenCode v2 compatibility: still uses the v1 plugin API.
+        // "@mohak34/opencode-notifier@latest",
+        // "opencode-betterglob",
+        // "opencode-bettergrep",
+        {
+            "package": "@plannotator/opencode@latest",
+            "options": {
                 "workflow": "manual"
             }
-        ],
-        "@slkiser/opencode-quota",
+        },
+        // Disabled for OpenCode v2 compatibility: v2 support is not confirmed.
+        // "@slkiser/opencode-quota",
+        // "@sunerpy/opencode-kiro-auth",
         "oh-my-opencode-slim",
     ],
-    "agent": {
+    "default_agent": "orchestrator",
+    "agents": {
+        "solo": {
+            "mode": "all",
+            "description": "This agent is used only for handle task alone without subagent, or spawn solo agent profile only for subagent. This should not be spawned as subagent from agent which has other subagent profile than solo.",
+            "system": "If subagent is not needed, prefer to do job only by yourself. And if using subagent, only spawn solo subagent profile only."
+        },
         "explore": {
-            "disable": true
-        },
-        "general": {
-            "disable": true
-        },
-        "scout": {
-            "disable": true
-        },
-        "build": {
-            "disable": true
-        }
-    },
-    "lsp": {
-        "jdtls": {
-            "command": [
-                "jdtls",
-                "--jvm-arg=-Xmx16G",
-                "--jvm-arg=-Xms1G",
-                "--jvm-arg=-XX:+UseParallelGC",
-                "--jvm-arg=-XX:+UseStringDeduplication",
-                "--jvm-arg=-Dsun.zip.disableMemoryMapping",
-                "--jvm-arg=-XX:GCTimeRatio=4",
-                "--jvm-arg=-XX:AdaptiveSizePolicyWeight=90"
-            ],
-            "extensions": [
-                ".java"
-            ],
-            "initialization": {
-                "settings": {
-                    "java": {
-                        "compile": {
-                            "nullAnalysis": {
-                                "mode": "automatic"
-                            }
-                        },
-                        "implementationsCodeLens": {
-                            "enabled": false
-                        },
-                        "jdt": {
-                            "ls": {
-                                "lombokSupport": {
-                                    "enabled": true
-                                }
-                            }
-                        },
-                        "referencesCodeLens": {
-                            "enabled": false
-                        },
-                        "signatureHelp": {
-                            "enabled": true
-                        }
-                    }
-                }
-            }
-        },
-        "pyright": {
             "disabled": true
         },
-        "ty": {
-            "command": [
-                "uvx",
-                "ty",
-                "server"
-            ],
-            "extensions": [
-                ".py",
-                ".pyi"
-            ]
-        }
+        "general": {
+            "disabled": true
+        },
+        "build": {
+            "disabled": true
+        },
+        "plan": {
+            "disabled": true
+        },
     },
     "mcp": {
-        "deepwiki": {
-            "enabled": true,
-            "type": "remote",
-            "url": "https://mcp.deepwiki.com/mcp"
-        },
-        "grep": {
-            "enabled": true,
-            "type": "remote",
-            "url": "https://mcp.grep.app"
+        "servers": {
+            "deepwiki": {
+                "type": "remote",
+                "url": "https://mcp.deepwiki.com/mcp"
+            },
+            "grep": {
+                "type": "remote",
+                "url": "https://mcp.grep.app"
+            }
         }
     },
-    "provider": {
+    "providers": {
         "openai": {
             "models": {
                 "gpt-6-astra": {
@@ -147,13 +162,13 @@
                         "output": 128000
                     }
                 },
-                "gpt-6-sol": {
+                "gpt-6.1-sol": {
                     "limit": {
                         "context": 872000,
                         "output": 128000
                     }
                 },
-                "gpt-6-sol-fast": {
+                "gpt-6.1-sol-fast": {
                     "limit": {
                         "context": 872000,
                         "output": 128000
@@ -173,9 +188,6 @@
                 }
             }
         },
-        // Detected copilot authentication; opencode-quota added this global provider declaration.
-        "copilot": {},
-        // Detected openrouter authentication; opencode-quota added this global provider declaration.
-        "openrouter": {}
     }
+    "warming": true
 }
