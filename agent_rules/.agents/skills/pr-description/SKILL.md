@@ -53,9 +53,16 @@ This rule helps generate PR descriptions by comprehensively utilizing changes be
   - Read the contents of the `.github/PULL_REQUEST_TEMPLATE.md` file.
   - `print(default_api.read_file(target_file='.github/PULL_REQUEST_TEMPLATE.md', should_read_entire_file=True, start_line_one_indexed=1))`
 
-### Step 5: Generate PR Description (Comprehensive)
+### Step 5: Generate PR Description (Show First, Then Explain)
+  - **Order**: Start every section with a direct conclusion (1-3 lines), then show the structure, then explain only what the visual cannot carry (reason, constraint, trade-off). Close with a one-sentence takeaway stating what to see.
   - **"What's changed?" Section**: Summarize the changes resulting from `git diff` analysis into no more than 3 items. Summarize so that the overall modifications and purpose are clearly evident.
-  - **"Details" Section**: Write as detailed as possible based on the `git diff` analysis results (file change summary) from Step 2 and conversation content/user-provided context from Step 3.
+  - **"Details" Section**: Show the change structure first instead of describing it in paragraphs. Pick exactly one form per question:
+    - Order, flow, state change, relationship, or boundary → small Mermaid diagram with concrete labels tied to this PR.
+    - Options sharing the same evaluation dimensions → comparison table with one concern per column.
+    - Behavior, contract, or shape of data/API → short snippet in the real language, folded to the relevant lines.
+    - Abstract rule that stays vague after one reading → single concrete scenario (actor, trigger, observable outcome).
+  - **No duplication**: Never narrate the visual node by node. Never repeat the same fact in prose and in a visual. Keep the representation where the difference is visible at a glance; remove the other occurrence. If removing the prose loses no understanding, remove the prose. If removing the visual loses no understanding, remove the visual.
+  - **Keep it small**: Give each visual a single responsibility. A focused fragment beats a complete map. Remove any element whose removal loses no understanding.
   - **"Reference" Section**: Include related issue numbers, document links, etc., collected in Step 3.
   - **Other Template Sections**: Fill as needed or guide the user to fill them.
   - **Checklist**: Maintain the template's checklist as is.

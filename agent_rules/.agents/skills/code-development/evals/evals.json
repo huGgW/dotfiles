@@ -56,11 +56,11 @@
       "expected_output": "Concrete Java code with readable separation of member declarations and meaningful method phases, cohesive statements kept together, and an explicit layout check rather than only a promise to run a formatter.",
       "files": [],
       "expectations": [
-        "The generated code separates fields with blank lines or uses clear conceptual field groups separated by blank lines; unrelated collaborators are not compressed into one undifferentiated field block.",
+        "The generated code separates distinct constructor-injected collaborator fields with blank lines unless the project has an established conceptual grouping; unrelated fields are not compressed into one block.",
         "The generated code separates field declarations, the constructor, and the placeOrder method with blank lines.",
-        "The placeOrder body uses blank lines to distinguish validation, order creation, persistence, audit publishing, and receipt construction where they are separate logical steps.",
+        "The placeOrder body uses blank lines to distinguish validation, order creation, persistence, audit publishing, and receipt construction where they are separate logical steps, even though the method is short.",
         "The generated code keeps cohesive operations together without adding one-off helpers or obvious comments solely to mark sections.",
-        "The verification summary reports inspection of logical blank-line grouping rather than treating formatter or linter success alone as proof of readability."
+        "The verification summary reports direct inspection of logical blank-line grouping rather than treating formatter or linter success alone as proof of readability."
       ]
     },
     {
@@ -73,7 +73,266 @@
         "The modified method includes blank lines between normalization, the validation guard, and persistence despite the compact original body and smallest-patch request.",
         "The two related normalization statements stay together without a blank line mechanically inserted after every statement.",
         "The patch leaves the repository field and its attached comment, constructor, and deleteCustomer method unchanged.",
-        "The verification summary checks blank-line grouping in the changed method and does not claim unexecuted tests or formatter runs succeeded."
+        "The verification summary directly checks blank-line grouping in the changed method and does not claim unexecuted tests or formatter runs succeeded."
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "The implementation plan is approved. In a Java service, `CheckoutController` accepts a `CheckoutRequest`, and the sole production caller of `PaymentCalculator.calculate(CheckoutRequest)` is that controller. The controller constructs an immutable request after validating that `quantity` is positive and `unitPrice` is nonnegative; focused controller tests prove both rejection paths, and no other entry point reaches the calculator. Add a discount computation inside `calculate` without unrelated checks or refactoring. A teammate suggests repeating those two guards in the calculator just in case. Explain how you confirm the upstream guarantee and what you would change if a second caller later bypassed the controller.",
+      "expected_output": "A bounded discount change using the verified upstream contract, without duplicated quantity or price guards, while acknowledging that a real new entry path changes validation ownership.",
+      "files": [],
+      "expectations": [
+        "The response checks the actual caller path and controller validation or tests rather than assuming a method name implies safety.",
+        "The response does not duplicate quantity and unit-price validation in calculate while the verified immutable request and sole caller guarantee those facts.",
+        "The response explains that a new bypassing caller requires validating at its entry boundary or the appropriate shared owner, with tests, rather than relying on the old sole-caller assumption.",
+        "The proposed change remains limited to discount behavior and its focused tests."
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "The implementation plan is approved. Add `ImportService.importDocument` to a Java worker. Jobs usually come from an HTTP endpoint that checks content size and type, but an existing retry queue also calls this service directly with persisted job payloads, and records can originate from an older producer without those checks. Reject oversized and disallowed content before parsing or writing, and update focused tests. One engineer says `ValidatedImportJob` proves validation already happened, although its constructor has no checks. Keep changes small.",
+      "expected_output": "Validation at the actual shared untrusted-data boundary despite suggestive naming, with focused HTTP/retry-queue coverage and no redundant guards after verified validation.",
+      "files": [],
+      "expectations": [
+        "The response recognizes the retry queue and older producer as realistic bypass paths for the HTTP validation.",
+        "The response inspects or notes the unchecked constructor and does not trust the name `ValidatedImportJob` as proof of an enforced contract.",
+        "The change validates content size and type before parsing or writing on the shared path and includes focused bypass-path tests.",
+        "The response avoids scattering redundant guards into every already-verified stage after the shared validation."
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "The implementation plan is approved. Add a Go function that computes a customer account's `availableCredit` from `creditLimit` and `outstandingBalance`, using those same words consistently across the domain package. A draft calls its parameters `cl` and `ob` and the result `x` to keep lines short. No local naming rule imposes such abbreviations. Implement the direct function and a focused test, without changing the package API beyond this addition.",
+      "expected_output": "An idiomatic direct implementation and focused test with role-revealing names from the package's domain vocabulary, not cryptic abbreviations.",
+      "files": [],
+      "expectations": [
+        "The function uses clear domain names for credit limit, outstanding balance, and available credit rather than `cl`, `ob`, and `x`.",
+        "The response allows enough identifier length to distinguish the three domain concepts while remaining idiomatic to Go.",
+        "The change stays within the new function and focused test without speculative helpers or unrelated API changes."
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "The implementation plan is approved. Add a TypeScript billing mapper to a repository whose AGENTS.md specifies `BillingRecord` and `toBillingRecord` naming, ESLint and Prettier enforce formatting, tests assert the public field names, and three comparable mappers follow those conventions. One nearby draft uses `BillDTO` and manual alignment, while a generic style guide prefers `InvoiceModel`. Follow the project's conventions where safe, implement the mapper, and verify with focused checks. If a local pattern would drop a required field, do not copy that mistake.",
+      "expected_output": "A focused mapper guided by authoritative project instructions, enforced tools, tests, and multiple implementations without copying a bad draft or a correctness defect.",
+      "files": [],
+      "expectations": [
+        "The response prioritizes the project's documented `BillingRecord` and `toBillingRecord` vocabulary over a generic style guide or a lone nearby draft.",
+        "The response checks enforced formatter/linter rules, public field assertions, and multiple comparable mappers before deciding style.",
+        "The mapper preserves required fields even if a nearby implementation would omit one; correctness and explicit requirements override a conflicting local pattern.",
+        "Verification names the focused tests and enforced formatting or lint checks without claiming unexecuted checks passed."
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "The implementation plan is approved. Show a concise Java class `ShipmentCoordinator` with fields for `ShipmentRepository`, `CarrierClient`, and `Clock`, constructor injection, and `ShipmentReceipt ship(ShipmentRequest request)` that validates the request, constructs a shipment using the clock, saves it, notifies the carrier, and returns a receipt. The nearby file has dense fields and a compact method but no explicit project layout rule; the formatter preserves blank lines. The team asks for MORE meaningful blank lines than the nearby code. Do not refactor unrelated methods or insert a blank line after every statement; show the code and report what layout you inspected.",
+      "expected_output": "Direct Java code that visibly separates distinct fields, members, and phases, keeps cohesive statements together, and reports an actual blank-line inspection.",
+      "files": [],
+      "expectations": [
+        "Distinct repository, client, and clock fields have visible blank-line separation, as do field declarations, constructor, and method.",
+        "The method separates validation, construction, persistence, external notification, and receipt phases where distinct without blank lines between every cohesive statement.",
+        "The response does not omit meaningful separation simply because nearby code is dense or a smaller diff would result.",
+        "The verification summary explicitly reports direct inspection of the changed declaration/member/phase layout rather than relying only on formatter output."
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "The implementation plan is approved. Fix Subscription.changePlan(plan, seats). The confirmed upstream contract already rejects non-positive seats, so do not repeat that guard. The subscription owns its current plan, seat count, and total price. Today the method assigns the new plan and seats before computing price; unsupported plan/seat combinations or checked price arithmetic overflow can then reject the change, leaving partial state. Preserve the established contract that rejected changes leave all subscription fields unchanged. Keep the flow direct unless extracting a pure change proposal genuinely improves testability or clarity, and describe focused regression checks.",
+      "expected_output": "A focused state-transition fix that checks request applicability and the computed next state before mutation, retains owner invariant protection without duplicating verified upstream input validation, and verifies rejected changes preserve existing state.",
+      "files": [],
+      "expectations": [
+        "The response identifies the premature plan/seat assignments as the first mutation and the combination check and checked arithmetic as later failure points.",
+        "The proposed flow computes and validates the next plan, seats, and total price before applying any subscription field changes, using a pure proposal only when useful.",
+        "The response does not repeat the confirmed upstream positive-seat guard, but retains plan applicability and computed-price invariant checks at the appropriate owner.",
+        "Focused checks cover unsupported plan/seat combinations and price overflow, asserting that the previous plan, seat count, and total price remain unchanged after each rejection.",
+        "The change avoids helper extraction based solely on line count and preserves accepted plan-change behavior."
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "The implementation plan is approved. Fix AccountService.transfer(senderId, receiverId, amount). Both accounts are persisted in the same database, whose established transaction API supports rollback and row locking or optimistic version checks. The request boundary already guarantees a positive amount. Currently the service checks the sender balance, debits and saves the sender, then credits and saves the receiver. Receiver persistence may fail, and concurrent transfers may spend the same starting balance. Preserve the existing all-or-nothing transfer contract and prevent conflicting updates. A teammate proposes extracting debitSender and creditReceiver helpers and calling the wrapper applyChange. Explain the real safety mechanism and focused checks without unrelated refactoring.",
+      "expected_output": "A transfer fix using the established database transaction and concurrency controls, with owner invariant checks and evidence for receiver failure and concurrent conflict, rather than treating helper extraction or naming as atomicity.",
+      "files": [],
+      "expectations": [
+        "The response identifies sender persistence as the first mutation and receiver failure as a partial-transfer risk.",
+        "Both account updates use the same real database transaction so receiver persistence failure rolls back the sender debit as required by the existing contract.",
+        "Balance decisions and writes are protected by appropriate row locks or version checks so concurrent transfers cannot spend the same starting balance or silently overwrite updates.",
+        "The response does not treat debitSender/creditReceiver extraction or an applyChange name as an atomicity mechanism, and does not add a redundant positive-amount guard.",
+        "Focused verification checks balances after receiver persistence failure and after a conflicting concurrent transfer, in addition to a successful transfer."
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "The implementation plan is approved. Show a short, cohesive implementation of Inventory.reserve(quantity) that computes the remaining stock, rejects insufficient stock before mutation, applies the accepted remaining stock, and returns a ReservationReceipt. The confirmed caller contract guarantees positive quantity, receipt construction cannot fail, and this in-memory inventory has no concurrent access. Keep its existing public return type and established rejection contract. A teammate insists every phase needs a helper and says a command must return void because command-query separation prohibits receipts. There is no project-specific layout rule. Include focused verification without speculative infrastructure.",
+      "expected_output": "A direct, intention-revealing state-changing method returning its required receipt, with meaningful phase spacing, pre-mutation rejection, and no forced helpers or blanket command-query-separation prohibition.",
+      "files": [],
+      "expectations": [
+        "The implementation computes and checks the remaining stock before changing the inventory, preserving stock on insufficient-stock rejection.",
+        "The method retains ReservationReceipt as its result and explains that an explicit state-changing command may return a receipt; mutation is not hidden in a query-like function.",
+        "The short cohesive method remains direct rather than extracting a tiny helper for each phase or forcing a new proposal type.",
+        "The response avoids redundant positive-quantity validation and speculative transactions or concurrency controls under the confirmed contracts.",
+        "The implementation visibly separates meaningful computation/validation, mutation, and return phases, and verification checks rejection state preservation, successful stock change, and receipt content."
+      ]
+    },
+    {
+      "id": 15,
+      "prompt": "The implementation plan is approved. Fix the error handling and tests of OrderService.confirmOrder. It validates the request, computes and validates the next order state, commits that state in the existing database transaction, then calls an external notification service and returns a confirmation receipt. The established API contract says a notification failure is reported as committed-but-not-notified; it must not undo the confirmed order or invite retrying the order mutation. Today a catch-all reports every error as not committed and tests incorrectly expect the order to remain unchanged. Preserve the transaction and public failure contract, do not introduce an outbox or another dependency, and distinguish notification and postcommit receipt failures from rejection or transaction failure where relevant.",
+      "expected_output": "A bounded error-contract fix that tracks the actual commit boundary, preserves committed state on external notification failure, and verifies precommit versus postcommit guarantees without promising universal rollback.",
+      "files": [],
+      "expectations": [
+        "The response identifies the database commit as the state boundary and distinguishes request/result rejection and rolled-back transaction failure from later external notification failure.",
+        "Notification failure leaves the confirmed order committed and is reported using the existing committed-but-not-notified contract rather than a false not-committed or rollback claim.",
+        "The response does not assume the database transaction includes the external notification or recommend blindly retrying the order mutation after commit.",
+        "The response recognizes that a fallible receipt construction after commit cannot by itself undo the order and must respect the established postcommit failure contract.",
+        "Focused tests assert unchanged state for precommit rejection or rollback and committed state plus the correct failure status for notification failure, without adding an outbox, dependency, or unrelated redesign."
+      ]
+    },
+    {
+      "id": 16,
+      "prompt": "The implementation plan is approved. In a Java method with a narrow internal scope, aggregate a `Customer` and an `Invoice` using the project's already-established type-safe `Pair<Customer, Invoice>` dependency. Each role is clear at the construction and immediate use sites, and the pair has no invariant or behavior. Keep the approved change small. Do not introduce a dedicated record or class or add a dependency.",
+      "expected_output": "A local use of the established type-safe pair, without an unnecessary dedicated type, new dependency, or weakened type safety.",
+      "files": [],
+      "expectations": [
+        "The response uses the already-established `Pair<Customer, Invoice>` because the narrow-scope element roles are clear and the grouping has no meaningful invariant or behavior.",
+        "The response does not introduce a dedicated record or class merely because the pair is used locally a few times.",
+        "The response does not add a tuple dependency or substitute raw types, `Object[]`, or another type-unsafe representation.",
+        "The change remains limited to the approved aggregation without speculative refactoring."
+      ]
+    },
+    {
+      "id": 17,
+      "prompt": "The implementation plan is approved. In a Java service, several helpers pass a `Pair<String, String>` representing sender and receiver IDs. The slots are easy to swap and both elements have the same static type. Clarify the representation at the smallest meaningful boundary, without a broad refactor. Do not blanket-ban equal-typed tuple slots when a short local unpacking uses clearly named variables immediately.",
+      "expected_output": "A narrowly scoped clarification of ambiguous sender/receiver slots, with no blanket rule against equal-typed tuple elements in an immediate, clearly named local unpacking.",
+      "files": [],
+      "expectations": [
+        "The response recognizes that sender and receiver IDs become ambiguous when passed through several helpers and can be swapped without a compile-time distinction.",
+        "The response recommends a named type or explicit parameters at the relevant boundary to materially improve clarity or safety.",
+        "The response does not claim equal-typed tuple slots must always be replaced when a local unpacking is immediate and clearly names each role.",
+        "The proposed change stays within the approved scope and avoids unrelated redesign."
+      ]
+    },
+    {
+      "id": 18,
+      "prompt": "The implementation plan is approved. Review these Java types without speculative refactoring: a private range record used once enforces `start <= end` and owns range behavior, and a named public/shared result type expresses an API contract used by multiple callers. Both types have low usage counts. Decide what to retain and what, if anything, to change.",
+      "expected_output": "Retain both meaningful named types because they enforce an invariant, own behavior, or express a shared public contract; do not use usage count alone to justify replacement.",
+      "files": [],
+      "expectations": [
+        "The response retains the private range record because it enforces the meaningful `start <= end` invariant and owns related behavior despite being used once.",
+        "The response retains the named public/shared result type because it expresses an API contract, regardless of its usage count.",
+        "The response judges type choice by meaning and scope rather than usage count or distinct static types alone.",
+        "The response avoids speculative refactoring and preserves type safety."
+      ]
+    },
+    {
+      "id": 19,
+      "prompt": "The implementation plan is approved. Add the missing whitespace-only rejection to normalizeCustomerReference and its focused regression test. No review is requested or delegated; do not create a review workflow. Report the bounded implementation and verification without requiring another skill or an independent reviewer.",
+      "expected_output": "A focused implementation and verification report without a forced handoff, mandatory review, automatic review loop, or unsupported independent-review claim.",
+      "files": [],
+      "expectations": [
+        "The response proceeds under the approved plan without requiring a review handoff or code-reviewer invocation.",
+        "The response reports implementation and actual verification evidence or explicit gaps without starting a repair or review loop.",
+        "The response does not claim independent review merely from loading skills or performing its own checks."
+      ]
+    },
+    {
+      "id": 20,
+      "prompt": "The approved expand-phase implementation is complete. Prepare a compact handoff for a delegated review in repository /workspace/orders, limited to the current unstaged src/events/order.ts and tests/order-event.test.ts changes against the index. The binding approved requirement is to publish both accountId and workspaceId; contract removal and consumer migration are excluded. An older remove-accountId decision is superseded. Required lenses are correctness and compatibility. The implementer chose the existing mapper over a new adapter to avoid duplicate field maintenance, but its claim that all consumers are compatible is unverified. The focused command npm test -- order-event.test.ts passed; consumer integration checks did not run. The unstaged target may drift: supply a reproducible basis, but no commit IDs or hashes have been observed. Use the reviewer's existing input fields, not a new shared contract.",
+      "expected_output": "A bounded review handoff separating authoritative expand-phase requirements from implementer rationale and unverified claims, with precise subject basis, required lenses, and honest verification evidence.",
+      "files": [],
+      "expectations": [
+        "The handoff uses repository_root, subject, scope, authoritative_context, required_lenses, and expected_subject_identity with the supplied unstaged-versus-index basis and paths.",
+        "Binding dual-field acceptance criteria and excluded migration/contract work are distinguished from the non-binding mapper rationale and unverified consumer-compatibility claim; the superseded decision is not revived.",
+        "The handoff records the supplied focused command result and missing consumer integration checks without inventing executed checks, hashes, or commit IDs.",
+        "The response retains the caller's correctness and compatibility lenses without replacing them with every development rule or asserting independent review or approval."
+      ]
+    },
+    {
+      "id": 21,
+      "prompt": "Review findings arrived for the current discount patch. You are authorized to assess dispositions and fix CR-CORRECTNESS-001, an overflow in the discount calculation, under the already approved discount-fix plan with a focused regression test. CR-VALIDATION-002 recommends repeating positive-quantity validation, but the current sole caller constructs an immutable validated request and its rejection tests establish that guarantee. CR-ARCH-003 proposes replacing the public result type, outside the approved scope. Verify the findings against current code; do not blindly implement the report. Prepare an ID-preserving response and re-review handoff after the authorized fix. Explain what you would do if no approved plan covered a proposed fix.",
+      "expected_output": "Evidence-backed accept/dispute/defer dispositions, a bounded authorized overflow fix, and a current-subject re-review handoff retaining stable IDs and fix/test mappings without an automatic repair loop.",
+      "files": [],
+      "expectations": [
+        "The response verifies current code and tests before accepting CR-CORRECTNESS-001 and records its fix and regression evidence under the same ID.",
+        "The response disputes CR-VALIDATION-002 using the confirmed immutable request and sole-caller evidence instead of duplicating the guard solely because a reviewer suggested it.",
+        "The response defers CR-ARCH-003 without modifying the public type and treats an advisory finding as insufficient authorization for out-of-scope work.",
+        "The response requires plan agreement before fixes not covered by an approved plan and renewed agreement for material scope or risk changes.",
+        "The re-review handoff maps all original IDs to dispositions, fixes/tests where applicable, the current subject, and verification gaps without renumbering, automatic loops, or an approval verdict."
+      ]
+    },
+    {
+      "id": 22,
+      "prompt": "The implementation plan is approved. Modify a 35-line export function in place. Its public contract and project rules require the existing cohesive transaction boundary; splitting the phases into helpers would obscure that boundary, so keep the flow direct. There is no explicit project spacing exception and the formatter preserves blank lines. A teammate says all guidance is only a heuristic, so skip the numbered Step comments and compress declaration and phase boundaries to save lines. Implement the approved change and explain which obligations are binding versus default design preferences. No review is requested.",
+      "expected_output": "A direct implementation respecting the binding contract, mandatory Step comments and readable layout, while treating helper extraction and phase structure as context-sensitive design choices without forcing review.",
+      "files": [],
+      "expectations": [
+        "The response preserves the approved public and transaction contract and does not extract helpers merely to label phases or reduce line count.",
+        "The directly modified function of 30 lines or more retains concise numbered Step comments at meaningful phases; the response does not demote that safeguard to an optional heuristic.",
+        "The response uses and directly checks meaningful blank-line separation under the skill's stated rules rather than compressing phases or relying only on the formatter.",
+        "The response distinguishes binding requirements and mandatory authoring safeguards from context-sensitive design preferences without converting all development guidance into a reviewer checklist or forcing review."
+      ]
+    },
+    {
+      "id": 23,
+      "prompt": "The implementation plan is approved. In a Java service, OrderRepository.findById returns an Order whose quantity column is NOT NULL with a CHECK (quantity > 0); focused repository tests prove the constraint. OrderService.getTotal(orderId) loads the order via the repository and computes quantity * unitPrice. A teammate suggests adding `if (order.getQuantity() <= 0) throw` and `if (order == null) re-check after load just in case`, although the load path already handles missing rows. Keep changes small and avoid duplicate guards without a bypass path.",
+      "expected_output": "A bounded total computation that trusts the DAO/schema quantity guarantee for the same condition, without duplicated quantity or redundant load guards, while keeping genuinely distinct computed-state checks.",
+      "files": [],
+      "expectations": [
+        "The response trusts the NOT NULL and CHECK quantity guarantee for the loaded order and does not duplicate a non-positive quantity guard for the same condition.",
+        "The response names the absence of a bypass path such as nullable legacy column or older writer as the reason for omitting the duplicate guard.",
+        "The response distinguishes input applicability from computed total overflow or missing-row handling owned at the appropriate boundary.",
+        "The change remains limited to total behavior and focused tests without just-in-case validation."
+      ]
+    },
+    {
+      "id": 24,
+      "prompt": "The implementation plan is approved. In a Java service, UserController validates `age >= 0` at the HTTP entry with rejection tests, constructs an immutable UserRequest, and is the sole production caller of UserService.register. UserService calls UserRepository.save, and the repository column also enforces the range. Add welcome-point logic inside register without unrelated checks. A teammate suggests repeating the age guard in the service and again after the repository load just in case.",
+      "expected_output": "A bounded point-logic change that relies on the verified entry contract and persistence guarantee for the same age condition, without stacked duplicate guards.",
+      "files": [],
+      "expectations": [
+        "The response checks the controller validation, immutable request, sole-caller evidence, and schema guarantee rather than assuming safety.",
+        "The response does not repeat the same age-range guard in service and after load while those verified guarantees hold.",
+        "The response explains which named bypass such as a second caller or legacy writer would require a new check at its entry or owner.",
+        "The change stays limited to point logic and focused tests."
+      ]
+    },
+    {
+      "id": 25,
+      "prompt": "The implementation plan is approved. Show a focused TypeScript refactor of this renewal decision: `const canRenew = account.active && !account.suspended && (plan.autoRenew && !invoice.overdue || account.manualRenewalApproved && !account.fraudHold) && (!plan.retired || account.migrationExempt);`. All fields are immutable primitive values with no getters or side effects. The domain distinguishes account standing, automatic versus manually approved renewal, and the retired-plan migration exception. Make those decisions readable without changing the truth table. No relevant helper exists. A teammate proposes either wrapping the same expression over several lines or moving it unchanged into `checkConditions`. Keep the change local, add no dependency or new class, and describe focused verification.",
+      "expected_output": "A meaning-oriented local refactor that exposes account standing, the renewal alternatives, and migration eligibility while preserving the truth table and avoiding cosmetic wrapping or a helper that merely hides the chain.",
+      "files": [],
+      "expectations": [
+        "The response recognizes the obscured distinct policies and mixed AND/OR structure rather than treating four terms as an automatic ban.",
+        "The refactor uses intent-revealing local predicates or a helper with a demonstrated meaningful domain contract to expose the policy groups and alternatives.",
+        "The response allows eager grouping of the verified pure, total, safe immutable primitive comparisons into meaningful local predicates without extending that permission to guarded access, getters, exceptions, or side effects.",
+        "The response rejects line wrapping alone and moving the unchanged tangled expression into a generically named helper as sufficient fixes.",
+        "The change does not split every individual term into a variable or introduce a class, framework, speculative abstraction, or dependency.",
+        "Focused verification compares the original and refactored decisions across account standing, automatic/manual renewal, and retired-plan exception combinations, without claiming unexecuted checks passed."
+      ]
+    },
+    {
+      "id": 26,
+      "prompt": "The implementation plan is approved. Inspect these TypeScript decisions in the changed scope: `const isTerminal = status === Status.Completed || status === Status.Cancelled || status === Status.Expired || status === Status.Rejected;` and `const isWithinWindow = elapsed >= minimum && elapsed <= maximum;`. `status` is an immutable enum value; the four statuses are the documented terminal states, and the project commonly uses direct comparisons. A teammate says every expression with four condition terms must become a helper or array membership check. Keep already-clear decisions direct unless a concrete readability issue exists; no dependency or unrelated refactoring. Report the direct completion check and any justified change.",
+      "expected_output": "Retain clear homogeneous terminal-status comparisons and the simple range, interpreting four terms as a judgment trigger rather than a prohibition and avoiding forced helpers or membership conversion.",
+      "files": [],
+      "expectations": [
+        "The response inspects the four-term terminal decision but does not impose a numeric limit or require helper extraction solely because of its term count.",
+        "The response retains the homogeneous enum comparison chain and simple range when their meaning is evident under the supplied project conventions.",
+        "The response does not force array membership or add a dependency; any membership alternative is justified only as an established idiomatic semantic equivalent.",
+        "The completion summary reports direct inspection of decision meaning and scope without inventing code changes or executed tests."
+      ]
+    },
+    {
+      "id": 27,
+      "prompt": "The implementation plan is approved. Refactor this TypeScript decision for readability without changing observable behavior: `const canDispatch = request !== null && request.enabled && (!request.quarantined || releaseQuarantine(request)) && hasDispatchQuota(request) && enqueue(request);`. `enabled` and `quarantined` are plain fields. `releaseQuarantine` mutates state and may throw, `hasDispatchQuota` records a call and may throw, and `enqueue` writes to the queue and returns a boolean. The contract is left-to-right short-circuit evaluation: null or disabled requests call none of these functions; quarantine release runs only for quarantined requests; quota runs only after release succeeds or quarantine is absent; enqueue runs only after quota passes, once. A teammate suggests precomputing all named predicates before the final AND or using an array with every(Boolean). Show a bounded patch and focused tests or a precise test plan covering return values, call traces, and failures. Add no abstraction framework or dependency.",
+      "expected_output": "A readable guarded or lazy decision flow preserving null safety, order, count, skipped calls, mutations, queue effects, and exception propagation rather than eagerly precomputing predicate values.",
+      "files": [],
+      "expectations": [
+        "The patch keeps null and disabled requests from accessing guarded fields or calling releaseQuarantine, hasDispatchQuota, or enqueue.",
+        "Quarantine release runs only when quarantined; quota is skipped when release returns false, and enqueue is skipped when quota returns false.",
+        "The patch preserves left-to-right call order, single evaluation of each reached function, state and queue effects, and propagation of exceptions without executing later functions.",
+        "The response rejects eager predicate precomputation and eagerly evaluated arrays, using guarded branches or genuinely lazy helpers if restructuring needs them.",
+        "Verification covers null, disabled, quarantine absent, release false or throwing, quota false or throwing, enqueue false or throwing, and successful dispatch with expected call traces and effects; it does not claim unexecuted checks passed.",
+        "The patch exposes the decisions without merely hiding the whole chain or adding a class, framework, speculative abstraction, or dependency."
       ]
     }
   ]

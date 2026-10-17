@@ -38,6 +38,8 @@ Rules:
 
 ## Publication Workflow
 
+Use the full workflow below for initial publication or a major rewrite. For a small revision, compare only affected sections against eligible current sources, checking meaning, links, disclosure boundaries, and source mappings; apply Document Writer or Humanizer guidance locally when needed. Do not restart full drafting or whole-document humanizing for a small change. Broaden only where the delta affects dependencies or standalone understanding.
+
 ### 1. Confirm the publication contract
 
 Confirm or derive from the user's request:
@@ -82,11 +84,11 @@ After the full technical draft is complete, load and apply the `humanizer` skill
 - For Korean documents, apply the Korean-specific guidance referenced by the Humanizer skill.
 - Do not invent examples, evidence, dates, metrics, outcomes, or reader reactions.
 
-Any later content revision to the primary document must repeat the Document Writer, technical verification, and Humanizer sequence. A source-map-only metadata update does not require rewriting the primary document.
+A major rewrite repeats the Document Writer, technical verification, and whole-document Humanizer sequence. Small revisions use the affected-section workflow above. A source-map-only metadata update does not require rewriting the primary document.
 
 ### 6. Verify and mark current
 
-Run the verification checklist below. Mark the source map `Current` only after all required checks pass. Otherwise use `Draft`, `Stale`, or `Blocked`.
+For initial/major work, run the full verification checklist below; for small revisions, check its affected requirements only. Mark the source map `Current` only after applicable checks pass. Otherwise use `Draft`, `Stale`, or `Blocked`. Update status and verification metadata at completion or a meaningful outstanding-work checkpoint, not after every step.
 
 ## Readability and Compression
 
@@ -172,14 +174,10 @@ Use this Markdown structure and omit rows or sections that do not apply:
 |---|---|
 | {path and section} | Unresolved / Internal-only / Out of scope / Sensitive |
 
-## Workflow
+## Verification Notes
 
-| Step | Status | Completed at | Notes |
-|---|---|---|---|
-| Document Writer | Complete / Pending | {timestamp} | {mode and structure notes} |
-| Technical verification | Complete / Pending | {timestamp} | {checks performed} |
-| Humanizer | Complete / Pending | {timestamp} | {language and tone notes} |
-| Final verification | Complete / Pending | {timestamp} | {result or blocker} |
+{Compact completion result or outstanding blocker; note the full initial/major workflow
+ or the affected-section checks for a small revision. No per-step timestamp log is required.}
 ```
 
 The source map is operational metadata, not an OKF concept document. Do not add it to the publication document or its references.
@@ -189,11 +187,11 @@ The source map is operational metadata, not an OKF concept document. Do not add 
 When an internal artifact changes:
 
 1. Search publication source maps for the affected source path.
-2. Mark each mapped publication `Stale` before assessing the change.
-3. If meaning changed, complete the internal design consensus and artifact update first, then refresh the primary document through the full publication workflow.
-4. If only formatting changed, verify that meaning is unchanged, update the source record, and rerun final verification.
+2. Assess changed meaning and the mapped sections. Mark publications with outstanding or unverified affected content `Stale`; refreshes completed and checked in the same task need no transient stale status.
+3. If meaning changed, complete the internal design consensus and artifact update first, then refresh the affected sections. Use the full workflow only for a major rewrite; otherwise use the small-revision checks.
+4. If only formatting changed, verify unchanged meaning and update the source mapping without a transient stale ritual or full-document verification.
 5. If a source disappeared, moved without a known replacement, or lost its consensus status, mark the publication `Blocked`.
-6. Mark the publication `Current` only after the source map and primary document agree and all checks pass.
+6. Remove an outstanding stale/blocked status only after the relevant checks succeed and the source map and primary document agree. Retain it for unverified work.
 
 Do not place internal invalidation markers or change history in the primary publication document. Publication-only wording or layout edits do not belong in the internal `design/log.md` unless they change design meaning.
 
@@ -209,5 +207,5 @@ Do not place internal invalidation markers or change history in the primary publ
 - [ ] Local links stay inside the document directory, do not use `../`, and target shareable files only.
 - [ ] Tables and visuals reduce cognitive load rather than decorate or duplicate prose.
 - [ ] Visuals have a purpose, takeaway or alt text, and source mapping.
-- [ ] The complete primary draft passed Document Writer, technical verification, and Humanizer in that order.
+- [ ] Initial publication or a major rewrite passed Document Writer, technical verification, and whole-document Humanizer in that order; small revisions passed the affected-section checks.
 - [ ] The source map status is `Current` only after final verification passes.

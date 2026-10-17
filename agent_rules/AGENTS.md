@@ -6,6 +6,10 @@
 - Write all code and code comments in English.
 - Use precise technical terminology.
 
+## Project-local Guidance
+
+- If `AGENTS.local.md` exists at the current project root, read and follow it alongside `AGENTS.md` before working in that project.
+
 ## Response Quality
 
 - Prefer high information density over raw brevity.
@@ -58,6 +62,11 @@
 - Prefer the smallest maintainable solution consistent with established project conventions.
 - Discuss architecture, scalability, design patterns, or speculative alternatives only when they materially affect the current decision.
 - Actively use relevant tools and skills when they improve accuracy or execution.
+
+## Subagent Delegation
+
+- Use subagents in parallel when substantial workstreams can be owned and verified independently and delegation improves speed or quality; handle small or tightly coupled tasks directly.
+- Give each subagent a clear scope and non-overlapping write ownership. Reconcile their findings and verify the integrated result before reporting.
 
 ---
 

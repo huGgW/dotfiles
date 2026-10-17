@@ -179,7 +179,7 @@ Examples:
 ### Policy
 
 - **No hard depth limit.** Design depth follows the complexity of the problem.
-- **At 4+ depth**, proactively review the entire tree and propose compression if possible.
+- **At 4+ depth**, review the deep branch's structure and propose compression if useful; do not reread the entire tree by default.
 - **Compression requires user consent.** Never restructure without explicit approval.
 
 ### Compression Strategies
@@ -218,7 +218,7 @@ For migration or evolution projects (non-greenfield):
 
 ## Invalidation Tracking
 
-When a Phase is revisited and changes are made:
+When a Phase is revisited and design meaning changes, check the changed portion and direct dependencies. Follow relevant contracts onward only while impact continues; formatting-only edits do not invalidate downstream content.
 
 ### Recording Changes
 
@@ -228,13 +228,13 @@ Add an entry to `log.md` only for design-impacting changes with:
 - What changed
 - Why (reason/source)
 - Source: `Internal discovery` or `External feedback` (with meeting/review details)
-- List of affected artifacts in downstream Phases
+- Known affected artifacts in downstream Phases; extend this set as impacts are discovered
 
 Do not add log entries for typo fixes, formatting-only edits, link cleanup, or wording changes that do not alter meaning.
 
 ### Marking Affected Documents
 
-Before updating an affected document, add this marker without displacing required frontmatter:
+Mark outstanding or unverified affected documents without displacing required frontmatter. Documents updated and checked in the same task need no transient add/remove marker:
 
 - For non-reserved concept documents, place the marker immediately after the closing frontmatter delimiter `---`.
 - For reserved `index.md` and `log.md`, place the marker under the title or at the top of the body.
@@ -243,18 +243,18 @@ Before updating an affected document, add this marker without displacing require
 > ⚠️ This document needs update due to: {change description} (see log.md YYYY-MM-DD)
 ```
 
-After the document has been updated, remove the marker.
+Remove an existing marker only after the relevant update and fidelity/dependency check succeed. An update alone is not enough; retain markers for outstanding or unverified work.
 
 ### Cascade Check
 
-After modifying a document, check whether downstream documents are affected:
+After a meaning change, inspect direct dependencies and propagate only if their relevant contracts are affected. These phase relationships indicate possible impact, not a mandate to audit every downstream file:
 - Phase 1 change → may affect Phase 2, 3, 4, 5
 - Phase 2 change → may affect Phase 3, 4, 5
 - Phase 3 change → may affect Phase 4, 5 (concept and principles propagate)
 - Phase 4 change → may affect Phase 5
 - Phase 5 component change → may affect `interfaces/`, other dependent components
 
-Document all affected artifacts in `log.md` before starting updates.
+Record the known affected set at a meaningful checkpoint and extend it as discovered. A complete dependency graph is not a prerequisite to updates. Include mapped publication impact according to `publication-guide.md`; keep meaningful change history without micro-update entries.
 
 ### Log Compaction
 

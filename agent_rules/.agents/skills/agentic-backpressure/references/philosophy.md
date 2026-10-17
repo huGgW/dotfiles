@@ -34,15 +34,20 @@ Goal
 -> Plan reviewed by independent feedback when risk or uncertainty requires it
 -> Optional declared before-work actions
 -> Work subagent writes a patch
--> Mechanical checks reject bad patches first
--> Feedback subagents reject design, correctness, or test-quality issues
--> Final correctness
+-> Freeze one completed patch
+-> One verifier covers targeted and required final checks
+-> One fresh independent whole-changeset reviewer covers applicable lenses
+-> Final correctness decision
 -> Optional declared after-final actions
 -> Final evidence bundle reaches the human
 ```
 
 The important shift is not more autonomy by default. The shift is longer
 delegation with earlier refusal points.
+
+The main current session manages the run. Early slice gates are conditional on
+risk or uncertainty, not a ritual; same-role worker/verifier continuation can
+save context without making stale evidence current. The final review stays fresh.
 
 ## Local Adaptation
 

@@ -23,7 +23,7 @@ specify guardrails or pre-commit to a solution direction.
 
 ### Activities
 1. **Present and confirm the Phase 1 discussion list** — problem statement, goals and success criteria, scope boundaries, hard constraints (only if any), and `[Non-greenfield]` as-is analysis. Let the user add, remove, merge, or reorder items before discussing the first one.
-2. **Complete a first pass across the list** — propose initial candidate content for each item at the same level of detail. Park solution ideas, architecture questions, and implementation details under `Later Discussion` instead of following them immediately.
+2. **Complete a first pass across the list** — use known inputs and current-item questions to learn the user's problem, goals, numeric success criteria, priorities, scope, and real constraints. Do not propose assumed initial content for these user-owned inputs, in conversation or files. Leave unknowns open and omit irrelevant optional items. Park solution ideas, architecture questions, and implementation details under `Later Discussion` instead of following them immediately.
 3. **Deepen only where needed and converge** — revisit only items that the user selects. If an item blocks a clear problem definition, explain why and ask the user to confirm that deeper pass. Confirm the agreed problem framing, goal priorities, scope boundaries, and any genuine constraints. Avoid manufacturing constraints or principles to fill out the section.
 4. **Write Phase 1 artifacts after consensus** — write only the artifacts the project actually needs:
    a. `problem-statement.md` — articulate the agreed core problem and its impact (always)
@@ -63,11 +63,11 @@ Do not create final Phase 1 artifacts before the user agrees on the relevant age
 
 ### Purpose
 
-Conduct systematic, in-depth research to build the information foundation for later design phases. Phase 2 is **decision preparation, not decision making**: gather and organize the facts, existing-codebase context, constraints, risks, technology options, tradeoffs, and open questions that Phase 3 (Solution Concept) and Phase 4 (High-Level Design) will need.
+Research within the approved Quick/Standard/Deep scope to answer concrete later-phase questions. Phase 2 is **decision preparation, not decision making**: gather relevant facts, existing-codebase context, constraints, risks, technology options, tradeoffs, and open questions that Phase 3 (Solution Concept) and Phase 4 (High-Level Design) will need.
 
-This is not a quick lookup or surface-level survey. Each research topic is an independent investigation that requires multi-source analysis, cross-validation of findings, and careful organization of decision inputs. Do not recommend, select, or finalize a design direction in Phase 2; design opinions and conclusions belong to Phase 3, 4, or 5 after user discussion.
+Quick research may answer one narrow question from an authoritative source; Standard covers relevant mechanisms and tradeoffs; Deep investigates warranted uncertainty, risk, or interacting questions. Agree on included/excluded scope rather than treating depth labels as completeness quotas. Corroborate important uncertain or high-risk claims as warranted. Do not recommend, select, or finalize a design direction in Phase 2; decisions belong to Phase 3, 4, or 5 after user discussion.
 
-Every research document must be **self-sufficient**: a reader with no prior context should be able to understand the topic fully from the document alone, verify claims through the cited references, and see which later-phase questions the information supports.
+Every research document must be **self-sufficient for its agreed question**: include essential context, important citations, and later-phase relevance. Distinguish facts, inference, and uncertainty; do not expand into a textbook survey.
 
 ### Key Questions
 - What approaches exist for solving this type of problem, and what are their underlying mechanisms?
@@ -94,24 +94,24 @@ Derive research topics systematically from Phase 1 deliverables. Each topic must
 
 ### Per-Topic Research Protocol
 
-Each topic requires thorough investigation across multiple dimensions, not just a single-source summary. The goal is comprehensive understanding that enables later design discussions to make informed decisions without prematurely making those decisions in Phase 2.
+Investigate only dimensions needed by the agreed downstream question and depth. Approved scope permits autonomous fact and documentation gathering without per-fact approval; changing scope or selecting a design still requires the relevant user gate.
 
 #### Research Angles
 
-Apply the relevant angles based on the topic's nature. Not every angle applies to every topic, but consider each before skipping it.
+Use angles only when relevant to the agreed question. Background, performance, alternatives, and production cases are not mandatory sections.
 
 | Angle | What to Investigate | When Essential |
 |---|---|---|
-| **Mechanism** | How it works internally — architecture, data flow, algorithms | Always for technical options |
-| **Tradeoffs** | Strengths, weaknesses, and the tensions between them | Always |
+| **Mechanism** | How it works internally — architecture, data flow, algorithms | When needed to answer the technical question |
+| **Tradeoffs** | Strengths, weaknesses, and the tensions between them | When the downstream question involves alternatives or tensions |
 | **Ecosystem** | Community size, tooling, documentation quality, release cadence, corporate backing | When choosing between competing technologies |
 | **Production Evidence** | Real-world case studies, post-mortems, migration stories | When evaluating unproven or high-risk approaches |
-| **Risk & Edge Cases** | Known pitfalls, failure scenarios, scaling limits, operational complexity | Always |
+| **Risk & Edge Cases** | Known pitfalls, failure scenarios, scaling limits, operational complexity | When material to the agreed question |
 | **Project Context Mapping** | How the findings relate to our goals, constraints, current codebase, risks, and later design questions | Always — this is the bridge to Phase 3 / Phase 4, but it must not select a design direction |
 
 #### Source Diversity
 
-A single source produces a single perspective. Cross-validate findings across different source types to build confidence. Each topic should draw from at least **2 different source types**.
+Choose authoritative sources suited to the claim. Use independent corroboration or different source types when uncertainty, bias, or consequence warrants it; there is no per-topic source-count or source-type quota.
 
 | Source Type | Best For | Examples |
 |---|---|---|
@@ -123,7 +123,7 @@ A single source produces a single perspective. Cross-validate findings across di
 
 #### Self-Sufficiency Principle
 
-Each `{topic}.md` must stand on its own. A reader should never need to leave the document to understand the core content.
+Each `{topic}.md` must stand on its own for the agreed question, not for the entire domain.
 
 - Define acronyms and technical terms on first use
 - Include enough background that the "why" behind each finding is clear
@@ -187,13 +187,13 @@ Document broad findings in `codebase-analysis.md` when the whole codebase matter
    d. Included and excluded scope
    e. Relevant source types and comparison criteria
 4. **Write `research-plan.md` after consensus** — Record the agreed topics, scope, priority, depth, and user notes.
-5. **Research each topic** — For each agreed topic, conduct a thorough, multi-source investigation:
+5. **Research each topic** — Stay within its agreed scope and depth:
    a. Establish scope: what specific questions does this topic need to answer?
-   b. Gather information across multiple source types (see Source Diversity)
+   b. Gather relevant authoritative information (see Source Diversity)
    c. Analyze from relevant research angles (see Research Angles)
-   d. Cross-validate key claims across sources
+   d. Corroborate important uncertain or high-risk claims as warranted
    e. Map findings to project context (goals, constraints, current codebase) without recommending a design direction
-   f. Document everything in `{topic}.md` using the template from `references/templates.md`
+   f. Record relevant findings in `{topic}.md`; omit irrelevant template sections and apply the recording fidelity check from `SKILL.md`
 6. **Synthesize findings** — Compile cross-topic patterns, facts, constraints, risks, open questions, and later-phase decision inputs into `findings-summary.md`. Present a compact cross-topic summary first and offer per-topic detail on request. Do not treat these as recommendations or final design decisions.
 7. **Write `index.md`** — Summarize Phase 2 scope, topics covered, and key takeaways
 
@@ -209,9 +209,9 @@ Document broad findings in `codebase-analysis.md` when the whole codebase matter
 `research-plan.md` is required for Phase 2 completion, but must not be created before the user agrees on topic list, scope, priority, depth, and comparison criteria.
 
 ### Completion Criteria
-- All identified topics researched across multiple angles with multiple source types
+- All agreed topics answer their downstream questions within approved scope and depth
 - Each `{topic}.md` is self-sufficient — readable without external context
-- Each `{topic}.md` has a References table with **3+ sources** and inline `[Ref-N]` citations
+- Each `{topic}.md` has relevant References and inline `[Ref-N]` citations, with important uncertain or high-risk claims corroborated as warranted
 - Existing codebase context is documented when relevant, with concrete file paths, modules, flows, dependencies, and risks
 - Findings are synthesized as clear inputs and questions for Phase 3 (concept-level) and Phase 4 (skeleton-level) discussion, not as recommendations
 - Open questions and remaining uncertainties are documented with suggested next steps
@@ -308,7 +308,7 @@ Phase 4 is the structural phase: it answers "what does the system look like at t
 
 ### Activities
 1. **Present and confirm the full skeleton discussion list** — show the overall flow, primary model, major components, and every candidate skeleton-level decision area with one-line purposes. Ask the user to add, remove, split, merge, reorder, or reprioritize areas before opening option details. If there are no genuine skeleton-level decisions to make, the architecture overview and domain model are sufficient.
-2. **Complete a first pass across the full list** — outline the overall flow, primary model, and component roles, then establish each decision area's boundary, reason, and key criterion at the same level of detail. Park component-internal questions for Phase 5.
+2. **Complete a first pass across the full list** — discuss known system-level inputs and current-item questions, then establish each decision area's boundary, reason, and key criterion. Do not prefill a complete assumed flow, model, or component architecture ahead of discussion. Useful candidates belong to the active item, not untouched siblings. Park component-internal questions for Phase 5.
 3. **Select areas for deeper comparison** — confirm which skeleton-level decisions need option analysis and which criteria matter most (principles, constraints, delivery speed, operability, cost, risk, etc.).
 4. **For each selected decision area, discuss candidate directions before writing artifacts**:
    a. Present 2+ candidate directions in conversation
@@ -397,7 +397,7 @@ The phase exists for one reason: **a developer (or planning agent) should be abl
 
 ### Activities
 1. **Present and confirm the Phase 5 discussion list** — list all components from Phase 4 and the current-level concerns: responsibility, boundaries, data model, behavior, dependencies, error handling, interfaces, and cross-cutting policies. Let the user add, remove, split, merge, reorder, or reprioritize components and concerns before opening one component's internals.
-2. **Complete a one-level pass across all components** — establish each component's purpose, boundary, main flow, and visible open decisions. Park internal structures, exact contracts, and implementation choices until sibling components have been covered.
+2. **Complete a one-level pass across all components** — discuss known inputs and current-item questions to establish each component's purpose, boundary, main flow, and visible open decisions. Do not prefill complete assumed component designs ahead of discussion. Park internal structures, exact contracts, and implementation choices until sibling components have been covered.
 3. **Agree on component design order and required scope** — every component needs one-level design that meets the completion checklist. Choose the order for completing that pass; treat recursive expansion as a separate, later choice.
 4. **For each component, discuss before writing `design.md`**:
    a. Explore candidate internal structures or design approaches in conversation

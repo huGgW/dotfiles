@@ -49,7 +49,7 @@ stable storage; the declared identity fields are sufficient policy.
 3. Recheck exact target, operation, payload, and authorization immediately before
    execution. Authorization is permission, not an obligation or phase override.
 4. Invoke the declared owner for one action. A delegated specialist starts fresh
-   unless the unchanged unfinished-action resume exception applies.
+   according to the child lifecycle in SKILL.md; never resume a live child.
 5. Read the resulting state from the authoritative source.
 6. Record result and evidence separately from the manifest, then advance only
    when failure policy permits it.
@@ -96,9 +96,10 @@ When a request times out or partially succeeds:
    action non-pass, preserve reported successes as tool-reported-only, and do not
    repeat them. Hand off instead of guessing.
 
-Allow at most two execution attempts per action, including the first. A delegated
-attempt also consumes a child call. Record each attempt and observed partial
-result; never broaden the target or operation to recover from a failure.
+Allow at most four execution attempts total per identical underlying operation,
+including the first. This is a ceiling, not a reason to repeat an unchanged failure.
+A delegated attempt also consumes a child call. Record each attempt and observed
+partial result; never broaden the target or operation to recover from a failure.
 
 A new run, extension grant, renamed action, or changed specification does not
 reset attempts for the same underlying operation or erase an unknown outcome.
@@ -121,7 +122,29 @@ Boundary Actions must not silently change candidate content. Recompute
   action still needs authoritative read-back evidence.
 - If a commit changes only `HEAD` and the committed tree equals the frozen
   candidate, carry content-bound evidence forward. Rerun only checks that depend
-  on the commit object or post-commit environment.
+   on the commit object or post-commit environment.
+
+## Conditional Publication Readiness
+
+Create a publication specification only when an `after_final` action needs it.
+List required lockfiles, generated artifacts, changelog/version metadata,
+migration packaging, and project-specific checks. Map every item to the action
+it must precede. Mechanical items belong to a verifier; use an independent
+reviewer only for explicitly required publication judgment. Bind evidence to
+the publication hash and candidate state, and commit-dependent checks to HEAD.
+
+Gate each action on its mapped items, not future post-commit items that cannot
+run before the commit. Overall readiness is a handoff summary. Publication may
+remain blocked after correctness passes. Candidate-changing publication repairs
+reopen final correctness; a HEAD-only commit with equivalent content preserves
+content-bound checks, not commit-dependent checks. Reserve required delegated
+publication work in actual remaining-route capacity.
+
+Permissions remain separate: commit does not permit push; push does not permit
+commit or force-push; PR authorization does not permit commit/push. PR updates
+must name exact fields/state transitions; body updates do not authorize base,
+labels, close, or merge changes. Release, deployment, production mutation, and
+notifications need their own exact authorized workflow, never inferred hooks.
 
 ## Example: Record The Plan In Linear
 

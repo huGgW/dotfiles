@@ -87,7 +87,25 @@ Apply these rules to every proposed issue:
 4. Make acceptance criteria observable and measurable. Include important boundaries and failure behavior, not a layer-by-layer task list.
 5. Keep each landing state buildable and testable. Avoid an issue that is useful only after several broken intermediate merges.
 6. Prefer safe rollback or staged rollout when behavior, data, compatibility, or operations make a direct release risky.
-7. Use project vocabulary. Avoid file paths and code snippets that will go stale, except for a decision-rich prototype fragment that is clearer than prose.
+7. Use project vocabulary and grounded, stable component, symbol, or path references when they help locate the work. Avoid volatile implementation details; never invent repository components, APIs, or paths.
+
+For every full issue body, include a high-level **Implementation approach** so an implementer can start without reverse-engineering the intended direction:
+
+- Identify the relevant components, contracts, and data flow supported by the source or repository evidence.
+- Explain what to reuse and what to change; include a sequence only when ordering materially affects correctness or delivery.
+- Distinguish **Confirmed constraints** from **Proposed approach**, **Assumptions**, and **Open questions** where applicable. If evidence is missing, name what must be confirmed instead of supplying fictional specifics.
+- Treat acceptance criteria as mandatory outcomes and the approach as negotiable within confirmed constraints. Do not write the entire implementation or freeze incidental method-level tasks.
+
+Keep full bodies concise and scannable:
+
+- Lead **Goal and context** with the observable result, then give the minimum reason and context needed to act.
+- Use short, bullet-first writing with one fact per bullet. Avoid ornamental prose, deep nesting, and repeated content.
+- Use numbering for real ordering and tables for genuine comparisons, not decoration.
+- Keep **Acceptance criteria** about required outcomes and boundaries; keep **Verification** about how to demonstrate them. Do not duplicate criteria as test instructions or add a generic evidence-produced checkbox.
+- Include **Non-goals** only for meaningful exclusions and **Risks and rollout** only for material risks or release concerns. Still check the principal intent or risk, green landing, and safe release or rollback at the gate; record relevant findings once in the approach or another suitable section. Do not add boilerplate rollout sections to ordinary changes.
+- Include **Review plan** only for multiple PRs or non-obvious review ordering.
+- Use Mermaid only when relationships, state transitions, or asynchronous branches become materially clearer than text. Use snippets only for meaningful confirmed contracts, configuration, before/after examples, or decision-rich prototypes, not a full implementation.
+- Neither diagrams nor snippets are mandatory; use no artificial quotas and do not repeat a visual's contents in prose.
 
 Treat line count as a review warning, not a quota. Conceptual breadth, number of reviewer domains, mixed risks, generated noise, and unclear verification are stronger signals than LOC. Do not size work by an agent context window.
 
@@ -117,6 +135,8 @@ Before presenting the breakdown, verify each issue against both INVEST and the r
 | Testable | Is there concrete verification evidence the implementer can produce? |
 | Safe | Can the change land green and be released or rolled back deliberately? |
 | Focused | Does it have one observable outcome and one principal intent or risk? |
+| Ready to implement | Does the approach identify grounded components, contracts, and data flow, or explicitly name missing evidence to confirm, without freezing negotiable details? |
+| Scannable | Can a reader quickly find the goal, approach, outcomes, and evidence without redundant prose or decorative sections? |
 
 Split or rewrite an issue that fails the gate. Merge slices that are technically separate but have no useful or safe independent outcome.
 
@@ -130,6 +150,8 @@ Present a numbered proposal before materializing full issue bodies. For each iss
 - **Blocked by:** only genuine prerequisites, or "None"
 - **Verification:** the evidence that will demonstrate completion
 - **Delivery shape:** one focused PR or an ordered PR stack, with the reason when stacked
+
+Keep this stage short. Add one concise approach cue per issue when it helps explain the boundary or direction; do not expand full bodies or load templates at the proposal stage. The readiness gate is proportional here: expose material unknowns without drafting the complete approach.
 
 Ask whether:
 

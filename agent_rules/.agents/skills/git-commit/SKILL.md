@@ -8,136 +8,113 @@ description: >
   "커밋 메시지 포맷", "Conventional Commits 적용", "commit these changes",
   "write commit message", "split commits", "organize commits",
   "create atomic commits", "commit message format", "conventional commit".
-  It guides through diff analysis, commit message formatting following
-  Conventional Commits v1.0.0, commit planning with user feedback, and
-  sequential execution of git add/commit operations.
+  It autonomously analyzes diffs, groups related changes, writes messages in
+  the repo's own style, and commits without asking for confirmation.
 ---
 
-# Git Commit Creation and Splitting Guidelines
+# Git Commit (Autonomous)
 
-## Commit Message Format (Conventional Commits v1.0.0)
+## Autonomy Principle
 
-All commit messages follow the Conventional Commits format:
+- The user's commit request **is** the authorization.
+  Do not present a plan and wait for approval.
+  Default flow is **analyze → commit → report**.
+- Do not use `question` / `wait_for_user` for routine decisions
+  (message wording, single vs. split, file grouping).
+  Make the best judgment and record it in the post-commit report.
+- Ask the user only on true blockers where proceeding would be
+  unsafe or impossible (see Blocking Cases).
 
-```
-<type>[optional scope]: <description>
+### Blocking Cases (ask, do not proceed blindly)
 
-[optional body]
+- No changes to commit (`git status --porcelain` empty for the task scope).
+- Merge conflicts or dirty merge/rebase state.
+- Pre-commit hook failure.
+- Suspected secrets about to be committed (`.env`, `*.pem`, `*id_rsa*`,
+  API keys/tokens visible in diff).
+- A destructive operation would be required first
+  (`reset --hard`, `clean`, `checkout --`, forced unstage of user's staged files).
 
-[optional footer(s)]
-```
-
-### Quick Reference
-
-| Type | When to use | SemVer |
-|------|-------------|--------|
-| feat | New feature or capability | MINOR |
-| fix | Bug fix | PATCH |
-| refactor | Code restructuring, no behavior change | - |
-| docs | Documentation only | - |
-| style | Formatting, whitespace, no logic change | - |
-| perf | Performance improvement | - |
-| test | Adding or correcting tests | - |
-| build | Build system or dependency changes | - |
-| ci | CI/CD configuration changes | - |
-| chore | Maintenance tasks (no src/test change) | - |
-
-### Key Rules
-
-- **Type**: Lowercase noun from the table above
-- **Scope** (optional): Module or component in parentheses — `fix(parser):`
-- **Description**: Lowercase start, imperative mood ("add" not "added"), no trailing period
-- **Breaking change**: Add `!` before colon — `feat!:` or `feat(api)!:`
-
-### Examples
-
-```
-feat: add user authentication via OAuth2
-fix(parser): handle null input in token validation
-refactor: extract validation logic into shared module
-docs: update API endpoint documentation for v2
-feat!: redesign configuration format
-```
-
-**Multi-line example:**
-```
-fix(auth): prevent session fixation on login
-
-Regenerate session ID after successful authentication
-to prevent session fixation attacks.
-
-Closes #1234
-```
-
-> See `references/conventional-commits.md` for full spec details including
-> type selection decision tree, body/footer rules, and BREAKING CHANGE syntax.
+Everything else: decide autonomously.
 
 ---
 
-## Workflow: Single Commit
+## Scope: Related Changes Only
 
-For cases where the user wants to commit all current changes as a single commit:
+Never blindly commit the whole worktree. The default target is
+**changes related to the current task**, unrelated user work stays untouched.
 
-1. Run `git diff --stat` and `git diff` to understand what changed
-2. Determine the appropriate commit type from the Quick Reference table
-3. Identify scope if changes are concentrated in a specific module
-4. Draft a commit message following the Conventional Commits format above
-5. Present the proposed message to the user for confirmation
-6. Execute `git add` and `git commit` with user-approved message
-
----
-
-## Workflow: Splitting Changes into Multiple Commits
-
-### Phase 1: Understanding Changes
-
-*   **Goal**: Identify and understand all changes to plan commits on a file-by-file basis.
-*   **Tasks**:
-    *   Analyze the `git diff` provided by the user.
-    *   Integrate any additional context (issue tracker IDs, work descriptions, feature branch names).
-    *   **Identify work units strictly on a file basis — each file belongs to only one commit.** Related files can be bundled into a single commit after discussion with the user, but there must be no overlap between commits.
-    *   If the diff is large or file-based splitting is ambiguous, ask clear questions before proceeding. Example: "The changes in file A and file B appear to be closely related. Should we bundle these into one commit, or separate them?"
-
-### Phase 2: Planning Commit Structure
-
-*   **Goal**: Propose a structured list of atomic commits, each with a clear Conventional Commits message.
-*   **Tasks**:
-    *   For each proposed commit:
-        *   List the specific files and changed hunks to include.
-        *   Draft a commit message following the Conventional Commits format:
-            *   **Subject**: `<type>[scope]: <description>` — imperative mood, under 50 characters preferred
-            *   **Body** (optional, recommended for complex changes): Explain "what" and "why", not "how". Reference issue IDs where applicable.
-    *   Present the complete plan as a numbered list for review.
-
-### Phase 3: Incorporating Feedback
-
-*   **Goal**: Collaboratively refine the commit plan.
-*   **Tasks**:
-    *   Review user feedback on groupings and messages.
-    *   Adjust as needed: regroup changes, modify messages, add or remove commits.
-    *   Present the revised plan and repeat until the user explicitly confirms.
-    *   **Do not proceed with any `git commit` operations during this phase.** Wait for explicit user instruction.
-
-### Phase 4: Commit Execution
-
-*   **Goal**: Execute commits sequentially according to the approved plan.
-*   **Tasks**:
-    *   Only after the user explicitly commands to proceed:
-        *   For each planned commit, one by one in agreed order:
-            *   Announce the commit being created (e.g., "Creating commit: `refactor(db): simplify connection pooling`").
-            *   Stage files with `git add <file1> <file2>...` and wait for user approval.
-            *   If the user wants to stage only specific hunks, guide them to use `git add -p <file>` directly.
-            *   Execute `git commit -m "subject line" -m "body content..."` with the planned message and wait for user approval.
-            *   After confirming success (e.g., `git log -1`), proceed to the next commit.
-    *   If errors occur or the user wants changes midway, return to Phase 3.
+1. User named explicit paths/issue → those paths only.
+2. Otherwise → files touched in this session/task plus files that
+   clearly belong to the same logical unit.
+3. Check `git status --porcelain` first:
+   - Unrelated modified/untracked files stay uncommitted.
+   - Never run bare `git add -A` / `git commit -a`.
+     Always stage by explicit paths: `git add <path>...`.
+   - Already-staged files: use them only if they belong to the task.
+     Do not silently commit someone else's staged work;
+     leave it and note it in the report.
+4. Report `included` vs. `excluded (left in worktree)` files after committing.
 
 ---
 
-## General Principles
+## Workflow
 
-*   **User Control**: The user is always in control. Suggest and guide, but the user makes decisions and approves critical commands.
-*   **Clarity and Precision**: All suggestions, file lists, and commands must be clear and accurate.
-*   **Atomicity**: Each commit represents a single logical unit of work.
-*   **Context Awareness**: If aware of project-specific commit message formats or conventions (e.g., from `CONTRIBUTING.md` or existing commit history), integrate this knowledge.
-*   **Confirmed Execution**: Repository-changing operations (`git add`, `git commit`) are executed only after proposing the command and receiving explicit user approval.
-*   **Hook Respect**: Do not skip git hooks (`-n`, `--no-verify`) unless the user explicitly requests it. If a pre-commit hook fails, diagnose the error, report it to the user, and suggest options: fix the issue or skip hooks if the user confirms.
+### 1. Gather Context (parallel where possible)
+
+- `git status --porcelain` — what is dirty, staged, untracked.
+- `git diff --stat` + `git diff` (scoped to task paths) — what changed.
+- `git log --oneline -20` — learn the repo's actual message style.
+- `CONTRIBUTING.md` / existing history win over any default format.
+
+### 2. Decide Message Style (history first)
+
+- If the repo has a consistent style (e.g. `area - description`,
+  `type(scope): subject`), follow it.
+- Otherwise fall back to Conventional Commits
+  (`<type>[scope]: <description>`, imperative, lowercase start,
+  no trailing period, subject ≤ 72 chars).
+- Explain what + why in the body for non-trivial changes, not how.
+- See `references/conventional-commits.md` for the full spec
+  (type decision tree, body/footer, BREAKING CHANGE syntax).
+
+### 3. Decide Single vs. Split (heuristic, no asking)
+
+- **Single commit** by default.
+- **Split** only when all hold:
+  - ≥ 2 logically independent units (e.g. `feat` logic + unrelated `docs`,
+    two untouched modules, src change + independent config change), AND
+  - cleanly separable by file (no file needs to be in two commits), AND
+  - each unit is independently understandable.
+- Never split a single file's hunks across commits unless the file
+  contains two obviously independent concerns AND hunk-level staging
+  is safe. Prefer one coherent commit over a risky split.
+- Group by directory/module cohesion first, then by change type.
+
+### 4. Execute
+
+- Stage by paths: `git add <file1> <file2>...`.
+- Commit directly: `git commit -m "subject" -m "body..."`.
+- One commit at a time, in dependency order.
+- No `--no-verify` / `-n` unless the user explicitly requested it.
+
+### 5. Verify and Report (no approval gate)
+
+- Verify with `git log -1 --stat` and `git status --porcelain`.
+- Report concisely:
+  - commit hash + subject per commit,
+  - included files,
+  - excluded files left in the worktree (and why),
+  - hook/test outcome if relevant.
+- On hook failure: stop, show the error, suggest fix vs. retry.
+  Do not auto-skip hooks.
+
+---
+
+## Never Do
+
+- `push`, `rebase`, `reset`, `clean`, `checkout --`, `commit --amend`
+  unless the user explicitly requested that exact operation.
+- Commit secrets, generated binaries, or local-only config.
+- Co-mingle unrelated work to "save time".
+- Invent issue numbers or `Closes #` footers without evidence.

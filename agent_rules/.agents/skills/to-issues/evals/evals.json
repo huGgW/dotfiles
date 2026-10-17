@@ -27,7 +27,8 @@
         "The expand issue preserves compatibility for existing clients and keeps main green.",
         "Migration batches are divided by reviewable blast radius or ownership and depend on expand without unnecessary dependencies on one another.",
         "The contract issue is blocked by every required migration and compatibility verification.",
-        "Every issue body includes Outcome, Context / Why, Acceptance criteria, Non-goals, Verification, Risks and rollout, and Blocked by.",
+        "Every issue body includes Goal and context, Implementation approach, Acceptance criteria, and Verification, with Blocked by retained in these unpublished drafts; Non-goals appears only for meaningful exclusions and Risks and rollout captures relevant compatibility, rollout, and rollback concerns without boilerplate.",
+        "Implementation approaches distinguish confirmed compatibility constraints from proposed migration mechanics and explicitly identify missing repository evidence rather than inventing components or APIs.",
         "The public contract and generated SDK migration issue has an ordered multi-PR Review plan with an explicit independently green guarantee.",
         "The response does not perform or claim any real tracker write.",
         "The transcript shows that the tracker template was read and the local template was not read."
@@ -40,7 +41,8 @@
       "files": [],
       "expectations": [
         "The breakdown does not invent UI work or any other layer that the operational outcomes do not require.",
-        "Each local issue file follows the local template with Status, Outcome, Context / Why, Acceptance criteria, Non-goals, Verification, Risks and rollout, and Blocked by.",
+        "Each local issue file includes Status, Goal and context, Implementation approach, Acceptance criteria, Verification, and Blocked by; Non-goals appears only for meaningful exclusions and Risks and rollout appears for material delivery or replay risks rather than boilerplate.",
+        "Acceptance criteria state required outcomes and boundaries while Verification supplies distinct tests or runtime evidence, without duplicating the criteria or adding a generic evidence-produced checkbox.",
         "Retry behavior includes bounded failure handling and idempotency rather than deferring delivery integrity.",
         "Dead-letter handling and manual replay enforce the webhook:replay permission and include duplicate-delivery verification.",
         "Metrics are tied to an observable operational outcome rather than created as an isolated technical layer with no use.",
@@ -86,6 +88,51 @@
         "Behavior tests and migration parity tests remain in the issues they verify, and the stable audit-evidence API does not become a standalone implementation issue.",
         "Every proposed landing state is buildable and testable, and the response does not invent blockers contrary to the compatibility projection or independent ownership groups.",
         "The transcript shows that the component and ownership fixture was read and neither issue template was read for this proposal-only request."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Write one complete tracker-ready issue draft for this already approved slice; do not publish or create files. Our repository inspection confirmed that InvoiceExportService streams existing CSV columns through CsvWriter and invoice-export.test.ts covers row quoting. The approved outcome is that exported invoice CSVs use CRLF row endings instead of LF so our accounting importer accepts them. Column order, quoting, streaming memory use, and permission checks must stay unchanged. This is one focused PR; ordinary revert is sufficient and there is no special rollout, separate non-goal, or non-obvious review order. Include enough implementation direction to start, but leave the exact method changes negotiable. Keep the body easy to scan.",
+      "expected_output": "A concise complete draft with Goal and context, a grounded negotiable Implementation approach reusing the confirmed CSV flow, mandatory behavioral acceptance criteria, and separate focused verification. No decorative diagram, boilerplate conditional section, or frozen implementation tasks.",
+      "files": [],
+      "expectations": [
+        "The complete body includes Goal and context, Implementation approach, Acceptance criteria, and Verification with the observable CRLF outcome first.",
+        "The approach uses only the supplied InvoiceExportService, CsvWriter, and invoice-export.test.ts evidence, distinguishing the preserved contracts from proposed row-ending changes.",
+        "Acceptance criteria cover CRLF behavior and the unchanged contracts; Verification names focused evidence rather than restating the same criteria or adding an evidence-produced checkbox.",
+        "The body omits Mermaid, full implementation code, and decorative tables for this straightforward flow.",
+        "The body omits Non-goals, Risks and rollout, and Review plan rather than filling them with None or no-special-rollout boilerplate, while retaining concise green landing or ordinary-revert reasoning in a suitable section.",
+        "The draft uses short bullet-first writing, avoids repeated facts, and keeps the proposed approach negotiable within confirmed constraints.",
+        "The response performs no external write or file creation and reads only the tracker template."
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Write one full tracker-ready issue draft for the approved slice 'Operators can cancel an asynchronous archive job without a partial archive becoming visible'. Draft only; no publication or files. Repository findings are authoritative: ArchiveCoordinator owns queued -> running -> published transitions; ArchiveWorker writes temporary objects; ArchivePublisher exposes the completed archive only after an atomic publish step; ArchiveJobStore compare-and-set transitions already serialize cancellation against publication. Cancellation may win from queued or running and move the job to cancelled, followed by asynchronous temporary-object cleanup. If publish wins first, cancellation returns an already-published result and cannot delete the visible archive. Cleanup failure leaves the job cancelled, records a retryable cleanup obligation, and never makes objects visible. Reuse those contracts; do not invent endpoints or a queue provider. One focused PR can land green; release should be guarded because cancellation races affect data integrity. Use a compact Mermaid state or flow diagram if it makes the race and cleanup branches clearer, and keep prose from repeating every transition.",
+      "expected_output": "A complete grounded draft with a useful compact Mermaid diagram for cancellation/publication races and cleanup branches, a negotiable component-level approach, observable integrity criteria, concrete race/failure verification, and relevant release safety without duplicated narrative.",
+      "files": [],
+      "expectations": [
+        "The body includes Goal and context, Implementation approach, Acceptance criteria, and Verification, distinguishing confirmed state and atomicity contracts from the proposed implementation direction.",
+        "A compact Mermaid diagram materially clarifies cancellation versus publication and asynchronous cleanup success or retryable failure using only supplied states and contracts.",
+        "The approach identifies ArchiveCoordinator, ArchiveWorker, ArchivePublisher, and ArchiveJobStore roles and reuse without inventing an endpoint, queue provider, file path, or full implementation.",
+        "The prose complements the diagram with constraints or decisions instead of narrating every diagram edge again.",
+        "Acceptance criteria make partial-archive invisibility, publish-winning behavior, and retryable cleanup failure mandatory, while Verification names deterministic race tests and cleanup failure evidence rather than duplicating criteria.",
+        "Relevant rollout and rollback reasoning preserves published archives and pending cleanup obligations; Review plan is omitted because the PR order is obvious.",
+        "The response reads only the tracker template and does not publish, create files, or add method-level implementation tasks."
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Prepare one complete tracker-ready issue draft for the already approved slice 'Workspace owners can revoke an integration credential and subsequent use is rejected'. Do not publish or create files. Confirmed product constraints: only the workspace owner may revoke, cross-workspace attempts must be rejected, the revoked credential must stop working on subsequent authenticated requests, and revocation must leave audit evidence without recording the secret. We have not inspected the repository: credential storage, authentication middleware, cache invalidation, audit contracts, and test locations are unknown. Provide a high-level implementation approach that an implementer can act on by naming what to confirm first. Do not pretend the component names, API paths, storage schema, or consistency mechanism are known. Acceptance criteria must stay firm even though the approach is negotiable. Mention any uncertainty that affects safe landing or rollback.",
+      "expected_output": "An actionable but explicitly uncertain full draft separating confirmed security outcomes from a proposed investigation-backed credential revocation flow, with concrete discovery questions, distinct verification, and relevant consistency and rollback risks. No fabricated repository details.",
+      "files": [],
+      "expectations": [
+        "The body includes Goal and context, Implementation approach, Acceptance criteria, and Verification rather than falling back to a proposal or omitting the approach for missing evidence.",
+        "The approach explicitly distinguishes confirmed product constraints from proposed direction and open questions about credential storage, authentication, caching, audit contracts, and existing tests.",
+        "The approach gives a useful confirmation-first data-flow direction using generic roles clearly marked as unconfirmed, without fabricated component names, symbols, file paths, API routes, schemas, or atomicity guarantees.",
+        "Owner-only authorization, cross-workspace rejection, rejection of subsequent revoked-credential use, and secret-free audit evidence remain mandatory acceptance criteria rather than tentative implementation preferences.",
+        "Verification names authorization, revocation visibility or cache-consistency, and audit-redaction evidence distinct from the acceptance-criteria text, while identifying unknown test infrastructure honestly.",
+        "The body identifies how missing consistency and rollback evidence affects safe delivery and does not propose re-enabling revoked credentials as an ordinary rollback.",
+        "The response avoids speculative diagrams, full implementation code, and frozen method tasks, uses scannable bullets, reads only the tracker template, and performs no external or file write."
       ]
     }
   ]

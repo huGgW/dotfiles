@@ -109,6 +109,269 @@
         "If no issue is evidenced, the Findings section says `No findings within the supplied scope.`.",
         "The report still includes completion, subject identity, reviewed scope, lens coverage, unverified areas, residual risks, and testing gaps."
       ]
+    },
+    {
+      "id": 10,
+      "prompt": "Review staged changes in src/catalog/ItemDto.ts, ItemView.ts, ItemResult.ts, mapItem.ts, and CatalogService.ts with architecture/maintainability and simplicity lenses. The inspected diff introduces ItemView and ItemResult, each with the same id, name, and price fields as the existing internal ItemDto. CatalogService.list maps ItemDto -> ItemView -> ItemResult using unchanged field copies at mapItem.ts:12-29; list's only consumer is an internal cache already accepting ItemDto. Inspected callers, tests, and schemas confirm all three types have the same internal contract, no independent validation, serialization, security, version, or ownership boundary, and no active decision requires the new types. A pending priceCurrency field must now be added to all three types and both maps. The patch comment says the layers might support future consumers, but none are required. Return recommendations only.",
+      "expected_output": "An evidence-backed SHOULD finding for redundant internal DTO and mapping proliferation, recommending reuse of ItemDto and removal of unnecessary intermediate copies while preserving the cache contract.",
+      "files": [],
+      "expectations": [
+        "A SHOULD finding cites mapItem.ts:12-29, CatalogService.list, the internal cache caller, and the confirmed shared contract rather than relying solely on identical fields or type count.",
+        "The report explains duplicated priceCurrency maintenance across types and mappings and distinguishes speculative future consumers from an approved requirement.",
+        "The recommendation reuses the suitable internal ItemDto and preserves field semantics, cache behavior, and tests without suggesting persistence-entity exposure.",
+        "The report remains read-only and bounded, includes capability metadata, and issues no approval verdict."
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "Apply architecture/maintainability and simplicity to the account API diff in api/v1/AccountResponse.ts and toAccountResponse.ts. AccountResponse currently has exactly the id and displayName fields of internal AccountSnapshot and is used by one endpoint. Inspected schemas and callers show AccountResponse owns the versioned public JSON contract and serialization names, while AccountSnapshot belongs to an independently evolving internal module. Security tests ensure toAccountResponse copies only allowlisted fields so future internal confidential fields cannot leak. The two types have distinct change owners and the mapping enforces that boundary. No other defect is present. A teammate proposes returning the persistence entity directly to reduce DTO count. Review without applying changes.",
+      "expected_output": "No DTO consolidation finding: the identical-shape, single-use public response and allowlist mapping are load-bearing API, ownership, and security boundaries.",
+      "files": [],
+      "expectations": [
+        "The report says No findings within the supplied scope rather than flagging equal fields or single use as redundant DTOs.",
+        "Coverage explains the public serialization/version contract, independent ownership, and security allowlist that justify separate types and mapping.",
+        "The report does not recommend exposing the persistence entity, collapsing public and internal types, or weakening the boundary to reduce count.",
+        "The report retains completion, subject identity, scope, unverified areas, and residual risks without an approval verdict."
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "Review src/invoices/handlers/export.ts:35-58 and its tests with architecture/maintainability and simplicity lenses. Active module guidance requires domain errors to pass through mapInvoiceError; current create, cancel, and refund handlers in this same module all use it. Inspecting the helper and their tests confirms identical DomainError inputs, HTTP status/body semantics, trace-ID propagation, and redaction requirements. The new export handler instead duplicates the same switch and redaction logic inline, creating another copy that each new DomainError variant must update. Its happy-path test omits the shared error contract cases. Export has no different trust boundary or error requirements. Identify evidence-based issues, not style preferences.",
+      "expected_output": "An actionable maintainability/simplicity finding for bypassing the established suitable error mapper and duplicating policy, grounded in the active rule, multiple comparable handlers, and matching contracts.",
+      "files": [],
+      "expectations": [
+        "A finding cites export.ts:35-58, the active module guidance, mapInvoiceError, and the create/cancel/refund implementations as established convention evidence.",
+        "The impact is duplicated error-policy maintenance and inconsistent future variant handling, not aesthetic nonconformity or an unsupported current security exploit.",
+        "The recommendation reuses mapInvoiceError while preserving status/body semantics, trace-ID propagation, redaction, and appropriate error contract tests.",
+        "The report limits findings to the supplied subject, makes no repository-wide audit or edit, and retains the existing severity and capability report contract."
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "Review only src/search/handler.ts and its regression tests with architecture/maintainability and simplicity lenses. Several old handlers call buildSearchSql, which interpolates request text into SQL; the helper is explicitly deprecated by active migration SEC-18. The changed handler uses the installed driver's parameterized-query API, preserves the required search semantics, and includes injection regression tests. Inspected API contracts show reusing buildSearchSql cannot bind parameters safely. Current same-module migrated handlers already use parameterization. A reviewer calls the new code inconsistent because a nearby legacy handler uses buildSearchSql. No other defect is evidenced. Do not widen into a security audit of legacy paths.",
+      "expected_output": "No convention finding against the justified safer implementation; deprecated nearby or repeated legacy usage does not require unsafe reuse.",
+      "files": [],
+      "expectations": [
+        "The report says No findings within the supplied scope and recognizes SEC-18 and current comparable migrated handlers over obsolete legacy examples.",
+        "The report explains the concrete safety and contract reason not to reuse buildSearchSql and preserves the parameterized implementation and regression coverage.",
+        "The report does not demand aesthetic conformity, recommend the unsafe helper, or report out-of-scope legacy defects as introduced by this change.",
+        "The review does not add unrequested lenses, mutate files, or issue an approval verdict."
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "Review the DTO changes in billing/api/InvoiceResponse.ts and billing/application/InvoiceResult.ts with architecture/maintainability and simplicity lenses. The actual diff and mappings show identical fields and unchanged copies, with no other defect. Caller authoritative context identifies active approved ADR-27: the public billing API and application layer must keep separate named DTOs for independent versioning and ownership, even when shapes currently match. Three current internal-only billing queries reuse their result types directly; they do not expose public API contracts. A proposed review finding says those repeated examples prove ADR-27 should be overturned and the DTOs merged. Evaluate the supplied change without redesigning the approved architecture.",
+      "expected_output": "No finding that mandates merging the approved DTO boundary; binding ADR-27 takes precedence over incidental patterns from non-comparable internal queries.",
+      "files": [],
+      "expectations": [
+        "The report preserves active ADR-27 and does not recommend merging InvoiceResponse and InvoiceResult or autonomously overturning their approved boundary.",
+        "The report distinguishes binding architecture from repeated habits and explains why internal-only query examples are not comparable public API convention evidence.",
+        "The report does not manufacture a simplicity finding from equal shapes and unchanged copies when independent ownership and versioning are required.",
+        "With no other evidenced defect, the report says No findings within the supplied scope and records bounded lens coverage without a gate verdict."
+      ]
+    },
+    {
+      "id": 15,
+      "prompt": "Review only the staged src/customer/CustomerExportDto.ts addition with architecture/maintainability and simplicity lenses. The file is available and has the same visible id/name fields as CustomerSummary, but DTO callers, serializers, the export API schema, and ownership guidance are unavailable. The only nearby mapper example is deprecated and no multiple comparable current implementations can be inspected. A colleague asserts that identical fields prove the DTO must be merged and the old mapper reused. Do not guess absent contracts, run generators, or audit unrelated modules.",
+      "expected_output": "An INCOMPLETE capability report that names the missing caller, serialization, API, ownership, and convention evidence without inventing redundancy or unsafe reuse findings.",
+      "files": [],
+      "expectations": [
+        "The report sets review_completion to INCOMPLETE and identifies missing callers, serializers, export schema, and ownership evidence under unverified_areas.",
+        "The report does not infer duplicate contracts from visible field equality or recommend consolidation without checking boundary and type-safety requirements.",
+        "The report does not treat one deprecated mapper as an established suitable convention or invent unseen examples.",
+        "Coverage distinguishes the inspected DTO from unavailable context, stays bounded and read-only, and issues no approval verdict."
+      ]
+    },
+    {
+      "id": 16,
+      "prompt": "Review staged OrderRepository.save changes at orders/OrderRepository.ts:40-72 with architecture/maintainability and reliability lenses. Active ADR-8 assigns pricing to PricePolicy and payment/notification orchestration to CheckoutUseCase. The diff computes a separate 20% loyalty discount in save, then calls CheckoutUseCase.capturePayment and sends a receipt before the order transaction commits. The actual call graph is CheckoutUseCase.place -> OrderRepository.save -> CheckoutUseCase.capturePayment. PricePolicy and the quote endpoint cap that discount at 10%; inspected tests show quoted and saved totals now differ. A constraint failure rolls back the order after the non-refundable payment and receipt have succeeded. Review this subject only and recommend behavior without edits.",
+      "expected_output": "Evidence-based findings for divergent pricing ownership and reversed use-case orchestration with payment/notification before rollback, preserving the approved policy owner and failure contracts.",
+      "files": [],
+      "expectations": [
+        "The report cites OrderRepository.ts:40-72, ADR-8, PricePolicy, the quote caller, and the concrete CheckoutUseCase dependency path rather than repository naming alone.",
+        "The findings explain the 10% versus 20% divergence and the constraint-failure path leaving a payment and receipt without a committed order; severity follows the existing concrete-impact threshold.",
+        "Recommendations restore established pricing and orchestration ownership while specifying payment, transaction, and notification guarantees, not a blanket transfer of all SQL conditions to services.",
+        "The report stays read-only and scoped, retains capability metadata, and provides no approval verdict or speculative new layer."
+      ]
+    },
+    {
+      "id": 17,
+      "prompt": "Review inventory/StockRepository.reserve:25-39 with architecture/maintainability and correctness lenses. The changed operation executes UPDATE stock SET available = available - :qty, version = version + 1 WHERE sku = :sku AND available >= :qty AND version = :expectedVersion and checks the affected row count within the established transaction. InventoryPolicy owns eligibility; its caller checks positive quantity and permitted SKU before invoking reserve. Inspected contracts and concurrent tests confirm the SQL predicate enforces nonnegative stock and optimistic conflict detection atomically. Approved architecture permits repository-level integrity predicates. A teammate wants every condition moved into a service read followed by unconditional update. No other defect exists.",
+      "expected_output": "No layering finding: the repository conditional write is a justified atomic integrity boundary and must not become a racy check-then-write.",
+      "files": [],
+      "expectations": [
+        "The report says No findings within the supplied scope and distinguishes domain eligibility ownership from atomic persistence integrity enforcement.",
+        "Coverage cites the affected-row contract, transaction, nonnegative-stock predicate, version check, and concurrent tests as justification.",
+        "The report does not demand removal of domain SQL, transfer every condition to a service, or recommend an unlocked check-then-write.",
+        "The report preserves approved boundaries and existing capability and read-only contracts."
+      ]
+    },
+    {
+      "id": 18,
+      "prompt": "Review checkout/CheckoutService.place:60-91 and billing/PaymentService.payForOrder:20-44 with architecture/maintainability and reliability lenses. Inspection confirms CheckoutService is an entry-point use case that now calls PaymentService.payForOrder, another entry-point use case using REQUIRES_NEW. PaymentService commits a payment record and makes a non-idempotent gateway charge; CheckoutService then writes the order in its outer transaction. A tested order constraint failure rolls back only the outer transaction. The request retry calls both services again and charges twice. Approved contracts require retry-safe checkout and do not require independent payment commit here. Trace the actual failure path, not a generic ban on Service-to-Service calls.",
+      "expected_output": "An actionable reliability and ownership finding grounded in independent commit and non-idempotent nested use-case reuse, not class suffixes or a fabricated dependency cycle.",
+      "files": [],
+      "expectations": [
+        "The finding cites the two methods, REQUIRES_NEW boundary, gateway side effect, outer rollback, and request retry producing a second charge.",
+        "The report connects severity to concrete payment and retry-safety consequences, not the mere presence of a service call.",
+        "The recommendation defines commit/compensation and retry/idempotency ownership at the established checkout boundary without falsely promising one database transaction can roll back an external charge.",
+        "The report neither invents a cycle nor mandates a new orchestration service/interface, and remains read-only without an approval verdict."
+      ]
+    },
+    {
+      "id": 19,
+      "prompt": "Review FulfillmentService.execute and its changed tests with architecture/maintainability and reliability lenses. FulfillmentService is the approved explicit orchestrator: it calls InventoryService.reserve and ShippingService.schedule through defined acyclic contracts. Runtime wiring confirms no reverse edge. Reservation is committed atomically; shipping receives a stable idempotency key, bounded retries, and propagated cancellation; failure records the approved compensation command, tested for replay safety. Authorization is owned once at the entry point. The domain-owned StockRepository interface refers to domain Reservation types and is implemented by infrastructure. No defect is evidenced. A reviewer demands another orchestration layer and says any service call or domain repository interface violates clean architecture.",
+      "expected_output": "No finding against valid explicit acyclic orchestration or legitimate dependency inversion; retain existing contracts without speculative layers.",
+      "files": [],
+      "expectations": [
+        "The report says No findings within the supplied scope and recognizes actual roles, acyclic wiring, defined transaction/retry/cancellation and compensation contracts.",
+        "The report does not prohibit service-to-service calls or create a mandatory extra orchestrator, service, DTO, or interface.",
+        "The report distinguishes the domain-owned repository interface and domain types from an infrastructure-to-application reverse dependency.",
+        "Coverage preserves approval decisions, authorization ownership and replay safety, with capability metadata and no gate verdict."
+      ]
+    },
+    {
+      "id": 20,
+      "prompt": "Review accounts/AccountService.previewBalance:48-76 and its changed caller with architecture/maintainability and correctness lenses. The method is named and documented as a query, but the diff makes previewBalance(accountId, refresh=true) silently debit a renewal fee and send a renewal email; refresh=false only reads. The dashboard controller calls it on every GET and automatic refresh. Inspected calls and tests demonstrate three dashboard refreshes produce three fees and emails because no command receipt or idempotency mechanism exists. The established renewal command owns fee eligibility and applies one debit, but previewBalance duplicates that policy with a different grace period. Evaluate actual hidden mutation and responsibility divergence, not a blanket ban on boolean flags.",
+      "expected_output": "Actionable clean-code/correctness findings for misleading query-like mutation and duplicated renewal policy with concrete repeated financial side effects.",
+      "files": [],
+      "expectations": [
+        "The report cites previewBalance:48-76, refresh semantics, the GET dashboard caller, and the evidenced repeated fees/emails, not method length or boolean presence alone.",
+        "The report identifies renewal eligibility as a distinct established owner and explains the divergent grace-period behavior.",
+        "The recommendation keeps preview/query behavior free of unintended debits and restores explicit retry-safe renewal command ownership while preserving legitimate read behavior.",
+        "The report does not demand comments, tiny methods, a universal flag ban, or proliferating new types/layers, and follows existing severity and read-only reporting contracts."
+      ]
+    },
+    {
+      "id": 21,
+      "prompt": "Apply architecture/maintainability and simplicity to transfers/TransferService.execute and focused tests. The 95-line method implements one approved transfer intention: authorize, validate limits, lock accounts in stable order, compute both balances, verify invariant, atomically persist both entries and outbox record, return receipt, and release resources on every exit. Phase names and error paths are clear; concurrent and failure tests cover ordering, rollback, authorization, and cleanup. One explicit dryRun flag follows the tested public contract and never persists. No unrelated responsibility or hidden state is found. A reviewer wants ten tiny services and removal of the locks/checks to lower function size. Review without adopting line-count thresholds.",
+      "expected_output": "No aesthetic cohesion or simplicity finding; preserve the coherent transfer flow and load-bearing safeguards rather than overfragmenting by size.",
+      "files": [],
+      "expectations": [
+        "The report says No findings within the supplied scope and does not use 95 lines, function count, or the dryRun flag alone as a defect.",
+        "Coverage recognizes cohesive intention and preserves authorization, ordered locking, invariant validation, atomic persistence/outbox, failure handling, receipt semantics, and cleanup.",
+        "The report does not mandate tiny methods/services, comments, new interfaces/DTOs, or removal of safeguards merely to reduce visible structure.",
+        "The report keeps focused lenses, scope, read-only authority, and capability metadata without an approval verdict."
+      ]
+    },
+    {
+      "id": 22,
+      "prompt": "Review only staged BillingRepository.calculate and PricingService.calculate with architecture/maintainability and reliability lenses. The method bodies are available but injected provider wiring, callers, transaction configuration, policy-owner decisions, and failure tests cannot be inspected. One method invokes an interface called Service; the implementation and layer role are unknown. A colleague claims the suffix proves a repository-to-application violation and two similarly named methods prove a cycle and partial commits. Do not invent runtime dependencies or expand into an unrelated repository audit.",
+      "expected_output": "An INCOMPLETE report naming missing role, graph, transaction and failure evidence without fabricated layering, cycle, or partial-commit findings.",
+      "files": [],
+      "expectations": [
+        "The report sets review_completion to INCOMPLETE and records unavailable wiring, callers, policy ownership, transaction configuration, and failure tests as material unverified areas.",
+        "The report does not infer architectural roles from suffixes, a cycle from method names, or partial commits without execution evidence.",
+        "Coverage distinguishes inspected bodies from unavailable context and avoids recommending a new orchestration layer or moving policy on guesses.",
+        "The report stays bounded and read-only with capability metadata and no approval verdict."
+      ]
+    },
+    {
+      "id": 23,
+      "prompt": "Review only staged checkout/submit.ts:40-63 and its tests with reliability and testing lenses. Approved AC-9 requires retry-safe charging. Implementer rationale says upstream validation guarantees every request has a stable idempotency key, and the summary says all retry tests passed. Actual inspected controller wiring allows the key to be absent; submit generates a fresh key on each request when absent and sends it to the non-idempotent gateway. The inspected retry test always supplies a key and does not cover its absence. Supplied test output is from the previous commit, not this staged subject. Inspection also notices a potentially unsafe admin route outside the supplied scope. Do not edit or run mutating commands.",
+      "expected_output": "A bounded evidence-backed retry-safety finding that distinguishes binding AC-9 from contradicted implementer claims, reports the stale verification limit, and requests additional review of the admin route only as an out-of-scope risk.",
+      "files": [],
+      "expectations": [
+        "The finding traces the missing-key controller path, fresh key per retry, and gateway behavior against AC-9 rather than trusting the rationale or summary.",
+        "The report distinguishes inspected test coverage from the stale claimed passing result and records unverified current-subject validation without inventing a test run.",
+        "The admin concern appears only as a bounded request for additional review in unverified areas or residual risks, not an expanded audit or finding.",
+        "The report preserves scope, evidence-based severity, read-only authority, capability metadata, and no approval verdict."
+      ]
+    },
+    {
+      "id": 24,
+      "prompt": "Handle these independent intake situations separately without merging scopes. A: An orchestrator delegates a review of payment/retry.ts at commit a18bc90 but omits required_lenses; it also says an unavailable payment-provider contract determines whether retries are safe. Ask one focused caller clarification for bounded lens agreement and the material contract, or if a final report is required before they arrive report INCOMPLETE with those gaps; do not assume an all-lens review. B: A user directly asks to review a supplied static parseCount.ts snapshot. It parses decimal strings, rejects negatives and overflow, and the actual callers and boundary tests are inspectable. No acceptance criteria, design_rationale, or verification fields were supplied, and inspection finds no defect. Do not demand a larger input schema or invent a baseline.",
+      "expected_output": "Proportionate intake: clarify or report material gaps for the delegated review without pretending lens coverage, but complete the ordinary direct review using bounded inferred lenses and established evidence despite optional omissions.",
+      "files": [],
+      "expectations": [
+        "For A, the response seeks focused bounded caller scope/lens agreement and the missing retry contract, or returns INCOMPLETE with their consequences when unresolved.",
+        "For A, the response neither silently broadens required lenses nor claims coverage of unspecified lenses or invents provider semantics.",
+        "For B, the response infers suitable bounded lenses for the direct snapshot, reports COMPLETE and no findings if supported, and does not treat absent acceptance criteria or optional fields as material gaps.",
+        "Both responses retain read-only advisory authority and avoid approval, mandatory-review gates, autonomous repair, and a required new intake schema."
+      ]
+    },
+    {
+      "id": 25,
+      "prompt": "Review only new src/settlement/compute.ts and its tests with architecture/maintainability lens. Active project AGENTS.md section 'Settlement authoring' explicitly requires numbered phase comments for newly added settlement functions of at least 30 lines. This is a new 38-line function with clear validate/compute/result phases but no comments. Its behavior and tests are correct; impact is a small authoring-compliance omission, not runtime harm. The project does not bind any other code-development guidance. A teammate also wants ten tiny helpers, extra DTOs, and blank lines after every statement as personal style; no concrete cost or defect supports those demands. References warn against aesthetic comment and line-count demands. Report what is actually binding without edits.",
+      "expected_output": "A proportionate NIT for the evidenced applicable project-rule violation, citing its source and limited compliance impact, without treating heuristics or all authoring guidance as binding or claiming a runtime defect.",
+      "files": [],
+      "expectations": [
+        "A NIT cites AGENTS.md 'Settlement authoring', the new 38-line function, the applicable threshold, and the missing required phase comments.",
+        "The finding states limited compliance impact and recommends satisfying the binding rule without fabricating runtime risk or inflating severity.",
+        "The report does not blanket-exempt comments because lens references reject aesthetic demands, and does not import all code-development guidance into the review.",
+        "No finding demands tiny helpers, extra DTOs, or personal spacing without evidence; the report stays scoped, read-only, and advisory without an approval verdict."
+      ]
+    },
+    {
+      "id": 26,
+      "prompt": "Re-review only current account/debit.ts and its tests with correctness and reliability lenses. Prior CR-RELIABILITY-004 identified duplicate debit on request replay and recommended an outbox-based repair. Current inspected implementation instead uses a database unique request-key constraint plus one atomic debit transaction; inspected callers preserve the same key on retries, and replay/failure tests demonstrate one debit with rollback safety. No binding decision requires an outbox. The implementer disputes the old suggested shape. Prior CR-CORRECTNESS-007 concerned balance overflow; the implementer says fixed and deferred further discussion, but current inspected arithmetic is unchanged and the maximum-balance regression still demonstrates overflow. Acceptance and independence requirements belong to the original caller. Return current evidence and dispositions without changing code or deciding acceptance.",
+      "expected_output": "A same-ID re-review that marks CR-RELIABILITY-004 resolved based on underlying replay safety despite a different repair shape, and retains CR-CORRECTNESS-007 as unresolved with disputed/deferred context and current overflow evidence.",
+      "files": [],
+      "expectations": [
+        "Prior findings checked preserves CR-RELIABILITY-004 and marks the underlying issue resolved with atomic unique-key, caller, replay, and failure evidence; it does not require the old outbox shape.",
+        "The current overflow finding retains CR-CORRECTNESS-007 rather than renumbering, records unresolved status and disputed/deferred context, and cites current arithmetic and regression evidence over the unsupported claimed fix.",
+        "The report separates current findings from resolved prior dispositions and bases severity on the existing impact thresholds.",
+        "The report makes no edits, fix loop, approval verdict, or independence/acceptance decision on the caller's behalf."
+      ]
+    },
+    {
+      "id": 27,
+      "prompt": "Review only staged orders/OrderService.ts:40-68 and its tests with correctness, architecture/maintainability, and simplicity lenses. The diff adds `if (order.quantity <= 0) throw` after loading the order via OrderRepository.findById. Inspected schema shows quantity is NOT NULL with CHECK (quantity > 0), repository tests prove the constraint, and no nullable legacy column or older writer exists. The HTTP entry already validates quantity with rejection tests, and the sole production caller passes an immutable request. No new bypass path is evidenced. No other defect exists. A teammate says the extra guard is harmless defense in depth.",
+      "expected_output": "An evidence-backed simplicity/maintainability finding for duplicate same-condition validation, recommending removal while preserving the entry and schema guarantees.",
+      "files": [],
+      "expectations": [
+        "A SHOULD or NIT finding cites OrderService.ts:40-68, the NOT NULL plus CHECK guarantee, repository tests, entry validation with rejection tests, and sole-caller evidence.",
+        "The report explains one invariant one owner one check and the maintenance cost of coordinated edits without a named bypass path.",
+        "The report does not accept just-in-case defense in depth for the same condition and distinguishes it from distinct-threat checks such as authorization or computed overflow.",
+        "The report stays bounded and read-only with capability metadata and no approval verdict."
+      ]
+    },
+    {
+      "id": 28,
+      "prompt": "Review only staged users/RegisterService.ts:20-45 and its tests with correctness and simplicity lenses. The service omits an age-range recheck. Inspected UserController validates age >= 0 at the HTTP entry with rejection tests, constructs an immutable request, and is the sole production caller; the repository column also enforces the range and no second caller, queue, or legacy writer is evidenced. A reviewer demands a duplicate age guard in the service just in case. No other defect exists.",
+      "expected_output": "No missing-validation finding: the verified entry and persistence guarantees already enforce the same condition and no bypass is evidenced.",
+      "files": [],
+      "expectations": [
+        "The report says No findings within the supplied scope rather than demanding a duplicate same-condition guard.",
+        "Coverage cites the controller validation, immutable request, sole caller, tests, and schema guarantee as the verified owner.",
+        "The report records the absent bypass path and distinguishes same-condition duplication from distinct-threat validation.",
+        "The report retains completion, scope, unverified areas, and residual risks without an approval verdict."
+      ]
+    },
+    {
+      "id": 29,
+      "prompt": "Review only changed access/DownloadPolicy.ts:30-39 and its focused tests with architecture/maintainability lens. The current pure decision is `(account.active && !account.suspended && !account.revoked && account.paid) || (account.active && !account.suspended && !account.revoked && account.manualWaiver && !(account.waiverExpired || !account.waiverApproved))`. Inspected policy contracts require active, nonsuspended, nonrevoked accounts for both payment and a currently approved manual-waiver exception. The supplied change history and regression tests show two earlier edits to this same expression: suspension was initially added only to the paid branch, and revocation only to the waiver branch; each omission granted downloads incorrectly until the second branch was patched. This diff adds revocation to the other branch and fixes current behavior, but retains the same duplicated common policy in both branches. Inspected callers supply nonnull immutable plain data with primitive Boolean fields and no getters; all these reads and predicates are pure, total and safe. No runtime defect remains. Evaluate the material coordinated-edit risk demonstrated by this history, not just operator count, and recommend without editing.",
+      "expected_output": "A proportionate maintainability finding grounded in two demonstrated inconsistent policy edits, distinguishing shared account eligibility from payment or waiver exceptions and recommending the smallest behavior-preserving clarification.",
+      "files": [],
+      "expectations": [
+        "The finding cites DownloadPolicy.ts:30-39, the shared eligibility contract, and both historical one-branch omissions with regression evidence; it does not invent a current authorization failure.",
+        "The report explains how duplicated common guards mixed with the waiver exception require coordinated edits and have already caused inconsistent application, rather than calling four-plus terms, wrapping, or nested negation alone a defect.",
+        "The recommendation reveals shared eligibility and the paid-or-valid-waiver decision with minimal local predicates or a meaningful existing policy owner, not an opaque whole-chain helper, atomized comparisons, eager condition arrays, or new classes/frameworks.",
+        "The recommendation preserves observable evaluation semantics; it may group the inspected pure, total, safe immutable primitive checks into shared eligibility and payment/waiver predicates without a blanket count/laziness ban, but does not generalize that permission to effects, throwing getters or guarded access. Severity reflects evidenced maintenance impact, and the report remains scoped, read-only and advisory without an approval verdict."
+      ]
+    },
+    {
+      "id": 30,
+      "prompt": "Review only staged jobs/isTerminal.ts:8-14 with architecture/maintainability lens. The pure function now returns `state === JobState.SUCCEEDED || state === JobState.FAILED || state === JobState.CANCELLED || state === JobState.EXPIRED || state === JobState.SKIPPED`. The inspected enum contract lists exactly these terminal states; tests cover each state and all nonterminal states. This homogeneous comparison is clear to the module's callers, has no hidden exception or distinct policy, and no maintenance failure or binding style rule is evidenced. A teammate demands a finding because five conditions exceed a proposed maximum of three and the formatter wraps the line. No other defect exists. Review without edits.",
+      "expected_output": "No finding for a clear homogeneous enum comparison; condition count is an inspection cue, not a universal limit or reason to invent decomposition.",
+      "files": [],
+      "expectations": [
+        "The report says No findings within the supplied scope and cites the homogeneous terminal-state contract and complete boundary tests in coverage.",
+        "The report does not treat five conditions, line length, formatter wrapping, or a teammate's nonbinding maximum as a defect or mandatory reviewer rule.",
+        "The report does not demand helper extraction, atomization, eager arrays, new types or frameworks, and preserves the existing read-only capability report without an approval verdict."
+      ]
+    },
+    {
+      "id": 31,
+      "prompt": "Review only the staged readability refactor in documents/canDownload.ts:12-22 and its changed tests with correctness lens. Before: `return document != null && !document.deleted && account.active && account.canRead(document.id) && audit.recordDownloadAttempt(document.id);`. After: `const readable = account.canRead(document.id); const audited = audit.recordDownloadAttempt(document.id); return [document != null, !document.deleted, account.active, readable, audited].every(Boolean);`. Inspected callers legally pass null when a document is absent and inactive accounts when access is denied. canRead performs a remote permission check and may throw; recordDownloadAttempt increments a persisted counter and returns true. The contract requires no remote check or audit when the document is absent, deleted, or the account inactive, and no audit if canRead rejects or throws. Existing tests verified these skipped effects; the refactor's tests cover only the all-true result. The implementer says named predicates and every(Boolean) are clearer. Give a concrete correctness report and behavior-preserving alternative without editing or adding unrelated maintainability lenses.",
+      "expected_output": "An evidence-backed correctness finding for eager decomposition that breaks null guards and effect timing, recommending restoration of lazy ordered checks rather than approving a readable but behavior-changing refactor.",
+      "files": [],
+      "expectations": [
+        "The finding cites canDownload.ts:12-22 and demonstrates null document dereference before its guard, unwanted permission calls on deleted/inactive paths, and a persisted audit even when canRead returns false.",
+        "The report distinguishes the original permission-exception path, where audit is skipped, from the eager false-result path; it does not falsely claim audit runs after canRead throws.",
+        "The recommendation restores the original short-circuit chain or ordered early guards with lazy predicates at the original decision points, preserving evaluation order/count, side effects, exception timing and null safety without eager arrays, opaque helpers or a new framework/class.",
+        "Severity follows concrete null and persisted-effect impact, the uncovered rejection paths are identified without fabricating a test run, and the report remains bounded to correctness, read-only and advisory without an approval verdict."
+      ]
     }
   ]
 }

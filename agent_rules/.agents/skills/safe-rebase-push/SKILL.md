@@ -20,12 +20,15 @@ branch, rebases it onto one resolved local or remote target, and updates one exa
 remote destination ref. It does not switch branches, update additional refs, or
 provide a bundled execution script.
 
-An explicit request to rebase and force-with-lease push against exact, unchanged
-targets authorizes those two exact actions. Do not ask again immediately before the
-push solely because it is a force-with-lease push. Ask and stop when the rebase
-target or push destination is ambiguous, the operation would create a remote branch,
+An explicit request to rebase and force-with-lease push against exact targets
+authorizes those two exact actions. Do not ask again immediately before the push
+solely because it is a force-with-lease push. Ask and stop when the rebase target
+or push destination is ambiguous, the operation would create a remote branch,
 the remote tip has not been incorporated into the original local history, a Git
-operation's semantics are unclear, validation fails, or either checked ref moves.
+operation's semantics are unclear, validation fails, the push destination moves,
+or the current branch moves away from the validated result. A rebase target ref
+advancing alone does not block publication: keep the original fixed `target_oid`,
+report the change, and warn that the result may not include newer target commits.
 
 Never infer `origin`. Never substitute `--force`, silently refresh a lease,
 auto-retry an unknown push outcome, bypass hooks, use `reset`, `clean`, `stash`, or
@@ -117,9 +120,13 @@ Re-read the rebase target and destination from their authoritative sources immed
 before pushing. For a remote target, query its named remote/full ref; for a local
 target, re-resolve its exact supplied ref. Query the destination from the named push
 remote's recorded push URL and full ref. Confirm that the current branch still points
-to `result_oid`. The target and destination values must still equal `target_oid` and
-`expected_destination_oid` respectively. If any value moved, stop and report the old
-and new OIDs; do not refresh the snapshot or lease in place.
+to `result_oid`; if it moved, stop and report the old and new OIDs. If the destination
+differs from `expected_destination_oid`, stop before push and report both OIDs. Never
+refresh the lease in place, use an implicit lease or `--force`, or overwrite the new
+remote commits. If only the target ref differs from `target_oid`, record its old and
+new OIDs, retain the original fixed `target_oid` without implicitly fetching or
+rebasing again, and proceed with the existing exact-OID lease when all other checks
+pass. Flag this change for a prominent warning in the completion record.
 
 ### 6. Push One Explicit Ref and Verify It
 
@@ -166,4 +173,6 @@ actual push endpoint first:
 Report the current branch, resolved rebase target and its fixed OID, push remote and
 full destination ref, original/expected/final OIDs, validation performed, conflict
 decisions if any, and remote read-back result. Clearly distinguish a completed push
-from an unverified or unknown outcome.
+from an unverified or unknown outcome. If the target ref advanced during the pre-push
+recheck, report its old and new OIDs and prominently warn that the result was rebased
+onto the earlier fixed target and may not include newer target commits.

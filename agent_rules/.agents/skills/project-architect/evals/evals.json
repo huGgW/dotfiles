@@ -96,6 +96,99 @@
         "The response asks the user to confirm or adjust the component order and does not create files or claim a component design decision.",
         "The response uses short, plain Korean and avoids unnecessary English terms or detailed library comparisons."
       ]
+    },
+    {
+      "id": 7,
+      "prompt": "웹훅 플랫폼 Phase 1 논의 중이다. 직전 응답의 현재 단계 논의 목록은 1 문제, 2 사용자와 영향, 3 목표, 4 범위, 5 제약이었다. 이 목록과 순서는 승인한다. 지금 확인된 사실은 운영자가 실패한 전송을 수동으로 다시 보내고 있다는 것뿐이다. 사용자 인터뷰, 트래픽 수치, 목표 응답 시간은 아직 없다. 파일은 쓰지 말고 첫 항목인 문제부터 논의를 이어가라.",
+      "expected_output": "An active-item conversation that treats agenda approval as order/scope permission, not consensus on problem, goals, or requirements.",
+      "files": [],
+      "expectations": [
+        "The response proceeds with the approved problem item without asking to approve the same list again.",
+        "Manual replay by operators is identified as a known fact; any suggested pain, impact, or goal is clearly tentative and nonbinding.",
+        "The response asks a focused problem-framing question or offers a provisional framing for discussion, rather than presenting a finalized problem statement.",
+        "The response does not invent traffic figures, numerical SLAs, availability targets, scope exclusions, or approved success criteria.",
+        "The run creates no files and does not claim that the Phase 1 outcome or goals have been agreed."
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Treat the supplied fixture root as the project root. design/plan.md가 현재 체크포인트다. 통신 방식 후보는 synchronous callback과 asynchronous event 두 개로 합의했다. 이 후보 집합을 design/4-high-level-design/communication/options/ 아래 파일로 기록하고 현재 체크포인트를 반영해라. 후보 기록은 승인됐지만 어느 쪽도 선택하지 않았다. 계획을 읽고 이 부분부터 재개해라. 첫 패스의 다른 항목은 계속 미해결이며, 이번에 최종 선택이나 Phase 완료를 하지 마라.",
+      "expected_output": "Candidate documentation and a truthful resumed checkpoint that preserve the unresolved decision and incomplete sibling work.",
+      "files": ["evals/fixtures/candidate-resume/design/plan.md"],
+      "expectations": [
+        "The transcript shows the existing plan was read before resumed work and recognizes its unfinished data-ownership item.",
+        "New option artifacts describe only the agreed synchronous callback and asynchronous event candidates as candidates, with tradeoffs rather than a selected winner.",
+        "The run does not create a final communication decision or a central decision-log entry asserting selection.",
+        "The resulting checkpoint retains unresolved data ownership, the deferred router question, and a next confirmation about communication selection rather than phase completion.",
+        "The response does not reopen the approved agenda or candidate set, or claim an unseen sibling pass was completed."
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Treat the supplied fixture root as the project root. Phase 2 현재 의제와 조사 범위는 승인됐다: 이 저장소의 웹훅 핸들러가 서명 검증에 원문 요청 바이트를 쓰는지 확인하는 Quick 조사만 한다. 제공된 코드와 테스트가 이번 질문의 1차 근거다. 필요한 만큼 확인하고 design/2-research/signature-input.md에 근거 위치와 결론을 짧게 기록해라. 암호학 일반론, 다른 프레임워크, 전체 보안 감사는 범위 밖이며 설계 선택도 하지 않는다.",
+      "expected_output": "A bounded factual research note grounded in the handler and test, with limited confidence and no arbitrary research expansion.",
+      "files": ["evals/fixtures/quick-signature/design/plan.md", "evals/fixtures/quick-signature/src/webhook.py", "evals/fixtures/quick-signature/tests/test_webhook.py"],
+      "expectations": [
+        "The note accurately states that handle_webhook passes raw_body bytes to verify_signature before JSON parsing.",
+        "The note cites the actual handler and whitespace-sensitive test locations, distinguishing inspected behavior from test execution actually performed.",
+        "The run stays with the approved raw-byte question and does not require additional source types or a fixed reference count when supplied evidence resolves it.",
+        "The note does not claim production safety, a complete security audit, or a new approved architectural decision from this narrow finding.",
+        "The transcript does not expand into unrelated cryptographic research, framework comparison, or a textbook-length research artifact."
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Treat the supplied fixture root as the project root. 이미 합의된 design/3-solution-concept/operating-model.md의 Replay 부분에서 'operater'만 'operator'로 바로잡아라. 기록 오타 정정이며 동작과 기존 이유는 그대로다. 이번 수정은 승인됐고 재설계나 전체 검증은 요청하지 않는다. 필요한 파일을 확인하고 작은 수정 후 끝내라.",
+      "expected_output": "A surgical typo correction with a changed-slice fidelity check and no unnecessary design workflow.",
+      "files": ["evals/fixtures/recording-correction/design/plan.md", "evals/fixtures/recording-correction/design/3-solution-concept/operating-model.md", "evals/fixtures/recording-correction/design/log.md"],
+      "expectations": [
+        "The only artifact content change is operater to operator in the Replay paragraph; the existing rationale and frontmatter are preserved.",
+        "The transcript contains a focused check of the edited slice against the requested correction without a repeated audit cycle.",
+        "The run does not append a typo-only log entry, duplicate unchanged rationale, or advance the plan or a decision status.",
+        "The run does not launch full-tree or final-artifact validation, research, a subagent review, or a new approval gate for this correction.",
+        "The completion response reports the narrow actual edit and does not claim a full design audit."
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "Treat the supplied fixture root as the project root. 재전송 의미 변경을 합의했다. 자동 재시도는 같은 delivery_id를 재사용하되, 운영자가 요청하는 수동 replay는 새 delivery_id를 만들고 original_delivery_id로 원본을 참조한다. design/4-high-level-design/delivery-contract.md를 고치고 그 직접 의존 문서의 영향을 확인해라. Worker 문서의 관련 문단도 이번 작업에서 갱신해도 된다. Audit Store의 소비 계약 검증은 담당자 확인 대기라 완료했다고 쓰지 마라. 같은 tenant 경계인 Auth 문서는 의미가 변하지 않는다. 이번 합의 범위 안에서 처리하라.",
+      "expected_output": "A meaning-aware contract update with corrected direct dependents and visible outstanding verification, leaving unaffected authentication semantics unchanged.",
+      "files": ["evals/fixtures/contract-change/design/plan.md", "evals/fixtures/contract-change/design/4-high-level-design/delivery-contract.md", "evals/fixtures/contract-change/design/5-detailed-design/worker/design.md", "evals/fixtures/contract-change/design/5-detailed-design/audit-store/design.md", "evals/fixtures/contract-change/design/5-detailed-design/auth/design.md"],
+      "expectations": [
+        "The contract and Worker distinguish unchanged automatic retry IDs from new manual replay IDs linked by original_delivery_id.",
+        "The transcript or changed files show an impact check of direct Worker, Audit Store, and Auth dependents rather than unsupported blanket propagation.",
+        "Audit Store retains a visible needs-revalidation marker and pending consumer verification; the plan does not report that verification as complete.",
+        "Any newly invalidated concept document retains YAML frontmatter first, with the marker in the body after frontmatter.",
+        "The same-task refreshed Worker is not subjected to a ceremonial mark-then-remove cycle or left marked stale after the authorized correction is verified.",
+        "Auth content is unchanged because tenant boundary meaning is unaffected; the response does not claim every dependent is validated."
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "Phase 5 현재 논의 목록은 1 Worker의 중복 처리, 2 실패 정책, 3 Audit Store 연동이며 목록은 승인됐다. 지금은 1번만 논의한다. 합의된 입력은 delivery_id이고 Worker는 그 ID의 처리 기록이 있으면 건너뛰며 없으면 적용한다. 저장소 원자성은 아직 미해결이다. 이 흐름을 실질적인 Mermaid와 Python 예제로 먼저 보여주고 미해결 지점을 짚어라. 문서는 아직 쓰지 말고 뒤의 의제도 결정하지 마라.",
+      "expected_output": "An active-item visual explanation using a meaningful flow and real-language example, without promoting illustration into a new contract or ahead-of-agenda architecture.",
+      "files": [],
+      "expectations": [
+        "The transcript shows successful use of visual-first-explanation for the requested design explanation.",
+        "The Mermaid flow expresses the delivery_id lookup and skip/apply branches rather than a decorative whole-system diagram.",
+        "The Python snippet uses real Python syntax and agreed delivery_id behavior; any illustrative helper is identified as illustrative rather than a required public API.",
+        "Atomicity or the check/apply race is explicitly left unresolved rather than claimed solved by the example.",
+        "The response does not invent mandatory payload fields, database technology, retry intervals, or audit contracts, and leaves agenda items 2 and 3 for later.",
+        "The run creates no design artifacts or final decision and does not require agenda approval again."
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "Treat the supplied fixture root as the project root. 외부 문서 output/replay-guide/replay-guide.md의 첫 문장만 'The platform facilitates the utilization of manual replay.'에서 'Operators can manually replay a delivery.'로 다듬어라. 의미는 같다. 제목, slug, 대상 독자, 승인된 재전송 규칙, 기존 링크, 내부 source map은 유지한다. 이 문장 수정은 승인됐으며 전체 재작성, 새로운 게시, 설계 재논의는 하지 않는다.",
+      "expected_output": "A scoped wording-only publication correction with Humanizer and local fidelity/leak/link/source-map checks, preserving current provenance and substantive content.",
+      "files": ["evals/fixtures/publication-wording/design/5-detailed-design/worker/design.md", "evals/fixtures/publication-wording/output/replay-guide/replay-guide.md", "evals/fixtures/publication-wording/output/replay-guide/internal-source-map.md"],
+      "expectations": [
+        "The requested sentence is replaced in place; the title, remaining paragraphs, replay rule, provider link, and output slug are unchanged.",
+        "The transcript shows successful use of humanizer scoped to the changed wording, not a mandatory full-document rewrite.",
+        "The transcript or file inspection demonstrates scoped meaning-fidelity and internal-leak checks plus preservation of the existing link and source-map mapping.",
+        "The source map remains private, usable, and current with its existing primary document, source path, and revision; no source metadata leaks into the primary document.",
+        "The run does not manufacture a new revision, stale status, design decision, publication slug, or external publish action for a wording-only change."
+      ]
     }
   ]
 }

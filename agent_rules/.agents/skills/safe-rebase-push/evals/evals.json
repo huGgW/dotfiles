@@ -62,13 +62,14 @@
     },
     {
       "id": 6,
-      "prompt": "I approved rebase of the current branch onto fork/main and a force-with-lease update of fork/feature. After validation, fork/main changes from the fetched target OID to another commit just before push.",
-      "expected_output": "A stop that reports the moved target and does not refresh the target snapshot or push.",
+      "prompt": "I approved rebase of the current branch onto fork/main and a force-with-lease update of fork/feature. After validation, fork/main advances from the fetched target OID to another commit just before push; fork/feature remains at expected_destination_oid and the current branch remains at result_oid.",
+      "expected_output": "A pre-push recheck that records the old and new target OIDs, keeps the original fixed target_oid, proceeds with the exact-OID force-with-lease push if all other checks pass, and prominently warns in the completion report that the result may not include newer target commits.",
       "files": [],
       "expectations": [
         "The response re-reads the remote target and destination immediately before push.",
-        "The response stops when target OID differs from the fixed target_oid, even if the destination has not moved.",
-        "The response does not silently fetch, rebase again, refresh the lease, or use --force.",
+        "The response does not stop solely because the target OID differs from the fixed target_oid; it records both target OIDs and retains the original target_oid.",
+        "With destination unchanged and current branch still at result_oid, the response proceeds with result_oid and the original explicit full-ref expected_destination_oid lease, without silently fetching, rebasing again, refreshing the lease, or using --force.",
+        "The completion report prominently warns that the result uses the earlier target and may not include newer target commits.",
         "No real external remote is used in the evaluation."
       ]
     },
@@ -106,6 +107,18 @@
         "The response inventories and preserves notes.txt and does not clean, move, stage, commit, or stash it.",
         "The response stops if Git reports that an untracked path would be overwritten.",
         "The response confirms pre-existing untracked files remain after rebase and reports rather than deletes any new untracked validation output."
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "I approved a rebase onto fork/main and a force-with-lease push to fork/feature. Validation succeeded, but the pre-push check finds fork/feature advanced from expected_destination_oid to another commit while fork/main and my current branch remain unchanged. Push now using the same lease.",
+      "expected_output": "A stop before push that reports the old and new destination OIDs and leaves the recorded expected_destination_oid lease unchanged, without overwriting the newer remote commits.",
+      "files": [],
+      "expectations": [
+        "The response re-reads fork/feature from the named push remote's recorded push URL and full ref before push.",
+        "The response stops before push when the destination differs from expected_destination_oid, even though the target and current branch have not moved.",
+        "The response reports both destination OIDs and does not refresh the lease, use an implicit lease or --force, or overwrite the new remote commits.",
+        "No real external remote is used in the evaluation."
       ]
     }
   ]
