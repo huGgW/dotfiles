@@ -1,35 +1,21 @@
-# ZPLUG
-if [ -d /opt/homebrew/opt/zplug ]; then
-    export ZPLUG_HOME=/opt/homebrew/opt/zplug
-    source $ZPLUG_HOME/init.zsh
-elif [ -d /usr/share/zsh/scripts/zplug ]; then
-	source /usr/share/zsh/scripts/zplug/init.zsh
-	export ZPLUG_HOME=~/.zplug
-elif [ -d ~/.zplug ]; then
-	export ZPLUG_HOME=~/.zplug
-	source $ZPLUG_HOME/init.zsh
-fi
+### ZINIT
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
 
-zplug "zsh-users/zsh-autosuggestions"
-zplug "zdharma-continuum/fast-syntax-highlighting"
-zplug "caarlos0/zsh-git-sync"
-zplug "Aloxaf/fzf-tab"
+# Load plugins
+# zinit ice wait"0" lucid depth=1 pick"deja.plugin.zsh"
+# zinit light Giammarco-Ferranti/deja
 
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    if __is_interactive; then
-        printf "Install? [y/N]: "
-        if read -q; then
-            echo; zplug install
-        fi
-    else
-        # Non-interactive: skip install to avoid blocking
-        echo "zplug: skipping install in non-interactive mode"
-    fi
-fi
+zinit light zsh-users/zsh-autosuggestions
+zinit light "zdharma-continuum/fast-syntax-highlighting"
+zinit light "caarlos0/zsh-git-sync"
+zinit light "Aloxaf/fzf-tab"
 
-# Then, source plugins and add commands to $PATH
-zplug load
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh"
+zinit light starship/starship
 
-# starship
-eval "$(starship init zsh)"
+### _ZINIT
