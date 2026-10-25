@@ -100,20 +100,17 @@
     ],
     "plugins": [
         "@tarquinen/opencode-dcp@latest",
-        // Disabled for OpenCode v2 compatibility: still uses the v1 plugin API.
-        // "@mohak34/opencode-notifier@latest",
-        // "opencode-betterglob",
-        // "opencode-bettergrep",
         {
             "package": "@plannotator/opencode@latest",
             "options": {
                 "workflow": "manual"
             }
         },
-        // Disabled for OpenCode v2 compatibility: v2 support is not confirmed.
+        "oh-my-opencode-slim",
+        // Disabled for OpenCode v2 compatibility.
+        // "@mohak34/opencode-notifier@latest",
         // "@slkiser/opencode-quota",
         // "@sunerpy/opencode-kiro-auth",
-        "oh-my-opencode-slim",
     ],
     "default_agent": "orchestrator",
     "agents": {

@@ -24,7 +24,7 @@
         ]
       },
       "librarian": {
-        "model": "openai/gpt-6-luna",
+        "model": "openai/gpt-6-luna-fast",
         "variant": "high",
         "skills": [
           "*"
@@ -34,7 +34,7 @@
         ]
       },
       "explorer": {
-        "model": "openai/gpt-6-luna",
+        "model": "openai/gpt-6-luna-fast",
         "variant": "high",
         "skills": [
           "*"
@@ -64,7 +64,7 @@
         ]
       },
       "verifier": {
-        "model": "openai/gpt-6-luna",
+        "model": "openai/gpt-6-luna-fast",
         "variant": "high",
         "skills": [
           "*"
@@ -74,7 +74,7 @@
         ]
       },
       "fixer": {
-        "model": "openai/gpt-6-luna",
+        "model": "openai/gpt-6-luna-fast",
         "variant": "high",
         "skills": [
           "*"
