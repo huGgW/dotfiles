@@ -26,7 +26,7 @@ Without backpressure, the main agent produces patches and asks the human to catc
 mistakes. That creates low-quality handoffs and makes the human an expensive
 clipboard between automated systems.
 
-With backpressure, the flow becomes:
+For local implementation, the default flow becomes:
 
 ```text
 Goal
@@ -39,6 +39,7 @@ Goal
 -> One fresh independent whole-changeset reviewer covers applicable lenses
 -> Final correctness decision
 -> Optional declared after-final actions
+-> Selected CI and PR feedback observations when applicable
 -> Final evidence bundle reaches the human
 ```
 
@@ -66,3 +67,15 @@ scope:
 
 That narrower scope keeps the skill composable and prevents it from becoming a
 large all-purpose automation layer.
+
+`routing.md` also permits entry at an existing PR or directly at CI/feedback
+observation. Choose only capabilities needed for the goal. An observation-only
+handoff need not manufacture a patch or local review, and does not claim the whole
+candidate is correct. Required outcomes remain binding; active capability,
+required outcome, and exact mutation authority are separate decisions.
+
+Keep the recipe and current evidence, not numeric call/repair budgets or a node
+ledger. Stop unchanged failures and recurring fruitless repairs instead of
+restarting the same loop with new names. External waits use a persistent deadline
+and host events/checkpoints, not a monitoring daemon. Existing PNG/Excalidraw
+diagrams are legacy local-route illustrations, not current routing policy.

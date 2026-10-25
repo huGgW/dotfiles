@@ -372,6 +372,66 @@
         "The recommendation restores the original short-circuit chain or ordered early guards with lazy predicates at the original decision points, preserving evaluation order/count, side effects, exception timing and null safety without eager arrays, opaque helpers or a new framework/class.",
         "Severity follows concrete null and persisted-effect impact, the uncovered rejection paths are identified without fabricating a test run, and the report remains bounded to correctness, read-only and advisory without an approval verdict."
       ]
+    },
+    {
+      "id": 32,
+      "prompt": "Review only the staged export/preview.ts:18-41, migrations/042_preview_history.sql, and focused tests with correctness and architecture/maintainability lenses. Authoritative user decision D-12 approves a read-only export preview and explicitly excludes persisting preview data or adding retention policy. The inspected diff returns the correct preview but also inserts the full customer payload into a new preview_history table on every GET and configures 90-day retention. The implementer says history makes debugging easier; newly added tests assert the inserts and expiry. No active decision supersedes D-12 and no existing contract requires history. Identify evidence-based issues without editing or redesigning the feature.",
+      "expected_output": "A proportionate finding for explicit implementation scope overreach despite correct preview output, grounded in D-12 and the added persistence/retention behavior rather than inventing a runtime failure.",
+      "files": [],
+      "expectations": [
+        "A finding cites D-12, export/preview.ts:18-41, the migration, and 90-day retention as a concrete contradiction of the approved read-only and no-persistence scope.",
+        "The report does not treat debugging rationale or newly added history tests as authorization and explains the actual added storage/retention responsibility without fabricating data loss or an exploit.",
+        "The recommendation restores the approved preview-only behavior and identifies history/retention as requiring a separate material decision, not an implicitly approved feature.",
+        "Severity is proportionate to the evidenced scope/compliance impact, and the report remains within the supplied lenses and paths, read-only and advisory without a new gate or approval verdict."
+      ]
+    },
+    {
+      "id": 33,
+      "prompt": "Directly review the supplied static reports/RecentReports.ts snapshot with its schema, all callers, and focused tests. The implementation reads an existing report-history table, applies its verified 30-day retention contract, and returns the existing internal report shape. Actual code, schema, callers, and boundary tests are all available and consistent; no defect or contradiction is evidenced. No original feature approval conversation, acceptance criteria, or design_rationale was provided. A teammate says every persistence use must be reported as unauthorized unless the author produces approval records. Infer only suitable bounded lenses and return a read-only review, not a requirements audit.",
+      "expected_output": "A complete bounded direct review with no findings, not an accusation or incompletion solely because original approval records are absent.",
+      "files": [],
+      "expectations": [
+        "The report states COMPLETE and No findings within the supplied scope on the supplied inspected evidence.",
+        "The report does not infer unauthorized persistence from absent original approval records or demand a new approval schema, acceptance document, or mandatory gate.",
+        "Coverage identifies the verified existing storage, retention, caller, and test contracts without inventing new product requirements or claiming an unseen approval.",
+        "The report remains read-only and bounded with capability metadata and no approval verdict."
+      ]
+    },
+    {
+      "id": 34,
+      "prompt": "Review staged accounts/debit.ts:30-55 and its tests with correctness and reliability lenses. Approved AC-4 requires one debit per stable request key. The diff removes use of the existing RequestLedger.executeOnce and now debits on each retry; inspected replay tests demonstrate two debits for the same key. Inspected RequestLedger implementation, schema, callers, concurrent tests, and rollback tests prove it owns a unique request-key constraint and atomically performs the debit in the same database transaction, satisfying AC-4 without new storage. No external message delivery is involved. A previous review suggestion says 'reliable systems need an outbox' and asks for a new outbox table/service because it is easier to mock. No approved decision requires those additions. Report the real defect and a bounded recommendation without edits.",
+      "expected_output": "A concrete duplicate-debit finding recommending restoration of the suitable established atomic request-ledger mechanism and required replay guarantees, not a new outbox/table/service mandate.",
+      "files": [],
+      "expectations": [
+        "The finding cites accounts/debit.ts:30-55, AC-4, removed RequestLedger usage, and the evidenced duplicate debit on replay.",
+        "The recommendation describes one atomic debit per stable key with rollback and concurrent replay safety and prefers the verified suitable RequestLedger.executeOnce mechanism.",
+        "The report does not mandate an outbox, new table, or service from a reliability slogan, mock convenience, or prior reviewer suggestion and does not treat that suggestion as authorization.",
+        "The report preserves meaningful idempotency safeguards, uses concrete-impact severity, and remains scoped, read-only and advisory with capability metadata."
+      ]
+    },
+    {
+      "id": 35,
+      "prompt": "Apply architecture/maintainability, reliability, and simplicity to staged jobs/JobStore.ts, migrations/043_job_receipts.sql, and their tests. Active user-approved decision J-8 explicitly requires a new durable job-receipt table with seven-day retention and an expand/backfill/dual-read migration until adoption is complete. The inspected implementation matches those boundaries, retains the old read path at 65% adoption, and tests retention, restart recovery, and migration rollback. No duplicate suitable existing store or other defect is evidenced. A colleague says adding any table is scope overreach and suggests deleting both storage and dual reads because the in-memory happy path works. Review without changing the approved design.",
+      "expected_output": "No storage or migration deletion finding: preserve explicitly approved durable receipts, retention, and staged migration safeguards.",
+      "files": [],
+      "expectations": [
+        "The report says No findings within the supplied scope and recognizes J-8 as active authorization for the new table and seven-day retention.",
+        "Coverage preserves restart recovery, backfill/dual reads at 65% adoption, rollback, and retention as load-bearing approved behavior.",
+        "The report does not classify every new mechanism as overreach, demand removal for line-count or happy-path simplicity, or reopen the approved storage decision.",
+        "The report retains bounded lens coverage, capability metadata, read-only advisory status, and no approval verdict."
+      ]
+    },
+    {
+      "id": 36,
+      "prompt": "Review staged delivery/accept.ts:22-49 with reliability and architecture/maintainability lenses. The established public API and deployed contract promise that after 202 Accepted a delivery survives process restart and remains retryable until acknowledged. The diff replaces the durable queue handoff with an in-memory list and returns 202; an inspected restart reproduction loses accepted work. The currently installed durable broker API already provides acknowledged persistent enqueue and stable-key deduplication, with inspected callers/tests proving these properties. Acceptance may wait for its acknowledgement under the public latency contract; no atomic database write accompanies this endpoint. Separately, the implementer proposes a new SQL outbox retained forever and a polling service; no decision approves that storage/retention/architecture change, and the broker's permanent-loss recovery contract cannot be inspected. Do not weaken established restart durability to avoid scope expansion or silently authorize the proposed architecture.",
+      "expected_output": "A real restart-durability finding preserving the established acceptance guarantee, preferring the verified broker mechanism and separately labeling the proposed SQL outbox/retention decision and unavailable permanent-loss evidence.",
+      "files": [],
+      "expectations": [
+        "The finding cites delivery/accept.ts:22-49, the established 202 durability contract, and the restart loss reproduction rather than a generic reliability concern.",
+        "The recommendation requires durable acknowledged acceptance and replay safety, prefers the suitable verified broker mechanism, and does not remove the durability requirement in the name of simplicity or scope control.",
+        "The new SQL outbox, forever retention, and polling service are identified as a material unapproved decision if discussed, not mandated or treated as authorized by the finding; the report does not categorically ban a new mechanism if later evidence proves it necessary.",
+        "Unavailable permanent-loss recovery evidence is a specific unverified area or focused clarification rather than an invented guarantee; the report retains fixed lenses, scope, read-only advisory authority, and no approval verdict."
+      ]
     }
   ]
 }

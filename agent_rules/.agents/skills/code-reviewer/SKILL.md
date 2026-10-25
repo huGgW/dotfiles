@@ -79,6 +79,8 @@ Resolve obvious current context rather than always asking for branch names. Ask 
 
 - Evaluate active decisions and acceptance criteria; do not revive superseded decisions.
 - Respect forbidden scope and ownership boundaries.
+- Within the agreed scope and lenses, trace material added product behavior, domain policy, persistence/retention, public contracts, or major architecture choices to actual user requirements, active approved decisions, or verified established contracts. Implementer rationale, newly added tests, and reviewer recommendations do not authorize those choices. If the implementation contradicts explicit approved scope, report the evidenced violation with proportionate impact even when its behavior works.
+- Missing approval context alone is not proof of unauthorized work and does not make an ordinary direct review incomplete. When uncertainty about a material decision affects reliable review, ask a focused question or record the specific unverified area under the existing completion contract; do not invent requirements, a new lens, or an approval gate.
 - Treat public API, compatibility, migration, security, accessibility, and operational constraints as load-bearing when the supplied context or repository evidence establishes them.
 - Re-check prior findings against the current subject. Preserve the ID for the same underlying issue, even if surrounding line numbers changed, and do not renumber retained findings because another finding was resolved.
 - A prior disposition is context, not proof. Report contrary current evidence without silently reopening unrelated scope.
@@ -165,6 +167,8 @@ Every finding must include:
 - Relevance to supplied decisions or acceptance criteria, or `not supplied`.
 
 Do not claim a line was reviewed if only metadata or a summary was available. Distinguish facts from inferences and state the condition required for an inferred impact.
+
+Recommend the required behavior and failure guarantees, preferring a suitable established mechanism. Do not mandate an outbox, new table, or service merely from a general reliability slogan or test convenience. A new mechanism may be necessary when concrete failure evidence and established contracts rule out suitable existing mechanisms; identify any material unapproved persistence, retention, policy, public-contract, or architecture decision it would require rather than imposing it or treating the recommendation as authorization. Preserve load-bearing safeguards and approved migrations.
 
 For DTO or convention findings, cite actual callers, mappings, and contracts or the specific established rule and comparable examples. Explain why the smaller or established alternative preserves the requirements; absent evidence is a verification gap, not permission to guess.
 

@@ -1,269 +1,116 @@
-# Structure Rules
+# Workspace and Change Rules
 
-Rules for naming, organizing, and managing the design directory tree.
+## Organize for Readers, Not Process Compliance
 
----
+Preserve the project's established locations. For new work, the optional default
+roots are sibling `design/`, `meeting/`, `external/`, `output/`, and `issues/`.
+Create a root or file only when it has useful content. The following is an
+illustration, not a scaffold to generate:
 
-## Directory Naming
-
-| Type | Convention | Examples |
-|------|-----------|----------|
-| Phase directories | Number prefix + kebab-case | `1-problem-definition/`, `2-research/`, `3-solution-concept/`, `4-high-level-design/`, `5-detailed-design/` |
-| Component directories | kebab-case (descriptive name) | `auth-service/`, `order-service/`, `payment-gateway/` |
-| Decision area directories | kebab-case (topic name) | `communication/`, `data-strategy/`, `deployment/` |
-| Special directories | Reserved names | `cross-cutting/`, `interfaces/`, `options/` |
-
-## File Naming
-
-| Type | Convention | Examples |
-|------|-----------|----------|
-| Reserved files | Fixed names | `index.md`, `log.md` |
-| Operational concept files | Fixed names | `plan.md`, `decisions.md` |
-| Content files | kebab-case | `problem-statement.md`, `goals.md`, `concept.md`, `operating-model.md`, `architecture-overview.md`, `domain-model.md`, `design.md` |
-| Option files | `option-{letter}-{short-name}.md` | `option-a-event-driven.md`, `option-b-rest.md` |
-| Research files | Topic name | `event-sourcing.md`, `database-per-service.md` |
-
-`index.md` and `log.md` are OKF reserved navigation/update files and do not need ordinary concept frontmatter. `plan.md`, `decisions.md`, and all other non-reserved Markdown artifacts are OKF concept documents and should include YAML frontmatter.
-
----
-
-## Phase 3 Structure Rules
-
-Phase 3 (Solution Concept) is intentionally lighter than the structural phases. It always contains the core artifacts and only adds an option-decision branch when there are competing big-picture directions.
-
-### Required Structure
-
-```
-3-solution-concept/
-├── index.md
-├── concept.md
-├── operating-model.md
-├── principles.md
-├── options/                       # only when competing big-picture directions exist
-│   ├── option-a-{name}.md
-│   └── option-b-{name}.md
-└── decision.md                    # paired with options/
+```text
+design/
+  index.md                  # useful navigation when multiple topics exist
+  plan.md                   # short resume checkpoint
+  delivery.md               # current selected-scope design
+  domain-model.md           # shared concepts, ownership, invariants, vocabulary
+  contracts/delivery.md      # one authoritative shared contract
+  decisions.md              # optional important decision memory
+meeting/
+  2026-10-19-delivery-review.md
+external/
+  partner-delivery-contract.md
+output/
+  delivery-review.md         # one-off purpose-specific brief
+  delivery-handoff/
+    delivery-handoff.md
+    internal-source-map.md  # useful for independently maintained/shared output
+issues/                     # only when persistent issue handoff is requested
 ```
 
-### When to Add Concept-Level Options
-
-Add `options/` and `decision.md` to Phase 3 only when there are genuinely competing **big-picture directions** — different concepts of what the system fundamentally is or how it operates. Examples:
-
-- Real-time streaming product vs scheduled batch product
-- Single-tenant vs multi-tenant from day one
-- Product (end-user-facing) vs platform (developer-facing API)
-- Push-based vs pull-based interaction model
-
-Do **not** create options for:
-- Architecture-style choices (REST vs gRPC, etc.) → Phase 4
-- Technology choices (Postgres vs DynamoDB, etc.) → Phase 4
-- Component-internal choices → Phase 5
-
-### Option Artifact Rules (Phase 3)
-
-The same general rules apply as in Phase 4 / Phase 5:
-- Discuss candidate directions in conversation before creating option files.
-- After the user agrees on the candidate set, create exactly one file per candidate direction under `options/`.
-- `index.md` should summarize purpose, children, and status; it may link to option files but must not replace them.
-- `decision.md` should reference option files and explain the final rationale; it should not duplicate full option analysis.
-
----
-
-## Phase 4 Structure Rules
-
-### Determining Decision Areas
-
-| Condition | Structure | Example |
-|-----------|----------|---------|
-| No skeleton-level decisions to make | Just `architecture-overview.md` + `domain-model.md` | Project where the concept is concrete enough that the structure follows naturally |
-| One dominant skeleton-level decision | Flat `index.md` + `options/` + `decision.md` alongside the overview/model | Project where one structural choice dominates |
-| 2+ independent skeleton-level decisions | Multi (decision area subdirectories) | Microservices platform with communication, data, deployment choices |
-
-### Skeleton-Level Decision Test
-
-A question belongs in Phase 4 only if **changing it later would ripple across multiple components**. Examples of skeleton-level decisions:
-
-- Synchronous vs asynchronous communication style across services
-- Centralized vs distributed data ownership
-- Deployment topology (monolith vs services, regional vs global)
-- Authentication / identity propagation strategy
-- Event schema / contract evolution policy
-
-If the question stays inside a single component, push it to Phase 5.
-
-### Multi-Decision Guidelines
-
-- Each decision area gets its own subdirectory with `index.md`, `options/`, and `decision.md`
-- `architecture-overview.md` and `domain-model.md` at Phase 4 root are always required, regardless of whether decision-area subdirectories exist
-- Decision areas should be **independent** — if two decisions are tightly coupled, merge them into one area
-
-### Option Artifact Rules (Phase 4)
-
-- Discuss candidate directions in conversation before creating option files.
-- After the user agrees on the candidate set, create exactly one file per candidate direction under `options/`.
-- Do not store full option descriptions only in `index.md`, `architecture-overview.md`, `domain-model.md`, or `decision.md`.
-- `index.md` should summarize purpose, children, and status; it may link to option files but must not replace them.
-- `decision.md` should reference option files and explain the final rationale; it should not duplicate full option analysis.
-- If the user introduces a new option later, add the next lettered option file (for example, `option-d-workflow-engine.md`) and re-evaluate it alongside the existing options.
-
-Required structure for a decision area:
-
-```
-{decision-area}/
-├── index.md
-├── options/
-│   ├── option-a-{name}.md
-│   ├── option-b-{name}.md
-│   └── option-c-{name}.md
-└── decision.md
-```
-
----
-
-## Phase 5 Special Directories
-
-### Recursive Decision Structure
-
-When a Phase 5 component needs a local design decision, use the same option artifact rules as Phase 4. A component-level alternative becomes a local sub-decision only when:
-
-1. The options differ in architecture, data ownership, interface contract, operational model, scalability, security, cost, or delivery risk, **and**
-2. Choosing wrongly would block or invalidate work-issue creation for this component.
-
-If the alternatives are genuinely interchangeable from a work-planning perspective, defer the choice to the actual work — do not spawn a sub-decision tree for it.
-
-```
-{component}/
-├── index.md
-├── design.md
-└── {sub-decision}/
-    ├── index.md
-    ├── options/
-    │   ├── option-a-{name}.md
-    │   └── option-b-{name}.md
-    └── decision.md
-```
-
-Only write or update the parent `design.md` with the selected direction after the user explicitly confirms the local decision and the local `decision.md` exists. If no decision has been made, record it under `Open Decisions` in `design.md` instead of presenting a tentative direction as final. `design.md` may summarize and link to option files, but must not be the only place where substantive option details are recorded.
-
-### `cross-cutting/`
-
-**Purpose**: Design **policies** that span multiple components.
-**When to create**: When 2+ components share a concern that doesn't belong to any single component.
-
-Examples:
-- `security.md` — authentication/authorization strategy across all services
-- `observability.md` — logging, metrics, tracing standards
-- `error-handling.md` — error handling patterns and standards
-- `data-flow.md` — end-to-end data flow design (common in ML/pipeline systems)
-
-### `interfaces/`
-
-**Purpose**: Design **contracts** between components.
-**When to create**: When components need explicit agreements on data exchange formats.
-
-Examples:
-- `api-contracts.md` — REST/gRPC interface specifications
-- `event-schemas.md` — async event schemas and topics
-- `data-formats.md` — shared data format definitions
-
-### When NOT to create these directories
-
-- Small projects with 2-3 components where cross-cutting concerns are obvious
-- Projects where all components use the same technology stack with built-in conventions
-- When the information fits naturally within individual component `design.md` files
-
----
-
-## Depth Management
-
-### Policy
-
-- **No hard depth limit.** Design depth follows the complexity of the problem.
-- **At 4+ depth**, review the deep branch's structure and propose compression if useful; do not reread the entire tree by default.
-- **Compression requires user consent.** Never restructure without explicit approval.
-
-### Compression Strategies
-
-| Strategy | When to Apply | Example |
-|----------|--------------|---------|
-| **Leaf merge** | Multiple small leaf files covering closely related topics | Merge `jwt-validation.md` + `jwt-refresh.md` + `jwt-revocation.md` → `jwt-token-management.md` |
-| **Directory flattening** | Intermediate directory with only 1-2 children | Remove `token-management/` if it only contains `design.md` — move content up to parent |
-| **Summary consolidation** | Deep branch that can be summarized without losing critical detail | Replace 3-level deep sub-tree with a single comprehensive `design.md` that covers all sub-components |
-
-### Compression Proposal Format
-
-When proposing compression to the user:
-1. Show the current tree structure
-2. Show the proposed compressed structure
-3. Explain what information would be consolidated
-4. Confirm no critical detail would be lost
-
----
-
-## Non-Greenfield Projects
-
-For migration or evolution projects (non-greenfield):
-
-- Add `as-is-analysis.md` to Phase 1 deliverables
-  - Documents the current system's architecture, components, technology, and pain points
-  - Serves as the baseline for understanding what exists before designing what comes next
-- Phase 2 research should include current-codebase analysis when the repository is available and relevant, alongside any external research
-- Phase 3 (Solution Concept) should explicitly capture how the new system relates to the old one (replacement, parallel run, gradual migration, etc.) in `concept.md` or `operating-model.md`
-- Phase 5 decomposition may use different units depending on the project nature:
-  - Migration: wave-based (`wave-1-auth/`, `wave-2-orders/`)
-  - Evolution: change-area-based (`api-layer-refactor/`, `db-migration/`)
-  - The appropriate decomposition unit is determined during Phase 4
-
----
-
-## Invalidation Tracking
-
-When a Phase is revisited and design meaning changes, check the changed portion and direct dependencies. Follow relevant contracts onward only while impact continues; formatting-only edits do not invalidate downstream content.
-
-### Recording Changes
-
-Add an entry to `log.md` only for design-impacting changes with:
-- Date of change
-- Which Phase was revisited
-- What changed
-- Why (reason/source)
-- Source: `Internal discovery` or `External feedback` (with meeting/review details)
-- Known affected artifacts in downstream Phases; extend this set as impacts are discovered
-
-Do not add log entries for typo fixes, formatting-only edits, link cleanup, or wording changes that do not alter meaning.
-
-### Marking Affected Documents
-
-Mark outstanding or unverified affected documents without displacing required frontmatter. Documents updated and checked in the same task need no transient add/remove marker:
-
-- For non-reserved concept documents, place the marker immediately after the closing frontmatter delimiter `---`.
-- For reserved `index.md` and `log.md`, place the marker under the title or at the top of the body.
-
-```markdown
-> ⚠️ This document needs update due to: {change description} (see log.md YYYY-MM-DD)
-```
-
-Remove an existing marker only after the relevant update and fidelity/dependency check succeed. An update alone is not enough; retain markers for outstanding or unverified work.
-
-### Cascade Check
-
-After a meaning change, inspect direct dependencies and propagate only if their relevant contracts are affected. These phase relationships indicate possible impact, not a mandate to audit every downstream file:
-- Phase 1 change → may affect Phase 2, 3, 4, 5
-- Phase 2 change → may affect Phase 3, 4, 5
-- Phase 3 change → may affect Phase 4, 5 (concept and principles propagate)
-- Phase 4 change → may affect Phase 5
-- Phase 5 component change → may affect `interfaces/`, other dependent components
-
-Record the known affected set at a meaningful checkpoint and extend it as discovered. A complete dependency graph is not a prerequisite to updates. Include mapped publication impact according to `publication-guide.md`; keep meaningful change history without micro-update entries.
-
-### Log Compaction
-
-Periodically compact `log.md` after major phase transitions, long sessions, or after all affected artifacts from older changes have been updated.
-
-Use these rules:
-- Keep entries that still affect open decisions, unresolved cascade checks, downstream artifacts, or stakeholder accountability.
-- Summarize related old entries into one line when their detailed sequence no longer matters.
-- Move detailed historical entries to `archive/log-YYYY-MM.md` only when the user agrees or the project already uses archives.
-- Remove trivial entries for typo, formatting, link cleanup, or wording-only changes unless meaning changed.
-- Never remove entries that explain why a major direction changed, why an option was rejected, or which external feedback caused a revisit.
-- Before adding or keeping a meta entry, ask: “Will this help a future session resume, revisit, or validate the design?” If not, omit or compact it.
+- Use descriptive kebab-case names. Date-topic meeting names aid retrieval.
+- Do not mandate phase directories, option files, indexes at every level, or a
+  log. A root navigation index should link rather than repeat design rationale.
+- Split by independent reader need or maintenance ownership, not fixed depth.
+  Keep small comparisons inline. Separate extensive alternatives only when useful.
+- Shared `contracts/`, `interfaces/`, or `cross-cutting/` directories are optional;
+  use whichever existing home owns the common definition. Avoid dual authority.
+- All managed Markdown follows minimal current OKF, including checkpoint, meeting,
+  external reference, output, source-map, and local issue docs. Reserved filenames
+  keep reserved semantics. Raw originals remain unchanged.
+
+## Resume Existing Trees Non-Destructively
+
+1. Read existing `plan.md` and useful navigation, if present. Locate the selected
+   agenda, current shared owners, unresolved questions, and next useful action.
+2. Preserve numbered trees such as `4-high-level-design/` and `5-detailed-design/`.
+   Their names do not impose a sequential workflow. Do not move, rename, flatten,
+   or regenerate them simply to match new defaults.
+3. Restore only the selected agenda's documents and relevant contracts. Distinguish
+   the documented target, drafts, and evidenced implementation; old completion
+   checkboxes are not proof of implementation.
+4. Continue an already authorized task without another phase/list confirmation.
+   Ask only when authority, choice, scope, or conflicting evidence is material.
+5. At a useful checkpoint, shorten resume-only clutter without deleting important
+   decision/history content. Preserve existing histories and unknown metadata.
+   Propose a separate authorized migration if restructuring would help; never
+   silently migrate metadata or discard content as cleanup.
+
+If no checkpoint exists, use the supplied context/current docs and create a short
+one when it helps continuation. Do not invent prior consensus to fill it.
+
+## Concurrent Agenda Memory
+
+Keep a compact row per live agenda in `plan.md`: selected scope, design status,
+owner if known, current document/shared contract links, open question, next action.
+Detailed discussion stays in its topic home. A paused agenda can resume without
+reloading unrelated branches. Remove completed resume clutter once durable
+outcomes live in their owning documents; do not convert the checkpoint to a
+backlog or execution-status database.
+
+## Important Decisions Have One Rationale Home
+
+Record significant choices, including the initial one: costly/irreversible
+commitment, shared boundary/data ownership, security/regulation, operations,
+important contract, delivery-sensitive reversal, or recurring contentious tradeoff.
+Keep decision, why, consequences, related docs, and supersession where relevant.
+
+A compact local section, a dedicated decision document, or `decisions.md` can own
+the record. Choose one; an optional catalog only links/summarizes. Do not duplicate
+the comparison in local, central, and change-log records. Preserve existing logs;
+do not create new chronological machinery for ordinary corrections. Git history
+alone is not the rationale for important choices.
+
+## Proportional Change Handling
+
+1. Identify the authorized changed meaning and owning design. A meeting note,
+   outside update, or output comment is input, not automatic adoption.
+2. Apply the change and compare it once against the authorized input. Preserve
+   scope, obligations, numbers, rationale, uncertainty, and unrelated content.
+3. Inspect direct dependents whose relevant meaning could change: shared model,
+   contract consumers, linked output sections, and affected existing tickets.
+   Continue only while impact continues; no full graph or full-tree audit needed.
+4. For renames/moves, check affected links and source mappings. Do not silently
+   restructure existing paths without authorization.
+5. Update affected current docs within authorized scope; surface conflicts with
+   in-progress implementation contracts rather than silently rewriting them.
+   Remote ticket edits require separate explicit authorization.
+6. Leave a clear outstanding-work note only for unresolved/unverified affected
+   content. Place concept notes after frontmatter, reserved-file notes under the
+   title/body top. Remove an existing note only after its relevant check succeeds.
+
+Formatting/wording changes with unchanged meaning do not invalidate dependents.
+Preserve existing metadata/source maps during a scoped correction; do not trigger
+an unrelated migration or transient stale/add/remove cycle. Substantial new output
+needs its purpose-specific checks, not a global design audit.
+
+## Outside Inputs Without Sync Infrastructure
+
+- Meeting notes retain source locator/context and separate reported/verified,
+  proposed/authorized, conflicting/open, and applied/remaining items as needed.
+- External references retain the outside owner and canonical locator. Decide
+  whether the input is one-off or recurring; checkpoint only to detect useful
+  deltas. Compare changed meaning rather than copying the same update repeatedly.
+- Keep one source home and link from other agendas. Mark snapshots as snapshots
+  and preserve original authority; do not count mirrors as independent evidence.
+- No default per-platform sync system, full snapshots, automatic fetches,
+  scheduled jobs, tracker bookkeeping, or permission inferred from "periodic".

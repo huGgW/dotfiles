@@ -1,0 +1,7 @@
+Delivery-team meeting result, 2026-10-19; chair and contract owner: Mina
+Authorized agreement: provider request timeout changes from 3 to 8 seconds.
+Do not change automatic retry limit; five attempts remains agreed.
+Proposal only: partner's seven-attempt policy requires a separate delivery-team discussion.
+Unresolved: timeout validation in the production-like sandbox; owner Arun.
+Authorized local application: provider contract and resume checkpoint only, plus meeting record.
+No code implementation, deployment, remote posting, or runtime test was authorized or performed.

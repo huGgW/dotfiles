@@ -1,21 +1,23 @@
 # Active Contract And Identity
 
-Use one `BACKPRESSURE.md` as the manager-owned current summary. A Lite rendered
-contract normally needs 40–60 lines; Standard 60–100. These are editing targets,
-not limits on meaningful safety context. Omit unused sections, placeholder rows,
-empty tables, and duplicated state/evidence/counters. Never omit a relevant
+Use one `BACKPRESSURE.md` as the manager-owned current summary, not an event log.
+Omit unused sections, placeholder rows, empty tables, and duplicated state/evidence.
+Never omit a relevant
 superseded constraint or unresolved external outcome merely to hit a target.
 
 ## Minimal Template
 
 Replace every placeholder with facts; omit inapplicable optional material.
+The template below is for correctness work. An observation-only contract needs
+only goal/scope/stop, thin recipe, required outcomes with current provenance,
+active work/blocker/next action, and applicable unresolved external outcomes.
+Use exact CI/PR revision identities rather than inventing local patch gates.
 
 ```markdown
 # Backpressure Contract
 
 ## Run
 - ID / request: <ID; new|extend|continue; user source; mode reason>
-- Profile: <Lite|Standard|Critical>
 - Root: <repository path>
 - Protected work: <existing staged/unstaged/untracked paths and boundaries>
 
@@ -44,11 +46,9 @@ Replace every placeholder with facts; omit inapplicable optional material.
 - HEAD: <commit SHA recorded separately>
 
 ## Control
-- Phase / stop_after: <current phase; contract|plan|implementation|correctness|
-  publication|handoff|exact action ID>
-- Calls: <used/limit; initial allowance plus unique grants>
-- Repairs: <gate: used/limit>
-- Final reserve: <actual remaining required calls and route>
+- Route / stop_after: <thin recipe; phase or exact action/snapshot occurrence>
+- Required outcomes: <selected requirements; distinguish active from required>
+- Active work / next: <child ID and host lifecycle when applicable; next action>
 - Blockers: <current IDs, missing evidence/decision and owner, or none>
 
 ## Latest Evidence And Coverage
@@ -69,14 +69,15 @@ Add these only when applicable, without creating parallel ledgers:
   wording at its target, not repeated in a second table. Add concise superseded
   meaning/source/replacement when needed to prevent reintroduction. Put unresolved
   semantics and focused questions with current blockers.
-- **Grants:** extension ID/request/delta, added calls/repairs, plan allowance,
-  reconciliation status. Lifecycle owns deduplication/accounting.
-- **Plan review usage:** allowance ID and used/4, when plan review is required.
+- **External observations:** exact CI/check/run/attempt/tested revision or PR
+  snapshot/head provenance, current outcomes and gaps; active CI episode's one
+  absolute deadline (default one hour). See `routing.md`.
 - **Publication:** marked `publication-spec` block listing artifact/check rules,
   requiredness, content/commit identity, and prerequisite action; judgment reviewer
   only when judgment is required. Outside the block record hash and item evidence.
 - **Actions:** ordered manifest and current results per `boundary-actions.md`.
-  Keep attempt count with action evidence once, not in several tables.
+  Retain successful parts, unresolved partial/unknown outcomes, and read-back
+  references; do not maintain an attempt ledger.
 - **Specialized validation:** browser, benchmark, migration, runtime owner and
   required evidence when applicable. Unavailable required validation is a blocker.
 
@@ -91,7 +92,7 @@ reviews/active decision bindings belong inside validation markers.
 Avoid cosmetic edits to a frozen validation block: raw-byte hashing invalidates
 evidence even when meaning is unchanged. Put result/delta updates outside it.
 
-Control, counters, source excerpts, superseded context, and action authority are
+Control, source excerpts, superseded context, and action authority are
 outside. Editing source meaning/authority is a new decision, not wording cleanup.
 Update active decision, superseded meaning, linked normative targets, plan, and
 hash together before work. Conflicting linked fields or an unresolved material

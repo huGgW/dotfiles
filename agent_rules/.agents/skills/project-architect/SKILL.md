@@ -1,382 +1,252 @@
 ---
 name: project-architect
 description: >
-  This skill should be used when the user needs to design a complex,
-  large-scale project that requires systematic decomposition across
-  multiple dimensions. Common requests include "프로젝트 설계해줘",
-  "아키텍처 설계 시작하자", "시스템 설계", "프로젝트 구조 잡아줘",
-  "설계 분해해줘", "새 프로젝트 설계", "대규모 시스템 설계",
-  "architect this project", "design this system",
-  "start project design", "system architecture design".
-  It creates a mindmap-like directory tree
-  of design documents through a five-phase workflow
-  (problem → research → solution concept → high-level design → detailed design)
-  with discussion-first agenda gates, non-linear phase navigation,
-  recursive depth expansion, continuous progress tracking, and standalone
-  publication documents derived from agreed design artifacts when requested.
+  Use for designing and evolving complex projects, keeping a living current
+  design while requirements change and selected parts enter implementation.
+  Triggers include "프로젝트 설계해줘", "아키텍처 설계 시작하자", "시스템 설계",
+  "프로젝트 구조 잡아줘", "설계 분해해줘", "설계 이어서", "architect this project",
+  "design this system", and reconciling meeting or external feedback into an
+  existing architecture. Uses optional, revisitable design lenses, independent
+  agendas, shared domain models and contracts, and scope-specific issue readiness.
+  Supports requested review briefs, explanation/handoff documents, and optional
+  persistent implementation issues without making documents or tickets authority
+  for unapproved choices. Not a mandatory full-project design or execution tracker.
 ---
 
 # Project Architect
 
-## Overview
-
-A structured design skill for complex, large-scale projects that require branching exploration across multiple dimensions. It produces a **mindmap-like directory tree** of design documents, enabling systematic decomposition of complex problems with persistent progress tracking. It uses a **breadth-first, discussion-first, documentation-after-consensus** workflow: agree on the current-level discussion list, cover sibling topics before deepening one branch, then document the agreed outcome and rationale.
-
-The skill organizes design work into **five phases** with progressively narrowing scope:
-**problem definition → research → solution concept → high-level design → detailed design**.
-Each phase has a clear purpose and produces artifacts that feed the next phase, while keeping each phase as light as the project actually needs.
-
-**Use when:**
-- The project is too complex to design in a single document
-- Multiple dimensions need parallel exploration (architecture, data model, API, infrastructure, etc.)
-- Design decisions branch into sub-decisions recursively
-- A persistent, trackable design artifact is needed across sessions
-- An external-facing document must be derived from an existing Project Architect design tree
-
-**Do not use when:**
-- Simple feature addition or bug fix
-- Design fits in a single document (use `document-writer` instead)
-- Task is research-only without design output (use deep research instead)
-
-## Core Concepts
-
-### Mindmap → Directory Mapping
-
-| Mindmap Element | File System | Convention |
-|---|---|---|
-| Central topic | `design/` root | Project-level container |
-| Branch | Directory | Phase: number prefix, component: descriptive name |
-| Node label | `index.md` | Reserved navigation file required in every directory |
-| Leaf | `.md` file | OKF concept document, except reserved `index.md` and `log.md` |
-| Operational info | Root files | `index.md`, `plan.md`, `decisions.md`, `log.md` |
-
-### Artifact Files
-
-| File | OKF Treatment | Role | When to Read |
-|------|---------------|------|-------------|
-| `plan.md` | Concept document | Current operational checkpoint: phase, active agenda, current-level discussion list, unresolved discussion, deferred deep dives, pending candidate set, and next confirmation; not a history log | Every session start |
-| `decisions.md` | Concept document | Central decision log entries that point to local decision artifacts | When referencing prior decisions |
-| `log.md` | Reserved update file | Design-impacting revisit/change history with affected artifacts; compact or archive stale entries | When checking change history |
-| `index.md` | Reserved navigation file | Directory summary: purpose, key decisions, children | When exploring a branch |
-
-### Internal Design vs Publication
-
-- `design/` is the authoritative internal design workspace and follows the five-phase, OKF-compatible structure.
-- `output/` contains external-facing publication views derived from agreed design artifacts only when the user requests them.
-- A publication document is not a sixth design phase and never becomes the source of truth for a design decision.
-- When publication feedback changes the design itself, update the relevant internal design artifacts through the normal consensus workflow before refreshing the publication document.
-
-### OKF-Compatible Artifact Rules
-
-Project Architect artifacts follow an OKF-compatible Markdown structure without turning this skill into an OKF specification copy.
-
-- Consult current OKF / Open Knowledge Format authoring guidance before creating a new artifact set, changing artifact templates, or making non-trivial structural edits. When available, use the `open-knowledge-format` skill and its authoring checklist.
-- Treat `index.md` and `log.md` as reserved navigation/update files. They do not need ordinary concept frontmatter.
-- Treat `plan.md`, `decisions.md`, and all other non-reserved artifact documents as OKF concept documents with YAML frontmatter.
-- For hard OKF conformance, `type` is the only required frontmatter key. Project Architect defaults should also include `title`, `description`, `tags`, and ISO 8601 `timestamp` for practical compatibility and agent navigation.
-- Preserve existing frontmatter keys when editing artifacts created by another producer.
-- When presenting an OKF-compatible template set, include a short authoring note that tells future maintainers to consult current OKF / Open Knowledge Format guidance instead of copying the full OKF specification into Project Architect docs.
-- When creating or presenting OKF-compatible artifact templates, include the invalidation marker placement rule: concept documents keep YAML frontmatter first and put the marker immediately after the closing `---`; reserved `index.md` and `log.md` put the marker under the title or at the body top.
-
-### Discussion → Artifact Mapping
-
-| Stage | Location | Rule |
-|---|---|---|
-| Open exploration | Conversation | Discuss agendas, candidate research topics, factual inputs, candidate directions, tradeoffs, and user-added options before writing final artifacts |
-| Agreed candidate set | `options/*.md` for Phase 3, Phase 4, and recursive Phase 5; relevant Phase file only for non-option agendas | Document only after the user agrees which candidates/topics/goals should be recorded |
-| Final local decision | Relevant `decision.md` or Phase artifact | Write only after explicit user consensus on the direction; this records the agreed outcome and rationale where it belongs |
-| Central decision log | `decisions.md` | Add a compact decision-log entry that points to the local decision artifact; this complements the local final decision and is not interchangeable with it |
-| Summary | `index.md` | Summarize status and links; do not use `index.md` as the only place where option details live |
-
-### Breadth-First Discussion Protocol
-
-Apply this protocol to every internal design Phase, agenda, decision area, and recursive design cycle. It controls the conversation order; it does not reduce the rigor of approved research or design artifacts. It does not apply to publication work based on already agreed design; follow `references/publication-guide.md` without reopening design discussion.
-
-1. **Show the current-level discussion list first** — Before discussing the first item, present the sibling topics in a short ordered list, usually 3–7 items. Give each item a one-line purpose. Do not expand subtopics yet.
-2. **Confirm the list and order** — Let the user add, remove, merge, split, or reorder items before proceeding. One confirmation covers the discussion scope and order only; it does not replace later candidate-set or final-decision gates. Do not require a separate gate for every minor item.
-3. **Complete a first pass across siblings** — Discuss each item at the same level of detail, enough to expose its goal, main choice, constraint, or unknown. Do not follow one branch into nested details while sibling items remain unseen.
-4. **Park deeper questions** — Put lower-level questions, early implementation details, and useful tangents under `Later Discussion`, with the Phase or agenda where they belong. Mirror them in `plan.md` as `Deferred Deep Dives`, then continue the current-level pass.
-5. **Deepen selectively** — After the first pass, summarize what is settled, open, and parked. Ask which items need a deeper pass and explain which open items block the current Phase outcome. Recurse only after the user selects or confirms an item.
-6. **Keep research depth separate from discussion depth** — Approved Phase 2 research may still be deep and multi-source. Keep the planning conversation and user-facing synthesis compact unless the user asks for the full analysis.
-
-Default conversation shape:
-
-```markdown
-**Discussion List**
-1. {Topic} — {one-line purpose}
-2. {Topic} — {one-line purpose}
-3. {Topic} — {one-line purpose}
-
-**Later Discussion**
-- {Deeper topic and its target Phase, or "None yet"}
-
-Would you like to add, remove, or reorder anything before we start?
-```
-
-### Conversation Style
-
-- Use the shortest wording that preserves the important meaning. Prefer short sentences and compact sections.
-- Use plain words in the user's language. Avoid uncommon English terms, abbreviations, and formal vocabulary when a familiar word works. Define an unavoidable technical term on first use.
-- Focus each response on the active discussion item. Do not repeat settled context unless it changes the current choice.
-- For substantive explanations of the active item, load and apply `visual-first-explanation`: use Mermaid for flows or boundaries, a table for comparisons, or a short snippet in a real programming language for a contract. Keep agenda, phase, and consensus authority here; do not duplicate that skill's rules. A short agenda needs no obligatory visual. Explain only the active item, not the whole sibling architecture or a prose narration of a diagram.
-- Label illustrative examples as nonbinding, not confirmed project facts. Phase 3 visuals show the external operating model, not internal architecture; Phase 5 snippets illustrate contracts, not exact implementation signatures.
-- Offer more detail instead of including it by default. If the user requests depth, expand only the selected item and keep unrelated branches parked.
-
-### Content Ownership and Recording
-
-The user owns requirements, targets, priorities, constraints, and selections; the agent owns factual investigation and grounded analysis. This boundary applies in conversation as well as files. Agenda-list approval is not content consensus, and candidate-set approval is not selection. Use known inputs and focused questions for the current item; do not prefill goals, numeric success criteria, scope, or a complete assumed Phase 4/5 architecture ahead of discussion. Keep unknowns open, omit irrelevant optional content, and use useful candidates only for the active item.
-
-When recording agreed content, write it and make a single changed-portion comparison against the agreed input as part of writing, then stop. Check choice, rationale, tradeoffs, constraints, numbers, scope, and unresolved items for fidelity, not redesign, new research, or renewed consensus. Recheck only a corrected or newly introduced delta. Do not default to full-file/tree rereads, a verifier subagent, an audit artifact, or extra user reapproval. Park unrelated doubts unless they block accurate recording.
-
-Broaden the check only for an actual meaning or contract change and its direct dependencies, rename/structure links, potentially lossy summaries, or a new/major external document. Follow relevant contracts onward only while impact continues. Batch `plan.md`, `index.md`, `decisions.md`, and `log.md` updates at meaningful checkpoints; do not add micro-write rituals or duplicate local rationale in central records.
-
-## Phase Flow
-
-### Overview
-
-```
-1. Problem Definition → 2. Research → 3. Solution Concept → 4. High-Level Design → 5. Detailed Design
-```
-
-| Phase | Purpose | Key Deliverables | Revisit When |
-|---|---|---|---|
-| **1. Problem Definition** | Define what and why through discussion | problem-statement, goals, constraints (when applicable), as-is (non-greenfield) | New requirements, scope change |
-| **2. Research** | Gather and organize information needed by later design phases; do not make design decisions | research-plan, per-topic research files, codebase-analysis when applicable, findings-summary | Insufficient info found in later phases |
-| **3. Solution Concept** | Decide what we are building and how it operates at a big-picture level | concept, operating-model, principles, direction options + decision (when needed) | Big-picture direction proves wrong |
-| **4. High-Level Design** | Capture the overall flow and key models for the system | architecture-overview, domain-model, system-skeleton decisions only | A skeleton-level decision proves infeasible |
-| **5. Detailed Design** | Detail components to a level that can be split into work issues | Per-component designs, recursive option files/decisions | — (recursive expansion) |
-
-See `references/phase-guide.md` for detailed per-Phase guidance.
-
-### Phase Scope Discipline
-
-The five phases are designed to **layer scope from broad to narrow**. Each phase should stay within its scope and push finer-grained concerns down to the next phase.
-
-| Phase | Resolves | Defers to Next |
-|---|---|---|
-| 3. Solution Concept | What it is, how it operates conceptually, big direction, guiding principles | Concrete architecture and component breakdown |
-| 4. High-Level Design | Overall flow, primary domain/data model, system-skeleton decisions (e.g., communication style, data strategy) | Component-internal structure, behavior, and contracts |
-| 5. Detailed Design | Component responsibility, behavior, error handling, interfaces, dependencies — enough to split into work issues | Implementation-level micro-decisions (variable names, small algorithms, minor optimizations) — handled during the actual work |
-
-**Anti-pattern to avoid**: pulling Phase 5 details into Phase 4, or pulling Phase 4 design decisions into Phase 3. When in doubt, ask: *"Does this need to be decided now, or can the next phase decide it with the current artifacts?"* Defer when possible.
-
-### Non-Linear Navigation
-
-Phases are **not strictly sequential**:
-
-- **Phase 1, 2 are revisitable.** New findings or external feedback may require returning to redefine scope or conduct additional research.
-- **Phase 3 → 4 → 5 is recursive at each step.** A wrong concept-level direction triggers a Phase 3 revisit; a wrong high-level skeleton triggers a Phase 4 revisit; component decomposition in Phase 5 may spawn its own discussion → option files → decision → sub-design cycle.
-- **Mark active revisits** in `plan.md` with 🔁 status while they are being worked, and record only design-impacting revisit history in `log.md`.
-
-### Phase Transition Protocol
-
-At every Phase transition (forward or backward):
-1. Summarize current Phase results in its `index.md`
-2. Update and compact `plan.md` with completion status, current unresolved items, and the next required confirmation
-3. Record only design-impacting changes in `log.md`; skip trivial wording, formatting, or typo-only edits
-4. Present summary to user and get confirmation before proceeding
-
-### Phase 3: Solution Concept Structure
-
-Phase 3 establishes the project's identity and operating model before any structural design. It is intentionally lighter than Phase 4 — its job is to converge on **what we are building and how it conceptually works**, not to draw the architecture.
-
-Typical artifacts:
-- `concept.md` — one-paragraph definition of the system, its boundaries, and what it is (and is not)
-- `operating-model.md` — how the system behaves from an outside view (key user/system scenarios, mode of operation, lifecycle)
-- `principles.md` — architecture principles and guardrails that all subsequent decisions must respect
-- `options/*.md` + `decision.md` — only when there are genuinely competing big-picture directions (e.g., "real-time event-driven product" vs "batch-oriented analytics product")
-
-If the project's direction is obvious from Phase 1–2, Phase 3 can finish with just `concept.md`, `operating-model.md`, and `principles.md`. Do not manufacture options where none meaningfully exist.
-
-### Phase 4: High-Level Design Structure
-
-Phase 4 captures the **system-level skeleton**: the overall flow, the primary models, and the small set of skeleton-level decisions that shape the architecture. It is *not* the place to design component internals.
-
-Required artifacts:
-- `architecture-overview.md` — high-level flow diagram + component roles + key interactions
-- `domain-model.md` (or `data-model.md`) — primary entities, relationships, and ownership at the system level
-
-Optional: when multiple **system-skeleton decisions** are independent (e.g., synchronous vs asynchronous communication, monolithic vs distributed data, deployment model), organize Phase 4 into decision-area subdirectories, each with its own `index.md`, `options/`, and `decision.md`. For simple projects with no skeleton-level decisions to make, omit the decision-area subdirectories entirely.
-
-**Scope guard**: Treat a question as a Phase 4 decision only if it shapes the system skeleton. Component-internal questions belong in Phase 5.
-
-See `references/structure-rules.md` for detailed rules.
-
-### Phase 5: Completion Criteria
-
-Phase 5 uses a **soft completion** model anchored to a single question: *"Can a developer split this into work issues from these documents?"*
-
-A component's detailed design is considered complete when all of the following are true:
-
-- [ ] Component **responsibility and boundaries** are clearly stated
-- [ ] **Primary data/state model** is defined (entity-level; field-level detail is not required)
-- [ ] **Key behaviors and flows** are described (state transitions, main scenarios)
-- [ ] **External interfaces and dependencies** are listed (APIs consumed/exposed, events, other components)
-- [ ] **Error handling strategy** is specified at policy level (retry, fallback, propagation)
-- [ ] **Open decisions** that block work-issue creation are flagged in `Open Decisions`
-
-The following are **out of scope** for Phase 5 — they belong to the actual work:
-- Variable/function names, exact method signatures
-- Selection between equivalent small algorithms or libraries
-- Pixel-level UI details, microcopy
-- Micro-optimizations and implementation-time tradeoffs
-
-Workflow:
-1. All components from Phase 4 have at least `index.md` + `design.md` meeting the checklist
-2. `interfaces/` and `cross-cutting/` documented (if applicable)
-3. → Present to user: "First pass complete. Which components need deeper design?"
-4. → Extend recursively **only on user request**
-
-## Working Principles
-
-1. **Plan first, always** — Read `plan.md` before any work. Batch operational updates at meaningful milestones and agenda boundaries, keeping only what helps resume the current work: the last consensus gate, active discussion list, unresolved discussion, deferred deep dives, pending candidate set, and next required user confirmation.
-2. **Keep operational files focused** — Treat `plan.md` and `log.md` as working memory, not exhaustive history. `plan.md` should answer “where are we and what must happen next?”; `log.md` should answer “what design-impacting changes might matter later?”. Remove, summarize, or archive entries once they no longer help resume, revisit, or validate the design.
-3. **Breadth before depth** — Agree on the current-level discussion list and cover sibling items before opening nested discussion. Deeper exploration is a second pass, not the default starting point.
-4. **Discussion before documentation** — For each agenda (problem framing, research topics, solution concept, decision areas, component designs), discuss the relevant candidates in conversation before creating or updating final artifacts: research topics and information needs in Phase 2, design directions in later design phases. This applies to **all phases including Phase 1**.
-5. **User gates at phase and agenda boundaries** — Confirm the discussion list before starting and confirm the outcome before finalizing each agenda. Approved research scope allows autonomous factual and documentation investigation without per-fact approvals; it does not authorize design selection.
-6. **Plain, compact conversation** — Prefer easy words, short explanations, and purposeful examples or visuals. Expand only the selected topic when the user asks for more detail.
-7. **Every directory tells its story** — Every directory, including the `design/` root, must have `index.md` answering: what is this, what was decided, what are its children?
-8. **Options before decisions** — Present 2+ options with tradeoff analysis in conversation before offering a provisional fit assessment. Do not use final-sounding labels like "recommended" or "selected" until the user explicitly decides.
-9. **Option artifacts are first-class documents** — For Phase 3, Phase 4, and recursive Phase 5 decisions, each candidate direction must be documented as a separate file under `options/`. Do not collapse full option details into `index.md`, `architecture-overview.md`, `design.md`, or `decision.md`.
-10. **Research as decision preparation** — Bound each topic to its approved Quick/Standard/Deep scope and concrete downstream question. Gather relevant facts, codebase observations, risks, tradeoffs, and unknowns; corroborate important uncertain or high-risk claims as warranted, without universal source quotas or textbook completeness. Phase 2 must not recommend, select, or finalize a design direction; decisions belong to Phase 3, 4, or 5 after user discussion. Keep essential context and verifiable references in each research document. See `references/phase-guide.md` Phase 2.
-11. **Defer to the next phase or to the work itself** — If a question can be answered just as well by the next phase or during actual implementation, defer it. Phase 3 should not draw the architecture; Phase 4 should not design component internals; Phase 5 should not micro-design implementation details.
-12. **Depth-aware structure** — No depth limit, but do not recurse conversationally before the current-level first pass is complete unless the user explicitly redirects. At 4+ document depth, review the deep branch's structure and propose compression if useful, not a full-tree reread by default. See `references/structure-rules.md` for compression strategies.
-13. **Documentation after consensus** — Write design documents as work progresses, but only after local consensus. Capture the discussion summary, criteria, alternatives, and rationale when documenting the agreed outcome.
-14. **OKF compatibility without spec drift** — Use current OKF guidance for artifact authoring details. Do not restate the full OKF spec here; keep this skill focused on architecture workflow.
-15. **Publication is a derived view** — Create external-facing documents only on request, from agreed design content. Keep internal traceability outside the shareable document and never let publication edits silently change the authoritative design.
-
-## Internal Design Directory
-
-Default internal design directory: `design/` at the project root. User may specify a different path.
-
-```
-design/
-├── index.md
-├── plan.md
-├── decisions.md
-├── log.md
-│
-├── 1-problem-definition/
-│   ├── index.md
-│   ├── problem-statement.md
-│   ├── goals.md
-│   ├── constraints.md                 # when applicable
-│   └── as-is-analysis.md              # non-greenfield only
-│
-├── 2-research/
-│   ├── index.md
-│   ├── research-plan.md
-│   ├── codebase-analysis.md          # when an existing codebase must inform design
-│   ├── {topic}.md
-│   └── findings-summary.md
-│
-├── 3-solution-concept/
-│   ├── index.md
-│   ├── concept.md
-│   ├── operating-model.md
-│   ├── principles.md
-│   ├── options/                       # only when competing big-picture directions exist
-│   │   ├── option-a-{name}.md
-│   │   └── option-b-{name}.md
-│   └── decision.md                    # paired with options/
-│
-├── 4-high-level-design/
-│   ├── index.md
-│   ├── architecture-overview.md
-│   ├── domain-model.md
-│   └── {decision-area}/               # optional: skeleton-level decisions only
-│       ├── index.md
-│       ├── options/
-│       │   ├── option-a-{name}.md
-│       │   └── option-b-{name}.md
-│       └── decision.md
-│
-└── 5-detailed-design/
-    ├── index.md
-    ├── cross-cutting/                 # optional
-    ├── interfaces/                    # optional
-    ├── {component}/
-    │   ├── index.md
-    │   ├── design.md
-    │   ├── {sub-decision}/            # only when blocking work-issue split
-    │   │   ├── index.md
-    │   │   ├── options/
-    │   │   │   ├── option-a-{name}.md
-    │   │   │   └── option-b-{name}.md
-    │   │   └── decision.md
-    │   └── {sub-component}/           # recursive
-    └── ...
-```
-
-See `references/templates.md` for file templates and `references/structure-rules.md` for naming conventions.
-
-## External Publication Output
-
-When the user requests an externally shareable standalone document, derive it from agreed design artifacts and write it under the project-root `output/{document-slug}/` directory.
-
-Each document directory contains:
-
-```text
-output/{document-slug}/
-├── {document-slug}.md
-├── internal-source-map.md
-└── assets/                         # optional; public-safe assets only
-```
-
-The primary `{document-slug}.md` file is the shareable artifact. It must explain all essential context directly and must not link to, name, cite, or require internal design artifacts or `internal-source-map.md`. Public external references may be cited when useful.
-
-For initial publication or a major rewrite of the primary document:
-
-1. Apply the `document-writer` skill to define the audience, use moment, document mode, structure, information density, and purposeful visual material.
-2. Verify technical meaning against eligible design sources.
-3. Apply the `humanizer` skill to the complete draft without changing facts, decisions, uncertainty, obligations, terminology, or metrics.
-4. Run the standalone, leakage, readability, visual, link, and freshness checks from `references/publication-guide.md`.
-
-For small revisions, check only affected sections for meaning, links, disclosure boundaries, and source mappings; apply writing or humanizing guidance locally when needed, not the full drafting/whole-document sequence. Formatting-only source changes need an unchanged-meaning check and mapping update, not a transient stale ritual. See the guide for outstanding stale or blocked work.
-
-Keep `internal-source-map.md` in the same directory for internal traceability, but never link it from the primary document or include it in the shareable file allowlist. Publication documents are not OKF concept artifacts unless the user explicitly requests OKF output.
-
-Read `references/publication-guide.md` before creating, updating, or validating any publication document.
-
-## Initialization & Resume
-
-### New Project
-
-1. Confirm with user: project name, internal design directory (default `design/`), known constraints/context
-2. Determine project type: **Greenfield** or **Non-greenfield** (migration/evolution)
-   - Non-greenfield: include `as-is-analysis.md` in Phase 1 deliverables
-3. Create only root navigation/operational files (`index.md`, `plan.md`, `decisions.md`, `log.md`) after the user agrees on the internal design location
-4. Begin Phase 1 with the Breadth-First Discussion Protocol: present and confirm the current-level agenda before discussing its first item. Do not create Phase 1 artifacts until the user agrees on problem framing, goals, and (if relevant) constraints. Keep Phase 1 light — write only the artifacts the project actually needs.
-
-### Resume (Continuing a Previous Session)
-
-1. Read `plan.md` → identify current Phase, active agenda, active discussion list, unresolved discussion, deferred deep dives, and next required confirmation
-2. If `plan.md` contains stale completed agenda notes or history-like detail, compact it after confirming the useful resume state
-3. Read current Phase's `index.md` → restore working context
-4. Identify the last consensus gate: what is already documented as agreed, what remains unresolved, and whether any candidate set was discussed but not yet recorded in option files
-5. Summarize the current-level discussion list, active item, and deferred deep dives to the user; confirm the list and continuation before opening a nested topic
-6. If consensus is unclear or not recorded, ask the user to restate or confirm the candidate set / direction before creating or updating artifacts
-7. Read additional files selectively as needed
-
-### External Feedback (Post-Meeting/Review)
-
-When the user returns with feedback from team reviews or stakeholder meetings:
-
-1. **Collect**: Structure the feedback items
-2. **Analyze impact**: Classify each item by which Phase/artifact it affects
-   - Scope/requirement changes → Phase 1 revisit
-   - New information/constraints → Phase 1 or 2 revisit
-   - Concept-level direction or principle changes → Phase 3 revisit
-   - System-skeleton or model changes → Phase 4 revisit
-   - Component-level feedback → Phase 5 modification
-3. **Propose changes**: Present affected artifacts + modification plan to user for confirmation
-4. **Restart local discussion cycles when needed**: If feedback introduces, removes, or changes alternatives, reopen the relevant discussion → option files → explicit decision cycle. Add new alternatives as the next `option-{letter}-*.md` file before changing `decision.md` or `design.md`
-5. **Execute**: Record the design-impacting change and known affected artifacts in `log.md` with feedback source. Mark outstanding or unverified affected documents with `⚠️ update needed`; documents updated and checked in this task need no transient marker. Remove existing markers only after the relevant check succeeds. Revisit relevant Phases (🔁) and skip trivial wording/format logs.
-6. **Check cascade**: Check changed meaning and direct dependencies, including mapped publications; propagate only while relevant contracts remain affected. Extend the known affected set as discovered, without requiring a complete dependency graph first.
-
-## Additional Resources
-
-- **`references/phase-guide.md`** — Detailed per-Phase guidance: purpose, key questions, activities, deliverables, completion criteria, revisit conditions
-- **`references/templates.md`** — File templates for all design artifacts (`plan.md`, `index.md`, `decisions.md`, `log.md`, `concept.md`, `operating-model.md`, `principles.md`, `decision.md`, etc.)
-- **`references/structure-rules.md`** — Directory/file naming conventions, Phase 4 multi-decision rules, special directories (`cross-cutting/`, `interfaces/`), depth management, non-greenfield guidance, invalidation tracking
-- **`references/publication-guide.md`** — External publication structure, writing workflow, source tracking, leakage prevention, invalidation, and verification
+## Purpose and Boundaries
+
+Keep a **human-readable current design** that explains what the system is, why
+important choices were made, and what a selected implementation scope needs.
+Design can continue in one area while another is implemented. Readiness is local:
+do not wait for every component or every lens to be complete.
+
+- Own architectural coherence, requirement/decision fidelity, source authority,
+  shared models/contracts, selected-scope readiness, and design-change impacts.
+- The user owns requirements, goals, priorities, constraints, and meaningful
+  choices. Investigate facts and offer grounded recommendations, explicitly
+  distinguished from approved decisions; do not invent project facts or targets.
+- Use `document-writer` for a simple standalone document, `deep-research` for
+  research without design work, and `to-issues` for implementation slicing.
+- Implementation, execution tracking, remote publication, and tracker updates
+  are separate authorized tasks. Design readiness authorizes none of them.
+
+## Working Model
+
+### Five Optional Design Lenses
+
+These are questions to revisit, **not sequential phases or approval gates**.
+Use whichever lenses help the current agenda; combine them in one document when
+useful. The retained `phase-guide.md` filename is compatibility, not phase order.
+
+| Lens | Question / useful result |
+|---|---|
+| 1. Problem | Who needs what outcome, why, within which real constraints and scope? |
+| 2. Research | Which concrete uncertainty needs evidence before the next choice? |
+| 3. Concept | What are we building, and how does it work from the outside? |
+| 4. High-level design | What are the major flows, domain concepts, relationships, ownership, invariants, and shared names/contracts? |
+| 5. Issue-ready elaboration | Can this selected outcome be implemented from clear scope, contracts, dependencies, verification, and explicit unknowns? |
+
+Lens 4 establishes shared vocabulary for concepts, components, events, and
+interfaces, not every method or field. Lens 5 resolves implementation-start
+blockers while separating implementation-time choices and activation/release
+conditions. See [the lens guide](references/phase-guide.md) when depth or readiness
+is unclear.
+
+### Independent Agendas, Shared Owners
+
+Track concurrent agendas independently: scope, status, owner when known, shared
+contract links, open questions, and next action. One agenda may be investigating,
+another agreed and issue-ready, another awaiting an external owner. These are
+design statuses, not claims of implementation or tracker progress.
+
+- Start with the user's selected or highest-risk focus. Offer a brief context
+  map when useful; no all-sibling first pass is required before going deep.
+- Keep common models, names, and contracts in one authoritative home. Agenda
+  documents link to it rather than maintaining competing copies.
+- On switching, restore the selected agenda and its relevant shared contracts,
+  not the whole tree. Explicitly expose conflicts that cross agenda boundaries.
+- Keep `plan.md` a short resume checkpoint, not a roadmap, backlog, history, or
+  execution tracker. Record detailed questions in the owning topic document.
+
+### Truth and Consent
+
+Distinguish within current documents:
+
+| Claim | Required treatment |
+|---|---|
+| Observed implemented state | Evidence and observation scope; reported behavior is not verified behavior |
+| Agreed target | Actual authorized decision and affected scope; not automatically implemented |
+| Draft proposal / recommendation | Clearly unapproved; may be persisted before consensus |
+| Assumption / open item | Uncertainty, consequence, and useful next action |
+
+Do not turn a draft, meeting capture, recommendation, or output document into
+consensus by writing it down. Seek explicit consent for meaningful new choices,
+ambiguous authority, conflicts, or material scope/risk changes. A clear authorized
+user decision within approved scope is sufficient: record and apply it without
+asking the same question again. Moving between lenses needs no approval.
+
+Compare meaningful alternatives inline by default. Separate option files only
+when alternatives need independent detailed treatment or the user requests them.
+Do not manufacture options or forbid a grounded recommendation before approval.
+
+## Workspace and Document Policy
+
+Default sibling roots are **optional and lazy-created**:
+
+| Root | Responsibility |
+|---|---|
+| `design/` | Current design authority, shared models/contracts, `plan.md`, optional important decisions |
+| `meeting/` | Dated meeting inputs and outcomes, not design authority |
+| `external/` | References to outside-owned documents, contracts, and threads |
+| `output/` | Requested purpose-specific review/decision support or explanation/handoff views |
+| `issues/` | Optional persistent local implementation handoff, delegated to `to-issues` |
+
+Preserve established paths and filenames. Never automatically migrate an existing
+numbered phase tree. Split by reader need, not a mandatory directory taxonomy.
+A design-root `index.md` is useful for navigation; an index in every directory is
+not required. Keep `plan.md` for resume, `decisions.md` only if useful, and do not
+create a default `log.md`. Preserve existing histories rather than deleting them.
+See [structure rules](references/structure-rules.md) for resume and change handling.
+
+### Minimal OKF on All Managed Markdown
+
+Apply current `open-knowledge-format` guidance to authored/managed Markdown in
+**all five roots**, including output documents and `internal-source-map.md`.
+Read that skill and its authoring checklist before creating templates or a new
+artifact set; consult its relevant guidance for substantial metadata changes.
+
+- Every non-reserved Markdown document starts with parseable YAML frontmatter
+  and a nonempty `type`. Include `title` and `description` by default.
+- Mark unreviewed agent-authored content `status: draft`. Keep approval and
+  implementation state honest in the body; metadata alone is not consensus.
+- `index.md` and `log.md` are reserved, with no concept frontmatter. Only a
+  bundle-root index may optionally declare `okf_version: "0.2"` alone.
+- Use conditional `sources`, `generated`, and `verified` truthfully under the
+  current OKF contracts; no invented actors, checks, dates, or provenance.
+- Shareable metadata must be disclosure-safe just like the body. Keep private
+  provenance in the internal map, not the shareable document's frontmatter.
+- Preserve unknown metadata and valid legacy v0.1 content; do not emit new
+  legacy `timestamp` / `# Citations` or migrate existing fields without request.
+  Read OKF migration guidance before editing legacy metadata.
+- Do not alter raw transcripts or source snapshots merely to retrofit OKF.
+  Wrap/link them through a managed note when needed.
+
+Metadata does not require extra logs, directories, indexes, or lifecycle files.
+OKF owns format details; do not reproduce its specification here.
+
+### Writing and Explanation Ownership
+
+Use `document-writer` for both internal documents and output: full guidance for
+new/substantial work, localized guidance for small edits. Generated project docs
+default to Korean unless requested otherwise; keep technical identifiers exact.
+Use `visual-first-explanation` for substantive design discussion without copying
+its style rules here. Illustrations are nonbinding unless actually agreed.
+Document Writer owns prose quality and may use Humanizer as needed; there is no
+mandatory additional whole-document Humanizer stage.
+
+## Local Working Loop
+
+1. **Restore/select:** Read existing `plan.md`, the selected agenda's current
+   document, and relevant shared owners. For a new project use supplied context,
+   ask only materially missing questions, and create only useful documents.
+2. **Frame:** Identify the outcome, affected scope, current evidence, unknowns,
+   and next useful lens. Clarify user-owned requirements rather than filling
+   imagined goals, numeric targets, constraints, or a complete architecture.
+3. **Investigate/discuss:** Bound research by its concrete question and risk.
+   Inspect relevant code for existing systems. Distinguish facts, inference,
+   source reports, and recommendations. No source quotas or textbook survey.
+4. **Record:** Persist clearly labeled drafts when useful. Apply authorized
+   decisions to the owning current design; preserve alternatives/rationale only
+   where useful. Record important decisions using the rule below.
+5. **Check once:** Compare changed meaning against the authorized input once:
+   choice, why, scope, obligations, numbers, tradeoffs, and open items. Follow
+   direct dependencies only while impact continues; include affected shared
+   contracts, existing outputs, and existing issues. Check renamed/moved links.
+6. **Checkpoint:** Update the short resume state at a meaningful boundary.
+   State next action and unresolved implementation blockers, not a mandatory
+   next approval. Stop at the selected outcome's useful depth.
+
+For ordinary corrections, do not default to a full-tree review, verifier agent,
+audit artifact, new research, or repeated approval. Broaden only for actual
+contract changes, lossy summaries, structure changes, or substantial output work.
+Keep outstanding affected content visibly unresolved; no transient stale ritual
+for documents updated and checked in the same task.
+
+### Important Decision Memory
+
+Record a decision, **including the first**, when it involves costly/irreversible
+choices, shared boundaries, data ownership, security/regulation, operations,
+important contracts, delivery-sensitive reversal, or repeatedly contentious
+tradeoffs. Capture decision + why + consequences + related documents, and what
+it supersedes when relevant. Keep the analysis in one home; link rather than
+duplicate option comparisons. A central catalog is optional, not a second full
+record. No mandatory central + local + change-log triple.
+
+Ordinary edits update current docs. Git history preserves edits but does not
+replace rationale for an important decision. Do not erase existing history.
+
+## Inputs, Outputs, and Handoff
+
+### Meeting Inputs
+
+Use optional `meeting/YYYY-MM-DD-topic.md` notes when retention helps. Preserve
+source locator/context, distinguish reported vs verified facts, proposals vs real
+authorized agreements, conflicts, and open items. Add applied scope/follow-up
+only as needed. **Capture != adoption != implementation/verification.**
+
+Meeting preparation may be an output brief; meeting results are inputs. A meeting
+does not require a full file set, index, lifecycle ceremony, or decision-log row.
+Apply clear authorized outcomes without redundant reapproval; ask about ambiguous
+authority, conflicting contracts, or genuinely new choices.
+
+### Outside-Owned Sources
+
+Use `external/` for lightweight references, not bulk copies by default. Retain the
+source owner and locator; classify one-off vs recurring input. Keep a last-seen
+checkpoint only when needed to detect meaningful deltas. Deduplicate repeated
+input; give one source one home and link elsewhere. Mirrors are not independent
+corroboration. A justified snapshot must be labeled with its source/context and
+must not usurp the outside owner's authority.
+
+Recurring wording does not authorize automatic fetches, scheduled jobs, or a
+platform-sync framework. Read/check sources only within the requested task and
+available access; never claim unseen changes were checked.
+
+### Requested Output Views
+
+Read [the output guide](references/publication-guide.md) before authoring or
+refreshing output. Support review/decision briefs (including labeled unconfirmed
+proposals) as well as agreed explanation/handoff documents. Choose sources for
+the purpose: discussion drafts can use meeting/external inputs with explicit
+status; final sharing cannot present unresolved/stale content as agreed truth.
+
+Output is a derived view, not design authority. Reconcile semantic feedback into
+the owning design before adopting changed meaning in an agreed output; expression-
+only edits stay local. Authoring files does not authorize sending/publishing them.
+
+### Optional Implementation Issues
+
+Selected-scope readiness does **not** automatically generate issues. When asked,
+delegate outcome slicing, direct blockers, acceptance/verification, and ticket
+authoring to `to-issues`, retaining its proposal/materialization gates. A partial
+scope may proceed without a complete architecture or all lens documents.
+
+- For requested persistent handoff, pass `issues/` (or the user's chosen path)
+  as the explicit destination override to `to-issues`' `.scratch/` default; do not
+  modify that skill. Without persistent handoff, preserve its normal workflow.
+- Tickets need self-contained minimum context and deep links to owning designs,
+  not copied design documents. Apply minimal OKF to local managed Markdown.
+- Distinguish local specification, tracker last-observed status, and evidenced
+  implementation verification. Do not build routine tracker-sync bookkeeping.
+- An authorized design meaning change triggers checks of **affected existing
+  tickets only**. Report impacts; do not silently rewrite in-progress contracts,
+  mutate remote tickets, or infer remote publishing permission.
+
+## References
+
+- [Design lenses and selected-scope readiness](references/phase-guide.md)
+- [Workspace, resume, and proportional change handling](references/structure-rules.md)
+- [Adaptable templates](references/templates.md)
+- [Output purposes, provenance, and sharing boundaries](references/publication-guide.md)

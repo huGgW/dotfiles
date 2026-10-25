@@ -3,9 +3,10 @@ name: agentic-backpressure
 description: >
   Use when the user explicitly asks for backpressure, backpressured development,
   agentic feedback loops, subagent review loops, quality-gated development, or a
-  BACKPRESSURE.md-driven workflow. Runs a bounded worker, verifier, and reviewer
-  flow with current-state evidence and explicit human escalation. Do not use for
-  ordinary coding tasks unless the user asks for this style of execution.
+  BACKPRESSURE.md-driven workflow. Routes workers, verifiers, independent reviewers,
+  and optional CI/PR observations with current-state evidence and explicit human
+  escalation. Do not use for ordinary coding tasks unless the user asks for this
+  style of execution.
 ---
 
 # Agentic Backpressure
@@ -13,12 +14,13 @@ description: >
 ## Purpose And Ownership
 
 Downstream checks reject incomplete work before the human handoff. Use the
-smallest route preserving mechanical validation and independent judgment.
+smallest route preserving required evidence and independent judgment. An
+observation-only deliverable does not claim whole-candidate correctness.
 The **main current session is always the manager**, including for new runs.
 Do not dispatch an intake coordinator or another manager, require fresh-manager
-isolation, or charge a manager call. A new contract is not a new conversation.
+isolation. A new contract is not a new conversation.
 
-The manager owns the contract, routing, budgets, gate mapping, and handoff. It
+The manager owns the contract, routing, gate mapping, and handoff. It
 does not implement patches, run authoritative checks, or perform the only review.
 Workers produce plans or patches; their commands are diagnostics. Verifiers run
 declared checks without source edits. Independent reviewers assess without editing.
@@ -27,23 +29,26 @@ declared checks without source edits. Independent reviewers assess without editi
 
 1. Latest explicit user intent governs scope and authority. Superseded decisions
    are context, not requirements. Reviewer preferences cannot replace user intent.
-2. Resolve required goal, scope, accepted plan, constraints, criteria, checks,
-   base, and stop point before relying on them. Preserve unrelated user work.
+2. Resolve goal, scope, stop, and the selected capability's required prerequisites
+   before relying on them. Correctness work also needs accepted plan, constraints,
+   criteria, checks, and base. Preserve unrelated user work.
 3. Keep child worker, verifier, reviewer, and specialist roles separate. Reuse
    never promotes old evidence or changes a child's role.
 4. Gate evidence is content-bound to the current specification, base, and state.
    Another state is `STALE`, not `PASS`.
-5. Every final candidate needs required mechanical checks and a fresh independent
+5. Every whole-candidate correctness claim needs required mechanical checks and a fresh independent
    whole-changeset semantic review. Commands cannot replace judgment.
-6. Bound calls, repairs, plan reviews, and external attempts. Renaming a run,
-   gate, action, or contract does not reset unchanged failures or operations.
+6. Stop unchanged failures without new evidence, hypothesis, or approach. Recurring
+   oscillation or fruitless repairs require investigation or human help, not
+   unlimited loops disguised as novelty. Renaming preserves blockers and outcomes.
 7. Stop for unresolved requirements, unavailable required evidence, repeated
-   unchanged failures, insufficient budget, or the user's stop instruction.
+   unchanged failures, fruitless repairs, or the user's stop instruction.
 8. External authority and `stop_after` are separate. Exact permission neither
    authorizes adjacent actions nor overrides the stop point.
 
-Only `PASS` advances. Other outcomes are `SEND_BACK`, `BLOCKED`, `STALE`, and
-`ESCALATE_HUMAN`; mapping belongs to `gate-checklist.md`.
+Only `PASS` satisfies a required outcome. Other gate outcomes are `SEND_BACK`,
+`BLOCKED`, `STALE`, and `ESCALATE_HUMAN`. External CI `pending` is a waiting
+condition, not a repair verdict; mapping belongs to `gate-checklist.md`.
 
 ## Contract Intake
 
@@ -65,32 +70,25 @@ Ask one focused structural-axis question only when plausible interpretations
 materially change the diff, ownership, or public API.
 
 Keep `BACKPRESSURE.md` as a current summary, not a history ledger. Required fields
-are goal/scope, accepted plan/constraints, criteria/checks, validation hash/state,
-phase/budget/blockers, and latest evidence references. Decisions, superseded
-context, grants, publication, and Boundary Actions appear only when applicable.
+are goal/scope/stop, required outcomes and current evidence, active work/blocker/
+next action. For correctness work include accepted plan/constraints, criteria/
+checks, validation hash/state. Decisions, superseded context, publication, and
+Boundary Actions appear only when applicable.
 Never omit relevant superseded meaning, unresolved hazards, or unknown outcomes.
 
-## Profiles And Capacity
+## Select The Route
 
-Choose the lowest profile covering known risk; use Standard when uncertain.
-File count alone determines neither profile nor plan-review need.
+Read `references/routing.md` to select capabilities from the goal, prerequisites,
+and available evidence. Enter at local work, an existing PR, CI observation, or PR
+feedback observation. Active, required, and authorized mean different things:
+selecting a capability neither makes it required nor permits external writes.
 
-| Profile | Typical risk | Initial child calls | Repairs per gate |
-|---|---|---:|---:|
-| Lite | Localized, low-risk | 20 | 4 |
-| Standard | Ordinary behavioral work | 40 | 6 |
-| Critical | Auth, security, migration, data loss, concurrency, production/release | 64 | 8 |
-
-Ceilings are not targets. Every child launch or resume costs one call. Completed
-non-pass gate evaluations consume repairs; transport failures cost calls, not
-repairs. Conditional plan review allows four invocations per applicable allowance.
-Identical underlying external operations allow four attempts total, initial included.
-
-Reserve the **actual required remaining route**, not a fixed profile floor:
-remaining verifier, fresh final reviewer, and required specialist, publication,
-action, or read-back calls. Already covered final checks need no duplicate call.
-Before optional work or repair, its cost plus the remaining route must fit.
-`run-lifecycle.md` owns grants, accounting, and request-boundary stop preservation.
+Keep a thin recipe and current pending outcomes, not a graph engine or node ledger.
+Observation-only work needs no gratuitous patch, local check, review, commit, or
+push. Whole-candidate correctness and authorized publication still require the
+local gates below; reuse only unaffected current evidence, never skip a required
+gate. CI and PR feedback are optional capabilities; when both are selected as
+required, both must pass. `run-lifecycle.md` owns continuity and anti-loop stops.
 
 ## Child Lifecycle
 
@@ -110,15 +108,14 @@ A live child receives a queued message through the host's supported mechanism,
 not a resume call. If unavailable, wait or stop; do not start a concurrent writer.
 Interrupted recovery is distinct: establish actual host status, candidate state,
 completed checks, and partial side effects before retrying. If recovery/resumption
-is unsupported, replace only after quiescing the old action. Every launch/resume
-consumes a call, including recovery.
+is unsupported, replace only after quiescing the old action.
 
 Every reviewer invocation is fresh and independent, with no inherited worker or
 reviewer transcript. The final reviewer is fresh even after an early review.
 Never switch roles, fork a worker transcript into a reviewer, or promote old
 checks merely because a child is reused.
 
-## Default Route: One Frozen Patch
+## Default Local Route: One Frozen Patch
 
 1. Activate the contract and resolve prerequisites; apply a plan gate only when
    risk/uncertainty requires it.
@@ -134,7 +131,8 @@ checks merely because a child is reused.
    correctness/tests and applicable simplicity/risk lenses together.
 7. Map its report; confirm every criterion and active decision has current evidence
    or an explicit blocker. Correctness passes only with all required gates.
-8. Execute eligible publication/`after_final` actions, then hand off.
+8. Execute eligible publication/`after_final` actions. Observe selected external
+   outcomes when applicable, then hand off at the declared stop occurrence.
 
 Do not impose a routine targeted-review-final-verifier-final-review chain.
 An unchanged frozen candidate with complete required checks already has final
@@ -143,11 +141,10 @@ mechanical evidence; no duplicate verifier invocation is needed.
 ## Conditional Early Gates
 
 Plan review is required for load-bearing architecture, migration/rollback,
-material scope uncertainty, or explicit user requirements. Critical risk normally
-requires it unless current independent evidence covers the accepted plan.
-Standard does not require it merely for multiple files. Hash the exact plan and
-use a fresh `plan-reviewer`. After the allowed reviews are exhausted with unresolved
-blockers or SHOULD findings, escalate; ordinary revisions do not reset the allowance.
+material scope uncertainty, or explicit user requirements. Security, migration,
+data-loss, concurrency, or production risk may trigger it; file count alone does
+not. Hash the exact plan and use a fresh `plan-reviewer`. Repeated unresolved
+findings follow the anti-loop stop rather than triggering endless new reviews.
 
 Early targeted verification or focused review is conditional on multiple coherent
 slices, load-bearing uncertainty, or high repair risk where feedback changes the
@@ -165,7 +162,7 @@ or risk child needs a sequencing reason, not merely a lens trigger.
 Map supported in-scope findings to a worker delta; retain stable finding IDs.
 Recompute state after repair and obtain changed-state evidence. Worker/verifier
 may reuse terminal same-role children; reviewer stays fresh. Reassess triggers
-and final-route capacity. Material plan changes need renewed agreement;
+and the required route. Material plan changes need renewed agreement;
 report unrelated findings without fixing them.
 
 Before widening production scope from one failing test, changing transaction
@@ -196,14 +193,18 @@ retries, and candidate-mutation reopening. Correctness can pass while publicatio
 or external actions remain blocked. Implementation approval never implies commit,
 push, PR, release, deployment, or notification permission.
 
-Handoff reports contract/hash/state, actual stop phase, criterion coverage,
-check/review references, blockers, budget usage, residual risk, and the exact
-human decision needed. Add action authority, attempts, partial state, and read-back
-only when relevant.
+Handoff reports the deliverable actually established, actual stop occurrence,
+required-outcome coverage, current evidence references, blockers, next action,
+residual risk, and the exact human decision needed. Include contract/hash/state
+for correctness work, and external provenance, authority, partial/unknown state,
+deadline, and read-back only when relevant. Observation completion is not a
+whole-candidate correctness verdict.
 
 ## Reference Loading
 
 - Intake/state: `run-lifecycle.md`, `backpressure-contract.md`.
+- Route selection and external observations: `routing.md`.
 - Dispatch: `subagent-prompts.md`; gate mapping: `gate-checklist.md`.
 - Simplicity: `simplicity-review.md`; actions/publication: `boundary-actions.md`.
-- Rationale only: `philosophy.md`. Diagrams are explanatory, not policy authority.
+- Rationale only: `philosophy.md`. Existing binary diagrams illustrate the legacy
+  local route only; they are explanatory, not current routing policy authority.

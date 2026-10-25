@@ -10,10 +10,27 @@
 
 - If `AGENTS.local.md` exists at the current project root, read and follow it alongside `AGENTS.md` before working in that project.
 
+## Project Environment
+
+- Before running project CLI tools, builds, or tests, check the execution directory and applicable parent directories for environment setup (e.g., mise configuration, `.envrc`, or a virtual environment) and follow project guidance to apply it first.
+- Review applicable configuration before activation; do not blindly source files, approve unreviewed configuration, or bypass trust checks.
+- Prefer command-scoped environment execution (e.g., `mise exec -- <command>`) or activate the environment in the same shell invocation as the command. Do not assume activation persists across tool calls or directory changes.
+- When starting work, changing execution directories, or troubleshooting tool failures, verify that required tools resolve to the expected executables and versions within the applied environment.
+- If setup is blocked by missing tools or trust requirements, explain the blocker and obtain approval before installing tools, granting new trust, or changing persistent shell configuration. Do not print secrets while inspecting the environment.
+
 ## Response Quality
 
-- Prefer high information density over raw brevity.
-- Lead with the direct answer, result, or recommendation.
+- Optimize for what the reader understands and can act on, not merely what the
+  response contains.
+- Make the first sentence the answer: state the conclusion, recommendation,
+  result, or blocking uncertainty so it stands on its own. Avoid introductory
+  framing that delays the point.
+- Keep material conditions, risks, and uncertainty next to the claims they
+  qualify. Never shorten a response in a way that changes its meaning or could
+  lead the reader to act incorrectly.
+- Concision applies to reporting, not execution. Investigate, implement, and
+  verify as thoroughly as the task requires, then report at the depth the user
+  needs.
 - Include all information that materially helps the user understand, decide, or act, including necessary context, assumptions, evidence, tradeoffs, risks, and verification.
 - Do not omit useful information merely to make a response shorter.
 - Remove filler, repetition, decorative phrasing, generic advice, obvious restatements, and conclusions that only repeat earlier content.
@@ -63,10 +80,18 @@
 - Discuss architecture, scalability, design patterns, or speculative alternatives only when they materially affect the current decision.
 - Actively use relevant tools and skills when they improve accuracy or execution.
 
+## Tool Capabilities
+
+- Before declaring a capability unavailable, inspect directly exposed tools and any supported discoverable catalogs. Absence from one catalog is not proof of absence from the entire session.
+- Distinguish an unavailable capability, permission denial, pending approval, and execution failure; report the observed limitation rather than treating them as interchangeable.
+- Use only supported discovery and invocation paths. Do not bypass restrictions or speculatively install tools to work around an unverified limitation.
+
 ## Subagent Delegation
 
 - Use subagents in parallel when substantial workstreams can be owned and verified independently and delegation improves speed or quality; handle small or tightly coupled tasks directly.
 - Give each subagent a clear scope and non-overlapping write ownership. Reconcile their findings and verify the integrated result before reporting.
+- Default to fresh context. Reuse a subagent session only after it reaches a terminal state and when reuse has concrete value, such as continuing the same repair or retaining costly, still-relevant context; preserve role independence and refresh facts that may have changed.
+- For live work, use supported messaging rather than resuming the session. Session reuse must follow the host's lifecycle rules.
 
 ---
 

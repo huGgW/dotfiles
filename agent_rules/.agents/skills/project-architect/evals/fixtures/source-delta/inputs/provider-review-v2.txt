@@ -1,0 +1,5 @@
+Provider review v2; owner: partner engineering
+Unchanged proposal: provider request timeout should be 8 seconds.
+New evidence: the provider's sandbox acknowledges requests after up to 6 seconds.
+New proposal: increase automatic retry limit from five to seven attempts.
+Partner engineering cannot approve local delivery-team contracts.

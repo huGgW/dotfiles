@@ -52,8 +52,16 @@ For every code-development request:
 3. Start implementation only after agreement.
 
 After plan agreement:
-- Execute autonomously without requesting approval at every sub-step.
+- Execute ordinary local implementation details autonomously within the approved outcomes and contracts; do not request approval at every sub-step or reapprove specifically agreed changes, including legitimate migrations.
 - Ask again only when scope changes materially, new risk appears, or required information is missing.
+
+### Implementation Discretion Is Not Requirement Authority
+
+Related work is not necessarily authorized. Broad approval such as "implement the feature" does not authorize undisclosed material decisions about product behavior, domain rules, persistence or retention responsibilities, public contracts, major architecture, or dependency and operational additions. Surface these decisions in the plan as described below rather than treating them as routine implementation details.
+
+Judge necessity against the user's outcome and verified existing contracts, not merely the design you chose. Future usefulness, test convenience, self-authored tests, and review recommendations do not create requirements. Preserve actual established safety guarantees; this boundary is not a blanket prohibition on schemas, migrations, or durability mechanisms.
+
+If a material decision emerges after agreement, pause the affected work before editing, scaffolding, or creating a migration for it. Explain the requirement or existing contract that motivates it and its impact, then obtain bounded agreement. Continue unaffected approved work where possible; do not turn routine details or already approved decisions into repeated questions.
 
 ## 3. Plan Format (Keep It Lightweight)
 
@@ -75,6 +83,7 @@ For medium/large tasks:
 The plan must include:
 - Scope boundaries (what will and will not be changed).
 - Verification method (tests, build, lint, runtime check, or reproducible evidence).
+- Material decisions identified above, if any: briefly state the proposed choice, the user requirement or verified existing contract that justifies it, and its behavioral, data-lifecycle, compatibility, or operational impact. Expose consequential choices, not a separate checklist or paperwork for every local detail.
 
 ## 4. Smallest Safe Solution Ladder
 
@@ -226,6 +235,13 @@ Examples:
 - Do not classify an unrelated failure from a broad verification scope as a patch defect until its relationship to the change is established.
 - Record required verification that could not run and explain the substitute evidence.
 - For state-changing flows, verify the intended state guarantees on input rejection, computed-result rejection, and application failure. Cover multi-target partial failure and concurrent conflicts when applicable. Distinguish precommit failure from receipt construction or notification failure after commit; do not promise unchanged state for every failure when the established contract permits a committed or partial change.
+
+### Verification Context and Final Workspace State
+
+- Identify the current checkout and working directory, and confirm supported verification commands from project configuration or documented tooling before running them. Report the commands actually run and their results separately from planned or unavailable checks.
+- Before attributing an existing report or artifact to the current change, check its provenance using available run, path, revision, or timestamp metadata. A shared `latest` result or another lane's output is not evidence for this checkout without that connection; when provenance is unclear, rerun the focused check or report the gap.
+- Before using a separate worktree or lane, establish the intended final state of the original and integration checkout from the existing request or approved plan. Ask only when missing or ambiguous information materially affects integration or authorization; preserve existing explicit approval gates without adding duplicate confirmation. At completion, distinguish verified lane changes from integrated changes; explicitly report an unsynced original checkout. Do not automatically reset, overwrite, or synchronize it in ways that discard user work or exceed the caller's authorization.
+- Keep this lightweight: prefer cheap existing metadata, not routine new hashes, manifests, audit logs, or per-command state tracking. Add stronger evidence only when requirements or risk warrant it; this does not weaken another workflow's required state-identity checks.
 
 Before declaring completion:
 - Directly inspect newly written and modified code for blank-line separation between declarations, established field groups, members, scope or control-flow block boundaries, and meaningful phases within branches. Add missing separation and remove excessive spacing within the changed scope. Formatter or linter success alone does not establish readable logical grouping.

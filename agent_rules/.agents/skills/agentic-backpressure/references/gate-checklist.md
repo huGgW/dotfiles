@@ -1,15 +1,17 @@
 # Gate Decisions And Evidence
 
 The manager maps current evidence to `PASS`, `SEND_BACK`, `BLOCKED`, `STALE`, or
-`ESCALATE_HUMAN`. Only PASS advances. This file owns mapping/evidence, not lifecycle
-budgets, state algorithms, lens methods, or external-operation rules.
+`ESCALATE_HUMAN`. Only PASS satisfies a required outcome. CI `pending` means
+waiting, not repair; `routing.md` owns its deadline and revision binding. This
+file owns mapping/evidence, not state algorithms, lens methods, or external-operation rules.
 
 ## Prerequisites
 
-Before each phase, require an actionable goal/scope, accepted plan/constraints,
-criteria/checks, immutable review base, current hash/state, budget capacity, and
-resolved prerequisites for that phase. Main-session manager ownership needs no
-isolation gate. A sufficient approved plan needs no planning worker. Preserve
+Before each selected capability, require an actionable goal/scope/stop and its
+resolved prerequisites. Correctness work requires accepted plan/constraints,
+criteria/checks, immutable review base, and current hash/state. Observation-only
+work requires exact external provenance, not gratuitous local gates. Main-session
+manager ownership needs no isolation gate. A sufficient approved plan needs no planning worker. Preserve
 protected work, active user intent, important superseded meaning, and unknown
 external outcomes. An unresolved material diff/ownership/API interpretation needs
 one focused human question, not an invented interpretation.
@@ -21,8 +23,10 @@ the same approved scope; reviews are always fresh and independent.
 
 ## Evidence Binding
 
-Each result needs the run, applicable hash, state, declared check/review scope,
-and manager-attached tool-reported producer/role/mode. Bind checks and reviews to
+Each result needs the run, applicable subject identity, declared scope, and
+producer attribution (tool or child ID/role/mode). For local gates this includes
+the applicable hash and state; external observations use `routing.md` provenance.
+Bind checks and reviews to
 before/after state for the check set, not each command. Confirm fresh identity at
 invocation and gate synthesis; detected drift makes the affected evidence STALE
 even if commands succeeded.
@@ -73,8 +77,8 @@ COMPLETE alone never authorizes implementation, publication, or whole-run approv
 Use the triggers in SKILL.md, not file count. Hash the exact plan before review;
 mutable review status stays outside. A plan edit stales dependent evidence.
 Require repository fit, load-bearing decisions, user-source alignment, boundaries,
-and relevant superseded meaning. After the allowed reviews are exhausted with
-unresolved BLOCKER/SHOULD findings, escalate; reviewer replacement grants nothing.
+and relevant superseded meaning. Repeated unresolved findings follow the
+anti-loop stop; reviewer replacement does not remove the blocker.
 
 An early targeted/focused gate passes only for its declared coverage and current
 state. For risk/blocker repair review include original stable findings/evidence,
@@ -93,7 +97,7 @@ only when command evidence cannot identify a safe route.
 | Supported worker/fixture/tooling-owned in-plan repair | `SEND_BACK` with concrete delta |
 | Baseline/environment/unavailable evidence | `BLOCKED` |
 | Wrong applicable hash/state/coverage | `STALE`, refresh affected evidence |
-| Unresolved requirement/authority/risk/budget | `ESCALATE_HUMAN` |
+| Unresolved requirement/authority/risk | `ESCALATE_HUMAN` |
 
 Assign worker/environment/tooling/human owner; optional fixture/baseline tags
 preserve detail without expanding the state machine. An isolated baseline failure
@@ -123,14 +127,31 @@ content reopens correctness. Unaffected evidence can carry only with an explicit
 dependency reason under the contract identity rules; final semantic review stales
 after correctness-affecting changes.
 
-## Capacity, Actions, And Handoff
+A newly proven current-candidate defect against binding requirements reopens
+affected correctness/readiness and blocks dependent publication immediately,
+even before mutation or when repair is unauthorized. Reevaluate semantic
+acceptance; keep valid mechanical results and rerun only checks whose coverage
+or dependencies changed. Mere unsupported comments do not invalidate acceptance.
+Route repairs through approved work, affected checks, and fresh final review.
+User-adopted new requirements update the specification/accepted plan and stale
+affected evidence under `backpressure-contract.md`, rather than silently changing
+the review criteria. A completed findings observation does not clear this blocker.
 
-Before advancing, apply `run-lifecycle.md` accounting and actual remaining-route
-reserve. Repeated unchanged failure or exhausted allowance escalates; new names
-cannot bypass stops. For actions/publication apply `boundary-actions.md`, including
+## Selected External Outcomes, Actions, And Handoff
+
+Apply `run-lifecycle.md` continuity and anti-loop stops; new names cannot bypass
+the same blocker. For actions/publication apply `boundary-actions.md`, including
 unknown outcomes, read-back, and candidate mutation before failure classification.
 
-Handoff links current IDs, criterion coverage, check/review results, blockers,
-used/remaining budgets, actual stop point, residual risk, and one focused decision
+CI and PR feedback are optional capabilities, but both must pass if both are
+required. CI PASS requires the exact required check set on the applicable tested
+revision, run and attempt; pending/timeout, baseline, and infra failures remain
+non-pass. Feedback completion requires evaluated findings/dispositions for the
+bounded snapshot, refreshed provenance, and explicit unprocessed additions/gaps.
+Do not label observation completion as whole-candidate correctness. An unavailable
+required capability blocks; no simulated loading or invented evidence.
+
+Handoff links current IDs, required-outcome coverage, check/review or observation
+results, blockers, actual stop occurrence, next action, residual risk, and one focused decision
 when needed. Include action authority/status/read-back and superseded/unresolved
 context only when relevant; history is not current evidence.

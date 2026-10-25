@@ -42,6 +42,34 @@
         "The final report explicitly presents the unresolved gap and affected conclusion as a limitation.",
         "The output does not fabricate a recovery failure rate or treat low-credibility P3 as sufficient resolution."
       ]
+    },
+    {
+      "id": 4,
+      "prompt": "외부 검색 없이 다음 자료만 사용해 검색 엔진 A/B의 성능 주장을 standard 깊이로 비교 조사하고 한국어 결론과 짧은 연구 추적 기록을 작성해줘. M1: A의 합성 벤치마크는 1 KiB 문서만 대상으로 2026-10-12 00:00~01:00 UTC에 실행했으며, 서버가 요청을 받은 때부터 응답을 쓸 때까지의 지연 p95가 40 ms다. 성공 요청만 집계했고 실패와 타임아웃은 제외했으며 표본 추출 비율은 알려지지 않았다. M2: B의 실제 사용자 관측은 2026-10-12 09:00~10:00 Asia/Seoul의 전체 문서 크기 분포에서 브라우저 전송부터 렌더링 완료까지 p99가 0.12 s다. 세션 10%를 추출했으나 모바일 세션 절반은 계측되지 않았다. M3: A 도입 전후 구매 전환율은 각각 3%, 4%였고, 같은 시점 할인 행사도 시작했으며 무작위 대조군은 없다. 팀은 'A가 B보다 3배 빠르고 A 때문에 전환율이 33% 증가했다'고 결론내리려 한다. 자료가 허용하는 비교와 허용하지 않는 결론을 구분해줘. 추가 측정이나 외부 자료를 얻을 수는 없다.",
+      "expected_output": "The analysis interprets measurement semantics before comparing values, rejects the unsupported speed ratio and causal attribution, and explains the limits of synthetic and incomplete observed evidence without inventing missing coverage.",
+      "files": [],
+      "expectations": [
+        "The output normalizes 0.12 s to 120 ms but does not conclude that A is three times faster, noting both p95 versus p99 and the different measurement start/end boundaries.",
+        "The output identifies M1 as synthetic and M2 as observed, distinguishes the 1 KiB successful-request population from the broader document/session population, and treats server latency as different from the end-user outcome.",
+        "The output recognizes that the two dated windows coincide after timezone conversion rather than treating them as different observation hours.",
+        "The output identifies the unknown A sampling rate, excluded failures/timeouts, and B's 10% sampling with missing mobile coverage as limitations without inventing a corrected result.",
+        "The output distinguishes the calculated one-percentage-point or approximately 33% relative conversion increase from causal evidence and considers the concurrent discount campaign as an alternative explanation.",
+        "The trace preserves the existing synthesis-gate and budget routing, and the final report does not resolve missing comparability or causal evidence by assertion."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "다음 자료만으로 API 용량을 quick 깊이로 검토해줘. 외부 검색이나 새 실험은 불가능하지만 정확한 재현이 안 된다는 이유로 분석 전체를 포기하지는 말아줘. 관측 입력 C1: 5분 동안 실제 요청 360,000건을 수신했다. 가정 C2: 향후에도 평균 도착률이 동일하다고 놓는다. 가정 C3: 요청당 CPU 시간은 40/80/160 ms 세 시나리오이며 아직 측정하지 않았다. 계산 조건 C4: 인스턴스당 4 vCPU, 평균 CPU 이용률 60%를 가정한다. 이 단순 모델에서 시나리오별 필요한 인스턴스 수와 CPU 시간 변화의 영향을 계산하고, 무엇이 관측이고 가정인지 분리해줘. 정확한 수용 기준은 1,200 requests/s에서 end-to-end p99 200 ms 이하이며 이 기준을 완화하면 안 된다. 현재 자료에는 지연 분포, 대기 시간, I/O 시간이나 부하 시험 결과가 없다. 최종 인스턴스 수나 수용 기준 통과 여부를 확정할 수 있는지도 설명하고 단계와 예산 상태를 짧게 남겨줘.",
+      "expected_output": "The response provides useful conditional capacity scenarios from separated observed and assumed inputs while refusing to turn a CPU-only calculation into measured performance, final sizing, or proof of the exact latency acceptance requirement.",
+      "files": [],
+      "expectations": [
+        "The output derives an observed average arrival rate of 1,200 requests/s from C1 and distinguishes the assumption that this rate continues from the historical observation.",
+        "The output explicitly labels the unmeasured CPU times and the 60% utilization as assumptions and separates them from observed inputs.",
+        "The output shows a dimensionally consistent conditional calculation equivalent to instances = arrival rate * CPU seconds per request / (4 * 0.6), yielding 20, 40, and 80 instances for the three scenarios.",
+        "The output explains sensitivity to CPU time, such as doubling assumed CPU time doubling modeled instance count, rather than refusing all analysis because exact reproduction is unavailable.",
+        "The output does not present the calculated instance counts as actual measured performance or final sizing, and explicitly states that they do not establish end-to-end p99 <= 200 ms at 1,200 requests/s or replace that exact acceptance requirement.",
+        "The quick-depth trace emits a terminal budget_exhausted synthesis gate with zero remaining iterations for the unresolved acceptance evidence and carries that limitation into the report instead of looping or declaring acceptance complete."
+      ]
     }
   ]
 }

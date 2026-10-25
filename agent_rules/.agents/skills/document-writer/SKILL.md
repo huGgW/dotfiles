@@ -22,7 +22,8 @@ Use this skill to create or improve technical documentation by matching the docu
 
 - Write documentation in Korean unless the user explicitly requests another language.
 - Keep code, commands, identifiers, and code comments in English.
-- Default to compact, structured documentation: descriptive headings, labeled bullets, numbered steps, and tables. Assume readers may review it together over screen sharing; minimize prose unless a short paragraph communicates the meaning more clearly.
+- Unless the user explicitly requests another format, center documentation on useful visuals and simple, concrete examples. Use diagrams, tables, short code snippets, or input/output examples to convey the main ideas; support them with concise headings, labeled bullets, or numbered steps.
+- Minimize continuous prose and omit flowery language, filler, and ornamental introductions or conclusions. Use a short paragraph only when a visual, example, or structured form would obscure necessary reasoning or context. Keep the result easy to scan during screen sharing.
 - Compress presentation, not substance. Preserve all scope-relevant facts, reasoning, conditions, exceptions, trade-offs, examples, and evidence; do not turn a complete document into a lossy summary.
 - Proactively add useful diagrams, charts, screenshots, or wireframes without waiting for an explicit request. Include each visual that materially improves understanding; choose by explanatory value, not a fixed count.
 - In Korean documents, minimize English except where exact technical meaning requires it, such as code, commands, identifiers, API names, configuration keys, and product names. Prefer plain Korean over difficult Sino-Korean terms, translationese, or overly formal phrasing.
@@ -84,6 +85,8 @@ Do not treat README, API docs, runbooks, architecture docs, onboarding guides, d
    - Compare the revision against the source material for omitted facts, qualifiers, exceptions, reasoning, and evidence. Check for missed visual opportunities as well as unnecessary visuals.
    - Remove visuals, tables, headings, or bullets that only repeat nearby content or fragment a simple idea.
    - For Korean documents, check whether English terms and difficult phrasing can be reduced without losing technical precision.
+   - Before finalizing, edit the document to remove AI-style writing: inflated claims, generic filler, formulaic phrasing, and unnatural repetition. For Korean text, also proofread spelling, spacing, and register, and replace translationese with natural phrasing.
+   - Preserve technical meaning, established terminology, and useful document structure. Leave passages unchanged when no correction is needed.
    - Use `references/quality-checklists.md` before finalizing substantial docs or documentation reviews.
 
 7. Deliver the result.

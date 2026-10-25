@@ -15,9 +15,10 @@
         "The primary document states the five-attempt retry policy, all four retry delays, dead-letter handling, and the `alerts:replay` permission.",
         "The internal source map names the primary document and both exact source paths supplied by the fixture.",
         "The primary document contains no internal `.md` file reference, `design/` path, phase label, decision ID, source-map reference, or fixture-specific internal path segment.",
-        "The primary document contains exactly one Mermaid block showing a flow through Ingest API, Outbox, Dispatcher, and a provider adapter.",
-        "The primary document contains no more than 550 words and no more than six level-two headings.",
-        "The execution transcript records successful loading of both the `document-writer` and `humanizer` skills."
+        "The primary document explains the delivery flow through Ingest API, Outbox, Dispatcher, and a provider adapter with a useful visual when it improves understanding.",
+        "The primary document is audience-focused and avoids redundant process narration without an arbitrary word or heading quota.",
+        "The execution transcript records successful loading of `document-writer`; humanizer is not a required publication stage.",
+        "Both newly authored output documents start with parseable YAML containing nonempty type, default title/description, and status draft while unreviewed, without a new legacy timestamp frontmatter field, new #Citations sections, or fabricated provenance; truthful generated.at and verified.at fields are allowed."
       ]
     },
     {
@@ -34,8 +35,9 @@
         "The primary document preserves the 2,000-changes-per-minute peak, two-minute delivery objective, `order_id + status_version` deduplication rule, eventual consistency, and first-release cross-region boundary.",
         "The internal source map names the primary document and the exact `design/4-high-level-design/communication/decision.md` source path.",
         "The primary document contains no internal `.md` file reference, `design/` path, phase label, `D-17`, source-map reference, or fixture-specific internal path segment.",
-        "The primary document contains exactly one Markdown comparison table covering all three options and contains no Mermaid block or additional table.",
-        "The primary document contains no more than 450 words, and the execution transcript records successful loading of both the `document-writer` and `humanizer` skills."
+        "The primary document makes the three options and their consequences easy to compare without enforcing a table or diagram count.",
+        "The execution transcript records successful loading of `document-writer`; the document is concise for its audience without a fixed word quota or mandatory humanizer stage.",
+        "Both new output documents have minimum OKF frontmatter including nonempty type and default title/description, remain draft while unreviewed, and have no new legacy timestamp frontmatter field or fabricated provenance; truthful generated.at and verified.at fields are allowed."
       ]
     },
     {
@@ -51,11 +53,11 @@
         "The run updates the existing `output/order-event-architecture/order-event-architecture.md` and `output/order-event-architecture/internal-source-map.md` files and creates no alternate output slug.",
         "The refreshed primary document states transactional outbox publication, managed Kafka, `order.status.v2`, seven-day retention, and offset commit after idempotent application.",
         "The refreshed primary document contains none of the stale terms `RabbitMQ`, `order.status.v1`, `24 hours`, or `24-hour` in any casing.",
-        "The refreshed primary document contains exactly one Mermaid block whose nodes or labels include the Order API, outbox relay, Kafka, and partner consumer, with no RabbitMQ node.",
+        "The refreshed primary document explains the Order API, outbox relay, Kafka, and partner-consumer flow accurately; any diagram contains no stale RabbitMQ node.",
         "The internal source map names the primary document, the exact source path, and current source revision `2026-07-25-v2`; it no longer reports revision `2026-07-01-v1` or a stale status.",
         "The primary document contains no internal `.md` file reference, `design/` path, phase label, `D-23`, source revision, source-map reference, or fixture-specific internal path segment.",
-        "The primary document contains no more than 450 words and no more than six level-two headings.",
-        "The execution transcript records successful loading of both the `document-writer` and `humanizer` skills."
+        "The update preserves existing metadata without incidental v0.1 migration, a fabricated revision, or unrelated rewriting.",
+        "The execution transcript records successful loading of `document-writer`; no fixed word quota or mandatory humanizer stage is imposed."
       ]
     },
     {
@@ -74,26 +76,26 @@
     {
       "id": 5,
       "prompt": "솔루션 개념은 합의됐다. 이제 Phase 4를 시작하자. 큰 결정 후보로 통신 방식, 데이터 소유권, 배포 형태, 인증 전달 방식이 보인다. 아직 어떤 항목의 선택지도 비교하지 않았고 파일도 쓰지 않았다. 첫 응답만 작성해라.",
-      "expected_output": "A breadth-first Phase 4 opening that shows the complete skeleton discussion list and asks for list confirmation before option analysis.",
+      "expected_output": "A scoped high-level-design opening that includes modeling and the named discussion areas without making all-project sibling completion a prerequisite.",
       "files": [],
       "expectations": [
-        "The response shows the overall flow, primary model, major components, and all four named decision areas in one current-level discussion list.",
+        "The response proposes a relevant discussion scope including overall flow, primary model, ownership or invariants, and the four named decision areas without demanding exhaustive system coverage.",
         "Each list item has only a short purpose or framing statement rather than a deep option comparison.",
         "The response asks the user to add, remove, merge, split, reorder, or reprioritize the list before opening option details.",
         "The response does not select, recommend, or deeply compare communication, data, deployment, or authentication options.",
-        "The response is compact, uses plain Korean, and uses at most one small visual or table only if it reduces explanation."
+        "The response is compact and uses plain Korean; visuals or tables are chosen for explanatory value rather than a fixed count."
       ]
     },
     {
       "id": 6,
       "prompt": "Phase 5에 들어왔다. 구성 요소는 API Gateway, Job Scheduler, Delivery Worker, Audit Store다. API Gateway에서 쓸 Go 라우터 라이브러리와 정확한 재시도 간격도 궁금하지만 한 부분만 깊게 보다가 전체 구조를 놓치고 싶지는 않다. 파일을 쓰기 전 논의를 이어가라.",
-      "expected_output": "A compact Phase 5 discussion map that covers all sibling components first and parks implementation-level API Gateway details for later work.",
+      "expected_output": "A compact map of relevant components and dependencies that honors the user's wish for orientation without a mandatory all-component pass before focus.",
       "files": [],
       "expectations": [
-        "The response presents all four components in a current-level ordered discussion list before deepening API Gateway.",
-        "The response identifies a one-level first pass such as purpose, boundary, main flow, or visible open decisions for the components.",
-        "The Go router library and exact retry interval are placed under a later-discussion or implementation-time section rather than decided immediately.",
-        "The response asks the user to confirm or adjust the component order and does not create files or claim a component design decision.",
+        "The response orients the user to the four named components and allows a selected focus without requiring every sibling to be designed first.",
+        "The response uses purpose, boundary, main flow, direct dependencies, or blocking questions to keep the selected focus connected to the whole.",
+        "The Go router choice is left for implementation absent a contract reason; the retry interval is classified by its actual operational or shared-contract impact rather than automatically dismissed as a detail.",
+        "The response invites focus or order adjustments and does not create files or claim a component design decision.",
         "The response uses short, plain Korean and avoids unnecessary English terms or detailed library comparisons."
       ]
     },
@@ -120,7 +122,8 @@
         "New option artifacts describe only the agreed synchronous callback and asynchronous event candidates as candidates, with tradeoffs rather than a selected winner.",
         "The run does not create a final communication decision or a central decision-log entry asserting selection.",
         "The resulting checkpoint retains unresolved data ownership, the deferred router question, and a next confirmation about communication selection rather than phase completion.",
-        "The response does not reopen the approved agenda or candidate set, or claim an unseen sibling pass was completed."
+        "The response does not reopen the approved agenda or candidate set, or claim an unseen sibling pass was completed.",
+        "New option documents have parseable YAML with nonempty type, default title/description, and draft status while unreviewed; the existing checkpoint frontmatter is preserved without incidental migration."
       ]
     },
     {
@@ -133,7 +136,8 @@
         "The note cites the actual handler and whitespace-sensitive test locations, distinguishing inspected behavior from test execution actually performed.",
         "The run stays with the approved raw-byte question and does not require additional source types or a fixed reference count when supplied evidence resolves it.",
         "The note does not claim production safety, a complete security audit, or a new approved architectural decision from this narrow finding.",
-        "The transcript does not expand into unrelated cryptographic research, framework comparison, or a textbook-length research artifact."
+        "The transcript does not expand into unrelated cryptographic research, framework comparison, or a textbook-length research artifact.",
+        "The new research note has minimum OKF YAML with nonempty type, title/description defaults, draft status while unreviewed, no new legacy timestamp frontmatter field or new #Citations convention, and truthful local-evidence provenance where used; truthful generated.at and verified.at fields are allowed."
       ]
     },
     {
@@ -180,14 +184,139 @@
     {
       "id": 13,
       "prompt": "Treat the supplied fixture root as the project root. 외부 문서 output/replay-guide/replay-guide.md의 첫 문장만 'The platform facilitates the utilization of manual replay.'에서 'Operators can manually replay a delivery.'로 다듬어라. 의미는 같다. 제목, slug, 대상 독자, 승인된 재전송 규칙, 기존 링크, 내부 source map은 유지한다. 이 문장 수정은 승인됐으며 전체 재작성, 새로운 게시, 설계 재논의는 하지 않는다.",
-      "expected_output": "A scoped wording-only publication correction with Humanizer and local fidelity/leak/link/source-map checks, preserving current provenance and substantive content.",
+      "expected_output": "A scoped wording-only publication correction with local fidelity/leak/link/source-map checks, preserving current provenance and substantive content.",
       "files": ["evals/fixtures/publication-wording/design/5-detailed-design/worker/design.md", "evals/fixtures/publication-wording/output/replay-guide/replay-guide.md", "evals/fixtures/publication-wording/output/replay-guide/internal-source-map.md"],
       "expectations": [
         "The requested sentence is replaced in place; the title, remaining paragraphs, replay rule, provider link, and output slug are unchanged.",
-        "The transcript shows successful use of humanizer scoped to the changed wording, not a mandatory full-document rewrite.",
+        "The run handles the wording correction directly or with appropriate documentation guidance without requiring humanizer or a full-document rewrite.",
         "The transcript or file inspection demonstrates scoped meaning-fidelity and internal-leak checks plus preservation of the existing link and source-map mapping.",
         "The source map remains private, usable, and current with its existing primary document, source path, and revision; no source metadata leaks into the primary document.",
         "The run does not manufacture a new revision, stale status, design decision, publication slug, or external publish action for a wording-only change."
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "Treat the supplied fixture root as the project root. 먼저 design/plan.md와 replay.md를 읽어라. 수동 replay만 이슈로 넘길 준비가 됐는지 판단한 다음, 독립 의제인 retention 모델 논의로 전환하자. retention 후보는 30일과 90일이며 아직 선택하지 않았다. 지금은 대화만 하고 파일, 이슈, 코드는 만들지 마라. retention을 끝내야 replay를 넘길 수 있다고 가정하지 말고, 현재 구현과 합의 목표도 구분해라. retention에서는 용어와 소유권, 보존 불변조건부터 질문하라.",
+      "expected_output": "A scoped readiness judgment followed by an independent agenda switch and model-focused questions, without all-project gates or ticket generation.",
+      "files": ["evals/fixtures/scoped-readiness/design/plan.md", "evals/fixtures/scoped-readiness/design/replay.md"],
+      "expectations": [
+        "The run reads the checkpoint and replay design and judges manual replay ready from its outcome, boundaries, shared identity contract, direct dependents, and concrete verification scenarios.",
+        "The response does not require retention, every component, or all five lenses to be completed before replay handoff, and distinguishes router/helper choices from blockers.",
+        "The response distinguishes current ID reuse from the agreed new-ID target and does not claim implementation or runtime verification is complete.",
+        "The response switches to retention while preserving replay readiness; it asks about meaningful retention naming, ownership, or invariants without selecting 30 or 90 days or enumerating every method.",
+        "No files, local tickets, remote issues, implementation, or full-project tracker are created, and to-issues is not invoked merely because readiness was assessed."
+      ]
+    },
+    {
+      "id": 15,
+      "prompt": "Treat the supplied fixture root as the project root. 제공된 inputs/provider-review-v2.txt와 inputs/meeting-result.txt를 순서대로 읽고 기존 external/provider-review.md와 비교해라. v2는 반복 timeout 제안과 새 관측/재시도 제안을 구분해서 같은 참조에 유의미한 delta만 반영해라. 이어 회의에서 권한 있는 Mina가 확정한 timeout 변경만 design/provider-contract.md와 plan.md에 반영하고 meeting/2026-10-19-provider-timeout.md에 회의 결과를 기록해라. 회의 기록과 참조 갱신, 명시한 두 설계 파일 수정은 승인됐다. retry 제안은 미합의로 남긴다. 원문은 제공된 파일이 전부이며 링크를 찾거나 원문을 복제하지 마라. 코드/테스트 실행/게시 없이 처리하라.",
+      "expected_output": "Deduplicated external evidence and a date-topic meeting result that apply only the authorized timeout decision while preserving the unresolved retry conflict and pending verification.",
+      "files": ["evals/fixtures/source-delta/design/plan.md", "evals/fixtures/source-delta/design/provider-contract.md", "evals/fixtures/source-delta/external/provider-review.md", "evals/fixtures/source-delta/inputs/provider-review-v2.txt", "evals/fixtures/source-delta/inputs/meeting-result.txt"],
+      "expectations": [
+        "The existing external reference is updated in place with the six-second sandbox observation and seven-attempt proposal, without duplicating the unchanged eight-second proposal or copying raw source by default.",
+        "The meeting record identifies its provided source, Mina's authority, the eight-second agreement, seven-attempt proposal, Arun's pending verification, and the limited applied scope.",
+        "The provider contract changes timeout to eight seconds and retains five attempts and stable retry IDs; the checkpoint records that implementation and sandbox verification remain pending.",
+        "The run applies the clear authorized timeout decision without asking for redundant reapproval, but does not adopt the conflicting retry proposal or misrepresent partner engineering as local contract owner.",
+        "Capture, adoption, local documentation application, implementation, and verification are distinguished; no code, runtime test, live fetch, remote write, raw input modification, or ceremonial triple log/sync report occurs.",
+        "New authored meeting documentation has parseable YAML with nonempty type, title, description, and status draft while unreviewed, no new legacy timestamp frontmatter field or new #Citations convention, and only truthful provenance; truthful generated.at and verified.at fields are allowed."
+      ]
+    },
+    {
+      "id": 16,
+      "prompt": "Treat the supplied fixture root as the project root. design/options.md를 근거로 파트너 엔지니어링 리드가 두 buffering 후보를 리뷰할 독립 문서 'Delivery Buffer Review'를 output/delivery-buffer-review/delivery-buffer-review.md에 작성해라. 비교 검토용 초안이며 아직 어느 후보도 승인되지 않았다. 내부 source map은 별도 파일로 유지하라. 초안 생성은 승인됐다. 최종 결정을 요구하거나 후보를 선택하지 말고 외부 게시도 하지 마라.",
+      "expected_output": "A shareable review draft with truthful option and current-state labeling, backed by private lightweight mapping rather than a fabricated agreed final design.",
+      "files": ["evals/fixtures/draft-review/design/options.md"],
+      "expectations": [
+        "The requested output and separate internal source map are created without refusing draft publication work merely because no option was selected.",
+        "The primary document is visibly a review draft, accurately contrasts managed queue and Kafka, preserves at-least-once delivery, isolation, and idempotency, and leaves the selection and cost review open.",
+        "Direct callbacks are identified as current implementation; buffering candidates are not described as implemented or agreed selections.",
+        "The primary document contains no design/ path, internal source-map reference, D-DRAFT-42 marker, or internal source path in either body or metadata; the separate source map identifies the exact source and draft status.",
+        "Both new output files have parseable YAML with nonempty type, title, description, and status draft while unreviewed, without a new legacy timestamp frontmatter field, new #Citations sections, or fabricated verification/provenance; truthful generated.at and verified.at fields are allowed.",
+        "The run uses document-writer, preserves the design source unchanged, does not require humanizer or a mandatory full-document humanizer gate (optional humanizer use is allowed), and performs no remote publishing or design selection."
+      ]
+    },
+    {
+      "id": 17,
+      "prompt": "Treat the supplied fixture root as the project root. replay 계약 변경은 합의됐다: 자동 retry는 delivery_id 유지, manual replay는 새 delivery_id와 original_delivery_id 사용. design/replay-contract.md와 직접 영향을 받는 기존 issues/manual-replay.md만 갱신하고 영향을 설명해라. 직접 blocker와 출시 조건을 구분하고 합의로 해소된 blocker를 반영하라. production-launch.md는 내용 변경이 필요하지 않다. 원격 이슈 생성, 구현, 일괄 티켓 생성은 요청하지 않는다.",
+      "expected_output": "A contract-aware root issues update that resolves the direct design blocker without converting release conditions into implementation blockers.",
+      "files": ["evals/fixtures/issue-impact/design/replay-contract.md", "evals/fixtures/issue-impact/issues/manual-replay.md", "evals/fixtures/issue-impact/issues/production-launch.md"],
+      "expectations": [
+        "The contract and manual-replay issue consistently distinguish automatic retry ID reuse from a new manual replay ID linked to original_delivery_id, including relevant acceptance criteria.",
+        "The settled identity decision resolves the direct design blocker, while runbook review remains a release condition rather than a prerequisite to coding.",
+        "The issue remains a local draft with no fabricated implementation or remote status; production-launch.md and existing frontmatter are preserved.",
+        "The run recognizes root issues/ as a direct dependent rather than requiring issues inside design/, and does not generate additional tickets, publish remotely, or implement code."
+      ]
+    },
+    {
+      "id": 18,
+      "prompt": "프로젝트의 수동 replay 범위가 준비됐다. 이 대화의 합의: 운영 API와 Worker만 범위, API가 새 delivery_id와 original_delivery_id를 만들고 Worker가 ID 기준 원자적 중복 처리를 소유한다. 기존 Audit Store 소비 계약은 담당자가 호환성을 확인했다. 검증은 자동 retry ID 유지, replay 새 ID/원본 참조, 동일 ID 중복 적용 방지다. 라우터 선택은 구현 중 결정한다. 이 범위만 로컬 이슈로 나누도록 to-issues에 넘겨라. 목적지는 프로젝트 루트 issues/이며 design/ 하위가 아니다. 외부 게시나 실제 구현은 하지 마라. 다른 컴포넌트나 retention은 이번 범위 밖이다.",
+      "expected_output": "An explicit to-issues handoff for the selected ready slice with a root issues destination override and no remote or implementation side effects.",
+      "files": [],
+      "expectations": [
+        "The run invokes to-issues because issue decomposition was explicitly requested and passes the selected outcome, scope, shared identity contract, direct dependency confirmation, and verification criteria.",
+        "The handoff overrides the destination to root issues/ and keeps router choice as implementation-time, without requiring all-project design completion.",
+        "Any local issue decomposition stays within API/Worker replay scope; it does not create retention work, publish remotely, or start implementation.",
+        "Any new managed issue documents use minimum OKF frontmatter, remain draft while unreviewed, and do not fabricate remote IDs or completed verification."
+      ]
+    },
+    {
+      "id": 19,
+      "prompt": "Treat the supplied fixture root as the project root. 먼저 plan.md에서 재개해라. design/architecture.md에 현재 구현/합의 목표/미선택 retention 구분을 바꾸지 말고, 처음 보는 사람이 plan에서 현재 구조와 이전 rationale로 이동할 수 있게 탐색 링크만 필요한 만큼 보강해라. 기존 Phase 경로와 timestamp/custom_owner는 유지한다. 모든 폴더 index 생성이나 새 루트 scaffolding, 문서 전면 재작성은 하지 마라.",
+      "expected_output": "A small navigation repair preserving legacy structure, v0.1 metadata, and current-versus-target distinctions.",
+      "files": ["evals/fixtures/navigability/design/plan.md", "evals/fixtures/navigability/design/architecture.md", "evals/fixtures/navigability/design/4-high-level-design/communication/decision.md"],
+      "expectations": [
+        "The plan is read first and gains or retains working relative navigation to architecture.md; the earlier rationale remains reachable at its existing legacy Phase path.",
+        "The documents retain current direct callbacks, agreed outbox/queue target, and unapproved 30/90-day retention as distinct states without claiming implementation.",
+        "Existing timestamp and custom_owner metadata and legacy rationale history are preserved without incidental v0.2 migration or path relocation.",
+        "The run makes only necessary navigability changes and does not scaffold all roots, require index.md in every directory, or rewrite the whole tree."
+      ]
+    },
+    {
+      "id": 20,
+      "prompt": "설계 논의를 재개한다. 확정된 명칭은 DeliveryAttempt이며 전송 시도 하나를 뜻한다. delivery_id 하나에 자동 재시도 여러 개가 있고 attempt_id는 시도마다 다르다. API는 delivery_id 생성, Worker는 attempt_id 생성과 상태 전이를 소유한다. 이 명명/소유권과 delivery_id당 성공 결과 최대 하나라는 불변조건을 중심으로 현재 모델을 Mermaid와 짧은 설명으로 검토하라. 메서드 목록이나 코드 작성은 필요 없다. 보존 기간과 배포 방식은 독립 의제라 열어두고 지금 파일은 쓰지 마라.",
+      "expected_output": "An explicit high-level model review with meaningful naming, ownership, cardinality, and invariant discussion, not a component-method inventory.",
+      "files": [],
+      "expectations": [
+        "The response uses visual-first-explanation and models one delivery with multiple distinct DeliveryAttempt instances without conflating delivery_id and attempt_id.",
+        "API delivery-ID ownership and Worker attempt-ID/state-transition ownership are explicit, and the maximum-one-success invariant is retained.",
+        "Any unresolved enforcement mechanism is a question or proposal, not an invented agreed database constraint or solved race.",
+        "The response stays on the selected model, leaves retention and deployment open, and does not demand every component, method signature, or prior lens be completed; no files are written."
+      ]
+    },
+    {
+      "id": 21,
+      "prompt": "Treat the supplied fixture root as the project root. 기록 정책 점검이다. 합의된 replay ID 변경은 Worker/Audit 소비 의미에 영향을 주므로 기존 design/log.md에 나중에 유용한 짧은 변경 요약과 직접 영향/미검증 항목을 한 번 기록해라. 새 계약: manual replay는 새 delivery_id와 original_delivery_id, 자동 retry는 ID 유지. 이번에는 기록만 승인됐고 계약/Worker 실제 수정과 Audit 검증은 별도 작업이다. 기존 로그의 내용은 보존하라. plan/index/decisions에 같은 내용을 복제하거나 그 외 기록 파일을 만들지 마라.",
+      "expected_output": "A selective important-decision history entry that preserves existing history and truthfully separates agreement, application, and verification.",
+      "files": ["evals/fixtures/recording-correction/design/log.md", "evals/fixtures/contract-change/design/4-high-level-design/delivery-contract.md", "evals/fixtures/contract-change/design/5-detailed-design/worker/design.md", "evals/fixtures/contract-change/design/5-detailed-design/audit-store/design.md"],
+      "expectations": [
+        "One compact meaningful entry is added to the existing log, retaining prior history and explaining the new manual replay identity versus unchanged automatic retry identity.",
+        "The entry names direct Worker/Audit impact and leaves contract/document application and Audit verification pending rather than reporting implementation or validation complete.",
+        "No repeated plan/index/decisions entry, per-file sync report, new log, or unrelated contract/consumer edit is created.",
+        "The reserved log remains a navigation/update document without mandatory ordinary concept frontmatter; this important contract event is distinguished from the typo-only no-log case in eval 10."
+      ]
+    },
+    {
+      "id": 22,
+      "prompt": "새 프로젝트 루트에 짧은 설계 초안만 기록해라. 이번 작성 범위와 초안 저장은 승인됐다: design/replay-model.md에 수동 replay 모델의 두 미선택 후보(동일 ID 재사용, 새 ID+원본 링크)를 상태 draft로 기록한다. 사용자는 아직 선택하지 않았다. 다른 root, index, log, options/ 개별 파일이나 티켓은 필요 없다. 현 단계 결과는 초안이라는 점을 유지하고 provenance를 지어내지 마라.",
+      "expected_output": "A lazily created minimum-OKF design draft preserving unchosen alternatives without manufactured selection or structure.",
+      "files": [],
+      "expectations": [
+        "Only the requested design draft is authored, containing both unselected candidates and their meaningful tradeoff or open question without a selected winner.",
+        "The new document starts with parseable YAML containing nonempty type, title, description, and status draft; it does not introduce a new legacy timestamp frontmatter field or a new #Citations section; truthful generated.at and verified.at fields are allowed.",
+        "Provenance is omitted when inapplicable or truthfully attributes only the supplied discussion; it does not invent external sources, reviews, implementation, or verification.",
+        "The run does not demand final consensus to persist the explicitly requested draft, split it into mandatory option files, create every directory index, scaffold sibling roots, or auto-generate issues."
+      ]
+    },
+    {
+      "id": 23,
+      "prompt": "Treat the supplied fixture root as the project root. 다음 provider timeout 회의를 위한 사전 검토 자료를 output/provider-timeout-prep/provider-timeout-prep.md에 작성하라. 현재 design/provider-contract.md의 3초/5회가 합의이고 external/provider-review.md의 8초는 미채택 제안이다. 쟁점과 담당자가 결정할 질문을 정리하되 회의가 이미 열렸다고 기록하지 마라. source map은 별도 내부 파일로 작성하고 원문 복제, 링크 fetch, 설계 변경, 실제 회의 결과 기록은 하지 마라.",
+      "expected_output": "An output meeting-preparation draft rather than a fictional meeting result, with private source mapping and preserved authority boundaries.",
+      "files": ["evals/fixtures/source-delta/design/provider-contract.md", "evals/fixtures/source-delta/external/provider-review.md"],
+      "expectations": [
+        "The requested preparation document is placed under output/, not misclassified as an actual meeting/ result, and clearly labels the eight-second timeout as an unadopted partner proposal against the agreed three-second/five-attempt contract.",
+        "The document presents meaningful decision questions and delivery-team ownership without claiming the meeting happened, fabricating approval, or changing source design/reference files.",
+        "Both output and separate internal source map have minimum OKF YAML, default title/description and draft status while unreviewed, no new legacy timestamp frontmatter field or #Citations convention, and truthful mapping to both sources; truthful generated.at and verified.at fields are allowed.",
+        "The shareable preparation body and metadata leak no internal source paths or source-map reference; there is no raw-source copy, live fetch, remote posting, or automatic implementation."
       ]
     }
   ]

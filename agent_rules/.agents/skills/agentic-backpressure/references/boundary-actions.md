@@ -1,6 +1,6 @@
 # Boundary Actions
 
-Boundary Actions are optional, ordered operations at two controlled lifecycle
+Boundary Actions are optional, ordered operations at controlled lifecycle
 boundaries. They integrate a run with external systems without turning the
 backpressure protocol into a general hook or callback framework.
 
@@ -11,9 +11,15 @@ backpressure protocol into a general hook or callback framework.
   plan in an exact Linear issue.
 - `after_final`: after Final Correctness passes. Use this for commit, push, exact
   PR updates, or another explicitly authorized publication operation.
+- `external_observation`: an exact authorized reply/resolve after evaluating the
+  declared feedback snapshot, or rerun/cancel of an exact observed CI run/attempt.
+  Require current action-specific prerequisites, not gratuitous local correctness
+  gates. This timing grants no mutation authority, code repair, or publication.
+  A CI rerun retains the same observation episode's absolute deadline; read back
+  the resulting run/attempt or cancellation state before further observation.
 
-There is no pre-contract action. Contract activation supplies the run ID, plan,
-state, authorization, budget, stop point, and evidence identity needed to execute
+There is no pre-contract action. Contract activation supplies the run ID,
+applicable plan/subject, authorization, stop point, and evidence identity needed to execute
 safely. There is no generic `on_failure` action in the minimal protocol.
 
 ## Manifest
@@ -24,7 +30,7 @@ results in Current State, outside the manifest.
 | Field | Meaning |
 |---|---|
 | ID | Stable run-local ID such as `PRE-1` or `POST-2` |
-| Timing | `before_work` or `after_final` |
+| Timing | `before_work`, `after_final`, or `external_observation` |
 | Required | Whether non-pass blocks the next eligible phase or action |
 | Owner | Specialized skill, tool, or fresh specialist that performs one action |
 | Exact target | Issue, document, worktree, branch, remote/refspec, PR, or resource |
@@ -35,7 +41,9 @@ results in Current State, outside the manifest.
 | Authorization source | Current user instruction or approved authority |
 
 An action identity includes every manifest field plus the active run ID,
-applicable specification hashes, current `state_id`, and payload digest or
+applicable specification hashes, current subject identity (`state_id` for local
+work, exact snapshot/head for feedback, or exact repository/run/attempt/tested
+revision for CI), and payload digest or
 reference. A changed identity makes the prior result inapplicable to the new
 action. Do not add a separate action hash unless an implementation needs one for
 stable storage; the declared identity fields are sufficient policy.
@@ -44,7 +52,8 @@ stable storage; the declared identity fields are sufficient policy.
 
 1. Validate unique action IDs and require an action-ID `stop_after` to name one
    reachable manifest entry. A phase stop excludes actions after that phase; an
-   action-ID stop executes through that action and then hands off.
+   action-ID stop executes through that action and then hands off. On a cyclic
+   route name the occurrence, such as the next push or current feedback snapshot.
 2. Confirm all declared prerequisites are current and `PASS`.
 3. Recheck exact target, operation, payload, and authorization immediately before
    execution. Authorization is permission, not an obligation or phase override.
@@ -67,10 +76,11 @@ Examples:
 |---|---|
 | Required `before_work` action is non-pass | Block implementation and hand off |
 | Optional `before_work` action is non-pass | Continue only if no correctness prerequisite depends on it |
-| Final Correctness is non-pass | Execute no `after_final` action |
+| Final Correctness is non-pass | Execute no `after_final` action; `external_observation` actions still require their own current prerequisites/authority |
 | Required `after_final` action is non-pass and content is unchanged | Keep correctness `PASS`, block later actions, and hand off |
 | Optional `after_final` action is non-pass and content is unchanged | Report it; continue only to independent later actions |
-| Prior result belongs to another identity | Mark gate evidence `STALE`; retain operation attempts and real-world outcome facts before evaluating the current action |
+| `external_observation` action is non-pass | Block dependent outcomes if required; otherwise report and continue only independent work |
+| Prior result belongs to another identity | Mark gate evidence `STALE`; retain real-world outcome facts before evaluating the current action |
 | Current action cannot establish its declared identity | Return `STALE` and hand off or refresh current state |
 | Outcome is unknown or partially successful | Read back before deciding whether any retry is safe |
 
@@ -90,20 +100,20 @@ When a request times out or partially succeeds:
 3. Preserve successful sub-operations and do not repeat them.
 4. Retry only an operation confirmed incomplete, idempotent or protected by a
    stable idempotency key, with current prerequisites still `PASS`, still
-   authorized, within `stop_after`, and within budget.
+   authorized, within `stop_after`, and supported by new evidence or approach.
 5. Read back again after the retry.
 6. If read-back is unavailable or the operation is non-idempotent, keep the
    action non-pass, preserve reported successes as tool-reported-only, and do not
    repeat them. Hand off instead of guessing.
 
-Allow at most four execution attempts total per identical underlying operation,
-including the first. This is a ceiling, not a reason to repeat an unchanged failure.
-A delegated attempt also consumes a child call. Record each attempt and observed
-partial result; never broaden the target or operation to recover from a failure.
+Stop unchanged failure without new evidence, hypothesis, or approach; recurring
+fruitless recovery requires investigation or human help. Retain the current
+observed partial result, not a per-attempt ledger. Never broaden the target or
+operation to recover from a failure.
 
-A new run, extension grant, renamed action, or changed specification does not
-reset attempts for the same underlying operation or erase an unknown outcome.
-Carry exact target, operation, successful parts, attempt count, and read-back
+A new run, extended scope, renamed action, or changed specification does not
+erase the same underlying blocker or an unknown outcome.
+Carry exact target, operation, successful parts, and read-back
 references into a relevant new run. Stale evidence cannot satisfy the new gate,
 but it still constrains safe retries; read back before issuing another operation.
 See `run-lifecycle.md` for request-boundary handoffs.
@@ -118,8 +128,9 @@ Boundary Actions must not silently change candidate content. Recompute
   work slice. A mixed change follows both routes; publication files never hide
   non-publication work. Invalidate affected evidence and reopen Final Correctness
   before applying required or optional failure behavior.
-- If only external state changed, repository correctness remains valid, but the
-  action still needs authoritative read-back evidence.
+- If only external state changed, the action does not itself invalidate repository
+  correctness, but still needs authoritative read-back. Newly proven defects
+  reopen acceptance under `gate-checklist.md` even without content mutation.
 - If a commit changes only `HEAD` and the committed tree equals the frozen
   candidate, carry content-bound evidence forward. Rerun only checks that depend
    on the commit object or post-commit environment.
@@ -137,14 +148,18 @@ Gate each action on its mapped items, not future post-commit items that cannot
 run before the commit. Overall readiness is a handoff summary. Publication may
 remain blocked after correctness passes. Candidate-changing publication repairs
 reopen final correctness; a HEAD-only commit with equivalent content preserves
-content-bound checks, not commit-dependent checks. Reserve required delegated
-publication work in actual remaining-route capacity.
+content-bound checks, not commit-dependent checks. After authorized publication,
+observe selected CI/feedback outcomes under `routing.md`; a push alone does not
+establish those outcomes. New code repairs reopen local gates, then need separately
+authorized commit/push before another publication.
 
 Permissions remain separate: commit does not permit push; push does not permit
 commit or force-push; PR authorization does not permit commit/push. PR updates
 must name exact fields/state transitions; body updates do not authorize base,
 labels, close, or merge changes. Release, deployment, production mutation, and
 notifications need their own exact authorized workflow, never inferred hooks.
+Feedback observation/drafts do not authorize posting; reply does not authorize
+resolve, and neither authorizes repair or push. Read back each authorized mutation.
 
 ## Example: Record The Plan In Linear
 

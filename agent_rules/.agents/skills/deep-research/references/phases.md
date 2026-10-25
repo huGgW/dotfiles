@@ -136,6 +136,19 @@ Dimensions:
    best practices.
 4. Data analysis (when applicable): metrics, benchmarks, statistics, performance.
 
+### Measurement semantics (when relevant)
+
+For metrics, benchmark, or capacity questions, capture the context needed to
+interpret or compare the numbers: units, population/denominator, time window
+and timezone, aggregation, sampling and missing-data coverage, and measurement
+start/end boundaries. Distinguish the target outcome from a proxy and label
+values as observed, synthetic, calculated, or assumed as appropriate. Missing
+context is a limitation, not permission to invent it or treat unlike measures
+as equivalent. Keep this proportional to the question; it is not a universal
+finding schema or an extra source quota. For useful analysis when exact
+reproduction is unavailable, see the conditional-analysis guidance in
+`synthesis-gate.md`.
+
 Evidence gap handling: record the gap against the existing question without
 creating a new question, finish the current pass, proceed to Phase 5 for
 materiality assessment. Phase 4 must not launch its own additional pass. New

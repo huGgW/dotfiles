@@ -16,6 +16,21 @@ replanning changes the plan only when synthesis reveals new questions,
 unresolved contradictions, or scope gaps that could materially affect the
 conclusion.
 
+## Quantitative and conditional analysis (when relevant)
+
+Compare quantitative findings only to the extent their measurement semantics
+support the comparison; explain material mismatches rather than ranking raw
+numbers. Distinguish correlation from causation and consider plausible
+alternative explanations before attributing a change to one factor.
+
+Inability to reproduce an exact result does not imply useful analysis is
+impossible. Separate observed inputs from assumed variables and, when it fits
+the current question, use scenario or sensitivity analysis to show how the
+conclusion depends on those assumptions. Label conditional calculations and
+their limits: they are not measured performance, final sizing, or a substitute
+for exact acceptance requirements. Keep unresolved evidence gaps visible and
+apply the existing gate and budget rules below without relaxing them.
+
 ## Routing invariants
 
 - Every Phase 4 pass must proceed to Phase 5. Do not run a second Phase 4 pass,

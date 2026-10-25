@@ -3,6 +3,9 @@
 Simplicity is independent semantic review, not an editing role. The
 `code-reviewer` skill's `references/simplicity-lens.md` owns the finding method,
 evidence threshold, and load-bearing-complexity analysis; do not duplicate it.
+This lens applies to candidate review when selected by the local correctness
+route; a CI/feedback observation-only deliverable does not need a gratuitous
+semantic review. Route selection belongs to `routing.md`.
 
 ## Trigger And Placement
 
