@@ -172,11 +172,12 @@ return {
     --     end,
     -- },
     {
-        'gipo355/nvim-intellij-lsp',
-        ft = { 'java', 'kotlin' },
-        config = function()
-            require('intellij-lsp').setup({
-                jvm_args = {
+        'JetBrains/intellij-lsp.nvim',
+        dependencies = { 'mfussenegger/nvim-dap' }, -- optional: run and debug
+        lazy = false,
+        opts = {
+            accept_eula = true,                     -- read EULA.txt in the downloaded bundle first
+            jvm_args = {
                 "-Xmx8G",
                 "-Xms1G",
                 "-XX:+UseParallelGC",
@@ -185,10 +186,8 @@ return {
                 "-XX:GCTimeRatio=4",
                 "-XX:AdaptiveSizePolicyWeight=90",
                 "-Dsun.zip.disableMemoryMapping=true",
-                },
-                accept_eula = true,
-            })
-        end,
+            },
+        },
     },
 
     -- autocompletion

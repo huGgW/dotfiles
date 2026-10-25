@@ -45,7 +45,12 @@ return {
             require("codediff").setup({
                 -- Diff view behavior
                 diff = {
-                    compute_moves = true,       -- Detect moved code blocks (opt-in, matches VSCode experimental.showMoves)
+                    compute_moves = true, -- Detect moved code blocks (opt-in, matches VSCode experimental.showMoves)
+                    keymaps = {
+                        view = {
+                            toggle_layout = "gl", -- Toggle between side-by-side and inline layout
+                        }
+                    },
                 },
             })
         end,
@@ -149,5 +154,12 @@ return {
                 Snacks.picker.todo_comments()
             end, { desc = "Todo Comments" })
         end,
+    },
+    {
+        "zion-off/mole.nvim",
+        dependencies = { "MunifTanjim/nui.nvim" },
+        opts = {
+            capture_mode = "location",
+        },
     },
 }
