@@ -30,7 +30,32 @@
       "updated": 1,
       "link": null,
       "locked": false,
-      "points": [[0, 0], [40, 28], [24, 72], [-24, 72], [-40, 28], [0, 0]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          40,
+          28
+        ],
+        [
+          24,
+          72
+        ],
+        [
+          -24,
+          72
+        ],
+        [
+          -40,
+          28
+        ],
+        [
+          0,
+          0
+        ]
+      ],
       "lastCommittedPoint": null,
       "startBinding": null,
       "endBinding": null,
@@ -64,7 +89,32 @@
       "updated": 1,
       "link": null,
       "locked": false,
-      "points": [[0, 0], [80, 56], [48, 144], [-48, 144], [-80, 56], [0, 0]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          80,
+          56
+        ],
+        [
+          48,
+          144
+        ],
+        [
+          -48,
+          144
+        ],
+        [
+          -80,
+          56
+        ],
+        [
+          0,
+          0
+        ]
+      ],
       "lastCommittedPoint": null,
       "startBinding": null,
       "endBinding": null,
@@ -98,7 +148,32 @@
       "updated": 1,
       "link": null,
       "locked": false,
-      "points": [[0, 0], [120, 84], [72, 216], [-72, 216], [-120, 84], [0, 0]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          120,
+          84
+        ],
+        [
+          72,
+          216
+        ],
+        [
+          -72,
+          216
+        ],
+        [
+          -120,
+          84
+        ],
+        [
+          0,
+          0
+        ]
+      ],
       "lastCommittedPoint": null,
       "startBinding": null,
       "endBinding": null,
@@ -132,7 +207,32 @@
       "updated": 1,
       "link": null,
       "locked": false,
-      "points": [[0, 0], [160, 112], [96, 288], [-96, 288], [-160, 112], [0, 0]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          160,
+          112
+        ],
+        [
+          96,
+          288
+        ],
+        [
+          -96,
+          288
+        ],
+        [
+          -160,
+          112
+        ],
+        [
+          0,
+          0
+        ]
+      ],
       "lastCommittedPoint": null,
       "startBinding": null,
       "endBinding": null,
@@ -166,7 +266,32 @@
       "updated": 1,
       "link": null,
       "locked": false,
-      "points": [[0, 0], [200, 140], [120, 360], [-120, 360], [-200, 140], [0, 0]],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          200,
+          140
+        ],
+        [
+          120,
+          360
+        ],
+        [
+          -120,
+          360
+        ],
+        [
+          -200,
+          140
+        ],
+        [
+          0,
+          0
+        ]
+      ],
       "lastCommittedPoint": null,
       "startBinding": null,
       "endBinding": null,
@@ -406,7 +531,7 @@
       "width": 280,
       "height": 320,
       "angle": 0,
-      "strokeColor": "#3568b8",
+      "strokeColor": "#3d689a",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 3,
@@ -465,7 +590,7 @@
       "width": 16,
       "height": 16,
       "angle": 0,
-      "strokeColor": "#3568b8",
+      "strokeColor": "#3d689a",
       "backgroundColor": "#ffffff",
       "fillStyle": "solid",
       "strokeWidth": 3,
@@ -493,7 +618,7 @@
       "width": 16,
       "height": 16,
       "angle": 0,
-      "strokeColor": "#3568b8",
+      "strokeColor": "#3d689a",
       "backgroundColor": "#ffffff",
       "fillStyle": "solid",
       "strokeWidth": 3,
@@ -521,7 +646,7 @@
       "width": 16,
       "height": 16,
       "angle": 0,
-      "strokeColor": "#3568b8",
+      "strokeColor": "#3d689a",
       "backgroundColor": "#ffffff",
       "fillStyle": "solid",
       "strokeWidth": 3,
@@ -549,7 +674,7 @@
       "width": 16,
       "height": 16,
       "angle": 0,
-      "strokeColor": "#3568b8",
+      "strokeColor": "#3d689a",
       "backgroundColor": "#ffffff",
       "fillStyle": "solid",
       "strokeWidth": 3,
@@ -577,7 +702,7 @@
       "width": 16,
       "height": 16,
       "angle": 0,
-      "strokeColor": "#3568b8",
+      "strokeColor": "#3d689a",
       "backgroundColor": "#ffffff",
       "fillStyle": "solid",
       "strokeWidth": 3,
@@ -605,7 +730,7 @@
       "width": 296,
       "height": 248,
       "angle": 0,
-      "strokeColor": "#e67700",
+      "strokeColor": "#9b4d72",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 3,
@@ -664,7 +789,7 @@
       "width": 16,
       "height": 16,
       "angle": 0,
-      "strokeColor": "#e67700",
+      "strokeColor": "#9b4d72",
       "backgroundColor": "#ffffff",
       "fillStyle": "solid",
       "strokeWidth": 3,
@@ -692,7 +817,7 @@
       "width": 16,
       "height": 16,
       "angle": 0,
-      "strokeColor": "#e67700",
+      "strokeColor": "#9b4d72",
       "backgroundColor": "#ffffff",
       "fillStyle": "solid",
       "strokeWidth": 3,
@@ -720,7 +845,7 @@
       "width": 16,
       "height": 16,
       "angle": 0,
-      "strokeColor": "#e67700",
+      "strokeColor": "#9b4d72",
       "backgroundColor": "#ffffff",
       "fillStyle": "solid",
       "strokeWidth": 3,
@@ -748,7 +873,7 @@
       "width": 16,
       "height": 16,
       "angle": 0,
-      "strokeColor": "#e67700",
+      "strokeColor": "#9b4d72",
       "backgroundColor": "#ffffff",
       "fillStyle": "solid",
       "strokeWidth": 3,
@@ -776,7 +901,7 @@
       "width": 16,
       "height": 16,
       "angle": 0,
-      "strokeColor": "#e67700",
+      "strokeColor": "#9b4d72",
       "backgroundColor": "#ffffff",
       "fillStyle": "solid",
       "strokeWidth": 3,
@@ -804,7 +929,7 @@
       "width": 304,
       "height": 36,
       "angle": 0,
-      "strokeColor": "#2f3545",
+      "strokeColor": "#28343b",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 1,
@@ -841,7 +966,7 @@
       "width": 348,
       "height": 20,
       "angle": 0,
-      "strokeColor": "#657084",
+      "strokeColor": "#586674",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 1,
@@ -878,7 +1003,7 @@
       "width": 132,
       "height": 24,
       "angle": 0,
-      "strokeColor": "#2f3545",
+      "strokeColor": "#28343b",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 1,
@@ -915,7 +1040,7 @@
       "width": 60,
       "height": 24,
       "angle": 0,
-      "strokeColor": "#2f3545",
+      "strokeColor": "#28343b",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 1,
@@ -952,7 +1077,7 @@
       "width": 84,
       "height": 24,
       "angle": 0,
-      "strokeColor": "#2f3545",
+      "strokeColor": "#28343b",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 1,
@@ -989,7 +1114,7 @@
       "width": 60,
       "height": 24,
       "angle": 0,
-      "strokeColor": "#2f3545",
+      "strokeColor": "#28343b",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 1,
@@ -1026,7 +1151,7 @@
       "width": 120,
       "height": 24,
       "angle": 0,
-      "strokeColor": "#2f3545",
+      "strokeColor": "#28343b",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 1,
@@ -1063,7 +1188,7 @@
       "width": 12,
       "height": 20,
       "angle": 0,
-      "strokeColor": "#657084",
+      "strokeColor": "#586674",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 1,
@@ -1100,7 +1225,7 @@
       "width": 12,
       "height": 20,
       "angle": 0,
-      "strokeColor": "#657084",
+      "strokeColor": "#586674",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 1,
@@ -1137,7 +1262,7 @@
       "width": 12,
       "height": 20,
       "angle": 0,
-      "strokeColor": "#657084",
+      "strokeColor": "#586674",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 1,
@@ -1174,7 +1299,7 @@
       "width": 12,
       "height": 20,
       "angle": 0,
-      "strokeColor": "#657084",
+      "strokeColor": "#586674",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 1,
@@ -1211,7 +1336,7 @@
       "width": 12,
       "height": 20,
       "angle": 0,
-      "strokeColor": "#657084",
+      "strokeColor": "#586674",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 1,
@@ -1248,7 +1373,7 @@
       "width": 40,
       "height": 0,
       "angle": 0,
-      "strokeColor": "#3568b8",
+      "strokeColor": "#3d689a",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 3,
@@ -1293,7 +1418,7 @@
       "width": 40,
       "height": 0,
       "angle": 0,
-      "strokeColor": "#e67700",
+      "strokeColor": "#9b4d72",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 3,
@@ -1338,7 +1463,7 @@
       "width": 68,
       "height": 20,
       "angle": 0,
-      "strokeColor": "#3568b8",
+      "strokeColor": "#3d689a",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 1,
@@ -1375,7 +1500,7 @@
       "width": 60,
       "height": 20,
       "angle": 0,
-      "strokeColor": "#e67700",
+      "strokeColor": "#9b4d72",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 1,
@@ -1406,7 +1531,7 @@
     }
   ],
   "appState": {
-    "viewBackgroundColor": "#ffffff",
+    "viewBackgroundColor": "transparent",
     "gridSize": 20
   },
   "files": {},
@@ -1418,8 +1543,22 @@
     ],
     "edgeIds": [],
     "counts": {
-      "series": ["radar-series-alpha", "radar-series-beta"],
-      "points": ["radar-marker-alpha-1", "radar-marker-alpha-2", "radar-marker-alpha-3", "radar-marker-alpha-4", "radar-marker-alpha-5", "radar-marker-beta-1", "radar-marker-beta-2", "radar-marker-beta-3", "radar-marker-beta-4", "radar-marker-beta-5"]
+      "series": [
+        "radar-series-alpha",
+        "radar-series-beta"
+      ],
+      "points": [
+        "radar-marker-alpha-1",
+        "radar-marker-alpha-2",
+        "radar-marker-alpha-3",
+        "radar-marker-alpha-4",
+        "radar-marker-alpha-5",
+        "radar-marker-beta-1",
+        "radar-marker-beta-2",
+        "radar-marker-beta-3",
+        "radar-marker-beta-4",
+        "radar-marker-beta-5"
+      ]
     },
     "semanticRoles": {
       "radial-axis": [

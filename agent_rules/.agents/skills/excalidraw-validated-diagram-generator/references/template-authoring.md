@@ -9,7 +9,7 @@ Each template is an editable Excalidraw-native starter scene, not a screenshot o
 A template must:
 
 - be valid Excalidraw version 2 JSON;
-- use plain white (`#ffffff`) for `appState.viewBackgroundColor`;
+- use a canvas and element colors with readable contrast;
 - align positions and dimensions to a 4 px rhythm;
 - establish one dominant axis;
 - stay within its catalog `nodeBudget` and `edgeBudget`;
@@ -25,20 +25,7 @@ A template must:
 
 ## Visual Grammar
 
-Build an independent Excalidraw palette rather than copying literal CSS values from another project.
-
-Recommended roles:
-
-| Role | Treatment |
-| --- | --- |
-| Canvas | `#ffffff` |
-| Ordinary node | White or very light neutral fill, dark neutral text |
-| Ordinary connector | Muted neutral stroke |
-| External actor or system | Blue accent |
-| Focal node or path | Orange accent |
-| Async or return flow | Dashed stroke |
-
-Use one accent unless a second color communicates a distinct semantic role. Never exceed two accent colors.
+Choose colors suited to the content, following user guidance when provided. Starter colors are adaptable examples, not fixed canvas, semantic-hue, or accent-count requirements. Keep text and connectors readable against their backgrounds and use color meanings consistently. Pair important color distinctions with labels, shapes, or line treatments. Async or return flows retain dashed strokes regardless of palette. Do not copy literal CSS values from another project.
 
 ## Type Contracts
 
@@ -132,7 +119,7 @@ Every `templateMetadata` object must include `counts`. Named limits beyond `majo
 For each template, keep one catalog entry with all required fields:
 
 ```text
-id, diagramType, style, description, bestFor, avoidWhen,
+id, diagramType, description, bestFor, avoidWhen,
 nodeBudget, edgeBudget, templateFile, previewFile, upstreamSlugs,
 primaryQuestion, confusableWith, semanticMinimums, limits,
 geometryProfile, geometryExemptions, previewSourceSha256

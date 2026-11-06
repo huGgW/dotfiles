@@ -1,17 +1,15 @@
 # Template Selection
 
-Use this reference only after completing the visual brief in `visual-brief-and-comprehension.md`. The catalog is authoritative for available template IDs, styles, budgets, and paths.
+Use this reference only after completing the visual brief in `visual-brief-and-comprehension.md`. The catalog is authoritative for available template IDs, budgets, and paths.
 
 ## Selection Order
 
 1. Complete the visual brief and identify one primary reader question per diagram.
 2. Read `templates/catalog.json`.
 3. Map each diagram to exactly one catalog ID.
-4. Filter that type by style.
-5. Use the requested style when available; otherwise use the catalog's `defaultStyle`.
-6. Read the selected entry's `templateFile` only.
+4. Read the selected entry's `templateFile` only.
 
-Do not open every template or preview to choose visually. The type and style metadata are designed to make selection deterministic and keep context focused.
+Do not open every template or preview to choose visually. The type metadata is designed to make selection deterministic and keep context focused. Color preferences do not change the selected diagram type.
 
 ## Alias Normalization
 
@@ -98,18 +96,9 @@ Normalize these absorbed upstream names before selection. They are not separate 
 
 Prefer the notation that answers the user's main question. If the deciding information is absent and the alternatives would communicate materially different claims, ask one concise clarification question.
 
-## Style Selection
+## Color Adaptation
 
-The current catalog provides `editorial-light`. Use it when the user gives no style. If the user requests an unavailable style, retain the selected canonical template and adapt only the explicitly requested visual traits that do not violate the core design contract. Do not silently switch diagram type to obtain a style.
-
-The editorial-light grammar uses:
-
-- plain white (`#ffffff`) canvas with no tinted background;
-- neutral surfaces and muted ordinary connectors;
-- blue for external actors or systems;
-- orange for the focal path or node;
-- one accent by default and no more than two;
-- no shadows and no imported product styling.
+Follow user-provided color guidance; otherwise choose colors suited to the content and delivery context without a theme-selection question. The starter scene's colors are editable defaults, not a palette contract. Preserve readable contrast, consistent color meanings, and non-color cues for important distinctions. Retain the selected type's structure when changing its colors.
 
 ## Budget Decisions
 
@@ -129,7 +118,8 @@ Do not evade budgets by converting required nodes into tiny annotations.
 
 Use this definition exactly:
 
-> Template = semantic grammar + style tokens + starter components  
+> Template = semantic grammar + starter components with adaptable colors
+>
 > Template != fixed coordinates + fixed box count + fixed card layout
 
 Copy the selected template and replace its placeholder content. Preserve its diagram-specific grammar, dominant axis, element ordering, and routing strategy. Default to template adaptation. Recompose only when the visual brief shows that the requested content structure cannot fit the starter coordinates or card arrangement. Accuracy and the primary reader question take precedence over fixed coordinates, but do not draw arbitrarily from a blank canvas.

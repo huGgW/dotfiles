@@ -1,0 +1,29 @@
+{
+  "skill_name": "excalidraw-validated-diagram-generator",
+  "evals": [
+    {
+      "id": 1,
+      "name": "autonomous-colors",
+      "prompt": "Create a process diagram for an incident response handoff: Detect -> Triage -> Mitigate -> Review. The primary reader question is: What are the four stages and their order? Use the stage names as labels, keep the diagram compact, and target a doc-inline display. Save one editable .excalidraw source and its rendered PNG. Do not create companion documentation.",
+      "expected_output": "A readable four-stage process diagram with colors chosen without a theme-selection question. Reusing suitable starter colors is allowed; novelty is not required.",
+      "files": [],
+      "expectations": [
+        "The output contains one matching Excalidraw source and rendered PNG with all four stages in the requested order.",
+        "The agent proceeds without asking the user to choose a theme or claiming a fixed palette, hue mapping, or accent-count requirement.",
+        "The final PNG and target-size raster are inspected; labels and connectors remain readable and stage order does not depend on color alone."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "user-guided-colors",
+      "prompt": "Create a process diagram for an incident response handoff: Detect -> Triage -> Mitigate -> Review. The primary reader question is: What are the four stages and their order? Use the stage names as labels, keep the diagram compact, and target a doc-inline display. Use canvas #172033 and give the four stage shapes distinct fills in order: #7dd3fc, #c4b5fd, #86efac, #fda4af. Choose readable text and connector colors for this background. Save one editable .excalidraw source and its rendered PNG. Do not create companion documentation.",
+      "expected_output": "The requested dark canvas and four stage fills are honored, with readable contrast, explicit stage labels, and directional connectors.",
+      "files": [],
+      "expectations": [
+        "The output contains one matching Excalidraw source and rendered PNG with all four stages in the requested order.",
+        "The canvas is #172033 and the four stage shapes use #7dd3fc, #c4b5fd, #86efac, and #fda4af respectively.",
+        "The final PNG and target-size raster are inspected; labels and connectors remain readable and stage order does not depend on color alone."
+      ]
+    }
+  ]
+}

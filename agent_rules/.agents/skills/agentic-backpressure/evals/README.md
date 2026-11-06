@@ -1,9 +1,10 @@
 # Agentic Backpressure Evaluations
 
-`evals.json` contains 62 policy cases. IDs 1-49 retain their useful regression
+`evals.json` contains 65 policy cases. IDs 1-49 retain their useful regression
 boundaries, with obsolete budget scenarios rewritten for progress, evidence, and
-scope. IDs 50-62 add flexible CI/comment entry and stopping scenarios. These are
-observable policy expectations, not executable runtime tests or a bundled runner.
+scope. IDs 50-62 add flexible CI/comment entry and stopping scenarios. IDs 63-65
+add indirect plan ambiguity. These are observable policy expectations, not
+executable runtime tests or a bundled runner.
 
 ## Policy Under Evaluation
 
@@ -55,6 +56,11 @@ observable policy expectations, not executable runtime tests or a bundled runner
   scope is eligible after current contract/state checks. Never resume live actions,
   overlap writers, promote worker diagnostics, switch roles, or waive fresh final
   reviewer independence. Keep contracts and handoffs compact without hiding hazards.
+- **Plan ambiguity:** failed contract projection reveals unresolved decisions even
+  when nobody flags them. One independent decision gets one question; several or
+  dependent decisions get a manager-owned interview through a discovered capability
+  or built-in rounds. The cases require that behavior, not an invented skill
+  dependency. Sufficient plans and anti-loop handoffs open no interview.
 
 ## Case Map
 
@@ -73,6 +79,7 @@ observable policy expectations, not executable runtime tests or a bundled runner
 | 60 | Findings-only versus required-repair completion; unavailable required comment capability |
 | 61 | CR-CORRECTNESS-001: proven observation defect reopens historical PASS; valid checks retained; adopted requirements update specification |
 | 62 | CR-RELIABILITY-001: exact authorized infrastructure rerun at CI boundary; original deadline, run/attempt binding, unknown-outcome safety |
+| 63-65 | Indirect plan ambiguity: interview by rounds, sufficient-plan control, material plan change versus anti-loop handoff |
 
 Changed-policy failures in the old version are expected. They do not by themselves
 prove improved safety. Preserve stable IDs and compare shared safety separately

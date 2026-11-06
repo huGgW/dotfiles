@@ -36,7 +36,8 @@ decision/constraint/criterion coverage, unresolved load-bearing choices, checks,
 and scope-changing risks. Preserve accepted terminology, order, boundaries,
 ownership and public API. An already sufficient approved plan needs no planning
 worker or duplicate approval. A materially new plan needs explicit user agreement
-before patching; return one focused question for a material structural ambiguity.
+before patching. Do not ask the user; return each unresolved material decision with
+its dependencies and a recommended answer for the manager.
 ```
 
 ## Patch Worker

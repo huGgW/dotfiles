@@ -5,22 +5,22 @@
       "id": 1,
       "kind": "template",
       "template_id": "architecture",
-      "prompt": "Create an editorial-light architecture diagram for a checkout platform. Show Customer Web Application and Customer Mobile Application entering through Public API Gateway, then Order Orchestration Service and Payment Authorization Service, with Transactional Order Database and an external Payment Processing Gateway. Label the major protocols, make Payment Authorization Service the focal component, keep system boundaries explicit, and make every long shape label comfortably readable. Save deliverables under output/checkout-architecture and do not create explanatory documents.",
+      "prompt": "Create an architecture diagram for a checkout platform. Show Customer Web Application and Customer Mobile Application entering through Public API Gateway, then Order Orchestration Service and Payment Authorization Service, with Transactional Order Database and an external Payment Processing Gateway. Label the major protocols, make Payment Authorization Service the focal component, keep system boundaries explicit, and make every long shape label comfortably readable. Save deliverables under output/checkout-architecture and do not create explanatory documents.",
       "expected_output": "A validated architecture-template-based Excalidraw scene and matching PNG that communicate boundaries, components, external integration, protocols, the focal payment path, and readable long internal labels without exceeding the architecture budgets.",
       "files": [],
       "expectations": [
         "The artifacts implement exactly catalog template `architecture`, with explicit boundaries, components, an external system, and labeled connections rather than deployment placement, a generic dependency network, or a data-store pipeline.",
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
-        "The scene includes Customer Web Application, Customer Mobile Application, Public API Gateway, Order Orchestration Service, Payment Authorization Service, Transactional Order Database, and external Payment Processing Gateway; major protocols and boundaries are visible, and Payment Authorization Service or its path is the focal orange role.",
+        "The scene includes Customer Web Application, Customer Mobile Application, Public API Gateway, Order Orchestration Service, Payment Authorization Service, Transactional Order Database, and external Payment Processing Gateway; major protocols and boundaries are visible, and Payment Authorization Service or its path is visually focal.",
         "The scene has at most 9 major nodes, 12 edges, and 3 boundaries.",
-        "The source and PNG use editorial-light styling on `#ffffff`; labels are separate text elements using `fontFamily: 5` at 16 px or larger, and long shape labels use explicit semantic line breaks where needed, retain comfortable and consistent internal padding, normally stay within two lines, and remain readable at whole-diagram scale without clipping, overlap, or connectors crossing unrelated nodes."
+        "The source and PNG use readable contrast and consistent semantic color use; labels are separate text elements using `fontFamily: 5` at 16 px or larger, and long shape labels use explicit semantic line breaks where needed, retain comfortable and consistent internal padding, normally stay within two lines, and remain readable at whole-diagram scale without clipping, overlap, or connectors crossing unrelated nodes."
       ]
     },
     {
       "id": 2,
       "kind": "template",
       "template_id": "flowchart",
-      "prompt": "Draw an expense approval flowchart in editorial-light style. Start when an employee submits an expense reimbursement request, validate receipt completeness and policy compliance, branch on whether the requested reimbursement exceeds $1,000, require director approval only for the high-value branch, then either send the approved reimbursement to Finance for payment or return the rejected request to the employee with a reason. Include explicit start/end states, label every decision outcome, and keep the long process and decision labels comfortably readable inside their shapes. Save only the diagram and PNG under output/expense-approval-flow.",
+      "prompt": "Draw an expense approval flowchart with readable contrast and consistent semantic color use. Start when an employee submits an expense reimbursement request, validate receipt completeness and policy compliance, branch on whether the requested reimbursement exceeds $1,000, require director approval only for the high-value branch, then either send the approved reimbursement to Finance for payment or return the rejected request to the employee with a reason. Include explicit start/end states, label every decision outcome, and keep the long process and decision labels comfortably readable inside their shapes. Save only the diagram and PNG under output/expense-approval-flow.",
       "expected_output": "A validated flowchart-template-based source and PNG with terminals, ordered steps, explicit decisions, labeled outcomes, correctly converging approval paths, and readable long internal labels.",
       "files": [],
       "expectations": [
@@ -28,7 +28,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "The flow has explicit start and end terminals, a $1,000 decision, a rejection route to the employee, and director approval only on the high-value branch before Finance payment; every decision exit is labeled.",
         "The scene has at most 8 major nodes, 10 edges, and 3 decisions, with explicit arrowheads and no connector routed through a non-endpoint node.",
-        "The source and PNG use editorial-light styling on `#ffffff`; labels are separate text elements using `fontFamily: 5` at 16 px or larger, and long process and decision labels use explicit semantic line breaks where needed, preserve identifiers such as `$1,000`, retain comfortable internal padding, and remain readable at whole-diagram scale without clipping or overlap."
+        "The source and PNG use readable contrast and consistent semantic color use; labels are separate text elements using `fontFamily: 5` at 16 px or larger, and long process and decision labels use explicit semantic line breaks where needed, preserve identifiers such as `$1,000`, retain comfortable internal padding, and remain readable at whole-diagram scale without clipping or overlap."
       ]
     },
     {
@@ -43,14 +43,14 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "Billing API, Customer Service, Pricing Service, Event Bus, Notification Worker, and external Email Provider are distinct nodes, and directed edges use the supplied `queries`, `publishes`, `consumes`, and `sends` labels.",
         "The scene has at most 8 major nodes and 12 edges; connector labels clear lines and nodes, and connectors do not cross unrelated nodes.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped or overlapping labels."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and no clipped or overlapping labels."
       ]
     },
     {
       "id": 4,
       "kind": "template",
       "template_id": "mind-map",
-      "prompt": "Make an editorial-light mind map for incident readiness. Use `Incident Readiness` as the central topic, with first-level branches `Detection`, `Response`, and `Recovery`. Add one subordinate topic per branch: alerts for Detection, roles for Response, and backups for Recovery. Save only the `.excalidraw` and rendered `.png` under output/incident-readiness-map.",
+      "prompt": "Make a mind map for incident readiness. Use `Incident Readiness` as the central topic, with first-level branches `Detection`, `Response`, and `Recovery`. Add one subordinate topic per branch: alerts for Detection, roles for Response, and backups for Recovery. Save only the `.excalidraw` and rendered `.png` under output/incident-readiness-map.",
       "expected_output": "A validated mindmap-template-based hierarchy with one central topic, three distinct first-level branches, and three correctly parented subordinate topics.",
       "files": [],
       "expectations": [
@@ -58,14 +58,14 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "`Incident Readiness` is the single center; Detection, Response, and Recovery are first-level branches, with alerts, roles, and backups attached to their respective parents.",
         "The hierarchy has at most 9 major nodes, 8 edges, and 3 levels and does not imply chronological decisions; connectors do not cross unrelated topics.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped or overlapping labels."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and no clipped or overlapping labels."
       ]
     },
     {
       "id": 5,
       "kind": "template",
       "template_id": "data-flow",
-      "prompt": "Create an editorial-light data flow diagram whose primary reader question is `How do incoming observations split into independent processing branches and merge into one published result?` A Source Actor sends observations to Intake, which fans out to Validation and Enrichment as independent components. Validation owns a Rejection Store. Only accepted validation results and enriched records fan in at Merge, which writes Published Store for a Consumer Actor. Use numbered grouped stages, named data flows, true branch and merge geometry, and place each owned store inside or immediately adjacent to its owner. Show async movement as dashed and ordinary movement as solid. Target a doc-wide display and omit implementation prose that does not answer the primary question. Save only one matching source and PNG under output/branched-data-flow.",
+      "prompt": "Create a data flow diagram whose primary reader question is `How do incoming observations split into independent processing branches and merge into one published result?` A Source Actor sends observations to Intake, which fans out to Validation and Enrichment as independent components. Validation owns a Rejection Store. Only accepted validation results and enriched records fan in at Merge, which writes Published Store for a Consumer Actor. Use numbered grouped stages, named data flows, true branch and merge geometry, and place each owned store inside or immediately adjacent to its owner. Show async movement as dashed and ordinary movement as solid. Target a doc-wide display and omit implementation prose that does not answer the primary question. Save only one matching source and PNG under output/branched-data-flow.",
       "expected_output": "A validated data-flow-template adaptation and matching PNG that answer one fan-out/fan-in reader question through stage, component, store-ownership, split, merge, and connector geometry and remain readable at doc-wide size.",
       "files": [],
       "expectations": [
@@ -73,7 +73,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file; the diagram owns only the supplied fan-out/fan-in primary question.",
         "Source Actor, Intake, Validation, Enrichment, Merge, Consumer Actor, Rejection Store, and Published Store are distinct semantic nodes; numbered grouped stages contain independent component nodes, and each store has unambiguous ownership or adjacency.",
         "The scene shows actual separate fan-out branches from Intake and separate fan-in routes to Merge rather than prose describing a split or merge; every flow names its data, asynchronous movement is dashed, ordinary movement is solid, and connectors avoid unrelated nodes.",
-        "The scene respects the catalog budgets, uses editorial-light styling on `#ffffff`, separate `fontFamily: 5` text at 16 px or larger, and passes both whole-image overview and detail readability at doc-wide size without zoom; a large PNG or nominal font size alone is not sufficient.",
+        "The scene respects the catalog budgets, uses readable contrast and consistent semantic color use, separate `fontFamily: 5` text at 16 px or larger, and passes both whole-image overview and detail readability at doc-wide size without zoom; a large PNG or nominal font size alone is not sufficient.",
         "The final rendered image independently answers where observations split, what each branch does and owns, where accepted and enriched results merge, and what reaches the consumer; any difficult answer, clipping, overlap, taxonomy drift, or reliance on long prose prevents visual PASS."
       ]
     },
@@ -89,7 +89,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "Customer, Support, and Billing are distinct lanes; the eligibility outcomes are explicit, only approval reaches Billing, rejection returns a reason, and Support notification follows the refund.",
         "The scene has at most 9 major activity nodes, 12 edges, and 4 lanes, with every activity inside its owner's lane and no accidental lane-boundary crossing.",
-        "The source and PNG use editorial-light styling on `#ffffff`; labels are separate text elements using `fontFamily: 5` at 16 px or larger, and long activity labels use explicit semantic line breaks where needed, retain comfortable and consistent internal padding across peer activities, and remain readable at whole-diagram scale without clipping or overlap."
+        "The source and PNG use readable contrast and consistent semantic color use; labels are separate text elements using `fontFamily: 5` at 16 px or larger, and long activity labels use explicit semantic line breaks where needed, retain comfortable and consistent internal padding across peer activities, and remain readable at whole-diagram scale without clipping or overlap."
       ]
     },
     {
@@ -104,14 +104,14 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "Plan, MonthlyPlan, AnnualPlan, Customer, and Subscription include the requested visible typed members; both concrete plans inherit abstract Plan, and Customer-to-Subscription multiplicity plus the Plan association are explicit.",
         "The scene has at most 6 classes, 8 relationship edges, and 24 members.",
-        "The source and PNG use editorial-light styling on `#ffffff`; member and relationship labels use readable `fontFamily: 5` text at 16 px or larger without clipping or overlap."
+        "The source and PNG use readable contrast and consistent semantic color use; member and relationship labels use readable `fontFamily: 5` text at 16 px or larger without clipping or overlap."
       ]
     },
     {
       "id": 8,
       "kind": "template",
       "template_id": "sequence-diagram",
-      "prompt": "Draw an editorial-light sequence diagram whose primary reader question is `How do exactly three identifier role families travel through an asynchronous event flow while four duplicate-defense points act at different boundaries?` The three role families are: routing, business identity, and duplicate control. Map routing key `account-42` to routing; business ID `order-731` to business identity; and both event ID `evt-908` and downstream idempotency key `apply-order-731` to the duplicate-control family as two boundary-specific concrete keys. Participants are Producer, Event Broker, Consumer, State Store, and Downstream API. Consumer reads from a cursor/checkpoint, records event ID before applying state, and calls Downstream API with the downstream idempotency key. Show exactly three identifier-role cards or legend entries, distinct from four numbered duplicate-defense badges: producer retry record, broker delivery marker, consumer event-ID record, and downstream idempotency check. Do not imply that the concrete key count is three. Make clear that the routing key controls routing and is not an idempotency key. Use a routing connector chip, business-ID chip, cursor/checkpoint marker, owned state, and an explicit consumer transaction zone. Keep default calls solid; label dashed asynchronous messages `ASYNC`; label a conditional dashed fallback with its condition, `FALLBACK`, and warning treatment; label a dashed return `RETURN` only if sequence context does not already make it unambiguous. Preserve at most two accent colors and distinguish semantic roles with labels, shapes, and line treatments rather than four unique hues. The title, legend, and cards must each state what they count. Target screen-share size. Save exactly one source and PNG under output/event-identities.",
+      "prompt": "Draw a sequence diagram whose primary reader question is `How do exactly three identifier role families travel through an asynchronous event flow while four duplicate-defense points act at different boundaries?` The three role families are: routing, business identity, and duplicate control. Map routing key `account-42` to routing; business ID `order-731` to business identity; and both event ID `evt-908` and downstream idempotency key `apply-order-731` to the duplicate-control family as two boundary-specific concrete keys. Participants are Producer, Event Broker, Consumer, State Store, and Downstream API. Consumer reads from a cursor/checkpoint, records event ID before applying state, and calls Downstream API with the downstream idempotency key. Show exactly three identifier-role cards or legend entries, distinct from four numbered duplicate-defense badges: producer retry record, broker delivery marker, consumer event-ID record, and downstream idempotency check. Do not imply that the concrete key count is three. Make clear that the routing key controls routing and is not an idempotency key. Use a routing connector chip, business-ID chip, cursor/checkpoint marker, owned state, and an explicit consumer transaction zone. Keep default calls solid; label dashed asynchronous messages `ASYNC`; label a conditional dashed fallback with its condition, `FALLBACK`, and warning treatment; label a dashed return `RETURN` only if sequence context does not already make it unambiguous. Use consistent semantic colors and distinguish semantic roles with labels, shapes, and line treatments so meaning does not depend on color alone. The title, legend, and cards must each state what they count. Target screen-share size. Save exactly one source and PNG under output/event-identities.",
       "expected_output": "A validated sequence-diagram-template adaptation and matching PNG that distinguish three identifier roles from four duplicate-defense points, encode routing, ownership, checkpoint, transaction, async, default, and fallback semantics geometrically, and remain comprehensible at screen-share size.",
       "files": [],
       "expectations": [
@@ -120,7 +120,7 @@
         "Producer, Event Broker, Consumer, State Store, and Downstream API are participants with chronological lifelines/messages; default calls are solid, async messages are dashed and labeled `ASYNC`, fallback is dashed with its condition, `FALLBACK`, and warning treatment, and a return adds `RETURN` only when sequence context is not already unambiguous.",
         "Exactly three identifier-role cards or legend entries are visible: routing maps `account-42`; business identity maps `order-731`; duplicate control maps both `evt-908` and `apply-order-731` as two boundary-specific concrete keys. The diagram does not imply that there are only three concrete keys and explicitly states that routing key is not idempotency key.",
         "All four numbered defense points, the cursor/checkpoint marker, Consumer-owned state, and the Consumer transaction zone are geometric elements rather than a prose list; the transaction boundary does not imply atomicity for the broker or Downstream API.",
-        "The exactly three identifier-role entries are visually distinct from exactly four numbered defense badges. Title, legend, and cards each state which axis they count; at most two accent colors are used, while transport/routing, business identity, state/merge, and warning/boundary roles remain distinguishable through combinations of color, labels, shapes, and line treatments and remain meaningful without color.",
+        "The exactly three identifier-role entries are visually distinct from exactly four numbered defense badges. Title, legend, and cards each state which axis they count; consistent semantic colors are used, while transport/routing, business identity, state/merge, and warning/boundary roles remain distinguishable through combinations of color, labels, shapes, and line treatments and remain meaningful without color.",
         "The scene stays within 6 participants, 12 message edges, and 6 activation spans. An aspect-ratio-preserving, letterboxed 1440x900 temporary screen-share raster is read for overview, detail, and prompt-derived comprehension, then the original final PNG is read for source/render consistency; the temporary raster is not delivered, and large dimensions or 16 px fonts alone cannot pass."
       ]
     },
@@ -136,7 +136,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "Customer, Order, Product, and OrderItem show primary keys and required foreign keys; Customer-to-Order is one-to-many, and OrderItem with quantity resolves Order-to-Product many-to-many with cardinalities on both sides.",
         "The scene has at most 7 entities, 10 relationship edges, and 32 columns.",
-        "The source and PNG use editorial-light styling on `#ffffff`; entity and attribute labels are separate readable `fontFamily: 5` text at 16 px or larger without clipping or overlap."
+        "The source and PNG use readable contrast and consistent semantic color use; entity and attribute labels are separate readable `fontFamily: 5` text at 16 px or larger without clipping or overlap."
       ]
     },
     {
@@ -151,7 +151,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "New, In Progress, Waiting on Customer, Resolved, and Closed are states; all supplied events connect the correct states, including reply, reopen, and delayed close transitions.",
         "The scene has at most 8 major nodes and 10 transition edges, and Closed is the only final state.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped labels or ambiguous transition attachment."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and no clipped labels or ambiguous transition attachment."
       ]
     },
     {
@@ -166,7 +166,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "All five named milestones appear in date order and their axis positions are proportional to elapsed days: Jan 15-Mar 1 and Mar 1-Apr 15 are equal 45-day spans, Apr 15-Jun 1 is slightly wider at 47 days, and Jun 1-Jul 15 is slightly narrower at 44 days.",
         "The scene has at most 8 major nodes, 2 edges, and 2 bands, with no task-duration encoding.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped or colliding date labels."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and no clipped or colliding date labels."
       ]
     },
     {
@@ -181,7 +181,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "All six initiatives are plotted; each x position scales with effort and each y position scales with impact, placing the initiatives in regions consistent with their numeric coordinates.",
         "The scene has at most 12 major nodes, 2 axis edges, and 12 points.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, visible axis direction, and no clipped or overlapping point labels."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger, visible axis direction, and no clipped or overlapping point labels."
       ]
     },
     {
@@ -196,7 +196,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "Five labeled radial axes use one 1-5 scale; North and South each have five vertices whose center distance is proportional to the supplied score, and a legend or direct labels distinguish the series.",
         "The scene has at most 6 major nodes, 0 relationship edges, 3 series, and 18 plotted points.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped axis or series labels."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and no clipped axis or series labels."
       ]
     },
     {
@@ -211,7 +211,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "All six categories and values appear on one zero-based radial scale; each category radius is proportional to its value, with Authentication longest and Notifications shortest.",
         "The scene has at most 8 major nodes, 0 relationship edges, 2 series, and 12 plotted points.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped angular labels."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and no clipped angular labels."
       ]
     },
     {
@@ -226,7 +226,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "Observe signals, Prioritize risk, Implement change, and Verify impact appear once each in cycle order, and Verify impact connects back to Observe signals without start or end terminals.",
         "The scene has at most 7 major nodes and 7 edges, and its curved-cycle geometry makes the closure unambiguous.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped labels or crossing cycle arrows."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and no clipped labels or crossing cycle arrows."
       ]
     },
     {
@@ -241,7 +241,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "Company spatially contains Data Platform, which contains Restricted Workspace, which contains both Customer PII Store and Audit Log as siblings.",
         "The scene has at most 8 major nodes, 0 edges, and 4 containment levels.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, visible boundary padding, and no clipped nested labels."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger, visible boundary padding, and no clipped nested labels."
       ]
     },
     {
@@ -256,7 +256,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "VP Engineering is the root; each director and lead is connected to the exact manager stated in the prompt, with no cross-reporting implied.",
         "The scene has at most 9 major nodes, 8 reporting edges, and 4 levels.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped role labels or crossing reporting lines."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and no clipped role labels or crossing reporting lines."
       ]
     },
     {
@@ -271,7 +271,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "The four bands appear in the requested bottom-to-top order, and each named example is contained in its correct band with no service dependency links.",
         "The scene has at most 6 major nodes, 0 edges, and 6 bands.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, consistent band spacing, and no clipped content."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger, consistent band spacing, and no clipped content."
       ]
     },
     {
@@ -286,7 +286,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "Support, Finance, and Security are three overlapping sets; account IDs occupy the triple overlap, pairwise capabilities occupy the stated pair overlaps, and unique capabilities remain in their exclusive regions.",
         "The scene has at most 4 major nodes, 0 edges, and 4 sets.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and enough overlap area to avoid clipped or ambiguous membership labels."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and enough overlap area to avoid clipped or ambiguous membership labels."
       ]
     },
     {
@@ -301,7 +301,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "The four named tiers appear in the requested base-to-apex order, and each higher tier is visibly narrower than the tier below it.",
         "The scene has at most 5 major nodes, 0 edges, and 5 bands.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable centered `fontFamily: 5` text at 16 px or larger and no clipped tier labels."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable centered `fontFamily: 5` text at 16 px or larger and no clipped tier labels."
       ]
     },
     {
@@ -316,7 +316,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "All four categories and exact values appear on a zero-based axis; bar length is proportional to value, including Core at 3x Integrations and Billing at 2x Integrations.",
         "The scene has at most 8 major nodes, 2 axis edges, 3 series, and 16 plotted points.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped value or category labels."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and no clipped value or category labels."
       ]
     },
     {
@@ -331,7 +331,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "Top-level cells cover the whole and have areas proportional to 50:30:20; child areas partition their parent exactly, including API:Workers at 30:20 and Primary:Replicas at 20:10 of the whole.",
         "The scene has at most 12 major nodes, 0 edges, 12 cells, and 3 levels.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped labels in cells."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and no clipped labels in cells."
       ]
     },
     {
@@ -346,7 +346,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "January through June are equally spaced and ordered; latency point heights match 240, 220, 260, 200, 180, and 150 on one linear y scale, while the objective is horizontal at 200.",
         "The scene has at most 12 major nodes, 3 line-series edges, 3 series, and 24 plotted points.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, a clear legend, and no clipped axes or labels."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger, a clear legend, and no clipped axes or labels."
       ]
     },
     {
@@ -361,7 +361,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "Every bar starts and ends on the supplied dates; bar widths are proportional to duration, Dual Write visibly overlaps Backfill from Sep 22-28, and Cutover follows both predecessor dependencies on Oct 6.",
         "The scene has at most 10 major nodes, 8 dependency edges, 8 rows, and 10 time bands.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped dates, task names, or dependency arrows."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and no clipped dates, task names, or dependency arrows."
       ]
     },
     {
@@ -376,7 +376,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "All six services are positioned according to the supplied x and y values on linear scales, Checkout is identified as the high-failure outlier, and no lines connect observations.",
         "The scene has at most 12 major nodes, 2 axis edges, 3 series, and 24 plotted points.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped axes or overlapping observation labels."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and no clipped axes or overlapping observation labels."
       ]
     },
     {
@@ -391,8 +391,8 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file; no unnecessary overview/detail split is introduced.",
         "The six named stages appear exactly once in the supplied order along one primary axis, with no branches or backward connection.",
         "The scene has at most 8 major nodes and 8 edges.",
-        "The result defaults to adaptation of the canonical starter's semantic grammar, style tokens, and starter components; it may adjust coordinates and box count for accurate content but does not replace the fitting process layout with arbitrary blank-canvas cards.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, no clipped labels or unrelated-node crossings, and a useful whole-image overview plus readable detail at doc-inline size without zoom.",
+        "The result defaults to adaptation of the canonical starter's semantic grammar and starter components, with adaptable colors; it may adjust coordinates and box count for accurate content but does not replace the fitting process layout with arbitrary blank-canvas cards.",
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger, no clipped labels or unrelated-node crossings, and a useful whole-image overview plus readable detail at doc-inline size without zoom.",
         "The final PNG stands alone and directly answers the ordered release path question; visual PASS requires comprehension as well as legibility, while absent entities such as stores, identifiers, boundaries, and warnings are not invented."
       ]
     },
@@ -408,7 +408,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "Bronze, Silver, and Gold appear once in refinement order, contain the requested datasets, and show increasing quality toward BI-ready customer-360 aggregates.",
         "The scene has at most 4 major nodes, 3 edges, and 4 bands.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped stage or content labels."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and no clipped stage or content labels."
       ]
     },
     {
@@ -423,7 +423,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "All four control-domain rows and three owner columns are labeled, and every supplied control appears in an unambiguous intersection consistent with its owner and domain.",
         "The scene has at most 12 major nodes, 0 edges, 4 rows, 4 columns, and 12 populated cells.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, consistent cell geometry, and no clipped cell content."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger, consistent cell geometry, and no clipped cell content."
       ]
     },
     {
@@ -438,7 +438,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "Band widths are proportional to 100, 60, 40, 45, and 15; the incoming width equals 60+40 at the first split, and the Activated width equals 45+15 at the second split.",
         "The scene has at most 8 major nodes, 12 flow edges, and 12 variable-width bands.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped labels or visually false band crossings."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and no clipped labels or visually false band crossings."
       ]
     },
     {
@@ -453,7 +453,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "`Slow checkout` is the effect; People, Process, Platform, and External are cause branches, and each supplied cause is attached to its correct category.",
         "The scene has at most 10 major nodes, 9 edges, and 6 branches.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped cause labels or ambiguous branch attachment."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and no clipped cause labels or ambiguous branch attachment."
       ]
     },
     {
@@ -468,7 +468,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "Every named component appears at a visibility height consistent with the dependency chain and at the requested evolution position from genesis/custom build through product/rental to commodity.",
         "The scene has at most 12 major nodes, 12 dependency edges, and 4 evolution columns.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, labeled axes, and no clipped component or dependency labels."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger, labeled axes, and no clipped component or dependency labels."
       ]
     },
     {
@@ -483,7 +483,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "All four columns and both swimlanes are labeled; each of the five cards appears exactly once in the requested column and lane.",
         "The scene has at most 12 major nodes, 0 edges, 3 rows, 5 columns, 12 cells, and 12 cards.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, consistent cell geometry, and no clipped card text."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger, consistent cell geometry, and no clipped card text."
       ]
     },
     {
@@ -498,14 +498,14 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "The four stages, touchpoints, and actions appear in order; equally spaced stage columns carry sentiment points at +1, +1, -1, and +2 on one linear scale, with Checkout visibly lowest.",
         "The scene has at most 8 major nodes, 7 edges, 8 columns, and 8 plotted points.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped stage, touchpoint, or sentiment labels."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and no clipped stage, touchpoint, or sentiment labels."
       ]
     },
     {
       "id": 34,
       "kind": "template",
       "template_id": "deployment",
-      "prompt": "Create exactly three editorial-light deployment diagrams for slide delivery: a Global Overview, a Region A Detail, and a Region B Detail. The overview's primary reader question is `How do Region A and Region B connect to the external identity and payment providers and fail over between regions?` Each region detail's primary reader question is `What runs inside this region and its network boundaries?` Use catalog ID `deployment` and target profile `slide` for all three. Each region detail contains one region boundary, one public ingress, two private availability-zone runtime nodes, one API artifact on each runtime node, one regional queue, one cache, and one database. For this eval, the region boundary counts as one major node; subnet background regions count toward the environment limit but not `majorNodes`, so each detail has exactly 9 major nodes and at most 3 environments. The overview shows the two regions as overview nodes, both external providers, major inter-region failover, and only connections needed to answer its question, staying within its own deployment budget. Label responsibility-changing protocols. Show `ASYNC` on dashed cross-region failover and a warning that it does not guarantee zero data loss. Every diagram must have a matching `.excalidraw` and PNG pair and share vocabulary, colors, and component names. Fit each 1920x1080 slide validation box without zoom. Save deliverables under output/multi-region-runtime.",
+      "prompt": "Create exactly three deployment diagrams for slide delivery: a Global Overview, a Region A Detail, and a Region B Detail. The overview's primary reader question is `How do Region A and Region B connect to the external identity and payment providers and fail over between regions?` Each region detail's primary reader question is `What runs inside this region and its network boundaries?` Use catalog ID `deployment` and target profile `slide` for all three. Each region detail contains one region boundary, one public ingress, two private availability-zone runtime nodes, one API artifact on each runtime node, one regional queue, one cache, and one database. For this eval, the region boundary counts as one major node; subnet background regions count toward the environment limit but not `majorNodes`, so each detail has exactly 9 major nodes and at most 3 environments. The overview shows the two regions as overview nodes, both external providers, major inter-region failover, and only connections needed to answer its question, staying within its own deployment budget. Label responsibility-changing protocols. Show `ASYNC` on dashed cross-region failover and a warning that it does not guarantee zero data loss. Every diagram must have a matching `.excalidraw` and PNG pair and share vocabulary, colors, and component names. Fit each 1920x1080 slide validation box without zoom. Save deliverables under output/multi-region-runtime.",
       "expected_output": "Exactly three validated deployment-template-based source/PNG pairs: a global overview and two region details, each with one primary question, catalog ID `deployment`, slide profile, deterministic budget accounting, shared vocabulary, and target-size readability.",
       "files": [],
       "expectations": [
@@ -530,7 +530,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "Browse, Select, Pay, and Confirm form the backbone; every Release 1 and Release 2 story appears exactly once below the matching activity and inside the correct release slice.",
         "The scene has at most 15 major nodes, 0 edges, 4 rows, 5 columns, 15 cells, and 15 cards.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger, consistent matrix geometry, and no clipped story text."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger, consistent matrix geometry, and no clipped story text."
       ]
     },
     {
@@ -545,7 +545,7 @@
         "The output directory contains exactly one valid `.excalidraw` source and exactly one matching `.png`, with no additional deliverable file.",
         "All three tables contain every supplied column, type, and constraint; each `account_id` and `session_id` foreign-key connector starts at its exact row and ends at the referenced primary-key row.",
         "The scene has at most 8 major nodes, 12 relationship edges, and 40 columns.",
-        "The source and PNG use editorial-light styling on `#ffffff`, with readable `fontFamily: 5` text at 16 px or larger and no clipped columns or ambiguous foreign-key attachment."
+        "The source and PNG use readable contrast and consistent semantic color use, with readable `fontFamily: 5` text at 16 px or larger and no clipped columns or ambiguous foreign-key attachment."
       ]
     },
     {

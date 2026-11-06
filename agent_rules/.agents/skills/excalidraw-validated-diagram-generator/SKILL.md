@@ -28,7 +28,7 @@ One diagram owns one primary question. Split overview, partition/routing, idempo
 
 ### 2. Select The Diagram Type
 
-Read `templates/catalog.json` first. It is authoritative for available IDs, primary questions, semantics, limits, styles, and file paths. Route the request by its primary question, then use `references/template-selection.md` to choose exactly one of the 36 catalog IDs.
+Read `templates/catalog.json` first. It is authoritative for available IDs, primary questions, semantics, limits, and file paths. Route the request by its primary question, then use `references/template-selection.md` to choose exactly one of the 36 catalog IDs.
 
 | Primary-question family | Candidate catalog IDs |
 | --- | --- |
@@ -45,18 +45,18 @@ Treat these absorbed upstream names as aliases, not additional catalog IDs: `it-
 
 If two types remain plausible and the choice would materially change the meaning, ask one concise question. Otherwise choose the type whose `primaryQuestion` best matches the user's main question.
 
-### 3. Select The Style And Template
+### 3. Load The Template
 
 After selecting the catalog ID:
 
 1. Find that exact entry in `templates/catalog.json`.
-2. Apply the user's requested style when the catalog supports it; otherwise use `defaultStyle`.
-3. Read only the selected `templateFile`, not every template.
-4. Read only the relevant reference sections and the JSON element guidance needed for the edit.
+2. Read only the selected `templateFile`, not every template.
+3. Read only the relevant reference sections and the JSON element guidance needed for the edit.
 
 The selected template is the canonical starter scene. Use this exact model:
 
-> Template = semantic grammar + style tokens + starter components  
+> Template = semantic grammar + starter components with adaptable colors
+>
 > Template != fixed coordinates + fixed box count + fixed card layout
 
 Default to adapting the selected template. Recompose from its grammar only when the visual brief provides evidence that the content structure does not fit the starter coordinates or component arrangement. Accuracy and the reader's primary question win over fixed coordinates, but recomposition is not permission for arbitrary blank-canvas drawing. Do not load every template or preview for comparison.
@@ -75,9 +75,9 @@ Apply these rules:
 
 - Use an optional 4 px coordinate rhythm and one dominant layout axis; preserve canonical `appState.gridSize: 20`.
 - Stay within the selected entry's `nodeBudget` and `edgeBudget`. Split overview and detail into separate requested diagrams when the content exceeds a budget; do not create one unreadable scene.
-- Use a plain white (`#ffffff`) canvas with no tinted background.
-- Use color for semantic roles, not importance. For complex flows, distinguish transport/routing, business identity, state/merge, and warning/boundary roles with combinations of color, labels, shapes, and line treatments; these roles do not require four unique hues. Keep outer cards neutral when internal chips carry the semantics, preserve the restrained maximum-two-accent budget, and add redundant labels or shapes so meaning survives grayscale.
-- Use no shadows. Use an independent Excalidraw palette; do not copy upstream CSS values.
+- Follow the user's color guidance when provided; otherwise choose canvas, fills, text, and connector colors to suit the content and delivery context without asking the user to select a theme. Template colors are editable starting values, not requirements. No fixed palette, role-to-hue mapping, or accent count applies.
+- Maintain readable contrast and consistent color meanings across the diagram set. For complex flows, distinguish transport/routing, business identity, state/merge, and warning/boundary roles with labels, shapes, and line treatments as well as color so important distinctions survive grayscale.
+- Use no shadows. Do not copy upstream CSS values.
 - Render every label as a separate `text` element with `fontFamily: 5` and `fontSize >= 16`.
 - Use the 16/20/28 type hierarchy for annotations, labels or section headings, and the title.
 - Fit labels to their shapes before routing connectors. Keep at least 16 px of horizontal and 12 px of vertical padding inside rectangles, and use a smaller centered safe area inside ellipses and diamonds.
@@ -145,7 +145,7 @@ Report:
 For each resulting diagram, report:
 
 1. `.excalidraw` source path and matching `.png` path.
-2. Selected catalog ID and style.
+2. Selected catalog ID.
 3. Primary reader question.
 4. Target display profile.
 5. One-sentence content summary and confirmation that the target-size raster and original final PNG were inspected and passed the comprehension questions.

@@ -1,11 +1,9 @@
 {
   "version": 2,
-  "defaultStyle": "editorial-light",
   "templates": [
     {
       "id": "architecture",
       "diagramType": "architecture",
-      "style": "editorial-light",
       "description": "A boundary-aware system view with components, external systems, protocols, and major flows.",
       "bestFor": [
         "service and infrastructure overviews",
@@ -43,12 +41,11 @@
       },
       "geometryProfile": "default",
       "geometryExemptions": [],
-      "previewSourceSha256": "64f89fadeb574db3853862d84c8f2f32568ae91079e3de98c3d17124c6d50db2"
+      "previewSourceSha256": "3d1f896ac5f80e33789bcf20cde4d2b24f5ea6a0ebc8914837042bdee6763a67"
     },
     {
       "id": "flowchart",
       "diagramType": "flowchart",
-      "style": "editorial-light",
       "description": "A single-axis process flow with explicit decisions, branch labels, and terminal outcomes.",
       "bestFor": [
         "procedures and approval paths",
@@ -85,12 +82,11 @@
       },
       "geometryProfile": "default",
       "geometryExemptions": [],
-      "previewSourceSha256": "62a30fc5fc4633b4ea0e72a9246a21f91c0f1cabac857fd71a6d99bf79f8d729"
+      "previewSourceSha256": "24bbbcd4f2e932fa8fad80e518cd3b4290032f5692199442143b65c283c5b743"
     },
     {
       "id": "relationship",
       "diagramType": "relationship",
-      "style": "editorial-light",
       "description": "A labeled network of entities or components focused on dependency and relationship meaning.",
       "bestFor": [
         "dependency maps",
@@ -123,12 +119,11 @@
       },
       "geometryProfile": "default",
       "geometryExemptions": [],
-      "previewSourceSha256": "1a96c9019f612798f955db1c220bbda8ea94df2231e2ed9dbb302a16839244a7"
+      "previewSourceSha256": "d5a8d4d62a677ab69cef49a088b252ffe8ca511ea3bfc359ad4bdf36a9975f02"
     },
     {
       "id": "mind-map",
       "diagramType": "mind-map",
-      "style": "editorial-light",
       "description": "A central concept with visually distinct first-level branches and compact subordinate topics.",
       "bestFor": [
         "concept breakdowns",
@@ -163,12 +158,11 @@
       },
       "geometryProfile": "default",
       "geometryExemptions": [],
-      "previewSourceSha256": "63640d0611463aff2cf27956b0d2284a3bdeaaec4c4f36b8b1af099e328b2ded"
+      "previewSourceSha256": "239d56fb45fc19051fd67e7b861e53809d10861ba1e46f97f61464154d51c201"
     },
     {
       "id": "data-flow",
       "diagramType": "data-flow",
-      "style": "editorial-light",
       "description": "A data-centric view that distinguishes external actors, transformations, stores, and named flows.",
       "bestFor": [
         "ETL and ingestion paths",
@@ -205,12 +199,11 @@
       },
       "geometryProfile": "default",
       "geometryExemptions": [],
-      "previewSourceSha256": "a5307e7c43fc434940de8333c93018d2c3ba7e011fc87199cc7bf9e8aa6efc7b"
+      "previewSourceSha256": "b4fbd9a6bce65a6c4ba46e23fc1a5b4114294aa3c47801333d7791b05b465074"
     },
     {
       "id": "business-flow-swimlane",
       "diagramType": "business-flow-swimlane",
-      "style": "editorial-light",
       "description": "An ordered business process grouped into actor lanes with visible cross-lane handoffs.",
       "bestFor": [
         "multi-team procedures",
@@ -245,12 +238,11 @@
       },
       "geometryProfile": "default",
       "geometryExemptions": [],
-      "previewSourceSha256": "907d2a1cb0f609252a800eaf9058e73614bf8b665af11bc6d5f6a613d7b55c21"
+      "previewSourceSha256": "5f3e8c0369cb7ef7802b4a95724c15cd6dc3acbfc04e95cec860bb341398d020"
     },
     {
       "id": "class-diagram",
       "diagramType": "class-diagram",
-      "style": "editorial-light",
       "description": "A compact object model with compartmentalized classes and typed object-oriented relationships.",
       "bestFor": [
         "class responsibilities and public APIs",
@@ -284,12 +276,11 @@
       },
       "geometryProfile": "default",
       "geometryExemptions": [],
-      "previewSourceSha256": "e77d313241644dd6b0493b76e7577b16615477bc32aa5c821d3380413194fb60"
+      "previewSourceSha256": "31d1471f1a5809c43641812288d78743ab3724a4214d3276f38ed82380235bb7"
     },
     {
       "id": "sequence-diagram",
       "diagramType": "sequence-diagram",
-      "style": "editorial-light",
       "description": "A time-ordered interaction view with participants, lifelines, calls, returns, and optional activation spans.",
       "bestFor": [
         "request and response interactions",
@@ -323,12 +314,11 @@
       },
       "geometryProfile": "default",
       "geometryExemptions": [],
-      "previewSourceSha256": "747503ff707956bf88cc92b5d328d70245867248a16743a41794923539ff33c2"
+      "previewSourceSha256": "9b91a60f2eec8406d82757b1c4b34359d2f43124a8ffefbdd2adf03307cb6e7e"
     },
     {
       "id": "er-diagram",
       "diagramType": "er-diagram",
-      "style": "editorial-light",
       "description": "A relational data model with entities, key fields, cardinalities, and explicit junction entities.",
       "bestFor": [
         "relational schema overviews",
@@ -362,12 +352,11 @@
       },
       "geometryProfile": "schema",
       "geometryExemptions": [],
-      "previewSourceSha256": "3c5fc32619d820502e5cd0b44e092d6fc9faeca6449a1b7d7e015997da8f6f92"
+      "previewSourceSha256": "36bab615137862ee853ee3bd75e52a00a7f12a516da2956ef58f956e5db6cc48"
     },
     {
       "id": "state",
       "diagramType": "state",
-      "style": "editorial-light",
       "description": "A lifecycle view of states and event-driven transitions.",
       "bestFor": [
         "object and workflow lifecycles"
@@ -399,12 +388,11 @@
       },
       "geometryProfile": "default",
       "geometryExemptions": [],
-      "previewSourceSha256": "3a00205ce1e2129e4bb3a9991bc4e33fe34bd73bc169e4960faa44b0ae5ed16f"
+      "previewSourceSha256": "c8804e83bba625b1a95cc46e1a34198618aef02ad84699a39698b2e6aef5e505"
     },
     {
       "id": "timeline",
       "diagramType": "timeline",
-      "style": "editorial-light",
       "description": "A chronological axis with dated milestones and intervals.",
       "bestFor": [
         "milestones and historical sequences"
@@ -435,12 +423,11 @@
       },
       "geometryProfile": "timeline",
       "geometryExemptions": [],
-      "previewSourceSha256": "aa96fe0c1ae7fa0d807df3d6f51be92bb917bdc82a05ee3f82cb505e53e68299"
+      "previewSourceSha256": "ecceea4e3e6be2b28bd7d8feaacce597566971c778138f1323914b71a8199d7c"
     },
     {
       "id": "quadrant",
       "diagramType": "quadrant",
-      "style": "editorial-light",
       "description": "A two-axis comparison divided into four interpreted regions.",
       "bestFor": [
         "portfolio and prioritization comparisons"
@@ -472,12 +459,11 @@
       },
       "geometryProfile": "cartesian",
       "geometryExemptions": [],
-      "previewSourceSha256": "3c096f817dafc4b2d94dc7fd6e60eb5028a0c4e2ea34df7bf9585d52a16ba1ea"
+      "previewSourceSha256": "679276a526e605f208c0d67c00d82a18d27c5e25809d526025b2fafd8c110099"
     },
     {
       "id": "radar",
       "diagramType": "radar",
-      "style": "editorial-light",
       "description": "A radial comparison of multiple series across shared dimensions.",
       "bestFor": [
         "multi-attribute profile comparison"
@@ -511,12 +497,11 @@
       "geometryExemptions": [
         "radial-series"
       ],
-      "previewSourceSha256": "cbe6610240fd7f2069a226cbb318a03337995e3349318967840d0da3b0009c62"
+      "previewSourceSha256": "bdbde78cc5489fcd2605903a637b0f850eb6d992eb71517e3a0184feff514d33"
     },
     {
       "id": "polar",
       "diagramType": "polar",
-      "style": "editorial-light",
       "description": "A radial magnitude display arranged by angular categories.",
       "bestFor": [
         "cyclical category magnitude comparison"
@@ -550,12 +535,11 @@
       "geometryExemptions": [
         "radial-series"
       ],
-      "previewSourceSha256": "7718cce31b685a3ef6a1c823941cbabfbbb461b903976d179476e824a6c28f2e"
+      "previewSourceSha256": "29ab7c79a13e3fa327eb84751d12fbd29d7dc10a1d6755753e09eaff157d7478"
     },
     {
       "id": "loop",
       "diagramType": "loop",
-      "style": "editorial-light",
       "description": "A closed cycle of recurring stages and feedback.",
       "bestFor": [
         "continuous improvement and recurring processes"
@@ -587,12 +571,11 @@
       "geometryExemptions": [
         "curved-cycle"
       ],
-      "previewSourceSha256": "38bc11c351e4712fdd49d8452710fc13525e0b9bc827b618d3e7d2fb7f7b0e89"
+      "previewSourceSha256": "eef7e05c9d4d43b27672397349d48754eecaa818ac5b808c3c957f31c6c4a871"
     },
     {
       "id": "nested",
       "diagramType": "nested",
-      "style": "editorial-light",
       "description": "A containment hierarchy expressed through nested regions.",
       "bestFor": [
         "scope and containment relationships"
@@ -624,12 +607,11 @@
       },
       "geometryProfile": "containment",
       "geometryExemptions": [],
-      "previewSourceSha256": "107c1125dda1772010d10fe7324504a0bfe4edd4e77fa313caf30d7456d8efe7"
+      "previewSourceSha256": "44948a48499b77334b3bfdb71cceda5593d18e25b703d4b5a6007835dbdda3a4"
     },
     {
       "id": "org-chart",
       "diagramType": "org-chart",
-      "style": "editorial-light",
       "description": "A reporting hierarchy of roles, teams, and managers.",
       "bestFor": [
         "organizational reporting structures"
@@ -660,12 +642,11 @@
       },
       "geometryProfile": "default",
       "geometryExemptions": [],
-      "previewSourceSha256": "1d974d84a4f7ed5daa07c7412c954c051ecddf5d71fa85e0acb46ce7e78976ea"
+      "previewSourceSha256": "695f69bf8ffcb5d5529e76a41127c701e9b88e9e34593f824acc43fcfc76ce65"
     },
     {
       "id": "layers",
       "diagramType": "layers",
-      "style": "editorial-light",
       "description": "A stacked view of ordered conceptual or technical layers.",
       "bestFor": [
         "layered architecture and maturity strata"
@@ -698,12 +679,11 @@
       },
       "geometryProfile": "containment",
       "geometryExemptions": [],
-      "previewSourceSha256": "71800664bce695975def429355f89097f2b7a6334a3758a942e7576c10def25a"
+      "previewSourceSha256": "92b29baacbb5599c81bde40ebc1949ad31fe9809621516489e6d8616a8780746"
     },
     {
       "id": "venn",
       "diagramType": "venn",
-      "style": "editorial-light",
       "description": "Overlapping sets that expose shared and exclusive membership.",
       "bestFor": [
         "set comparison and shared capabilities"
@@ -736,12 +716,11 @@
       "geometryExemptions": [
         "overlap-sets"
       ],
-      "previewSourceSha256": "3161e5d2108b005c61ac4c69b23845259c19902d242d787c645185de5524b45a"
+      "previewSourceSha256": "bd17d2f5fa2a9bd5bd715d4b40d80ec20aff665ae757a9053f6dc65f330135a2"
     },
     {
       "id": "pyramid",
       "diagramType": "pyramid",
-      "style": "editorial-light",
       "description": "A tiered hierarchy whose width communicates rank or accumulation.",
       "bestFor": [
         "priorities, maturity, and hierarchical tiers"
@@ -773,12 +752,11 @@
       },
       "geometryProfile": "containment",
       "geometryExemptions": [],
-      "previewSourceSha256": "4634b480cc07741d8580b93e1500b85506d7aad90ba69dab3775e0b77b959969"
+      "previewSourceSha256": "9adad9be4669548356e6350d96589638973a71156d2bb0a0ac85b1a87cddae0b"
     },
     {
       "id": "bar",
       "diagramType": "bar",
-      "style": "editorial-light",
       "description": "A categorical quantitative comparison using aligned bars.",
       "bestFor": [
         "category magnitude comparison"
@@ -810,12 +788,11 @@
       },
       "geometryProfile": "cartesian",
       "geometryExemptions": [],
-      "previewSourceSha256": "1e034c4375113ae6ffe0a35e98132982d6057d88f5470d04032a16c0e14fff57"
+      "previewSourceSha256": "40dbd23fca5cbcf46decd7f84b32e4d954a43f45c2fa0c26c65fa7959bb0ddf0"
     },
     {
       "id": "treemap",
       "diagramType": "treemap",
-      "style": "editorial-light",
       "description": "A part-to-whole hierarchy encoded as nested area.",
       "bestFor": [
         "hierarchical composition and relative size"
@@ -847,12 +824,11 @@
       },
       "geometryProfile": "containment",
       "geometryExemptions": [],
-      "previewSourceSha256": "028b1f457cc2fab856eebfa4b015dc50547531327b06467ce915df5a4acef46b"
+      "previewSourceSha256": "a451f4bd8a2515ff6aa03cae033dc4a7b6d60cad254e29e9e27d5235b89200b9"
     },
     {
       "id": "line",
       "diagramType": "line",
-      "style": "editorial-light",
       "description": "A quantitative trend view across an ordered axis.",
       "bestFor": [
         "time series and ordered trends"
@@ -885,12 +861,11 @@
       },
       "geometryProfile": "cartesian",
       "geometryExemptions": [],
-      "previewSourceSha256": "ce4e673e0b0edbdbd9e8798ccfe13a29d15740519444893f402ca373fddad17c"
+      "previewSourceSha256": "3100fe432cbe283286839c02010504857f5cf9108f607fc60949fca3823f099b"
     },
     {
       "id": "gantt",
       "diagramType": "gantt",
-      "style": "editorial-light",
       "description": "A scheduled task view with durations, milestones, and dependencies.",
       "bestFor": [
         "project schedules and dependency planning"
@@ -924,12 +899,11 @@
       },
       "geometryProfile": "timeline",
       "geometryExemptions": [],
-      "previewSourceSha256": "6aae2f13c15b0cd62aecccbebff0a0aa805e7de1a09a9f0255ea316d43aa06be"
+      "previewSourceSha256": "7542f13c3cf4b062cdcac0b70d85377d109911cf10e7e3b0ce48d5496c68e82e"
     },
     {
       "id": "scatter",
       "diagramType": "scatter",
-      "style": "editorial-light",
       "description": "A two-variable distribution of observations on Cartesian axes.",
       "bestFor": [
         "correlation, clusters, and outliers"
@@ -961,12 +935,11 @@
       },
       "geometryProfile": "cartesian",
       "geometryExemptions": [],
-      "previewSourceSha256": "048ca84ef858cc6c79ff6438d21e085f61bfc45f8eed1e73a4591cabf53527e1"
+      "previewSourceSha256": "5f6c92857a64291c6e5fbe83b0a991780402a5a4a2cb96443fa23278f334d245"
     },
     {
       "id": "process",
       "diagramType": "process",
-      "style": "editorial-light",
       "description": "A concise ordered sequence of process stages without decision grammar.",
       "bestFor": [
         "simple linear procedures and value streams"
@@ -997,12 +970,11 @@
       },
       "geometryProfile": "default",
       "geometryExemptions": [],
-      "previewSourceSha256": "b96e9ac455114254f4f99d37be952200cf3a8fd0c7651484140037eef0671d3f"
+      "previewSourceSha256": "7a144c3cf06df18b30749f15d42af300e7c375786f7751ee431fa39b843f8121"
     },
     {
       "id": "medallion",
       "diagramType": "medallion",
-      "style": "editorial-light",
       "description": "A layered bronze-silver-gold data refinement architecture.",
       "bestFor": [
         "lakehouse data quality progression"
@@ -1034,12 +1006,11 @@
       },
       "geometryProfile": "containment",
       "geometryExemptions": [],
-      "previewSourceSha256": "947715016dd636d5302e8402124b6910ea65369a3d40996ce4991f79353607e7"
+      "previewSourceSha256": "c199a7f458d6874435511884fabffa9495a19eb4b12a3d15a5428364fc8175ee"
     },
     {
       "id": "dp-security-matrix",
       "diagramType": "dp-security-matrix",
-      "style": "editorial-light",
       "description": "A security responsibility or control matrix across two categorical dimensions.",
       "bestFor": [
         "control coverage and responsibility mapping"
@@ -1073,12 +1044,11 @@
       },
       "geometryProfile": "matrix",
       "geometryExemptions": [],
-      "previewSourceSha256": "3216a7f251d4d20475faa37c0826eede81a6c9c5251c139bb30c4439f469f445"
+      "previewSourceSha256": "b6a31648738feb51cc0d69513e40323e7e70683454fbcfdf6362ae6b51762e0b"
     },
     {
       "id": "sankey",
       "diagramType": "sankey",
-      "style": "editorial-light",
       "description": "A weighted flow network whose band widths encode quantity.",
       "bestFor": [
         "resource, energy, and conversion flows"
@@ -1111,12 +1081,11 @@
       "geometryExemptions": [
         "variable-width-band"
       ],
-      "previewSourceSha256": "86000f76a0ac682f102ae2efbdc35126218fb1ba6bb3817e46b231eebce8e99e"
+      "previewSourceSha256": "ce19dfdd1f3a96a893cf36cdc29b5961baa211c3d027dae3fc177680910e37ec"
     },
     {
       "id": "fishbone",
       "diagramType": "fishbone",
-      "style": "editorial-light",
       "description": "A cause-and-effect analysis arranged around a central problem spine.",
       "bestFor": [
         "root-cause analysis and contributing factors"
@@ -1150,12 +1119,11 @@
       "geometryExemptions": [
         "diagonal-spine"
       ],
-      "previewSourceSha256": "dcfc895028923aab15c8316d6bffec9291663251d80ab888c588281390c6d35a"
+      "previewSourceSha256": "f12c68c3fc732c6d1d6c36aebea3800103996fe26bde5767f6ff038c9a2ec63b"
     },
     {
       "id": "wardley",
       "diagramType": "wardley",
-      "style": "editorial-light",
       "description": "A value-chain map positioned by user visibility and component evolution.",
       "bestFor": [
         "strategy and capability evolution analysis"
@@ -1187,12 +1155,11 @@
       },
       "geometryProfile": "freeform",
       "geometryExemptions": [],
-      "previewSourceSha256": "63d0ddf5cf33ebb84931259cd012d5c5bfb880c1cf4d608f65eca6c5fbf40516"
+      "previewSourceSha256": "7359123246e253d8816124087a8c7336ab1548c8594a47a0f42283daa7ae0c9f"
     },
     {
       "id": "kanban",
       "diagramType": "kanban",
-      "style": "editorial-light",
       "description": "A work board organized by workflow columns and optional swimlanes.",
       "bestFor": [
         "work-in-progress and delivery status"
@@ -1228,12 +1195,11 @@
       },
       "geometryProfile": "matrix",
       "geometryExemptions": [],
-      "previewSourceSha256": "6ea4910bc561c8f27ecb3eae11c9519a46f4deaae7ddb505f279bfb5b61d78ef"
+      "previewSourceSha256": "d1bac7c2b6898b7136e8b48dffda3633ecdc4d167c6cf71bcfa521f78bdd5ee8"
     },
     {
       "id": "journey",
       "diagramType": "journey",
-      "style": "editorial-light",
       "description": "A staged user journey with touchpoints, actions, and sentiment.",
       "bestFor": [
         "customer experience and service design"
@@ -1269,12 +1235,11 @@
       "geometryExemptions": [
         "sentiment-curve"
       ],
-      "previewSourceSha256": "183e58c1c6bfaf08ab45330401222a2f2dd7381b0731ecbe3ccc5917b48bbfb7"
+      "previewSourceSha256": "b3d182ce30e0566ff3ea248c0064f50576affd4b2237a3dd4f88aa5790fe404f"
     },
     {
       "id": "deployment",
       "diagramType": "deployment",
-      "style": "editorial-light",
       "description": "A runtime topology of deployment nodes, artifacts, and network paths.",
       "bestFor": [
         "environment and infrastructure deployment topology"
@@ -1306,12 +1271,11 @@
       },
       "geometryProfile": "default",
       "geometryExemptions": [],
-      "previewSourceSha256": "3093c97177932781e977dd6ef1be3476b75415cd9f8b901bb582de65fe901d7e"
+      "previewSourceSha256": "1b9b8c94690500d18ee2a4cfd2ad9ca763b22157e5b00f78f6b7fbe9237b21e3"
     },
     {
       "id": "story-map",
       "diagramType": "story-map",
-      "style": "editorial-light",
       "description": "A user-activity backbone with stories arranged by priority and release slice.",
       "bestFor": [
         "product discovery and release slicing"
@@ -1347,12 +1311,11 @@
       },
       "geometryProfile": "matrix",
       "geometryExemptions": [],
-      "previewSourceSha256": "c9aadf1bd7bc13d32ddc9c6b048bf959cd18082f3f614454ed90870f6189d5b4"
+      "previewSourceSha256": "fde6b5d1491159d8f59d528e604a6c4076695c741bb7ec52129bf384efc59e16"
     },
     {
       "id": "db-schema",
       "diagramType": "db-schema",
-      "style": "editorial-light",
       "description": "A physical database schema with tables, columns, keys, and row-anchored references.",
       "bestFor": [
         "implementation-level database structure"
@@ -1386,7 +1349,7 @@
       "geometryExemptions": [
         "row-anchored-fk"
       ],
-      "previewSourceSha256": "83a242bc4605f4c412dd5a462adaf555dd2b1f79e391115911634cf0c785ab6c"
+      "previewSourceSha256": "5a6d41aae0253efbe4a0a5d53348bf17eaad08dfe46bbbde04a4f724956d7036"
     }
   ]
 }

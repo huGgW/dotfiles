@@ -37,8 +37,6 @@ CATALOG_PATH = PurePosixPath("templates/catalog.json")
 COVERAGE_PATH = PurePosixPath("references/upstream-coverage.json")
 EVALS_PATH = PurePosixPath("evals/evals.json")
 SKILL_NAME = "excalidraw-validated-diagram-generator"
-CANONICAL_STYLE = "editorial-light"
-CANONICAL_BACKGROUND = "#ffffff"
 CANONICAL_GRID_SIZE = 20
 CATALOG_VERSION = 2
 COVERAGE_SCHEMA = "excalidraw-template-upstream-coverage"
@@ -222,11 +220,10 @@ EXEMPTION_OWNERS = {
     "row-anchored-fk": frozenset({"db-schema"}),
 }
 
-REQUIRED_CATALOG_KEYS = ("version", "defaultStyle", "templates")
+REQUIRED_CATALOG_KEYS = ("version", "templates")
 REQUIRED_ENTRY_KEYS = (
     "id",
     "diagramType",
-    "style",
     "description",
     "bestFor",
     "avoidWhen",
@@ -361,11 +358,14 @@ def validate_catalog_contract(
     catalog: object, skill_root: Path = SKILL_ROOT, *, strict: bool = True
 ) -> list[str]:
     """Validate the v2 catalog schema without requiring asset files."""
+    # Step 1: Establish the catalog structure before validating entries.
     if not isinstance(catalog, dict):
         return ["Catalog must be a JSON object"]
+
     catalog = cast(dict[str, Any], catalog)
 
     errors: list[str] = []
+
     for key in REQUIRED_CATALOG_KEYS:
         if key not in catalog:
             errors.append(f"Missing top-level field '{key}'")
@@ -374,18 +374,19 @@ def validate_catalog_contract(
         catalog.get("version"), bool
     ):
         errors.append(f"Top-level 'version' must be exactly {CATALOG_VERSION}")
-    if catalog.get("defaultStyle") != CANONICAL_STYLE:
-        errors.append(f"Top-level 'defaultStyle' must be '{CANONICAL_STYLE}'")
 
     entries = catalog.get("templates")
+
     if not isinstance(entries, list):
         errors.append("Top-level 'templates' must be an array")
         return errors
+
     if len(entries) != len(EXPECTED_TEMPLATE_IDS):
         errors.append(
             f"Top-level 'templates' must contain exactly {len(EXPECTED_TEMPLATE_IDS)} entries"
         )
 
+    # Step 2: Validate entries and collect cross-entry references.
     ids: dict[str, int] = {}
     template_paths: dict[str, int] = {}
     preview_paths: dict[str, int] = {}
@@ -394,33 +395,37 @@ def validate_catalog_contract(
 
     for position, entry in enumerate(entries):
         label = f"templates[{position}]"
+
         if not isinstance(entry, dict):
             errors.append(f"{label} must be an object")
             continue
+
         entry = cast(dict[str, Any], entry)
 
         entry_id = entry.get("id")
+
         if isinstance(entry_id, str) and entry_id:
             label = f"templates[{position}] ('{entry_id}')"
+
         for key in REQUIRED_ENTRY_KEYS:
             if key not in entry:
                 errors.append(f"{label} is missing required field '{key}'")
 
         digest = entry.get("previewSourceSha256")
+
         if strict and (not isinstance(digest, str) or SHA256_PATTERN.fullmatch(digest) is None):
             errors.append(
                 f"{label} field 'previewSourceSha256' must be a lowercase 64-hex SHA-256 digest"
             )
 
-        for key in ("id", "diagramType", "style", "description", "primaryQuestion"):
+        for key in ("id", "diagramType", "description", "primaryQuestion"):
             value = entry.get(key)
+
             if not isinstance(value, str) or not value:
                 errors.append(f"{label} field '{key}' must be a non-empty string")
 
         if entry.get("diagramType") != entry_id:
             errors.append(f"{label} fields 'id' and 'diagramType' must be equal")
-        if entry.get("style") != CANONICAL_STYLE:
-            errors.append(f"{label} field 'style' must be '{CANONICAL_STYLE}'")
 
         for key in ("bestFor", "avoidWhen", "upstreamSlugs", "semanticMinimums"):
             errors.extend(
@@ -428,6 +433,7 @@ def validate_catalog_contract(
                     entry.get(key), f"{label} field '{key}'", allow_empty=False
                 )
             )
+
         for key in ("confusableWith", "geometryExemptions"):
             errors.extend(
                 _validate_string_array(
@@ -440,54 +446,67 @@ def validate_catalog_contract(
                 errors.append(f"{label} field '{key}' must be a non-negative integer")
 
         limits = entry.get("limits")
+
         if not isinstance(limits, dict) or not limits:
             errors.append(f"{label} field 'limits' must be a non-empty object")
         else:
             limits = cast(dict[Any, Any], limits)
+
             for key, value in limits.items():
                 if not isinstance(key, str) or not key:
                     errors.append(f"{label} field 'limits' keys must be non-empty strings")
+
                 if not _is_non_negative_integer(value):
                     errors.append(
                         f"{label} field 'limits.{key}' must be a non-negative integer"
                     )
+
             for key in ("majorNodes", "edges"):
                 if key not in limits:
                     errors.append(f"{label} field 'limits' must include '{key}'")
+
             if entry.get("nodeBudget") != limits.get("majorNodes"):
                 errors.append(
                     f"{label} field 'nodeBudget' must equal 'limits.majorNodes'"
                 )
+
             if entry.get("edgeBudget") != limits.get("edges"):
                 errors.append(f"{label} field 'edgeBudget' must equal 'limits.edges'")
 
         profile = entry.get("geometryProfile")
+
         if profile not in GEOMETRY_PROFILES:
             errors.append(
                 f"{label} field 'geometryProfile' must be one of {sorted(GEOMETRY_PROFILES)}"
             )
 
         semantic_minimums = entry.get("semanticMinimums")
+
         if isinstance(semantic_minimums, list) and all(
             isinstance(role, str) for role in semantic_minimums
         ):
             role_set = set(cast(list[str], semantic_minimums))
             required_roles, alternatives = _required_roles_for_profile(profile)
+
             for role in sorted(required_roles - role_set):
                 errors.append(
                     f"{label} semanticMinimums is missing profile-required role '{role}'"
                 )
+
             if alternatives and not role_set.intersection(alternatives):
                 errors.append(
                     f"{label} semanticMinimums must include one of profile roles {list(alternatives)}"
                 )
 
         exemptions = entry.get("geometryExemptions")
+
         if isinstance(exemptions, list):
             for exemption in exemptions:
                 if not isinstance(exemption, str):
                     continue
+
                 owners = EXEMPTION_OWNERS.get(exemption)
+
                 if owners is None:
                     errors.append(
                         f"{label} geometry exemption '{exemption}' is not recognized"
@@ -504,10 +523,12 @@ def validate_catalog_contract(
                 ids[entry_id] = position
 
         upstream_slugs = entry.get("upstreamSlugs")
+
         if isinstance(upstream_slugs, list) and isinstance(entry_id, str):
             for slug in upstream_slugs:
                 if not isinstance(slug, str) or not slug:
                     continue
+
                 if slug in upstream_owners:
                     errors.append(
                         f"{label} upstream slug '{slug}' is already owned by "
@@ -517,6 +538,7 @@ def validate_catalog_contract(
                     upstream_owners[slug] = entry_id
 
         confusable = entry.get("confusableWith")
+
         if isinstance(confusable, list) and isinstance(entry_id, str):
             for reference in confusable:
                 if isinstance(reference, str):
@@ -531,8 +553,10 @@ def validate_catalog_contract(
                 value, field_name, directory, suffix, skill_root
             )
             errors.extend(f"{label} {error}" for error in path_errors)
+
             if not path_errors and isinstance(value, str):
                 normalized = PurePosixPath(value).as_posix()
+
                 if normalized in known_paths:
                     errors.append(
                         f"{label} field '{field_name}' duplicates "
@@ -541,11 +565,14 @@ def validate_catalog_contract(
                 else:
                     known_paths[normalized] = position
 
+    # Step 3: Resolve catalog-wide identity, routing, and coverage constraints.
     actual_ids = set(ids)
     missing_ids = sorted(EXPECTED_TEMPLATE_IDS - actual_ids)
     unexpected_ids = sorted(actual_ids - EXPECTED_TEMPLATE_IDS)
+
     if missing_ids:
         errors.append(f"Catalog is missing expected template IDs: {missing_ids}")
+
     if unexpected_ids:
         errors.append(f"Catalog has unexpected template IDs: {unexpected_ids}")
 
@@ -559,12 +586,14 @@ def validate_catalog_contract(
 
     expected_slugs = set(EXPECTED_COVERAGE)
     actual_slugs = set(upstream_owners)
+
     if actual_slugs != expected_slugs:
         errors.append(
             "Catalog upstreamSlugs must exactly match the 39 upstream slugs; "
             f"missing={sorted(expected_slugs - actual_slugs)}, "
             f"unexpected={sorted(actual_slugs - expected_slugs)}"
         )
+
     return errors
 
 
@@ -1231,33 +1260,41 @@ def validate_source_templates(
 
 
 def validate_template(data: object, entry: object) -> list[str]:
-    """Validate one scene with generic, editorial-light, and metadata policy."""
+    """Validate one scene with generic, typography, and metadata policy."""
+    # Step 1: Validate the scene structure and catalog entry boundary.
     errors = validate_excalidraw(data)
+
     if not isinstance(data, dict):
         return errors
+
     data = cast(dict[str, Any], data)
+
     if not isinstance(entry, dict):
         return errors + ["Catalog entry must be an object"]
+
     entry = cast(dict[str, Any], entry)
 
-    if entry.get("style") != CANONICAL_STYLE:
-        errors.append(f"Catalog entry style must be '{CANONICAL_STYLE}'")
-
+    # Step 2: Preserve legible text and explicit connector conventions.
     elements = data.get("elements")
+
     if isinstance(elements, list):
         for position, element in enumerate(elements):
             if not isinstance(element, dict):
                 continue
+
             element = cast(dict[str, Any], element)
             element_id = element.get("id")
             label = f"Element {position}"
+
             if isinstance(element_id, str) and element_id:
                 label = f"Element {position} ('{element_id}')"
 
             if element.get("type") == "text":
                 if element.get("fontFamily") != 5:
                     errors.append(f"{label} text field 'fontFamily' must be 5")
+
                 font_size = element.get("fontSize")
+
                 if (
                     not isinstance(font_size, (int, float))
                     or isinstance(font_size, bool)
@@ -1265,6 +1302,7 @@ def validate_template(data: object, entry: object) -> list[str]:
                     or font_size < 16
                 ):
                     errors.append(f"{label} text field 'fontSize' must be at least 16")
+
                 if "originalText" not in element:
                     errors.append(f"{label} text element is missing 'originalText'")
                 elif element.get("text") != element.get("originalText"):
@@ -1277,18 +1315,17 @@ def validate_template(data: object, entry: object) -> list[str]:
                     if arrowhead not in element:
                         errors.append(f"{label} arrow is missing explicit '{arrowhead}'")
 
+    # Step 3: Check layout configuration and diagram-specific metadata.
     app_state = data.get("appState")
+
     if not isinstance(app_state, dict):
         errors.append("Top-level 'appState' must be an object for canonical policy")
     else:
-        if app_state.get("viewBackgroundColor") != CANONICAL_BACKGROUND:
-            errors.append(
-                f"appState.viewBackgroundColor must be '{CANONICAL_BACKGROUND}'"
-            )
         if app_state.get("gridSize") != CANONICAL_GRID_SIZE:
             errors.append(f"appState.gridSize must be {CANONICAL_GRID_SIZE}")
 
     errors.extend(validate_template_metadata(data, entry))
+
     return errors
 
 

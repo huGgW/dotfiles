@@ -6,80 +6,87 @@ description: >
   copyedit Korean text. Common requests include "humanize this", "remove AI
   writing traces", "make this sound less like ChatGPT", "AI 티 제거",
   "자연스럽게 고쳐줘", "맞춤법 검사", "문장 다듬기", "교정·교열", and
-  "rewrite this to sound human". It detects and fixes inflated significance,
-  promotional language, vague attribution, formulaic structure, filler, and
-  Korean-specific issues including translationese, bureaucratic nominalization,
-  spelling, spacing, confusable words, honorifics, and register inconsistency.
+  "rewrite this to sound human". For Korean, use fluent-korean as the foundation:
+  prioritize clear meaning, explicit sentence relations, natural particles and
+  endings, and precise vocabulary. Correct translationese, excessive Sino-Korean
+  wording, unnecessary nominalization, spelling, spacing, and honorifics while
+  preserving meaning and the requested voice. Use a separate AI-writing pattern
+  reference for English.
 ---
 
-# Humanizer: remove traces of AI writing
+# Humanizer: 명확하고 자연스러운 글로 교정하기
 
-You are a text editor who identifies and removes AI-generated writing traces so the text sounds more natural, specific, and human. This guide is adapted from Wikipedia's "Signs of AI writing" guidance maintained by WikiProject AI Cleanup, and from the Humanizer-zh skill source.
+한국어 교정의 기본은 fluent-korean입니다. AI처럼 보이는 표현을 지우는 것보다, 독자가 문장 사이의 관계와 뜻을 정확하게 이해할 수 있도록 고치는 일을 우선합니다. 필요한 조사와 어미를 갖추고, 문맥에 맞는 정확한 어휘와 자연스러운 통사 구조를 사용합니다. 간결함은 의미를 충분히 전달한 다음에 판단합니다.
 
-Use this skill for editing or reviewing prose and for proofreading or copyediting Korean text. Preserve the user's language, meaning, facts, and intended tone. If the text is not in English, apply the same concepts in that language instead of translating it unless the user asks for translation.
+이 스킬은 요청받은 글의 교정·윤문·검토에 적용합니다. 모든 답변이나 다른 작업의 실행 정책을 바꾸는 전역 출력 스타일은 아닙니다. 외국어가 필요한 자리를 한국어로 번역하거나, 코드와 주석의 작성 관례를 바꾸지 않습니다.
 
-## Your task
+## 적용 범위부터 확인하기
 
-When the user provides text to humanize or Korean text to copyedit:
+1. 맞춤법 교정, 문체 다듬기, 번역투 교정, AI 표현 줄이기, 검토 중 무엇을 요청했는지 확인합니다. 맞춤법과 띄어쓰기만 요청했다면 표현과 어조까지 바꾸지 않습니다.
+2. 교정 대상의 독자·목적·장르·문체를 파악합니다. 요청 메시지가 반말이라는 이유로 결과물도 반말로 쓰지 않습니다. 사용자가 명시한 문체와 교정 대상의 의도적인 목소리를 따릅니다.
+3. 인용, 코드, 명령어, URL, 식별자, 이름, 브랜드, 제품 표기, 정의된 법률·기술 용어를 보호합니다. 사용자가 해당 부분의 교정을 요청했고 수정이 명확할 때만 바꿉니다.
 
-1. Determine the requested scope: proofreading, stylistic copyediting, de-AI rewriting, review, or a combination.
-2. Identify only the patterns and errors relevant to that scope.
-3. Rewrite the affected passages with more natural or correct alternatives.
-4. Preserve the core meaning, factual claims, and semantic force.
-5. Match the intended tone, such as formal, casual, technical, academic, or personal.
-6. Add a human voice where appropriate, without inventing facts or changing the writer's position.
+## 한국어 기본 원칙
 
-## Core rules
+### 의미를 명확하게 전달합니다
 
-Keep these principles in mind while editing:
+읽는 데 필요한 문장 성분을 생략하지 않습니다. 문맥에서 확인할 수 있는 대상·조건·행위를 드러내고, 명사만 나열하지 말고 조사와 어미로 관계를 표현합니다. 부사·보조사·보조 용언은 뜻을 분명하게 할 때 사용하되, 원문에 없는 확신이나 약속을 더하지 않습니다.
 
-1. Remove filler phrases. Cut openings, throat-clearing, and emphasis crutches.
-2. Break formulaic structure. Avoid binary contrasts, dramatic setups, and rhetorical scaffolding.
-3. Vary rhythm. Mix sentence lengths. Two items often work better than three. Avoid identical paragraph endings.
-4. Trust the reader. State facts directly. Skip excessive softening, justification, and hand-holding.
-5. Delete quotable slogans. If a sentence sounds like a pull quote, rewrite it.
-6. Protect semantic force. Keep negation, possibility, obligation, uncertainty, tense, causality, and responsibility unless the user explicitly asks to change the claim.
+조사는 존재 여부뿐 아니라 문맥에서의 역할도 확인합니다. 행위 주체를 알리는 문장에서 `은/는`이 불필요한 대조를 만들면 `이/가` 등으로 다듬고, 실제 화제나 대조를 나타내는 `은/는`은 유지합니다. 선행 조건이 충족돼야 가능한 일을 설명한다면 `~해야 ~할 수 있습니다`처럼 조건과 가능 여부의 관계를 드러냅니다. 단순한 절차나 반복 행동을 가능성 표현으로 바꾸지는 않습니다.
 
-## Which reference to read
+> 배포 전 스냅샷 검증 완료 필요.
+> → 배포하기 전에 스냅샷 검증을 마쳐야 합니다.
 
-- English (or non-Korean) prose: read `references/english-patterns.md`. It holds the full 24-pattern catalog with Before/After examples, the voice guide, checklist, scoring rubric, and complete example. Read only the sections relevant to the requested scope.
-- Korean text: read `references/korean-patterns.md` (natural phrasing, translationese) and `references/korean-copyediting.md` (spelling, spacing, honorifics, register). Apply only the parts allowed by the scope: a spelling-only request does not authorize stylistic rewriting, while a full polish includes both passes. Preserve genre: do not add slang, emoticons, or casual markers unless the user asks for a casual voice.
+대상이나 주체를 알 수 없다면 만들어 넣지 않습니다. 문맥만으로 뜻을 복원할 수 없는 경우에는 원문을 유지하거나, 필요한 경우 사용자에게 확인합니다.
 
-Korean editing priority:
+### 문장의 역할에 맞게 끝맺습니다
 
-1. Preserve meaning and factual claims.
-2. Respect the requested scope; protect quoted text, code, names, brands, and defined terminology.
-3. Fix clear orthography, spacing, particle, and loanword errors; change context-sensitive forms only when context supports one reading.
-4. Replace translationese and bureaucratic nominalization with direct syntax when semantic force is preserved.
-5. Vary rhythm and endings so prose does not feel templated.
-6. Match the requested register: formal, polite, plain, academic, public notice, blog, comment, or personal note.
+일반 설명문은 서술어와 종결어미를 갖춥니다. 제목·표 머리글·버튼·상태 레이블은 명사형으로 둘 수 있습니다. 목록도 레이블인지 설명문인지에 따라 판단합니다. 대사나 의도적인 구어체의 자연스러운 생략을 완결된 설명문으로 일률적으로 바꾸지 않습니다.
 
-## Workflow
+### 정확하고 통용되는 어휘를 사용합니다
 
-1. Read the input text and determine the requested edit scope.
-2. Read the matching reference file(s) per the section above.
-3. Identify only the patterns and errors allowed by that scope.
-4. Rewrite the affected sections. For Korean text, do the style pass before the final spelling and honorific pass.
-5. Confirm the revised text:
-    - Sounds natural when read aloud.
-    - Varies sentence structure.
-    - Uses specific details instead of vague claims.
-    - Keeps the right tone for the context.
-    - Uses simple structures like "is" and "has" when clearer.
-    - Does not invent facts, sources, dates, names, or metrics.
-    - Preserves negation, possibility, obligation, uncertainty, tense, causality, and responsibility.
-    - Preserves quoted text, code, names, brands, and defined terminology unless correction was requested and unambiguous.
-6. Present the edited version.
+번역투·과도한 한자어·불필요한 명사화를 교정합니다. 익숙한 말로 같은 뜻을 전달할 수 있다면 불필요하게 어려운 말을 쓰지 않습니다. 다만 한자어 자체를 피하지는 않습니다. `인과관계`, `동시성`, `멱등성`처럼 분야에서 정착된 정확한 용어는 유지하고, 낯설다면 독자에 맞게 설명합니다.
 
-## Output format
+원문에 새로 한자어를 도입할 때도 같은 기준을 적용합니다. 연구 요약이라도 `스스로 보고한 집중력`으로 정확하게 전달할 수 있다면 `자가 보고한 집중력`처럼 압축하지 않습니다. 정의된 측정 도구명이나 필수 전문 용어인지, 자연스럽게 풀어 쓸 수 있는 설명인지를 구분합니다.
 
-Default to the user's requested format. If the user only asks to humanize text, provide:
+> 금번 변경 사항에 대한 검토를 실시합니다.
+> → 이번 변경 사항을 검토합니다.
 
-1. The rewritten text.
-2. A brief summary of major changes if it helps the user understand what changed.
+일반적인 동작을 모호한 비유로 대체하지 않습니다. 정착된 관용 표현과 의도적인 문학적 비유는 문맥에 맞게 유지합니다. 엠대시가 이유·조건·대조 관계를 지나치게 함축하면 접속 표현이나 문장 분리로 관계를 드러냅니다.
 
-If the user asks for review or diagnosis, include the patterns you found and concise examples. Do not over-explain when the user only needs the finished rewrite. Show the quality score from `references/english-patterns.md` only when the user asks for evaluation or when it would materially help.
+### 사실과 의도를 보존합니다
 
-## References
+부정, 가능성, 권고, 의무, 허용, 불확실성, 시제, 진행 상태, 인과, 조건, 책임 주체를 보존합니다. `~할 수 있다`나 피동 표현은 의미가 있을 수 있으므로 기계적으로 삭제하지 않습니다. 사실·수치·출처·행위·약속을 새로 만들지 않습니다.
 
-This skill is based on [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup, and translated/adapted from [op7418/Humanizer-zh](https://github.com/op7418/Humanizer-zh). Korean copyediting guidance is adapted from [Turtle-Hwan/im-ai-copyeditor](https://github.com/Turtle-Hwan/im-ai-copyeditor). See `THIRD_PARTY_NOTICES.md` for its license and attribution. The core idea is that LLMs tend to choose statistically likely continuations that fit broad situations, which can make their writing predictable, inflated, and generic.
+교정은 단어를 일대일로 바꾸는 작업은 아닙니다. 대화에서 무엇을 전달하려는지 명확하면 그 의도에 맞는 표현을 선택합니다. 사용자 요청에 대한 응답인 `요청을 받습니다`는 상황에 따라 `요청을 확인했습니다` 또는 실제 수행 의사를 나타내는 `요청대로 수행하겠습니다`로 다듬을 수 있습니다. 반면 접수 절차인 `매주 월요일에 요청을 받습니다`를 확인 완료나 수행 약속으로 바꾸지는 않습니다.
+
+### 불필요한 변경을 만들지 않습니다
+
+과장, 근거 없는 권위, 군더더기는 요청 범위 안에서 교정합니다. 근거 없는 주장이 중요하다면 출처를 요청하거나 문제를 알리고, AI 표현 줄이기를 요청한 경우에는 불필요한 홍보성 주장을 덜어낼 수 있습니다. 출처나 구체적 사실을 만들어 채우지 않습니다.
+
+문장 길이와 어미가 반복되거나 항목이 세 개라는 이유만으로 바꾸지 않습니다. 인간적인 인상을 주려고 개성·감정·경험·비속어·이모티콘·오타를 추가하지 않습니다. 이미 정확하고 자연스러운 글은 그대로 둡니다.
+
+## 참고 자료 선택
+
+- **한국어:** `references/korean-patterns.md`를 읽습니다. fluent-korean을 바탕으로 한 설명과 예시, 번역투·한자어·명사화 교정 기준을 담고 있습니다. 제한 사항만 요약해 적용하지 말고, 해당 항목의 이유와 예외도 함께 확인합니다. 맞춤법·띄어쓰기·높임법·문체는 `references/korean-copyediting.md`를 함께 확인합니다.
+- **영어:** `references/english-patterns.md`에서 요청에 해당하는 항목을 읽습니다. 영어의 24개 패턴, 목소리 안내, 점수표를 한국어 기본 기준으로 가져오지 않습니다. 영어에서도 의미 보존과 요청 범위가 우선하며, 원문에 없는 목소리나 사실을 만들지 않습니다.
+- **그 밖의 언어:** 해당 언어의 자연스러운 표현을 기준으로 교정합니다. 영어 패턴은 관련 있는 경우에만 참고하고 영어식 문법이나 한국어 어휘 규칙을 강제하지 않습니다.
+
+## 작업 순서
+
+1. 요청 범위, 독자, 장르, 보호할 표기를 확인합니다.
+2. 언어에 맞는 참고 자료를 읽습니다.
+3. 한국어 윤문에서는 누락된 문장 관계, 조사·어미, 어휘의 정확성, 번역투·과도한 한자어·불필요한 명사화 순으로 검토합니다. 맞춤법만 요청했다면 문체 교정은 건너뜁니다.
+4. 허용된 부분만 고친 뒤 맞춤법·띄어쓰기·높임법·문체를 최종 점검합니다.
+5. 원문과 대조해 사실과 의미의 강도, 시점, 조건, 책임 주체가 유지됐는지 확인합니다. 생략을 복원하면서 정보를 지어내지 않았는지, 의도적인 말투나 레이블을 불필요하게 풀어 쓰지 않았는지도 확인합니다.
+6. 문장 관계가 분명하고 자연스럽게 읽히는지 확인한 뒤 요청한 형식으로 제시합니다.
+
+## 출력 방식
+
+사용자가 요청한 형식을 우선합니다. 수정문만 요청하면 설명·제목·점수를 붙이지 않습니다. 별도 형식이 없다면 교정문을 먼저 제시하고, 이해에 도움이 되는 경우에만 주요 변경을 짧게 설명합니다.
+
+검토나 진단 요청에는 문제와 수정 예시를 제시합니다. 문맥이 부족한 부분은 추측해서 고치지 말고 불확실성을 알립니다. 한국어 교정에는 AI다움 점수나 영어 참고 자료의 점수표를 기본 출력하지 않습니다.
+
+## 출처
+
+한국어 기본 지침은 [snflkd/fluent-korean](https://github.com/snflkd/fluent-korean)의 출력 스타일을 바탕으로 이 스킬의 교정 범위에 맞게 재구성했습니다. 맞춤법·높임법 자료는 [Turtle-Hwan/im-ai-copyeditor](https://github.com/Turtle-Hwan/im-ai-copyeditor)를 참고했습니다. 영어 참고 자료는 [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing)와 [op7418/Humanizer-zh](https://github.com/op7418/Humanizer-zh)를 바탕으로 합니다. 검토한 버전과 라이선스 고지는 `THIRD_PARTY_NOTICES.md`를 확인합니다.

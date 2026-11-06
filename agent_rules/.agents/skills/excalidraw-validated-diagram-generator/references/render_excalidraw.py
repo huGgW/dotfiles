@@ -266,7 +266,7 @@ def render(
     max_width: int = 1920,
 ) -> Path:
     """Render an .excalidraw file to PNG. Returns the output PNG path."""
-    # Import playwright here so validation errors show before import errors
+    # Step 1: Load the browser dependency and validate the scene before rendering.
     try:
         from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
         from playwright.sync_api import sync_playwright
@@ -290,7 +290,7 @@ def render(
             print(f"  - {err}", file=sys.stderr)
         sys.exit(1)
 
-    # Compute viewport size from element bounding box
+    # Step 2: Size the viewport and resolve the output and browser template paths.
     elements = [e for e in data["elements"] if not e.get("isDeleted")]
     min_x, min_y, max_x, max_y = compute_bounding_box(elements)
     padding = 80
@@ -313,6 +313,7 @@ def render(
 
     template_url = template_path.as_uri()
 
+    # Step 3: Load the browser renderer and wait for its module readiness.
     with sync_playwright() as p:
         try:
             browser = p.chromium.launch(headless=True)
@@ -358,7 +359,7 @@ def render(
             browser.close()
             sys.exit(1)
 
-        # Inject the diagram data and render
+        # Step 4: Render the validated scene and wait for completion.
         json_str = json.dumps(data)
         result = page.evaluate(f"window.renderDiagram({json_str})")
 
@@ -371,14 +372,14 @@ def render(
         # Wait for render completion signal
         page.wait_for_function("window.__renderComplete === true", timeout=15000)
 
-        # Screenshot the SVG element
+        # Step 5: Capture the SVG without flattening transparent scene backgrounds.
         svg_el = page.query_selector("#root svg")
         if svg_el is None:
             print("ERROR: No SVG element found after render.", file=sys.stderr)
             browser.close()
             sys.exit(1)
 
-        svg_el.screenshot(path=str(output_path))
+        svg_el.screenshot(path=str(output_path), omit_background=True)
         browser.close()
 
     return output_path

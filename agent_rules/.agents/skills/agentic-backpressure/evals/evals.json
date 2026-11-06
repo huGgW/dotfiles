@@ -786,6 +786,44 @@
         "B treats the timed-out rerun as an unknown external outcome, preserves it across resume/renaming, and performs no duplicate retry while authoritative read-back is unavailable.",
         "Neither infrastructure attribution nor successful rerun dispatch establishes passing required CI or whole-candidate correctness."
       ]
+    },
+    {
+      "id": 63,
+      "prompt": "The user approves this plan and nobody flags a problem: 'Move webhook retries from the API process to the existing worker queue so that retries are reliable.' While projecting it into the contract you find: reading the code shows the queue is at-least-once; 'reliable' has no checkable meaning; the plan does not say whether the API retry path stays during rollout; if it stays, ownership of deduplication between API and worker is undecided; and that ownership decides whether the public webhook payload gains an idempotency key. The plan also does not name a private helper. Decide the next backpressure action. Do not execute anything.",
+      "expected_output": "Recognize unresolved decisions from the failed projection even though nobody called the plan ambiguous, and do not freeze the contract or patch. Because the decisions are several and dependent, the manager runs a user interview that stress-tests the plan, through a capability found with host tools or the built-in rounds. It asks only currently unblocked decisions with recommended answers, treats the queue semantics as a fact it already looked up, and records the helper name as an assumption.",
+      "files": [],
+      "expectations": [
+        "The uncheckable criterion and the unstated rollout/ownership choices are treated as unresolved decisions without the user or a reviewer flagging ambiguity.",
+        "The contract stays unfrozen and no patch worker starts until the decisions are resolved and the user confirms.",
+        "The answer attempts capability discovery through supported host tools or uses built-in rounds when none is available; it does not stop at a single question or treat a missing capability as a blocker.",
+        "The first round asks the unblocked decisions, including the checkable meaning of reliable and the rollout path, and defers the idempotency-key question until its ownership prerequisite is settled.",
+        "Each question carries a recommended answer, and answers are recorded as decisions before the contract is frozen.",
+        "The at-least-once queue behavior is not asked as a question, and the private helper name is a recorded assumption rather than a question."
+      ]
+    },
+    {
+      "id": 64,
+      "prompt": "The user approves a plan with exact steps, checkable criteria, named ownership, unchanged public API, and non-goals. Projection into the contract leaves only one open point: which private helper name and test file section to use. No field conflicts. Decide the next backpressure action. Do not execute anything.",
+      "expected_output": "Treat the plan as sufficient: project it directly, record the local choices as assumptions, and delegate the patch without a planning worker, a user interview, or any question.",
+      "files": [],
+      "expectations": [
+        "No user interview or clarification question is started for the helper name or test placement.",
+        "The local choices are recorded as plan assumptions or left to the worker within the accepted plan.",
+        "The plan projects directly into the contract without a planning worker or duplicate approval."
+      ]
+    },
+    {
+      "id": 65,
+      "prompt": "During a correctness run, a final reviewer returns COMPLETE with a finding that the patch has no rollback path. Fixing it needs a new retention decision for migrated rows, and the rollback strategy depends on that decision; neither is in the accepted plan. A worker is still running an unrelated in-scope slice. Separately, compare a different run whose required baseline check still fails after repeated repair attempts with no new approach, ready for handoff. Describe the manager action for both. Do not execute anything.",
+      "expected_output": "In the first run, map the finding to ESCALATE_HUMAN, quiesce the live worker, and have the manager run the interview for the dependent decisions, retention first. Update the plan and decisions, stale dependent evidence, and use a fresh final reviewer. In the second run, do not open an interview: stop and hand off with one focused decision while preserving the failed result.",
+      "files": [],
+      "expectations": [
+        "The rollback finding maps to ESCALATE_HUMAN rather than SEND_BACK or a reviewer-chosen repair.",
+        "The live worker is quiesced before the plan is reopened; no resume call or concurrent writer is used.",
+        "The manager, not a child, asks the user; retention comes first and the rollback strategy waits until it is settled.",
+        "Answers update the accepted plan and decisions, stale dependent evidence, and require a fresh final review.",
+        "The second run uses the anti-loop stop and hands off one focused decision without an interview, and the baseline failure remains non-pass."
+      ]
     }
   ]
 }

@@ -1,287 +1,219 @@
-# Korean-specific humanizer patterns
+# 명확하고 자연스러운 한국어 교정
 
-Use this reference when the input text is Korean, when the user asks to remove "AI 티", or when the text sounds translated, bureaucratic, overly polished, or mechanically polite.
+한국어 글을 다듬을 때 읽습니다. 기본 목표는 fluent-korean이 지향하는 명확한 의미 전달입니다. AI처럼 보이는 단어를 찾는 것보다, 문장 성분과 어휘 사이의 관계가 충분히 표현됐는지를 먼저 확인합니다. 그 위에 번역투·과도한 한자어·불필요한 명사화 교정과 의미 보존 기준을 결합합니다.
 
-These rules are editing heuristics, not AI-detection proof. A single phrase such as "또한" or "것 같다" can be perfectly natural. Revise only when the pattern weakens clarity, rhythm, or genre fit.
+아래 표현은 교정 후보이지 오류나 AI 생성 여부를 판정하는 증거가 아닙니다. 한 표현만 보고 기계적으로 치환하지 말고, 예시의 문맥과 예외를 함께 확인합니다. 맞춤법만 요청했다면 문체 교정을 적용하지 않습니다.
 
-## Evidence base
+## 1. 의미 있는 문장 성분을 생략하지 않습니다
 
-- National Institute of Korean Language, public language review: public-facing Korean should be easy and correct.
-- National Institute of Korean Language, refined words: foreign words and jargon often need reader-friendly Korean alternatives.
-- Korean orthography and standard language rules: spelling, spacing, standard language, loanword notation, and punctuation remain hard constraints.
-- Ministry of Government Legislation, plain-language lawmaking resources: legal and administrative Korean benefits from simpler words, clearer subjects, and shorter sentences.
-- KatFishNet, ACL 2025: Korean LLM-generated text differs from human writing in spacing patterns, POS diversity, and comma usage.
-- XDAC, ACL 2025 / KAIST report: Korean AI-generated comments show more formal expressions and connectors, while human comments use more Korean-specific informal markers, line breaks, repeated characters, and varied punctuation.
-- Practical Korean editing guides on translationese: common English-to-Korean artifacts include pronoun overuse, passive voice, overuse of "의", "~에 대해", "~을 통해", and unnecessary plural "들".
+간결하게 쓰려다가 대상·행위·조건·관계를 빠뜨리면 독자가 뜻을 복원해야 합니다. 문맥에서 확인되는 정보를 드러내되, 모든 문장에 주어를 반복해서 넣지는 않습니다. 한국어에서 자연스럽고 분명한 생략은 유지합니다.
 
-## Korean editing principles
+**앞 문맥:** 작업 중인 파일에도 경고 표지를 추가하는 기능을 설명하고 있습니다.
 
-1. Meaning first. Do not change claims, sources, dates, responsibility, legal effect, or the writer's stance.
-2. Norms second. Check Korean spelling, spacing, particles, endings, loanword notation, and punctuation after rewriting.
-3. Natural Korean structure third. Prefer Korean word order, particles, and verb-centered sentences over translated noun phrases.
-4. Genre decides. A legal clause, product notice, blog post, academic abstract, and comment all need different levels of formality.
-5. Do not fake humanity. Do not add slang, "ㅋㅋ", "ㅠㅠ", emoji, typos, or extra punctuation unless the user explicitly asks for that register.
+> 그러면 경고가 붙습니다.
+> → 그러면 작업 중인 파일에도 경고 표지가 추가됩니다.
 
-## Semantic force and protected wording
+앞 문맥이 없다면 경고가 어디에 붙는지 알 수 없습니다. 이 경우 `작업 중인 파일`을 추측해서 넣지 않습니다. 주체가 알려지지 않은 피동문도 임의의 담당자나 팀을 주어로 바꾸지 않습니다.
 
-Natural phrasing is not an excuse to strengthen, weaken, or redirect a claim. Compare the draft and revision for these invariants:
+`~의`는 필요한 관계를 나타내지만, 여러 관계를 한꺼번에 압축하기도 합니다. 단순히 조사만 삭제하지 말고 생략된 서술 관계를 풀어 씁니다.
 
-- Negation: `않다`, `못하다`, `없다`, and prohibitions remain negative.
-- Modality: possibility, recommendation, obligation, permission, and uncertainty keep the same strength.
-- Time and aspect: completed, ongoing, planned, and habitual events remain distinct.
-- Causality and conditions: causes, purposes, exceptions, and prerequisites do not become simple sequence.
-- Responsibility: do not supply a person, team, institution, or system that the draft does not identify.
-- Protected spans: preserve quotations, code, commands, URLs, names, brands, product labels, and defined legal or technical terms unless correction is explicitly requested and unambiguous.
+> 사본의 문구는 작업의 상황을 설명합니다.
+> → 사본에 기재된 문구는 작업이 진행되는 상황을 설명합니다.
 
-Treat expressions such as `~할 수 있다`, `~해야 한다`, `~일 수 있다`, `~로 보인다`, passive voice, and tense markers as meaningful by default. Remove or simplify them only when they are redundant in context.
+`사본의 문구`가 이미 충분히 명확한 문맥에서는 그대로 둘 수 있습니다. 문장 성분을 늘리는 것 자체가 목적은 아닙니다.
 
-## Translationese and English-style phrasing
+## 2. 문장의 역할에 맞는 끝맺음을 사용합니다
 
-Watch for these patterns:
+일반 설명문은 명사구·부사구·연결어미에서 끊기보다 서술어와 종결어미로 끝맺습니다. 무엇이 완료됐고 무엇이 예정됐는지도 구분합니다.
 
-- "~로부터" used mechanically for "from".
-- "~에 의해" used mechanically for "by".
-- "~에 대하여", "~에 대해", "~에 관하여" used mechanically for "about".
-- "~에 있어" used mechanically for "in" or "when".
-- "~을/를 통해" used as a vague all-purpose bridge.
-- "~을/를 가지다", "가지고 있다" used mechanically for "have".
-- "~하는 중이다" used mechanically for the English progressive.
-- "~기 시작하다" attached mechanically to a state or instantaneous change.
-- Repeated `그`, `그녀`, `그것`, or explicit subjects where Korean would omit them.
-- `어떤`, `어느`, `하나의` used mechanically like English articles.
-- Embedded questions ending in `-는가/-인가` where `-는지` is natural.
+> 변경 영향 확인 후 반영 예정.
+> → 변경이 미치는 영향을 확인한 뒤 반영할 예정입니다.
 
-Rewrite by choosing the natural Korean relation or verb.
+제목·표 머리글·버튼·상태 레이블은 문장이 아니라 정보를 가리키는 표지입니다. `검증 결과`, `배포 대기`, `다시 시도`를 억지로 설명문으로 만들지 않습니다. 목록은 기능을 보고 판단합니다. 제목이나 짧은 항목명은 명사형으로 유지하고, 절차·조건을 설명하는 문장에는 필요한 서술 관계를 갖춥니다.
 
-Before:
+대사와 의도적인 구어체에서는 생략 자체가 자연스러운 표현일 수 있습니다.
+
+> “내일은?” “아마 못 가.”
+
+이를 단지 불완전한 문장이라는 이유로 `내일은 참석할 수 있습니까? 저는 아마 참석할 수 없을 것입니다.`로 바꾸지 않습니다. 소설·대사도 교정하되, 그 장르의 목소리와 의도적인 생략을 보존하고 의도하지 않은 모호함을 고칩니다.
+
+## 3. 조사와 어미로 관계를 드러냅니다
+
+명사만 이어 붙이면 동작의 주체·대상·목적·조건이 불분명해집니다. 필요한 조사와 어미를 갖추고, 보조사·선어말어미·보조 용언은 의미를 정확하게 전달할 때 활용합니다.
+
+> 배포 전 스냅샷 검증 완료 필요.
+> → 배포하기 전에 스냅샷 검증을 마쳐야 합니다.
+
+> 지출 비용 추론 용도 토큰 카운트 함수 오류 시 확인 필요.
+> → 지출한 비용을 추론하는 토큰 카운트 함수에 오류가 발생하면 확인해야 합니다.
+
+`미리`, `계속`, `반드시`, `~해 놓다`, `~드리겠다`는 의미와 태도를 더할 수 있습니다. 문장을 매끄럽게 만들려고 원문에 없는 지속성·확신·의무·약속을 붙이지 않습니다.
+
+### 화제와 행위 주체를 구분합니다
+
+조사를 넣는 데 그치지 말고 문맥에서 어떤 역할을 하는지 확인합니다. `은/는`은 화제나 대조를 나타낼 수 있습니다. 단순히 누가 일을 하는지 알리는 자리에서 불필요한 대조를 만들거나 화제를 바꾸지 않습니다.
+
+**문맥:** 배포 일정과 담당 주체를 설명하며, 다른 팀과 비교하는 문장이 아닙니다.
+
+> 운영팀은 내일 배포할 예정입니다.
+> → 운영팀이 내일 배포할 예정입니다.
+
+`내일 운영팀이 배포할 예정입니다`나 `배포는 운영팀이 내일 진행할 예정입니다`도 문맥에 맞을 수 있습니다. 반면 `개발팀은 수정을 맡고, 운영팀은 배포를 맡습니다`처럼 실제로 역할을 대비하거나 이미 제시한 화제를 이어 가는 문장은 그대로 둘 수 있습니다. `은/는`을 일괄적으로 `이/가`로 바꾸지 않습니다.
+
+### 조건이 충족돼야 가능한 일을 분명하게 표현합니다
+
+`~해야` 뒤의 서술어가 어떤 관계를 나타내는지 확인합니다. 앞의 일이 뒤의 결정을 가능하게 하는 선행 조건이라면, 실제 실행 사실이나 확정된 일정으로 읽히지 않도록 가능 여부를 드러냅니다.
+
+> 운영팀이 최종 점검을 마쳐야 배포 여부를 확정합니다.
+> → 운영팀이 최종 점검을 마쳐야 배포 여부를 확정할 수 있습니다.
+
+이는 점검이 결정의 선행 조건이라는 뜻을 명확하게 하는 것이며, 점검 후 반드시 배포한다는 보장을 추가하는 것이 아닙니다. 반면 `운영팀은 매주 월요일에 배포 여부를 확정합니다`는 반복 절차이므로 `확정할 수 있습니다`로 약화하지 않습니다. `점검을 마치면 반드시 결과를 통보합니다`처럼 실제 수행 의무나 약속이 담긴 문장도 가능성으로 바꾸지 않습니다.
+
+## 4. 정확하고 통용되는 어휘를 선택합니다
+
+한자어와 쉬운 말 중 어느 한쪽을 일률적으로 우선하지 않습니다. 독자에게 익숙하고 문맥의 의미를 정확하게 담는 표현을 선택합니다. 구체적인 한자어도 조사·어미와 자연스럽게 결합하면 명확한 문장이 됩니다.
+
+> 쓴 비용을 구하는 함수
+> → 지출한 비용을 계산하는 함수
+
+다만 실제 기능이 추론이라면 `계산`으로 바꾸지 않고 `추론`을 유지합니다. 정확성이 확인되지 않는 상태에서 더 전문적으로 보이는 말로 바꾸지도 않습니다.
+
+공공 안내나 일반 설명에서는 불필요하게 어려운 행정어와 한자어를 덜어냅니다.
+
+- `금번 회의` → `이번 회의`
+- `규정에 의거하여` → `규정에 따라`
+- `상기 내용을 참고 바랍니다` → `위 내용을 참고해 주세요`
+- `검토를 요한다` → `검토해야 한다`
+
+`익일`을 `내일`로 바꾸는 것은 기준일이 오늘일 때만 적절합니다. 특정 날짜의 다음 날을 뜻한다면 그 관계를 유지합니다.
+
+법률·계약·정책·API의 정의된 용어와 `인과관계`, `동시성`, `멱등성` 같은 정착된 기술 용어는 보호합니다. 독자가 낯설어하면 설명할 수 있지만 정확성을 잃는 쉬운 말로 대체하지 않습니다. 외국어는 정착된 번역어나 음차가 적절하면 사용하고, 그렇지 않다면 원어를 유지합니다. 외국어 출력이 필요한 작업을 한국어로 바꾸지는 않습니다.
+
+전문적인 글이라는 이유로 쉬운 표현을 한자어로 다시 압축하지 않습니다. 고정된 용어를 보호하는 것과 설명에 한자어를 새로 도입하는 것은 다릅니다. 같은 개념을 정확하게 전달할 수 있다면 자연스럽게 풀어 씁니다.
+
+> 수면 시간은 자가 보고한 집중력과 연관이 있었습니다.
+> → 수면 시간은 스스로 보고한 집중력과 연관이 있었습니다.
+
+이때 `스스로 보고한`을 `측정된`으로 바꾸면 자료를 얻은 방식이 달라집니다. 쉬운 표현으로 바꾸면서도 개념을 보존합니다. 반면 `자가보고 척도 A`가 연구에서 정의한 측정 도구명이라면 이름은 유지합니다.
+
+## 5. 번역투와 불필요한 명사화를 교정합니다
+
+### 번역된 문법보다 실제 관계를 표현합니다
+
+`~로부터`, `~에 의해`, `~에 대해`, `~에 있어`, `~을 통해`, `~을 가지다`가 기계적으로 반복되는지 확인합니다. 표현 자체를 금지하지 말고 실제 원인·수단·대상에 맞는 조사와 동사를 선택합니다.
 
 > 이 문서는 서비스 이용에 대한 안내를 제공합니다.
-
-After:
-
-> 이 문서는 서비스 이용 방법을 안내합니다.
-
-Before:
+> → 이 문서는 서비스 이용 방법을 안내합니다.
 
 > 밤샘 공부를 통해 시험에 합격했다.
-
-After:
-
-> 밤새워 공부해 시험에 합격했다.
-
-Before:
+> → 밤새워 공부해 시험에 합격했다.
 
 > 이 기능은 사용자에 의해 설정될 수 있습니다.
+> → 사용자가 이 기능을 설정할 수 있습니다.
 
-After:
-
-> 사용자가 이 기능을 설정할 수 있습니다.
-
-Before:
+반복되는 대명사, 관사처럼 붙인 `어떤·어느·하나의`, 불필요한 복수형도 문맥을 보고 고칩니다.
 
 > 민지는 피곤했다. 그녀는 의자에 앉았고 그녀는 한숨을 쉬었다.
-
-After:
-
-> 민지는 피곤했다. 의자에 앉아 한숨을 쉬었다.
-
-## Causative, passive, and aspect clutter
-
-Remove grammatical layers that add no meaning, but retain real agency, possibility, and time relations.
-
-Watch for:
-
-- Unnecessary `-시키다` where the base verb already carries the intended action.
-- Double passive forms such as `쓰여진`, `보여지는`, and `끊겨진`.
-- Progressive or perfect forms copied mechanically from English.
-- `~기 시작하다` attached to a momentary feeling or state when a simple tense says the same thing.
-
-Before:
-
-> 담당자가 환경을 개선시켰고 그 결과가 보고서에 쓰여졌다.
-
-After:
-
-> 담당자가 환경을 개선했고 그 결과가 보고서에 쓰였다.
-
-Do not flatten a genuine process into a completed event. For example, keep `가격이 오르기 시작했다` when the onset itself matters.
-
-## Bureaucratic nominalization
-
-Korean AI prose often sounds like a public notice because it turns verbs into noun phrases.
-
-Watch for:
-
-- "검토를 실시하다" -> "검토하다"
-- "분석을 수행하다" -> "분석하다"
-- "안내를 제공하다" -> "안내하다"
-- "개선을 추진하다" -> "개선하다" or specify the action
-- "확인을 진행하다" -> "확인하다"
-- "논의를 가지다" -> "논의하다"
-
-Before:
-
-> 사용성 개선을 위한 검토를 실시했습니다.
-
-After:
-
-> 사용성을 개선하려고 검토했습니다.
-
-If the sentence hides the actor, restore it when the context provides one.
-
-Before:
-
-> 연구팀에 의해 관련 자료에 대한 분석이 수행되었습니다.
-
-After:
-
-> 연구팀이 관련 자료를 분석했습니다.
-
-## Repetitive AI-style endings
-
-Watch for repeated endings such as:
-
-- "~할 수 있습니다"
-- "~하는 것이 중요합니다"
-- "~할 필요가 있습니다"
-- "~라고 볼 수 있습니다"
-- "~에 도움이 됩니다"
-- "~을 기대할 수 있습니다"
-
-These are not wrong, but repeated use makes Korean prose feel templated. Replace with a direct statement when possible.
-
-Before:
-
-> 이 기능은 반복 작업을 자동화하여 업무 효율성을 높이는 데 도움을 줍니다.
-
-After:
-
-> 이 기능은 반복 작업을 자동화해 업무 효율을 높입니다.
-
-Before:
-
-> 사용자의 요구를 정확히 파악하는 것이 중요합니다.
-
-After:
-
-> 먼저 사용자가 무엇을 원하는지 정확히 파악해야 합니다.
-
-## Connective overuse
-
-Watch for paragraphs that mechanically stack:
-
-- "또한"
-- "더불어"
-- "나아가"
-- "한편"
-- "결론적으로"
-- "이를 통해"
-- "이러한 점에서"
-- "따라서"
-
-Cut the connector when the relationship is obvious, or replace it with a concrete transition.
-
-Before:
-
-> 또한 이 기능은 설정 시간을 줄입니다. 더불어 반복 작업을 자동화합니다. 이를 통해 생산성을 높일 수 있습니다.
-
-After:
-
-> 이 기능은 설정 시간을 줄이고 반복 작업을 자동화해 생산성을 높일 수 있습니다.
-
-## Overuse of "의" and unnecessary plural "들"
-
-Reduce "의" when it creates stacked noun phrases or can be removed without changing meaning.
-
-Before:
-
-> 사용자의 경험의 개선을 위한 기능
-
-After:
-
-> 사용자 경험을 개선하는 기능
-
-Avoid unnecessary "들" with already plural or collective expressions.
-
-Before:
+> → 민지는 피곤했다. 의자에 앉아 한숨을 쉬었다.
 
 > 많은 사용자들이 여러 문제들을 보고했습니다.
+> → 많은 사용자가 여러 문제를 보고했습니다.
 
-After:
+번역문을 교정할 때 외국어 원문이 제공됐다면 이를 의미의 기준으로 삼습니다. 한국어를 자연스럽게 만들면서 원문의 조건·수치·불확실성을 바꾸지 않습니다.
 
-> 많은 사용자가 여러 문제를 보고했습니다.
+### 명사화로 가려진 행위를 드러냅니다
 
-## Passive voice and object subjects
+- `검토를 실시하다` → `검토하다`
+- `분석을 수행하다` → `분석하다`
+- `안내를 제공하다` → `안내하다`
+- `확인을 진행하다` → `확인하다`
+- `논의를 가지다` → `논의하다`
 
-Korean often sounds clearer with an active human, team, system, or institution as the subject.
+> 연구팀에 의해 관련 자료에 대한 분석이 수행되었습니다.
+> → 연구팀이 관련 자료를 분석했습니다.
 
-Before:
+`개선을 추진하다`는 개선을 완료했다는 뜻이 아닐 수 있습니다. 이를 무조건 `개선하다`로 바꾸지 않습니다. 행동의 단계와 의도를 보존합니다. `동시성 제어`, `오류율 분석` 같은 개념명과 제목은 명사라는 이유만으로 풀어 쓰지 않습니다.
 
-> 요청은 서버에 의해 처리됩니다.
+### 의미 없는 문법 층위만 줄입니다
 
-After:
+불필요한 사동, `쓰여진·보여지는·끊겨진` 같은 이중 피동, 영어에서 옮겨 온 진행·완료 표현을 점검합니다.
 
-> 서버가 요청을 처리합니다.
+> 담당자가 환경을 개선시켰고 그 결과가 보고서에 쓰여졌다.
+> → 담당자가 환경을 개선했고 그 결과가 보고서에 쓰였다.
 
-Before:
+반면 `가격이 오르기 시작했다`에서 시작 시점이 중요하다면 유지합니다. 가능성·진행 상태·행위 주체를 담은 표현은 군더더기가 아닙니다.
 
-> 담당 부서에 의해 정책이 추진되었습니다.
+## 6. 모호한 비유와 과도한 함축을 피합니다
 
-After:
+일반적인 동작을 비유적 어휘로 바꾸면 무엇을 하는지 흐려질 수 있습니다. 기술 설명과 작업 보고에서는 구체적인 행위를 나타내는 표현을 사용합니다.
 
-> 담당 부서가 정책을 추진했습니다.
+> 이 조건은 코드에 박아 둡니다.
+> → 이 조건은 코드에 명시합니다.
 
-If the actor is unknown or intentionally hidden, keep the passive or flag the missing actor instead of inventing one.
+`병목`, `롤백`, `파이프라인`처럼 분야에서 정착된 표현은 무조건 바꾸지 않습니다. 문학적 비유와 구어체도 글의 목적에 맞으면 유지합니다.
 
-## Honorifics and register
+엠대시(—)가 문장 관계를 지나치게 함축하면 적절한 접속 표현·콜론·문장 분리로 바꿉니다. 관계를 추측해서 만들지는 않습니다.
 
-Check whether the text mixes registers without purpose:
+> 배포는 보류합니다—스냅샷이 아직 검증되지 않았습니다.
+> → 스냅샷이 아직 검증되지 않았으므로 배포를 보류합니다.
 
-- Formal polite: "합니다", "했습니다"
-- Casual polite: "해요", "했어요"
-- Plain explanatory: "한다", "했다"
-- Intimate/casual: "해", "했어"
+이 예시는 앞 문맥에서 미검증 상태가 보류 이유라는 점이 확인된 경우입니다. 원인인지 단순한 병렬 정보인지 불명확하다면 문장만 분리하는 등 판단을 추가하지 않는 방법을 택합니다. 문장부호가 쓰였다는 이유만으로 교체하지 않습니다.
 
-Choose one register unless the genre naturally mixes them.
+## 7. 대화의 실제 의도에 맞게 다듬습니다
 
-Before:
+표면적인 단어 대응보다 문맥에서 전달하려는 뜻을 확인합니다. 그렇다고 없던 완료 사실이나 수행 약속을 만들어서는 안 됩니다.
 
-> 이 기능은 매우 유용합니다. 한 번 써 보면 좋아요.
+**문맥:** 사용자가 “위 기준대로 수정해 주세요”라고 요청했고, 답변이 그 요청을 확인하는 역할입니다.
 
-After:
+> 요청을 받습니다.
+> → 요청을 확인했습니다.
 
-> 이 기능은 매우 유용해요. 한 번 써 보면 좋아요.
+실제로 요청대로 작업하겠다는 응답이라면 `요청대로 수행하겠습니다`도 적절합니다. 이는 대화 의도에 맞는 표현을 고르는 예시이지, 모든 `받습니다`를 과거형으로 바꾸라는 지시가 아닙니다.
 
-Use `references/korean-copyediting.md` for direct, indirect, object, and object-misapplied honorifics. Do not remove `-시-` merely because a body part, possession, thought, or speech is the grammatical subject; it may indirectly honor the person connected to it.
+**문맥:** 정기적인 접수 절차를 안내합니다.
 
-## Japanese-style and administrative phrasing
+> 매주 월요일에 요청을 받습니다.
 
-For public notices and administrative prose, prefer familiar words and explicit predicates when legal or domain meaning stays intact.
+이 문장은 그대로 둡니다. `확인했습니다`나 `수행하겠습니다`로 바꾸면 절차 설명이 다른 행위로 바뀝니다.
 
-- `규정에 의거하여` -> `규정에 따라`
-- `금번 회의` -> `이번 회의`
-- `검토를 요한다` -> `검토해야 한다`
-- `익일 재안내 예정입니다` -> `내일 다시 안내하겠습니다`
-- `상기 내용을 참고 바랍니다` -> `위 내용을 참고해 주세요`
+## 8. 필요한 기존 교정 기능을 함께 적용합니다
 
-Do not simplify statutes, contracts, policy terms, or specialized terminology when the exact wording carries a defined meaning. Use noun labels for headings, table headers, buttons, and navigation only when those elements function as labels; do not force ordinary sentences into noun endings.
+### 의미 보존
 
-## Korean comments and casual community voice
+원문과 수정문을 비교해 다음을 보존합니다.
 
-For comments, chat, or community posts only, human Korean may include line breaks, repeated characters, emotive endings, Korean laughter markers, and culturally specific symbols. Use them only when requested.
+- 사실·수치·출처·이름과 식별자
+- 부정·금지·가능성·권고·의무·허용·불확실성
+- 완료·진행·예정·반복의 구분
+- 원인·목적·조건·예외·선행 요건
+- 행위 주체와 책임
 
-Do not make formal prose casual just to hide AI traces. For a public notice, report, resume, proposal, or academic text, naturalness means clarity and rhythm, not slang.
+인용·코드·명령어·URL·브랜드·제품 표기·정의된 용어는 명확한 교정 요청이 없으면 유지합니다. 주체가 알려지지 않았거나 의도적으로 드러나지 않은 피동문은 주체를 지어내지 않습니다.
 
-## Quick Korean checklist
+### 맞춤법·높임법·문체
 
-- Is the sentence built around nouns when a verb would be clearer?
-- Can "~에 대해", "~을 통해", or "~에 있어" be replaced with a precise particle or verb?
-- Are "~할 수 있습니다" and "~하는 것이 중요합니다" repeated across nearby sentences?
-- Does the text use too many connectors at paragraph starts?
-- Are there stacked "의" phrases or unnecessary plural "들"?
-- Is the actor hidden behind passive voice?
-- Does the revision preserve negation, modality, tense, causality, and responsibility?
-- Are repeated pronouns, article-like modifiers, or translated embedded questions making the Korean unnatural?
-- Are causative, passive, progressive, or onset markers adding meaning, or only grammatical weight?
-- Do endings and honorifics stay consistent?
-- Does the revision still fit the genre and reader?
+`korean-copyediting.md`로 맞춤법·띄어쓰기·문장부호·높임법을 최종 점검합니다. 간접높임을 사물존칭으로 오해하지 않습니다. 요청 메시지의 말투를 무작정 따라 하지 말고, 사용자가 지정한 문체나 교정 대상의 의도적인 문체를 유지합니다.
+
+### 과장·군더더기·근거 없는 권위
+
+윤문이나 AI 표현 줄이기를 요청했다면 뜻을 더하지 않는 수식어와 기계적인 연결어를 덜어냅니다. 다만 `또한`, `따라서`, `~할 수 있습니다`처럼 의미를 나타내는 표현을 금칙어로 취급하지 않습니다.
+
+출처 없는 `업계 전문가들은`을 실제 전문가 이름이나 새 통계로 채우지 않습니다. 요청 범위에 따라 불필요한 홍보성 주장을 덜어내거나, 주장이 중요하면 출처가 필요하다고 알립니다. 사실을 새로 만들어 구체적인 글처럼 보이게 하지 않습니다.
+
+리듬을 바꾸려고 문장을 억지로 늘이거나 줄이지 않습니다. 세 항목의 나열, 반복되는 어미, 눈에 띄는 한 문장이 있다는 이유만으로 고치지 않습니다. 인간적인 인상을 주려고 감정·개인 경험·속어·이모티콘·오타를 추가하지 않습니다.
+
+## 최종 점검
+
+1. 요청한 교정 범위 안에서만 수정했습니까?
+2. 독자가 대상·행위·조건·관계를 이해할 만큼 문장 성분과 조사·어미를 갖췄습니까?
+3. 문맥에서 알 수 없는 주체나 정보를 보충하지 않았습니까?
+4. 일반 설명문, 레이블, 대사와 구어체의 역할을 구분했습니까?
+5. 번역투·과도한 한자어·불필요한 명사화를 고치되 정확한 용어를 보존했습니까?
+6. 비유와 문장부호를 고치면서 관계를 추측하거나 목소리를 바꾸지 않았습니까?
+7. 사실·의미의 강도·시점·조건·책임을 유지했습니까?
+8. 맞춤법·띄어쓰기·높임법과 요청한 문체가 적절합니까?
+9. 이미 정확하고 자연스러운 표현을 불필요하게 바꾸지 않았습니까?
+
+## 출처
+
+기본 지침은 [snflkd/fluent-korean의 출력 스타일](https://github.com/snflkd/fluent-korean/blob/ce8683f0eba8cddb91de4dcd151425ff73e60498/plugins/fluent-korean/output-styles/fluent-korean.md)을 교정 스킬에 맞게 재구성한 것입니다. 원문의 문장 성분·조사와 어미·정확한 어휘·비유와 엠대시 지침을 중심에 두고, 기존 humanizer의 번역투 교정과 의미 보존 기능을 결합했습니다. 전역 출력 스타일 설정과 서브에이전트 실행 지침은 포함하지 않았습니다. 라이선스는 `../THIRD_PARTY_NOTICES.md`를 확인합니다.

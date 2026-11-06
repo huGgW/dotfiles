@@ -98,9 +98,8 @@ Use arrows for directional semantics. Set arrowheads explicitly rather than depe
 
 Connector rules:
 
-- Use solid muted arrows for the default path or call.
-- Use blue for a flow whose external-system role needs emphasis.
-- Use orange only for the focal path.
+- Use solid arrows for the default path or call, with colors readable against their background.
+- Choose connector colors consistently with the diagram's meanings and any user guidance.
 - Use dashed arrows for asynchronous, return, or fallback flows, with redundant labels: `ASYNC`; `RETURN` when sequence context is not already unambiguous; or the fallback condition plus `FALLBACK` and warning treatment.
 - Use orthogonal points for off-axis routes.
 - Keep fan-out anchors at least 12 px apart.
@@ -282,7 +281,7 @@ Keep default paths and calls solid. Use dashed connectors plus `ASYNC` for async
 
 ### Badges And Semantic Color
 
-Use a technology badge only when naming the technology improves understanding of responsibility. Prefer plain text or a generic badge unless an official asset is verified. Use role badges for internal components. Keep outer cards neutral when internal routing, business-identity, state/merge, or warning chips carry semantic color. Preserve one accent by default and at most two; distinguish the four semantic roles with combinations of color, labels, shapes, and line treatment rather than requiring four hues. Repeat color meaning with text and shape so no-color readers retain the same distinctions.
+Use a technology badge only when naming the technology improves understanding of responsibility. Prefer plain text or a generic badge unless an official asset is verified. Use role badges for internal components. Choose card and chip colors with readable contrast and consistent meanings, following user color guidance when provided. Distinguish routing, business-identity, state/merge, and warning roles with labels, shapes, and line treatment as well as color so no-color readers retain the same distinctions.
 
 In identity-heavy flows, explicitly audit what each label counts. Identifier roles and duplicate-defense points are separate axes, so different counts are not a defect. The title, legend, and cards must each state whether they count identifiers, stages, stores, or defenses.
 

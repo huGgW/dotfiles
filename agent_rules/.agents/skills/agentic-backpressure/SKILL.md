@@ -66,8 +66,20 @@ by choosing a convenient base. Protected out-of-scope work remains untouched.
 Project a sufficient user-approved plan directly into the contract: skip a
 planning worker. Preserve terminology, sequence, conditions, ownership, public
 API, and non-goals. A materially new plan needs user agreement before patching.
-Ask one focused structural-axis question only when plausible interpretations
-materially change the diff, ownership, or public API.
+
+Projection also tests the plan. A decision is unresolved, even if nobody flagged
+it, when a criterion cannot be made checkable, linked fields conflict, or plausible
+interpretations differ in ownership, public API, failure, or rollback behavior.
+Look up facts yourself. Choices that do not materially change the diff, ownership,
+public API, or criteria become recorded plan assumptions, not questions. Proceed
+when nothing remains; only the manager asks the user about what does.
+
+One independent decision gets one focused question. Several or dependent decisions
+need a user interview that stress-tests the plan: discover/load an available
+capability through supported host tools; if none, ask in rounds every decision whose
+prerequisites are settled, each with a recommended answer. The scope above bounds
+any loaded capability. Stop when every contract field projects without invention
+and the user confirms; record answers as decisions before freezing.
 
 Keep `BACKPRESSURE.md` as a current summary, not a history ledger. Required fields
 are goal/scope/stop, required outcomes and current evidence, active work/blocker/
@@ -162,8 +174,9 @@ or risk child needs a sequencing reason, not merely a lens trigger.
 Map supported in-scope findings to a worker delta; retain stable finding IDs.
 Recompute state after repair and obtain changed-state evidence. Worker/verifier
 may reuse terminal same-role children; reviewer stays fresh. Reassess triggers
-and the required route. Material plan changes need renewed agreement;
-report unrelated findings without fixing them.
+and the required route. Material plan changes need renewed agreement: quiesce
+children, then resolve their decisions under Contract Intake. Report unrelated
+findings without fixing them.
 
 Before widening production scope from one failing test, changing transaction
 boundaries, changing locking/concurrency, or acting with unresolved fixture-versus-

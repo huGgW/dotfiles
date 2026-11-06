@@ -13,8 +13,9 @@ criteria/checks, immutable review base, and current hash/state. Observation-only
 work requires exact external provenance, not gratuitous local gates. Main-session
 manager ownership needs no isolation gate. A sufficient approved plan needs no planning worker. Preserve
 protected work, active user intent, important superseded meaning, and unknown
-external outcomes. An unresolved material diff/ownership/API interpretation needs
-one focused human question, not an invented interpretation.
+external outcomes. At contract intake or a material plan change, an unresolved
+decision follows the SKILL.md Contract Intake rule, not an invented interpretation.
+Anti-loop stops and handoff still name one focused decision.
 
 Worker, verifier, and reviewer remain separate; workers cannot validate their own
 patches. Verifiers/reviewers do not edit the subject. Child lifecycle follows

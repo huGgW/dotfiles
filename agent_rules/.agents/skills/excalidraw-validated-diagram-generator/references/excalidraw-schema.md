@@ -11,7 +11,7 @@ interface ExcalidrawFile {
   source: "https://excalidraw.com";
   elements: ExcalidrawElement[];
   appState: {
-    viewBackgroundColor: "#ffffff";
+    viewBackgroundColor: string;
     gridSize: 20;
   };
   files: Record<string, unknown>;
@@ -149,16 +149,13 @@ Array order controls stacking. Use this order:
 
 In particular, place connectors before their endpoint nodes so node fills cover connector ends cleanly.
 
-## Palette Roles
+## Color And Semantic Cues
 
-Use semantic roles rather than copying a product palette:
+Choose colors for the content and delivery context, following user guidance when provided. Template colors and the example below are starting values, not requirements. Maintain readable contrast and consistent meanings; use these non-color cues to keep roles understandable:
 
 | Role | Guidance |
 | --- | --- |
-| Canvas | `#ffffff` |
-| Ordinary elements | Neutral surface, dark text, muted border |
-| Ordinary connectors | Muted neutral stroke |
-| Transport or routing | One labeled accent and/or routing chip |
+| Transport or routing | Labeled connector and/or routing chip |
 | Business identity | A distinct labeled chip or shape |
 | State or merge | A distinct labeled store/checkpoint role |
 | Warning or boundary | Warning strip or boundary treatment |
@@ -166,7 +163,7 @@ Use semantic roles rather than copying a product palette:
 | Return flow | Dashed stroke plus `RETURN` when sequence context is not already unambiguous |
 | Fallback flow | Dashed stroke plus condition, `FALLBACK` label, and warning treatment |
 
-Use color to encode roles, not importance. Keep outer cards neutral when their internal chips carry semantic color. Repeat each meaning with labels, shapes, or line styles so the diagram works without color. Use one accent by default and at most two; the four semantic roles do not require four unique hues. Keep the default path or call solid. Do not add shadows.
+Repeat important meanings with labels, shapes, or line styles so the diagram works without color. There is no fixed palette or accent-count limit. Keep the default path or call solid. Do not add shadows.
 
 ## Minimal Example
 

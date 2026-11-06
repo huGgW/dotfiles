@@ -61,7 +61,6 @@ render_templates = cast(Callable[..., list[Path]], batch_renderer.render_templat
 ready_template_ids = cast(
     Callable[[object, Path], set[str]], validator.ready_template_ids
 )
-CANONICAL_STYLE = cast(str, validator.CANONICAL_STYLE)
 
 
 EXPECTED_TEMPLATE_IDS = {
@@ -158,7 +157,6 @@ def valid_evals(template_ids: set[str]) -> dict[str, Any]:
 def valid_entry() -> dict[str, Any]:
     return {
         "id": "example",
-        "style": CANONICAL_STYLE,
         "semanticMinimums": ["node", "connection"],
         "limits": {"majorNodes": 2, "edges": 2},
         "nodeBudget": 2,
@@ -245,8 +243,15 @@ class CatalogContractTests(unittest.TestCase):
     def test_catalog_v2_contract_and_exact_ids(self) -> None:
         self.assertEqual([], validate_catalog_contract(self.catalog))
         self.assertEqual(2, self.catalog["version"])
-        self.assertEqual(CANONICAL_STYLE, self.catalog["defaultStyle"])
         self.assertEqual(EXPECTED_TEMPLATE_IDS, set(self.entries))
+
+    def test_catalog_needs_no_theme_metadata(self) -> None:
+        self.assertNotIn("defaultStyle", self.catalog)
+
+        for entry in self.catalog["templates"]:
+            self.assertNotIn("style", entry)
+
+        self.assertEqual([], validate_catalog_contract(self.catalog))
 
     def test_upstream_coverage_contract(self) -> None:
         self.assertEqual([], validate_coverage(self.coverage, self.catalog))
@@ -690,15 +695,21 @@ class InvalidSceneTests(unittest.TestCase):
 
         self.assert_has_error(errors, "must not embed a 'text' field")
 
-    def test_tinted_canvas_background_is_rejected(self) -> None:
-        scene = valid_scene()
-        scene["appState"]["viewBackgroundColor"] = "#f8f9fb"
+    def test_nonwhite_backgrounds_and_custom_colors_are_accepted(self) -> None:
+        for background in ("#f8f9fb", "#172033"):
+            with self.subTest(background=background):
+                scene = valid_scene()
+                scene["appState"]["viewBackgroundColor"] = background
+                scene["elements"][0]["strokeColor"] = "#a855f7"
+                scene["elements"][0]["backgroundColor"] = "#312e81"
+                scene["elements"][1]["strokeColor"] = "#fef08a"
+                scene["elements"][2]["strokeColor"] = "#fb7185"
 
-        errors = validate_template(self.load_temporary_scene(scene), valid_entry())
+                errors = validate_template(
+                    self.load_temporary_scene(scene), valid_entry()
+                )
 
-        self.assert_has_error(
-            errors, "appState.viewBackgroundColor must be '#ffffff'"
-        )
+                self.assertEqual([], errors)
 
     def test_noncanonical_text_fonts_are_rejected(self) -> None:
         cases = (("fontSize", 15, "fontSize"), ("fontFamily", 1, "fontFamily"))

@@ -140,8 +140,8 @@
       "width": 16,
       "height": 256,
       "angle": 0,
-      "strokeColor": "#e66a36",
-      "backgroundColor": "#fbe9df",
+      "strokeColor": "#785794",
+      "backgroundColor": "#f0eaf7",
       "fillStyle": "solid",
       "strokeWidth": 2,
       "strokeStyle": "solid",
@@ -168,7 +168,7 @@
       "width": 320,
       "height": 0,
       "angle": 0,
-      "strokeColor": "#657084",
+      "strokeColor": "#586674",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -214,7 +214,7 @@
       "width": 320,
       "height": 0,
       "angle": 0,
-      "strokeColor": "#657084",
+      "strokeColor": "#586674",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -260,7 +260,7 @@
       "width": 320,
       "height": 0,
       "angle": 0,
-      "strokeColor": "#657084",
+      "strokeColor": "#586674",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -306,7 +306,7 @@
       "width": 320,
       "height": 0,
       "angle": 0,
-      "strokeColor": "#e66a36",
+      "strokeColor": "#785794",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 3,
@@ -352,8 +352,8 @@
       "width": 160,
       "height": 80,
       "angle": 0,
-      "strokeColor": "#3568b8",
-      "backgroundColor": "#e8effb",
+      "strokeColor": "#396a8c",
+      "backgroundColor": "#e6f0f7",
       "fillStyle": "solid",
       "strokeWidth": 2,
       "strokeStyle": "solid",
@@ -384,8 +384,8 @@
       "width": 160,
       "height": 80,
       "angle": 0,
-      "strokeColor": "#e66a36",
-      "backgroundColor": "#fbe9df",
+      "strokeColor": "#785794",
+      "backgroundColor": "#f0eaf7",
       "fillStyle": "solid",
       "strokeWidth": 2,
       "strokeStyle": "solid",
@@ -416,8 +416,8 @@
       "width": 160,
       "height": 80,
       "angle": 0,
-      "strokeColor": "#2f3545",
-      "backgroundColor": "#eef2f6",
+      "strokeColor": "#28343b",
+      "backgroundColor": "#edf1f2",
       "fillStyle": "solid",
       "strokeWidth": 2,
       "strokeStyle": "solid",
@@ -448,7 +448,7 @@
       "width": 1120,
       "height": 40,
       "angle": 0,
-      "strokeColor": "#2f3545",
+      "strokeColor": "#28343b",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -485,7 +485,7 @@
       "width": 160,
       "height": 24,
       "angle": 0,
-      "strokeColor": "#657084",
+      "strokeColor": "#586674",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -522,7 +522,7 @@
       "width": 160,
       "height": 24,
       "angle": 0,
-      "strokeColor": "#657084",
+      "strokeColor": "#586674",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -559,7 +559,7 @@
       "width": 160,
       "height": 24,
       "angle": 0,
-      "strokeColor": "#657084",
+      "strokeColor": "#586674",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -596,7 +596,7 @@
       "width": 160,
       "height": 24,
       "angle": 0,
-      "strokeColor": "#e66a36",
+      "strokeColor": "#785794",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -633,7 +633,7 @@
       "width": 136,
       "height": 56,
       "angle": 0,
-      "strokeColor": "#3568b8",
+      "strokeColor": "#396a8c",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -672,7 +672,7 @@
       "width": 136,
       "height": 56,
       "angle": 0,
-      "strokeColor": "#e66a36",
+      "strokeColor": "#785794",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -711,7 +711,7 @@
       "width": 136,
       "height": 56,
       "angle": 0,
-      "strokeColor": "#2f3545",
+      "strokeColor": "#28343b",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -745,19 +745,43 @@
   ],
   "templateMetadata": {
     "templateId": "sequence-diagram",
-    "majorNodeIds": ["browser", "auth-api", "session-store"],
-    "edgeIds": ["login-call", "account-read", "account-return", "token-return"],
+    "majorNodeIds": [
+      "browser",
+      "auth-api",
+      "session-store"
+    ],
+    "edgeIds": [
+      "login-call",
+      "account-read",
+      "account-return",
+      "token-return"
+    ],
     "counts": {
-      "activations": ["api-activation"]
+      "activations": [
+        "api-activation"
+      ]
     },
     "semanticRoles": {
-      "participant": ["browser", "auth-api", "session-store"],
-      "lifeline": ["browser-lifeline", "api-lifeline", "store-lifeline"],
-      "message": ["login-call", "account-read", "account-return", "token-return"]
+      "participant": [
+        "browser",
+        "auth-api",
+        "session-store"
+      ],
+      "lifeline": [
+        "browser-lifeline",
+        "api-lifeline",
+        "store-lifeline"
+      ],
+      "message": [
+        "login-call",
+        "account-read",
+        "account-return",
+        "token-return"
+      ]
     }
   },
   "appState": {
-    "viewBackgroundColor": "#ffffff",
+    "viewBackgroundColor": "transparent",
     "gridSize": 20
   },
   "files": {}

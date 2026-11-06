@@ -1,6 +1,6 @@
 # Korean copyediting reference
 
-Use this reference with `korean-patterns.md` whenever the input is Korean. It covers correctness and register rather than AI detection. Follow the user's requested scope: a spelling-only request permits spelling, spacing, and punctuation corrections, but not broad stylistic rewriting.
+Use this reference with `korean-patterns.md` whenever the input is Korean. It provides the final correctness and register pass after the fluent-korean-based clarity pass, not an AI-detection checklist. Follow the user's requested scope: a spelling-only request permits spelling, spacing, and punctuation corrections, but not broad stylistic rewriting; skip the clarity rewrite for that scope.
 
 ## Decision levels
 
@@ -148,7 +148,7 @@ Clarify who performs the action instead of using `-실게요` as a generic servi
 
 - Use familiar public-language alternatives in notices when exact legal or technical wording is not required: `금번` -> `이번`, `익일` -> `내일`, `상기` -> `위`.
 - Preserve defined terms in laws, contracts, policies, specifications, and APIs.
-- Prefer concise noun labels for actual headings, table headers, buttons, cards, and navigation. Do not convert ordinary prose sentences to noun endings merely to make them shorter.
+- Prefer concise noun labels for actual headings, table headers, buttons, cards, and navigation. Use complete predicates and endings in ordinary explanatory sentences. Judge list items by their function rather than forcing every item into a sentence. Preserve intentional ellipsis in dialogue and colloquial prose when its meaning is clear.
 - Do not make reports, resumes, proposals, or academic text casual to make them seem more human.
 
 ## Final pass

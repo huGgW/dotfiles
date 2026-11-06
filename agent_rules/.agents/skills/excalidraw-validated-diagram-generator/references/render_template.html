@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #ffffff; overflow: hidden; }
+    body { background: transparent; overflow: hidden; }
     #root { display: inline-block; }
     #root svg { display: block; }
   </style>
@@ -35,10 +35,11 @@
         const appState = data.appState || {};
         const files = data.files || {};
 
-        // Force white background in appState
+        // Step 1: Preserve the scene background, falling back to white when omitted.
         appState.viewBackgroundColor = appState.viewBackgroundColor || "#ffffff";
         appState.exportWithDarkMode = false;
 
+        // Step 2: Export the scene with its explicit canvas background.
         const svg = await exportToSvg({
           elements: elements,
           appState: {
@@ -48,7 +49,7 @@
           files: files,
         });
 
-        // Clear any previous render
+        // Step 3: Replace the previous render and signal completion.
         const root = document.getElementById("root");
         root.innerHTML = "";
         root.appendChild(svg);
