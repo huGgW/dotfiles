@@ -5,10 +5,10 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 source "${ZINIT_HOME}/zinit.zsh"
 
 # Load plugins
-# zinit ice wait"0" lucid depth=1 pick"deja.plugin.zsh"
-# zinit light Giammarco-Ferranti/deja
 
-zinit light zsh-users/zsh-autosuggestions
+zinit light "zsh-users/zsh-autosuggestions"
+zinit light "zsh-users/zsh-history-substring-search"
+zinit light "zsh-users/zsh-completions"
 zinit light "zdharma-continuum/fast-syntax-highlighting"
 zinit light "caarlos0/zsh-git-sync"
 zinit light "Aloxaf/fzf-tab"

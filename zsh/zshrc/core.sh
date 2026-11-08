@@ -19,6 +19,12 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
 
+# Enable auto-correction of commands
+ENABLE_CORRECTION="true"
+
+# Enable display red dots while waiting for completion
+COMPLETION_WAITING_DOTS="true"
+  
 # Alias
 alias sudo="sudo "
 alias vim="nvim"
