@@ -13,6 +13,7 @@ stow_common() {
         ghostty \
         ideavim \
         nvim \
+        neovide \
         starship \
         tmux \
         herdr \
