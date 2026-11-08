@@ -43,207 +43,207 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-code-style/SKILL.md",
-      "skillFolderHash": "77a4f1448571cf897601b49ef6636bf2de6cf4d5",
+      "skillFolderHash": "22fb4807a19faee2955bd45b3eee737cfdeaed41",
       "installedAt": "2026-05-25T05:34:55.242Z",
-      "updatedAt": "2026-07-19T09:32:11.871Z"
+      "updatedAt": "2026-08-24T06:16:22.027Z"
     },
     "golang-data-structures": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-data-structures/SKILL.md",
-      "skillFolderHash": "c778323b9a06ad2a29ad7c5b8925557ecf0bf4b0",
+      "skillFolderHash": "00d3a7743f61ec78b00bb7e8e9e086c17c0f5991",
       "installedAt": "2026-05-25T05:34:55.245Z",
-      "updatedAt": "2026-07-19T09:32:16.211Z"
+      "updatedAt": "2026-09-07T12:47:02.311Z"
     },
     "golang-database": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-database/SKILL.md",
-      "skillFolderHash": "026d9b44a2554c21e42b4532b63ab3f2abf0b70d",
+      "skillFolderHash": "c59d7c349403d0e1d32155b2db6463710d2e9994",
       "installedAt": "2026-05-25T05:34:55.247Z",
-      "updatedAt": "2026-05-25T05:34:55.247Z"
+      "updatedAt": "2026-09-07T12:47:07.025Z"
     },
     "golang-design-patterns": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-design-patterns/SKILL.md",
-      "skillFolderHash": "96fcb3546dd8c8423b8d3f1abd3cade8f84ac5b9",
+      "skillFolderHash": "fb87c71aa1f81e500a8ddf852e0c1bcc10d546e8",
       "installedAt": "2026-05-25T05:34:55.248Z",
-      "updatedAt": "2026-07-19T09:32:20.852Z"
+      "updatedAt": "2026-09-07T12:47:11.536Z"
     },
     "golang-documentation": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-documentation/SKILL.md",
-      "skillFolderHash": "8cb0e0e830f5621aea73572e14b2c3f2a80cf76c",
+      "skillFolderHash": "a9e44c1be20e532335c6d05c475106b6b46fcd56",
       "installedAt": "2026-05-25T05:34:55.249Z",
-      "updatedAt": "2026-07-19T09:32:25.471Z"
+      "updatedAt": "2026-09-07T12:47:16.677Z"
     },
     "golang-error-handling": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-error-handling/SKILL.md",
-      "skillFolderHash": "711d446cf0f3ca649378cc4871252690f9983c09",
+      "skillFolderHash": "aaad19ba1ebd07b7498f30805f40ae56087d81e6",
       "installedAt": "2026-05-25T05:34:55.251Z",
-      "updatedAt": "2026-07-19T09:32:30.141Z"
+      "updatedAt": "2026-09-07T12:47:21.156Z"
     },
     "golang-naming": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-naming/SKILL.md",
-      "skillFolderHash": "e37421d502424b5dacea031dd0910e31fea0baa0",
+      "skillFolderHash": "181da3ab2e1d18b6ce5bac8c9b166f9ff277e190",
       "installedAt": "2026-05-25T05:34:55.252Z",
-      "updatedAt": "2026-07-19T09:32:34.381Z"
+      "updatedAt": "2026-09-07T12:47:25.660Z"
     },
     "golang-modernize": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-modernize/SKILL.md",
-      "skillFolderHash": "01c23bea926c8a391507cb9404ab57450cfe8d67",
+      "skillFolderHash": "b94386e9996fcfc57e65c50b0f489cce15c86f9f",
       "installedAt": "2026-05-25T05:34:55.253Z",
-      "updatedAt": "2026-07-19T09:32:38.764Z"
+      "updatedAt": "2026-09-07T12:47:30.196Z"
     },
     "golang-safety": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-safety/SKILL.md",
-      "skillFolderHash": "814c3b09b5c8975dbd8e00ccf4394376ebbe8359",
+      "skillFolderHash": "1de15ca12c35b1c7e26bdf45f136ce799ebb1388",
       "installedAt": "2026-05-25T05:34:55.254Z",
-      "updatedAt": "2026-05-25T05:34:55.254Z"
+      "updatedAt": "2026-09-07T12:47:34.636Z"
     },
     "golang-samber-lo": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-samber-lo/SKILL.md",
-      "skillFolderHash": "5bee7f855a1435d7688d8d5941e31f8ee693d7c0",
+      "skillFolderHash": "b55d6a097b941247c412f2290ded59d559b10994",
       "installedAt": "2026-05-25T05:34:55.255Z",
-      "updatedAt": "2026-07-19T09:32:43.141Z"
+      "updatedAt": "2026-09-07T12:47:39.318Z"
     },
     "golang-testing": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-testing/SKILL.md",
-      "skillFolderHash": "d9684bf2a7286b987a2cf0217780ba221d358b5e",
+      "skillFolderHash": "dcae2aa30026d1ffba3397da2d990a0f8566fccc",
       "installedAt": "2026-05-25T05:34:55.255Z",
-      "updatedAt": "2026-07-19T09:32:47.581Z"
+      "updatedAt": "2026-09-07T12:47:43.977Z"
     },
     "golang-troubleshooting": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-troubleshooting/SKILL.md",
-      "skillFolderHash": "2fa548467241c1478cd7795ae36b7c1bb692a359",
+      "skillFolderHash": "b5aa3ed0718d1332274696399b12077aaa76d1e4",
       "installedAt": "2026-05-25T05:34:55.256Z",
-      "updatedAt": "2026-07-19T09:32:52.271Z"
+      "updatedAt": "2026-09-07T12:47:48.688Z"
     },
     "golang-security": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-security/SKILL.md",
-      "skillFolderHash": "d3fd90dd2b30d15ea6c77830d3eef0e5d3049675",
+      "skillFolderHash": "07087f49965f376cfccc21c763cb5b1504023c8b",
       "installedAt": "2026-05-25T05:34:55.257Z",
-      "updatedAt": "2026-07-19T09:32:56.512Z"
+      "updatedAt": "2026-09-07T12:47:53.406Z"
     },
     "golang-uber-fx": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-uber-fx/SKILL.md",
-      "skillFolderHash": "8a32bce3fba41e4b6a4ef3718c2e1e1d4c3c7069",
+      "skillFolderHash": "6d8f8586ff4e5ef82c8cb2d1e347f45d918ab247",
       "installedAt": "2026-05-25T05:34:55.258Z",
-      "updatedAt": "2026-07-19T09:33:00.941Z"
+      "updatedAt": "2026-09-07T12:47:57.656Z"
     },
     "golang-concurrency": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-concurrency/SKILL.md",
-      "skillFolderHash": "4d51cc1897c4ac6f89f77c907fc01cf11a052120",
+      "skillFolderHash": "8396cc7b30ae9ec5dfd64b4b00b5bd6eb5460e78",
       "installedAt": "2026-05-25T05:34:55.259Z",
-      "updatedAt": "2026-07-19T09:33:05.330Z"
+      "updatedAt": "2026-09-07T12:48:02.016Z"
     },
     "golang-cli": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-cli/SKILL.md",
-      "skillFolderHash": "863ac197f8994987b68ccff265d61b0c0edc8481",
+      "skillFolderHash": "3e8613f91b71918591edb203a1d64838c3ccc71c",
       "installedAt": "2026-05-25T05:34:55.260Z",
-      "updatedAt": "2026-05-25T05:34:55.260Z"
+      "updatedAt": "2026-08-24T06:17:31.779Z"
     },
     "golang-context": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-context/SKILL.md",
-      "skillFolderHash": "80c0cda7cf45f8e13b207c005ad7bf4383caf2c5",
+      "skillFolderHash": "5d5555f81f4bc93c70ee1a734f323b57b81dd88a",
       "installedAt": "2026-05-25T05:34:55.261Z",
-      "updatedAt": "2026-05-25T05:34:55.261Z"
+      "updatedAt": "2026-09-07T12:48:06.586Z"
     },
     "golang-performance": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-performance/SKILL.md",
-      "skillFolderHash": "fc1089fb443467ee9fa224d12742efc991226533",
+      "skillFolderHash": "9260cac6353890eddd985b87530c1febbe6be853",
       "installedAt": "2026-05-25T05:34:55.261Z",
-      "updatedAt": "2026-07-19T09:33:09.741Z"
+      "updatedAt": "2026-09-07T12:48:11.236Z"
     },
     "golang-popular-libraries": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-popular-libraries/SKILL.md",
-      "skillFolderHash": "791058c7988115a8dfdd2cb4e7b9bedbe0c71520",
+      "skillFolderHash": "d1bb864693af89cf97fdcd9be57715ece27654b4",
       "installedAt": "2026-05-25T05:34:55.262Z",
-      "updatedAt": "2026-08-02T12:55:37.958Z"
+      "updatedAt": "2026-09-07T12:48:15.787Z"
     },
     "golang-project-layout": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-project-layout/SKILL.md",
-      "skillFolderHash": "7a724d95e5aa00866fa4be46c0d41add5bf26ab6",
+      "skillFolderHash": "244cb5d36d7ed080679ad5b3fea56a7eb8df6802",
       "installedAt": "2026-05-25T05:34:55.262Z",
-      "updatedAt": "2026-08-02T12:55:42.256Z"
+      "updatedAt": "2026-09-07T12:48:20.357Z"
     },
     "golang-stretchr-testify": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-stretchr-testify/SKILL.md",
-      "skillFolderHash": "0191c956e3f0e62fd16af585ee553b818e6b2191",
+      "skillFolderHash": "765107dd093b9bfa95915936edb7511013504dc6",
       "installedAt": "2026-05-25T05:34:55.263Z",
-      "updatedAt": "2026-07-19T09:33:23.712Z"
+      "updatedAt": "2026-09-07T12:48:24.839Z"
     },
     "golang-structs-interfaces": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-structs-interfaces/SKILL.md",
-      "skillFolderHash": "68d5f2863d756e53fa7e0a0fd30c5f5b2081eee2",
+      "skillFolderHash": "1d4372490899fe559c2bced7a8da8c3f2303a403",
       "installedAt": "2026-05-25T05:34:55.263Z",
-      "updatedAt": "2026-07-19T09:33:28.572Z"
+      "updatedAt": "2026-09-07T12:48:29.050Z"
     },
     "golang-swagger": {
       "source": "samber/cc-skills-golang",
       "sourceType": "github",
       "sourceUrl": "https://github.com/samber/cc-skills-golang.git",
       "skillPath": "skills/golang-swagger/SKILL.md",
-      "skillFolderHash": "1d9f8a760281c8822aacdd8f43364b95b4e631bd",
+      "skillFolderHash": "a0eab4435e0eb65793797aaa958f1318ca722950",
       "installedAt": "2026-05-25T05:34:55.264Z",
-      "updatedAt": "2026-07-19T09:33:33.032Z"
+      "updatedAt": "2026-09-07T12:48:33.099Z"
     },
     "create-agentsmd": {
       "source": "github/awesome-copilot",
@@ -254,113 +254,140 @@
       "installedAt": "2026-05-27T16:01:23.864Z",
       "updatedAt": "2026-05-27T16:01:23.864Z"
     },
+    "channel-talk-cli": {
+      "source": "channel-io/plugin-hub",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/channel-io/plugin-hub.git",
+      "skillPath": "plugins/channel-talk-cli/skills/channel-talk-cli/SKILL.md",
+      "skillFolderHash": "409e693daf8f428d3770f56da7dc7316b005bc74",
+      "installedAt": "2026-06-03T09:24:05.446Z",
+      "updatedAt": "2026-09-07T12:48:40.482Z"
+    },
+    "google-calendar-to-linear": {
+      "source": "channel-io/plugin-hub",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/channel-io/plugin-hub.git",
+      "skillPath": "plugins/google-calendar-to-linear/skills/google-calendar-to-linear/SKILL.md",
+      "skillFolderHash": "f051dc209a9a64f2bc60d93368dfc5bb991d1bda",
+      "installedAt": "2026-06-03T09:24:05.449Z",
+      "updatedAt": "2026-08-02T12:55:23.898Z"
+    },
+    "querypie": {
+      "source": "channel-io/plugin-hub",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/channel-io/plugin-hub.git",
+      "skillPath": "plugins/querypie/skills/querypie/SKILL.md",
+      "skillFolderHash": "00df4add8cc859ecc72a4f532107fef51b24f6eb",
+      "installedAt": "2026-06-03T09:24:05.453Z",
+      "updatedAt": "2026-06-21T05:21:25.915Z"
+    },
     "141-java-refactoring-with-modern-features": {
       "source": "jabrena/cursor-rules-java",
       "sourceType": "github",
       "sourceUrl": "https://github.com/jabrena/cursor-rules-java.git",
       "skillPath": "skills/141-java-refactoring-with-modern-features/SKILL.md",
-      "skillFolderHash": "99b946ebdf2a1933d66247a3794134fea393eed2",
+      "skillFolderHash": "2749bd39ea3aa8cf778a7759ecc96c0ddf869ef2",
       "installedAt": "2026-06-15T02:14:17.646Z",
-      "updatedAt": "2026-08-02T12:56:00.543Z"
+      "updatedAt": "2026-10-09T11:38:28.613Z"
     },
     "142-java-functional-programming": {
       "source": "jabrena/cursor-rules-java",
       "sourceType": "github",
       "sourceUrl": "https://github.com/jabrena/cursor-rules-java.git",
       "skillPath": "skills/142-java-functional-programming/SKILL.md",
-      "skillFolderHash": "02f5d66a433b8e60f3f95827193051ddd8b38f0e",
+      "skillFolderHash": "a34160b568ae1eb04c31af5917cfe2bee3b13011",
       "installedAt": "2026-06-15T02:14:39.573Z",
-      "updatedAt": "2026-08-02T12:56:17.817Z"
+      "updatedAt": "2026-10-09T11:38:50.643Z"
     },
     "144-java-data-oriented-programming": {
       "source": "jabrena/cursor-rules-java",
       "sourceType": "github",
       "sourceUrl": "https://github.com/jabrena/cursor-rules-java.git",
       "skillPath": "skills/144-java-data-oriented-programming/SKILL.md",
-      "skillFolderHash": "d4ad83306bd759cda9e34343294363f8ea253422",
+      "skillFolderHash": "0ac26c0cb35363fa1df6a184880779ddff50454f",
       "installedAt": "2026-06-15T02:15:01.924Z",
-      "updatedAt": "2026-08-02T12:56:35.679Z"
+      "updatedAt": "2026-10-09T11:39:12.946Z"
     },
     "122-java-type-design": {
       "source": "jabrena/cursor-rules-java",
       "sourceType": "github",
       "sourceUrl": "https://github.com/jabrena/cursor-rules-java.git",
       "skillPath": "skills/122-java-type-design/SKILL.md",
-      "skillFolderHash": "c9b1d9fb621877814ef0038ff575d58e1e6e9807",
+      "skillFolderHash": "96977d3fe64b5a60dabde8a093b80a99ed797016",
       "installedAt": "2026-06-15T02:15:24.815Z",
-      "updatedAt": "2026-08-02T12:56:53.137Z"
+      "updatedAt": "2026-10-09T11:39:34.549Z"
     },
     "121-java-object-oriented-design": {
       "source": "jabrena/cursor-rules-java",
       "sourceType": "github",
       "sourceUrl": "https://github.com/jabrena/cursor-rules-java.git",
       "skillPath": "skills/121-java-object-oriented-design/SKILL.md",
-      "skillFolderHash": "67d7043fef625160373f5924c89094cc6f9663f6",
+      "skillFolderHash": "ab5dd761311b3a9a15210511df4ab35cdcc8d9a0",
       "installedAt": "2026-06-15T02:15:46.157Z",
-      "updatedAt": "2026-08-02T12:57:10.505Z"
+      "updatedAt": "2026-10-09T11:39:56.933Z"
     },
     "126-java-exception-handling": {
       "source": "jabrena/cursor-rules-java",
       "sourceType": "github",
       "sourceUrl": "https://github.com/jabrena/cursor-rules-java.git",
       "skillPath": "skills/126-java-exception-handling/SKILL.md",
-      "skillFolderHash": "773762fc420e5a7f24df15586903431575d70922",
+      "skillFolderHash": "ba868ba5b47e6f28a162801ba7ed417130f2aecf",
       "installedAt": "2026-06-15T02:19:28.388Z",
-      "updatedAt": "2026-08-02T12:57:27.577Z"
+      "updatedAt": "2026-10-09T11:40:18.824Z"
     },
     "128-java-generics": {
       "source": "jabrena/cursor-rules-java",
       "sourceType": "github",
       "sourceUrl": "https://github.com/jabrena/cursor-rules-java.git",
       "skillPath": "skills/128-java-generics/SKILL.md",
-      "skillFolderHash": "a4b3646ce4339c83ebb10842b6c772add889cb18",
+      "skillFolderHash": "564e0252ad1447f7384625e5d9acb30594312102",
       "installedAt": "2026-06-15T02:19:54.006Z",
-      "updatedAt": "2026-08-02T12:57:44.785Z"
+      "updatedAt": "2026-10-09T11:40:40.224Z"
     },
     "125-java-concurrency": {
       "source": "jabrena/cursor-rules-java",
       "sourceType": "github",
       "sourceUrl": "https://github.com/jabrena/cursor-rules-java.git",
       "skillPath": "skills/125-java-concurrency/SKILL.md",
-      "skillFolderHash": "40ecd2165641ed89f212b7b9090ebca49bd55410",
+      "skillFolderHash": "24fed7cbddb1a6d2b0b747ff19a336e745c90500",
       "installedAt": "2026-06-15T02:20:18.258Z",
-      "updatedAt": "2026-08-02T12:58:02.875Z"
+      "updatedAt": "2026-10-09T11:41:04.163Z"
     },
     "124-java-secure-coding": {
       "source": "jabrena/cursor-rules-java",
       "sourceType": "github",
       "sourceUrl": "https://github.com/jabrena/cursor-rules-java.git",
       "skillPath": "skills/124-java-secure-coding/SKILL.md",
-      "skillFolderHash": "869188d901b52caf107fc519e01d1a439ab055d9",
+      "skillFolderHash": "a59aec6b15a7c2c9769a926f927dd2963cb32588",
       "installedAt": "2026-06-15T02:20:45.421Z",
-      "updatedAt": "2026-08-02T12:58:20.576Z"
+      "updatedAt": "2026-10-09T11:41:26.480Z"
     },
     "130-java-testing-strategies": {
       "source": "jabrena/cursor-rules-java",
       "sourceType": "github",
       "sourceUrl": "https://github.com/jabrena/cursor-rules-java.git",
       "skillPath": "skills/130-java-testing-strategies/SKILL.md",
-      "skillFolderHash": "eab52fc14c76b970bf8c4c1aa090c0e408906791",
+      "skillFolderHash": "33b826f4dccc6d00d4cc0e5003db3585e1aa5083",
       "installedAt": "2026-06-15T02:21:09.831Z",
-      "updatedAt": "2026-08-02T12:58:38.184Z"
+      "updatedAt": "2026-10-09T11:41:48.247Z"
     },
     "131-java-testing-unit-testing": {
       "source": "jabrena/cursor-rules-java",
       "sourceType": "github",
       "sourceUrl": "https://github.com/jabrena/cursor-rules-java.git",
       "skillPath": "skills/131-java-testing-unit-testing/SKILL.md",
-      "skillFolderHash": "2df25d3e31ca893106b903513cdf6118003469aa",
+      "skillFolderHash": "1e9b8a996c4150164af43e26b2f27dfde927da45",
       "installedAt": "2026-06-15T02:21:35.851Z",
-      "updatedAt": "2026-08-02T12:58:55.854Z"
+      "updatedAt": "2026-10-09T11:42:10.676Z"
     },
     "132-java-testing-integration-testing": {
       "source": "jabrena/cursor-rules-java",
       "sourceType": "github",
       "sourceUrl": "https://github.com/jabrena/cursor-rules-java.git",
       "skillPath": "skills/132-java-testing-integration-testing/SKILL.md",
-      "skillFolderHash": "4a7239caad1712785314cc9e9c146c357061bdb8",
+      "skillFolderHash": "11ceededc0d2dac7d88ccdd9a6b19f93de238465",
       "installedAt": "2026-06-15T02:22:00.373Z",
-      "updatedAt": "2026-08-02T12:59:13.977Z"
+      "updatedAt": "2026-10-09T11:42:33.101Z"
     },
     "notion-cli": {
       "source": "makenotion/skills",
@@ -376,45 +403,36 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/upstash/context7.git",
       "skillPath": "skills/context7-cli/SKILL.md",
-      "skillFolderHash": "6874373642f642ceffa77ceee884bd011fdba768",
+      "skillFolderHash": "5874844bb6925b0da9903f0beebe8f6e17827a67",
       "installedAt": "2026-06-21T07:45:31.097Z",
-      "updatedAt": "2026-07-19T09:37:38.549Z"
+      "updatedAt": "2026-10-19T02:38:26.106Z"
     },
     "chrome-devtools-cli": {
       "source": "chromedevtools/chrome-devtools-mcp",
       "sourceType": "github",
       "sourceUrl": "https://github.com/chromedevtools/chrome-devtools-mcp.git",
       "skillPath": "skills/chrome-devtools-cli/SKILL.md",
-      "skillFolderHash": "1d333eff605093c8f3e507d4ad0cd0d30be25c57",
+      "skillFolderHash": "0e3f126c849a97bfaa42e27b4c5274a17c09682b",
       "installedAt": "2026-06-27T05:52:32.444Z",
-      "updatedAt": "2026-06-27T05:52:32.444Z"
+      "updatedAt": "2026-10-19T02:38:31.031Z"
     },
     "ast-grep": {
       "source": "ast-grep/agent-skill",
       "sourceType": "github",
       "sourceUrl": "https://github.com/ast-grep/agent-skill.git",
       "skillPath": "ast-grep/skills/ast-grep/SKILL.md",
-      "skillFolderHash": "ef60f77564e2d47d0cba25a809daa3af8f0c469b",
+      "skillFolderHash": "1f1877bfb051fff6e6de5ebe529fb47758a03367",
       "installedAt": "2026-06-27T05:53:11.819Z",
-      "updatedAt": "2026-06-27T05:53:11.819Z"
-    },
-    "grill-me": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/productivity/grill-me/SKILL.md",
-      "skillFolderHash": "c817f6f36acd483294144694a935a76d3e3eb101",
-      "installedAt": "2026-07-06T04:04:58.500Z",
-      "updatedAt": "2026-07-19T09:37:42.259Z"
+      "updatedAt": "2026-09-10T02:32:55.208Z"
     },
     "gh": {
       "source": "cli/cli",
       "sourceType": "github",
       "sourceUrl": "https://github.com/cli/cli.git",
       "skillPath": "skills/gh/SKILL.md",
-      "skillFolderHash": "cc6ec4740cd90d35fdec0bb125ccbd5ad38e98e0",
+      "skillFolderHash": "aa4e890259da30a39cb15ff6f51027f338aedaa1",
       "installedAt": "2026-07-17T13:29:58.981Z",
-      "updatedAt": "2026-07-17T13:29:58.981Z"
+      "updatedAt": "2026-10-19T02:38:37.771Z"
     },
     "mermaid-diagrams": {
       "source": "softaworks/agent-toolkit",
@@ -430,9 +448,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/herdrdev/herdr.git",
       "skillPath": "skills/herdr/SKILL.md",
-      "skillFolderHash": "4821f1d39ccae24b9b274b03184edaaf198a3994",
+      "skillFolderHash": "2be0d86d481d1bb29c62e11ef37b78d27d01b478",
       "installedAt": "2026-08-02T12:56:09.529Z",
-      "updatedAt": "2026-08-02T12:56:09.529Z"
+      "updatedAt": "2026-10-19T02:38:43.665Z"
     },
     "gws-docs-write": {
       "source": "googleworkspace/cli",
@@ -629,28 +647,27 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/productivity/handoff/SKILL.md",
-      "skillFolderHash": "184d485ae68a2132893a94239b2b85d253e6152b",
-      "pluginName": "mattpocock-skills",
+      "skillFolderHash": "ce24892bd2d4b9e7fd5ac9b95c03175e18bef388",
       "installedAt": "2026-08-05T14:47:45.261Z",
-      "updatedAt": "2026-08-05T14:47:45.261Z"
+      "updatedAt": "2026-10-09T11:42:48.606Z"
     },
     "gcx": {
       "source": "grafana/gcx",
       "sourceType": "github",
       "sourceUrl": "https://github.com/grafana/gcx.git",
       "skillPath": "claude-plugin/skills/gcx/SKILL.md",
-      "skillFolderHash": "dc0a1fa9f75ddea1eab9792d8b343c549ada2cf0",
+      "skillFolderHash": "b11c97404584ca64d3f17ed752227fbfcc1c7353",
       "installedAt": "2026-08-07T04:19:28.771Z",
-      "updatedAt": "2026-08-07T04:19:28.771Z"
+      "updatedAt": "2026-10-19T02:38:50.234Z"
     },
     "gcx-observability": {
       "source": "grafana/gcx",
       "sourceType": "github",
       "sourceUrl": "https://github.com/grafana/gcx.git",
       "skillPath": "claude-plugin/skills/gcx-observability/SKILL.md",
-      "skillFolderHash": "df435712fde5666f5984bcb61e1974512e38ec83",
+      "skillFolderHash": "0221f87c3c2fb682f14e97d2b28aa42c5679b4ef",
       "installedAt": "2026-08-07T04:19:28.774Z",
-      "updatedAt": "2026-08-07T04:19:28.774Z"
+      "updatedAt": "2026-10-09T11:43:13.453Z"
     },
     "create-dashboard": {
       "source": "grafana/gcx",
@@ -666,27 +683,27 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/grafana/gcx.git",
       "skillPath": "claude-plugin/skills/setup-gcx/SKILL.md",
-      "skillFolderHash": "c5b79f7111b1edb8aaf900ab1b209afecd36547c",
+      "skillFolderHash": "7fb4bb0f61c01435d253364dc6c15e96158c2184",
       "installedAt": "2026-08-07T04:19:28.777Z",
-      "updatedAt": "2026-08-07T04:19:28.777Z"
+      "updatedAt": "2026-10-09T11:43:19.745Z"
     },
     "pup": {
       "source": "DataDog/pup",
       "sourceType": "github",
       "sourceUrl": "https://github.com/DataDog/pup.git",
       "skillPath": "SKILL.md",
-      "skillFolderHash": "894da8f1e2808e490e801111ff683481ef2cbdc1",
+      "skillFolderHash": "5c4d24534ab3123c782ba9ad2742b36f53308412",
       "installedAt": "2026-08-07T04:20:28.835Z",
-      "updatedAt": "2026-08-07T07:57:58.924Z"
+      "updatedAt": "2026-10-19T02:39:03.209Z"
     },
     "debug-with-grafana": {
       "source": "grafana/gcx",
       "sourceType": "github",
       "sourceUrl": "https://github.com/grafana/gcx.git",
       "skillPath": "claude-plugin/skills/debug-with-grafana/SKILL.md",
-      "skillFolderHash": "747c316db9196f1ba1f4bd6b94a9f1398f0ff606",
+      "skillFolderHash": "95522144885dde00b93909e642316b1e2f98fa49",
       "installedAt": "2026-08-07T08:02:08.878Z",
-      "updatedAt": "2026-08-07T08:02:08.878Z"
+      "updatedAt": "2026-10-19T02:38:56.134Z"
     },
     "manage-dashboards": {
       "source": "grafana/gcx",
@@ -730,9 +747,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/github/gh-stack.git",
       "skillPath": "skills/gh-stack/SKILL.md",
-      "skillFolderHash": "c29ba25c9c07534c27f1a3253bd0ca3846c4f8c7",
+      "skillFolderHash": "bde7bcf5a96697d31aa55b33565fa0ff002167ca",
       "installedAt": "2026-08-08T13:13:24.337Z",
-      "updatedAt": "2026-08-08T13:13:24.337Z"
+      "updatedAt": "2026-10-09T11:43:41.119Z"
     },
     "vercel-react-best-practices": {
       "source": "vercel-labs/agent-skills",
@@ -748,9 +765,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/vercel-labs/agent-skills.git",
       "skillPath": "skills/react-view-transitions/SKILL.md",
-      "skillFolderHash": "56b5533b9503fc1dbdb727e5fcabd4abab3fe19c",
+      "skillFolderHash": "13063dbbfc1b085cbc11b9bd5d4324aa2f41bb3a",
       "installedAt": "2026-08-12T07:08:23.404Z",
-      "updatedAt": "2026-08-12T07:08:23.404Z"
+      "updatedAt": "2026-09-01T04:55:47.539Z"
     },
     "vercel-composition-patterns": {
       "source": "vercel-labs/agent-skills",
@@ -761,14 +778,42 @@
       "installedAt": "2026-08-12T07:08:23.405Z",
       "updatedAt": "2026-08-12T07:08:23.405Z"
     },
-    "peekaboo": {
-      "source": "openclaw/openclaw",
+    "diagram-design": {
+      "source": "cathrynlavery/diagram-design",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/openclaw/openclaw.git",
-      "skillPath": "skills/peekaboo/SKILL.md",
-      "skillFolderHash": "0342af92627ff2a504a1a97c6c839334fd11b9ec",
-      "installedAt": "2026-08-12T16:10:31.168Z",
-      "updatedAt": "2026-08-12T16:10:31.168Z"
+      "sourceUrl": "https://github.com/cathrynlavery/diagram-design.git",
+      "skillPath": "skills/diagram-design/SKILL.md",
+      "skillFolderHash": "01e393ce6ef4820bc71b90102895815fa6e6676b",
+      "installedAt": "2026-09-10T07:32:22.585Z",
+      "updatedAt": "2026-10-19T02:40:13.200Z"
+    },
+    "operating-qwer": {
+      "source": "channel-io/plugin-hub",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/channel-io/plugin-hub.git",
+      "skillPath": "plugins/qwer-cli/skills/operating-qwer/SKILL.md",
+      "skillFolderHash": "59af2550eb669df7ed4e6e66cc308a39a004aa7e",
+      "installedAt": "2026-10-10T19:16:23.287Z",
+      "updatedAt": "2026-10-10T19:16:23.287Z"
+    },
+    "grilling": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/productivity/grilling/SKILL.md",
+      "skillFolderHash": "28aceb4c9567b985cb47f7db88cf23c9f33af8b8",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-10-20T10:25:38.831Z",
+      "updatedAt": "2026-10-20T10:25:38.831Z"
+    },
+    "open-computer-use": {
+      "source": "iFurySt/open-computer-use",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/iFurySt/open-computer-use.git",
+      "skillPath": "skills/open-computer-use/SKILL.md",
+      "skillFolderHash": "9725b05296355e7b6fe7fa938bfb206019b7d9f6",
+      "installedAt": "2026-10-28T11:16:10.147Z",
+      "updatedAt": "2026-10-28T11:16:10.147Z"
     }
   },
   "dismissed": {
@@ -776,16 +821,17 @@
   },
   "lastSelectedAgents": [
     "amp",
-    "antigravity",
-    "antigravity-cli",
     "cline",
     "codex",
     "cursor",
-    "deepagents",
+    "droid",
+    "fx",
     "gemini-cli",
     "github-copilot",
+    "kilo",
     "kimi-code-cli",
     "opencode",
+    "pi",
     "warp",
     "zed"
   ]
