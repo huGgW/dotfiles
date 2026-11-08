@@ -1,8 +1,8 @@
 {
   "$schema": "https://unpkg.com/oh-my-opencode-slim@latest/oh-my-opencode-slim.schema.json",
-  "preset": "opencodex",
+  "preset": "mix",
   "presets": {
-    "openai": {
+    "codex": {
       "orchestrator": {
         "model": "openai/gpt-6.1-sol",
         "variant": "high",
@@ -44,8 +44,8 @@
         ]
       },
       "designer": {
-        "model": "openai/gpt-6.1-sol",
-        "variant": "medium",
+        "model": "openai/gpt-6.1-terra",
+        "variant": "high",
         "skills": [
           "*"
         ],
@@ -54,8 +54,8 @@
         ]
       },
       "builder": {
-        "model": "openai/gpt-6.1-sol",
-        "variant": "medium",
+        "model": "openai/gpt-6.1-terra",
+        "variant": "high",
         "skills": [
           "*"
         ],
@@ -82,22 +82,247 @@
         "mcps": [
           "*"
         ]
+      },
+      "council": {
+        "model": "openai/gpt-6.1-sol",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
       }
     },
+    "claude": {
+      "orchestrator": {
+        "model": "claude-agent/opus",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      },
+      "oracle": {
+        "model": "claude-agent/opus",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      },
+      "librarian": {
+        "model": "claude-agent/haiku",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      },
+      "explorer": {
+        "model": "claude-agent/haiku",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      },
+      "designer": {
+        "model": "claude-agent/opus",
+        "variant": "low",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      },
+      "builder": {
+        "model": "claude-agent/opus",
+        "variant": "low",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      },
+      "verifier": {
+        "model": "claude-agent/haiku",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      },
+      "fixer": {
+        "model": "claude-agent/haiku",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      },
+      "council": {
+        "model": "claude-agent/opus",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      }
+    },
+    "mix": {
+      "orchestrator": {
+        "model": "claude-agent/opus",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      },
+      "oracle": {
+        "model": "openai/gpt-6.1-sol",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      },
+      "librarian": {
+        "model": "openai/gpt-6-luna-fast",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      },
+      "explorer": {
+        "model": "openai/gpt-6-luna-fast",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      },
+      "designer": {
+        "model": "openai/gpt-6.1-sol",
+        "variant": "low",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      },
+      "builder": {
+        "model": "claude-agent/opus",
+        "variant": "low",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      },
+      "verifier": {
+        "model": "claude-agent/haiku",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      },
+      "fixer": {
+        "model": "claude-agent/haiku",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      },
+      "council": {
+        "model": "openai/gpt-6.1-sol",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ]
+      }
+    }
+  },
+  "council": {
+    "presets": {
+      "default": {
+        "codex": {
+          "model": "openai/gpt-6-astra",
+          "variant": "high"
+        },
+        "claude": {
+          "model": "claude-agent/opus",
+          "variant": "high"
+        }
+      }
     }
   },
   "agents": {
+    "orchestrator": {
+      "permission": {}
+    },
+    "oracle": {
+      "permission": {}
+    },
+    "librarian": {
+      "permission": {}
+    },
+    "explorer": {
+      "permission": {}
+    },
+    "designer": {
+      "permission": {}
+    },
     "builder": {
+      "permission": {},
       "description": "Implement approved, well-scoped multi-step code changes, tests, and substantive technical documentation. Leave user-visible visual design to designer.",
       "orchestratorPrompt": "@builder - Implement approved multi-step technical changes across files, including tests and substantive technical documentation; delegate user-visible visual design to designer.",
       "prompt": "You are Builder. Implement an approved plan for substantial, multi-step technical work. Own code, tests, and substantive technical documentation within the assigned scope. Preserve unrelated work, follow project rules, and report changes and verification accurately. Do not own user-visible visual design, styling, layout, or animation; leave those to designer. Do not commit or expand scope without authorization."
     },
     "verifier": {
+      "permission": {},
       "description": "Run declared mechanical checks without editing source; report exact commands, working directory, exit codes, and relevant output.",
       "orchestratorPrompt": "@verifier - Run only declared mechanical validation and report command, cwd, exit code, relevant output, and any blocked checks without editing source.",
       "prompt": "You are Verifier. Run only checks declared by the caller. Before each check, identify expected writes, caches, generated files, and external effects; honor the declared sandbox and output locations, and report blocked if execution is unsafe or permission is unavailable. Never edit source or delegate. Report each exact command, working directory, exit code, and relevant output. Distinguish observed failures from unverified root causes; do not claim a check passed unless it ran successfully."
     },
     "fixer": {
+      "permission": {},
       "description": "Make small, well-specified mechanical edits in a bounded scope; do not own broad implementation, architecture, or design.",
       "orchestratorPrompt": "@fixer - Make small, well-specified mechanical edits only; use builder for substantial implementation and designer for visual design.",
       "prompt": "You are Fixer. Execute only small, well-specified mechanical edits in the assigned files. Preserve unrelated work and report exactly what changed and which assigned checks ran. Do not take on broad implementation, architecture, technical design, or user-visible visual design; return those requests to the orchestrator for builder or designer. Do not commit or expand scope without authorization."

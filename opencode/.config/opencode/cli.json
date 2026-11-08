@@ -8,7 +8,7 @@
     "wrap": "word"
   },
   "session": {
-    "sidebar": "auto",
+    "sidebar": "hide",
     "scrollbar": false,
     "thinking": "hide",
     "markdown": "rendered",
@@ -37,8 +37,8 @@
   },
   "plugins": [
     // Disabled for OpenCode v2 compatibility: TUI support is not confirmed.
-    // "@slkiser/opencode-quota",
     // "opencode-subagent-statusline",
+    "@slkiser/opencode-quota",
     "oh-my-opencode-slim",
     "./herdr-opencode"
   ]

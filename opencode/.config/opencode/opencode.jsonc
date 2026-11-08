@@ -5,6 +5,10 @@
     "compaction": {
         "auto": true
     },
+    "experimental": {
+        "todo": true,
+        "schedules": true,
+    },
     "permissions": [
         {
             "action": "*",
@@ -107,9 +111,9 @@
             }
         },
         "oh-my-opencode-slim",
+        "@slkiser/opencode-quota",
         // Disabled for OpenCode v2 compatibility.
         // "@mohak34/opencode-notifier@latest",
-        // "@slkiser/opencode-quota",
         // "@sunerpy/opencode-kiro-auth",
     ],
     "default_agent": "orchestrator",
@@ -141,50 +145,12 @@
             "grep": {
                 "type": "remote",
                 "url": "https://mcp.grep.app"
+            "linear": {
+                "type": "remote",
+                "url": "https://mcp.linear.app/mcp"
+            },
             }
         }
     },
-    "providers": {
-        "openai": {
-            "models": {
-                "gpt-6-astra": {
-                    "limit": {
-                        "context": 872000,
-                        "output": 128000
-                    }
-                },
-                "gpt-6-astra-fast": {
-                    "limit": {
-                        "context": 872000,
-                        "output": 128000
-                    }
-                },
-                "gpt-6.1-sol": {
-                    "limit": {
-                        "context": 872000,
-                        "output": 128000
-                    }
-                },
-                "gpt-6.1-sol-fast": {
-                    "limit": {
-                        "context": 872000,
-                        "output": 128000
-                    }
-                },
-                "gpt-6-luna": {
-                    "limit": {
-                        "context": 872000,
-                        "output": 128000
-                    }
-                },
-                "gpt-6-luna-fast": {
-                    "limit": {
-                        "context": 872000,
-                        "output": 128000
-                    }
-                }
-            }
-        },
-    }
-    "warming": true
+    "warming": true,
 }
