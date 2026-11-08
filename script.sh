@@ -20,7 +20,6 @@ stow_common() {
         yazi \
         zsh \
         zed \
-        kanata \
         agent_rules \
         opencode \
         pi
@@ -37,9 +36,7 @@ stow_macos() {
 
 stow_linux() {
     $StowOnHome \
-        hypr \
-        waybar \
-        xremap
+        kanata
 }
 
 # stow
